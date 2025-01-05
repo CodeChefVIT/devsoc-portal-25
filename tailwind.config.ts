@@ -11,7 +11,18 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        'cc-primary': "#FF6D33",
+        'cc-dark': "#1E1D1D",
+        'cc-plain': "#F7F3F0",
+        'cc-link': "#2800FF",
+        'cc-alert': "#3DFFD4"
+
       },
+      fontFamily: {
+        inter: ["Inter", "serif"],
+        monomaniac: ["Monomaniac One", "serif"],
+        yerk: ["Yerk", "serif"]
+      }
     },
   },
   plugins: [],
