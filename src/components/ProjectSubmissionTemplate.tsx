@@ -2,14 +2,15 @@ import React from "react";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Image from "next/image";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
 interface Project {
   header: string;
-  icon: React.ReactNode;
+  icon: string | StaticImport;
   title: string;
   subtitle: string;
   buttons: React.ReactNode[];
@@ -27,9 +28,9 @@ export default function ProjectSubmissionTemplate({
       <CardHeader>
         <CardTitle>{header}</CardTitle>
       </CardHeader>
-      <CardContent>
-        <div>{icon}</div>
-        <h2>{title}</h2>
+      <CardContent className="flex flex-col items-center">
+      <Image src={icon} alt={""}/>
+      <h2>{title}</h2>
         <p>{subtitle}</p>
         <div className="flex">
           {buttons.map((btn, index) => (
@@ -37,9 +38,7 @@ export default function ProjectSubmissionTemplate({
           ))}{" "}
         </div>
       </CardContent>
-      <CardFooter>
-        <p>Card Footer</p>
-      </CardFooter>
+
     </Card>
   );
 }
