@@ -28,9 +28,9 @@ export default function ProjectSubmissionTemplate({
       </CardHeader>
       <CardContent className="flex gap-5 flex-col items-center">
         <Image className="mb-6 mt-4" src={icon} alt={""} />
-        <div className="info gap-1 flex flex-col items-center">
-          <h2 className="font-bold">{title}</h2>
-          <p className="text-gray-500 text-sm">{subtitle}</p>
+        <div className=" gap-1 flex flex-col items-center">
+          <h2 className="font-medium text-lg">{title}</h2>
+          <p className="text-gray-400   text-sm">{subtitle}</p>
         </div>
         <div className="flex gap-8">
           {buttons.map((btn, index) => (

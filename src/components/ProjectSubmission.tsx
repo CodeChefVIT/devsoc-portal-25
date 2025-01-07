@@ -8,6 +8,7 @@ interface Options {
   enabled: boolean
 }
 interface IGetButtons {
+  create: Options;
   view: Options;
   edit: Options;
 }
@@ -20,13 +21,13 @@ export default function ProjectSubmission() {
         subtitle="Submitted at <date> <time>" //TODO: Change to actual time and date function
         title="Project Submitted"
         icon={icon}
-        buttons={getButtons({ view: {enabled: true, visible: true}, edit: {enabled: false, visible: true} })}
+        buttons={getButtons({ create: { enabled: true, visible: false} ,view: {enabled: true, visible: true}, edit: {enabled: false, visible: true} })}
       />
     </div>
   );
 }
 
-function getButtons({ view, edit }: IGetButtons): ReactNode[] {
+function getButtons({   create  , view, edit }: IGetButtons): ReactNode[] {
   const buttons: ReactNode[] = [];
   if (view.visible) {
     buttons.push(
@@ -35,6 +36,9 @@ function getButtons({ view, edit }: IGetButtons): ReactNode[] {
   }
   if (edit.visible) {
     buttons.push(<CustomButton disabled={!edit.enabled} icon={<RequestQuote/>}>EDIT SUBMISSION</CustomButton>);
+  }
+  if (create.visible) {
+    buttons.push(<CustomButton disabled={!create.enabled} icon={<Idea />}>CREATE SUBMISSION</CustomButton>);
   }
   return buttons;
 }
