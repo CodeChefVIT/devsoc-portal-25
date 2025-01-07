@@ -4,31 +4,12 @@ import CustomButton from "@/components/CustomButton";
 import ProjectSubmission from "@/components/ProjectSubmission";
 import { useUserStore } from "@/store/user";
 import Image from "next/image";
-import { useEffect } from "react";
 import { LiaLightbulb } from "react-icons/lia";
 
 export default function Home() {
   //store showcase
-  const updateUser = useUserStore((state) => state.updateUser);
   const user = useUserStore((state) => state.user);
-  useEffect(() => {
-    const newUser = {
-      id: "123", // Generate a random UUID for user id
-      name: "Abhinav", // Specific name
-      team_id: "456", // Random UUID for team_id
-      email: "abhinav@example.com", // Specific email
-      is_vitian: true, // Specific boolean value
-      reg_no: "23BCE05", // Specific registration number
-      password: "strongpassword123", // Specific password
-      phone_no: "9876543210", // Specific phone number
-      role: "leader", // Specific role
-      is_leader: true, // Specific boolean value
-      college: "VIT", // Specific college name
-      is_verified: true, // Specific boolean value
-    };
 
-    updateUser(newUser);
-  }, []);
 
   return (
     <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">

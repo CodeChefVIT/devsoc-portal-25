@@ -3,6 +3,8 @@ import icon from "../../public/bulb.svg";
 import React, { ReactNode } from "react";
 import { Idea, RequestQuote} from "@carbon/icons-react";
 import CustomButton from "./CustomButton";
+import { useUserStore } from "@/store/user";
+// import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean
   enabled: boolean
@@ -12,8 +14,22 @@ interface IGetButtons {
   view: Options;
   edit: Options;
 }
-//icon would be svg, handle accordingly later
+//If ideaSubmitted is false, set create as visible
+
 export default function ProjectSubmission() {
+  const user = useUserStore((state) => state.user);
+  const userFetch = useUserStore((state) => state.fetch);
+  if(user.id == "")
+  {
+    userFetch()
+  }
+  const createOptions: Options = {enabled: true, visible :false}
+  const editOptions: Options = {enabled: false, visible :false}
+  const viewOptions: Options = {enabled: false, visible :false}
+  if(user.is_leader) // and edit options time is active
+  {
+    editOptions.enabled = true;
+  }
   return (
     <div>
       <ProjectSubmissionTemplate
@@ -21,7 +37,7 @@ export default function ProjectSubmission() {
         subtitle="Submitted at <date> <time>" //TODO: Change to actual time and date function
         title="Project Submitted"
         icon={icon}
-        buttons={getButtons({ create: { enabled: true, visible: false} ,view: {enabled: true, visible: true}, edit: {enabled: false, visible: true} })}
+        buttons={getButtons({ create: createOptions ,view: viewOptions, edit: editOptions })}
       />
     </div>
   );
