@@ -1,3 +1,4 @@
+import { getUserDetails } from "@/services/getUser";
 import { create } from "zustand";
 interface User {
   id: string; // UUID
@@ -15,8 +16,9 @@ interface User {
 }
 interface UserStore {
   user: User;
-  updateUser: (newUser: User) => void;
-  updateUserField: <K extends keyof User>(field: K, value: User[K]) => void;
+  fetch: () => void
+//   updateUser: (newUser: User) => void;
+//   updateUserField: <K extends keyof User>(field: K, value: User[K]) => void;
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -33,12 +35,16 @@ export const useUserStore = create<UserStore>((set) => ({
     college: "",
     is_verified: false,
   },
-  updateUser: (newUser: User) => set({ user: newUser }),
-  updateUserField: (field, value) =>
-    set((state) => ({
-      user: {
-        ...state.user,
-        [field]: value,
-      },
-    })),
+  fetch: async() => {
+    const userResponse = await getUserDetails()
+    set({user: userResponse})
+  } 
+//   updateUser: (newUser: User) => set({ user: newUser }),
+//   updateUserField: (field, value) =>
+//     set((state) => ({
+//       user: {
+//         ...state.user,
+//         [field]: value,
+//       },
+//     })),
 }));
