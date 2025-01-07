@@ -17,8 +17,6 @@ interface User {
 interface UserStore {
   user: User;
   fetch: () => void
-//   updateUser: (newUser: User) => void;
-//   updateUserField: <K extends keyof User>(field: K, value: User[K]) => void;
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
