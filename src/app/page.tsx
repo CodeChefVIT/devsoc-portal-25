@@ -1,6 +1,7 @@
 
 "use client";
 import CustomButton from "@/components/CustomButton";
+import ProjectSubmission from "@/components/ProjectSubmission";
 import { useUserStore } from "@/store/user";
 import Image from "next/image";
 import { useEffect } from "react";
@@ -31,8 +32,11 @@ export default function Home() {
 
   return (
     <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+
+        <p>Submit showcase</p>
+        <ProjectSubmission></ProjectSubmission>
       <p>Custom button showcase:</p>
-      <CustomButton icon={<LiaLightbulb />}>idea</CustomButton>
+      <CustomButton icon={<LiaLightbulb  />}>idea</CustomButton>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
