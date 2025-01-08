@@ -4,10 +4,10 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-import { IUser } from "@/interfaces";
 import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import AuthFormItem from "../(auth)/_components/auth-form-item";
+import toast from "react-hot-toast";
 const VITEmailSchema = z
   .string()
   .email("Enter a valid email address")
@@ -16,24 +16,53 @@ const VITEmailSchema = z
     "Invalid Email Address"
   );
 const userSchema = z.object({
-  name: z.string().min(1), // TEXT, non-nullable
+  name: z.string().min(1, { message: "Name is not provided" }), // TEXT, non-nullable
   email: VITEmailSchema,
   phone_no: z.string().regex(/^\d{10}$/, "Invalid Phone no."),
   college: z.string().min(1), // TEXT, non-nullable
+  reg_no: z
+    .string()
+    .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no."),
 });
 export default function Settings() {
   //   const onSubmit = (data) => props.updateAction(data)
 
   const user = useUserStore((state) => state.user);
-  const form = useForm({
-    resolver: zodResolver(userSchema),
-    mode: "onBlur",
-    defaultValues: user,
-  });
-  const onSubmit: SubmitHandler<IUser> = (data) => console.log(data);
   const userFetch = useUserStore((state) => state.fetch);
-  if (user.id == "") {
-    userFetch();
+  React.useEffect(() => {
+    if (!user.id) {
+      userFetch(); // Fetch user if not loaded
+    }
+  }, [user, userFetch]);
+  
+  console.log(user.name)
+  const form = useForm<z.infer<typeof userSchema>>({
+    resolver: zodResolver(userSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      reg_no: "",
+      phone_no: "",
+    },
+  });
+  React.useEffect(() => {
+    if (user.id) {
+      // Reset form values after user data is fetched
+      form.reset({
+        name: user.name || "",
+        email: user.email || "",
+        reg_no: user.reg_no || "",
+        phone_no: user.phone_no || "",
+      });
+    }
+  }, [user,  form, form.reset]);
+  const onSubmit: SubmitHandler<z.infer<typeof userSchema>> = (data) => {
+    toast.success("user button was clicked");
+    console.log(data);
+  };
+  if(!user.id)
+  {
+    return <div>{"loading"}</div>
   }
   return (
     <div className="flex flex-col items-center">
@@ -93,6 +122,7 @@ export default function Settings() {
                 />
               )}
             />
+
             <CustomButton type="submit">UPDATE</CustomButton>
           </div>
         </form>
