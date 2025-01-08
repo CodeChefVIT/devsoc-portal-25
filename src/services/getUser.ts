@@ -13,7 +13,7 @@ export async function getUserDetails() {
         reg_no: "213",
         password: "213",
         phone_no: "123",
-        role: "Super lender",
+        role: "supreme lender",
         is_leader: false,
         college: "afds",
         is_verified: false,

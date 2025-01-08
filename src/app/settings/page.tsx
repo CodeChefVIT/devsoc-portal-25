@@ -27,6 +27,7 @@ export default function Settings() {
   const user = useUserStore((state) => state.user);
   const form = useForm({
     resolver: zodResolver(userSchema),
+    mode: "onBlur",
     defaultValues: user,
   });
   const onSubmit: SubmitHandler<IUser> = (data) => console.log(data);
