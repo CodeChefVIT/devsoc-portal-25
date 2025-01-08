@@ -23,7 +23,7 @@ export default function ProjectSubmission() {
   {
     userFetch()
   }
-  const createOptions: Options = {enabled: true, visible :false}
+  const createOptions: Options = {enabled: true, visible :true}
   const editOptions: Options = {enabled: false, visible :false}
   const viewOptions: Options = {enabled: false, visible :false}
   if(user.is_leader) // and edit options time is active

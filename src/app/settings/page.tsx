@@ -34,7 +34,7 @@ export default function Settings() {
       userFetch(); // Fetch user if not loaded
     }
   }, [user, userFetch]);
-  
+
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
@@ -56,18 +56,20 @@ export default function Settings() {
         phone_no: user.phone_no || "",
       });
     }
-  }, [user,  form, form.reset]);
+  }, [user, form, form.reset]);
   const onSubmit: SubmitHandler<z.infer<typeof userSchema>> = (data) => {
     toast.success("user button was clicked");
     console.log(data);
   };
-  if(!user.id)
-  {
-    return <div>{"loading"}</div>
+  if (!user.id) {
+    return <div>{"loading"}</div>;
   }
   return (
     <div className="flex flex-col items-center">
-      <h1>Settings and profile</h1>
+      <h1 className={"font-monomaniac text-2xl mt-2 mb-5"}>
+        Settings and profile
+      </h1>
+
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <div className={"flex w-full flex-col gap-6"}>
