@@ -1,21 +1,9 @@
+import { IUser } from "@/interfaces";
 import { getUserDetails } from "@/services/getUser";
 import { create } from "zustand";
-interface User {
-  id: string; // UUID
-  name?: string; // TEXT, optional as notNull is false
-  team_id?: string; // UUID, optional as notNull is false
-  email?: string; // TEXT, optional as notNull is false
-  is_vitian?: boolean; // BOOLEAN, optional as notNull is false
-  reg_no?: string; // TEXT, optional as notNull is false
-  password?: string; // TEXT, optional as notNull is false
-  phone_no?: string; // TEXT, optional as notNull is false
-  role?: string; // TEXT, optional as notNull is false
-  is_leader?: boolean; // BOOLEAN, optional as notNull is false
-  college?: string; // TEXT, optional as notNull is false
-  is_verified?: boolean; // BOOLEAN, optional as notNull is false
-}
+
 interface UserStore {
-  user: User;
+  user: IUser;
   fetch: () => void
 }
 export const useUserStore = create<UserStore>((set) => ({
