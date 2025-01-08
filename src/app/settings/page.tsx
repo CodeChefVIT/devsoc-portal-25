@@ -16,10 +16,10 @@ const VITEmailSchema = z
     "Invalid Email Address"
   );
 const userSchema = z.object({
-  name: z.string().min(1, { message: "Name is not provided" }), // TEXT, non-nullable
+  name: z.string().min(1, { message: "Name is not required field" }), // TEXT, non-nullable
   email: VITEmailSchema,
   phone_no: z.string().regex(/^\d{10}$/, "Invalid Phone no."),
-  college: z.string().min(1), // TEXT, non-nullable
+  college: z.string().min(1, { message: "College is required field" }), // TEXT, non-nullable
   reg_no: z
     .string()
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no."),
@@ -35,13 +35,13 @@ export default function Settings() {
     }
   }, [user, userFetch]);
   
-  console.log(user.name)
   const form = useForm<z.infer<typeof userSchema>>({
     resolver: zodResolver(userSchema),
     defaultValues: {
       name: "",
       email: "",
       reg_no: "",
+      college: "",
       phone_no: "",
     },
   });
@@ -51,6 +51,7 @@ export default function Settings() {
       form.reset({
         name: user.name || "",
         email: user.email || "",
+        college: user.college || "",
         reg_no: user.reg_no || "",
         phone_no: user.phone_no || "",
       });
@@ -96,6 +97,20 @@ export default function Settings() {
                 />
               )}
             />
+            <FormField
+              control={form.control}
+              name={"college"}
+              render={({ field }) => (
+                <AuthFormItem
+                  field={field}
+                  labelText={"College"}
+                  type={"text"}
+                  required
+                  autoFill
+                />
+              )}
+            />
+
             <FormField
               control={form.control}
               name={"reg_no"}
