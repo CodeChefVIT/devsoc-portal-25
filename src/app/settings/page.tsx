@@ -6,8 +6,8 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
-import AuthFormItem from "../(auth)/_components/auth-form-item";
 import toast from "react-hot-toast";
+import FormItemWrapper from "./formItemWrapper";
 const VITEmailSchema = z
   .string()
   .email("Enter a valid email address")
@@ -18,7 +18,7 @@ const VITEmailSchema = z
 const userSchema = z.object({
   name: z.string().min(1, { message: "Name is not required field" }), // TEXT, non-nullable
   email: VITEmailSchema,
-  phone_no: z.string().regex(/^\d{10}$/, "Invalid Phone no."),
+  phone_no: z.string().regex(/^\d{10}$/, "Invalid Phone Number"),
   college: z.string().min(1, { message: "College is required field" }), // TEXT, non-nullable
   reg_no: z
     .string()
@@ -66,20 +66,22 @@ export default function Settings() {
   }
   return (
     <div className="flex flex-col items-center">
-      <h1 className={"font-monomaniac text-2xl mt-2 mb-5"}>
+      <h1 className={"font-monomaniac  text-2xl mt-2 mb-5"}>
         Settings and profile
       </h1>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-          <div className={"flex  w-full  border-2 border-black p-5 rounded-lg flex-col gap-6"}>
-            <div className="flex gap-10">
-              <div className="flex flex-col gap-6">
+        <form onSubmit={form.handleSubmit(onSubmit)} className=" w-[75%] space-y-8">
+          <div
+            className={"flex  rounded-lg flex-col gap-6"}
+          >
+            <div className="flex border-4 bg-cc-plain p-10 pb-16 rounded-lg border-black  gap-20">
+              <div className="flex w-full  flex-col gap-6">
                 <FormField
                   control={form.control}
                   name={"name"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
                       labelText={"Username"}
                       type={"text"}
@@ -92,7 +94,7 @@ export default function Settings() {
                   control={form.control}
                   name={"email"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
                       labelText={"Email"}
                       type={"text"}
@@ -105,7 +107,7 @@ export default function Settings() {
                   control={form.control}
                   name={"college"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
                       labelText={"College"}
                       type={"text"}
@@ -118,7 +120,7 @@ export default function Settings() {
                   control={form.control}
                   name={"reg_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
                       labelText={"Registration No."}
                       type={"text"}
@@ -131,9 +133,9 @@ export default function Settings() {
                   control={form.control}
                   name={"phone_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
-                      labelText={"Phone No."}
+                      labelText={"Phone Number"}
                       type={"tel"}
                       required
                       autoFill
@@ -141,14 +143,14 @@ export default function Settings() {
                   )}
                 />
               </div>
-              <div className="flex flex-col gap-6">
+              <div className="flex  w-full flex-col gap-6">
                 <FormField
                   control={form.control}
                   name={"phone_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
-                      labelText={"Phone No."}
+                      labelText={"Phone Number"}
                       type={"tel"}
                       required
                       autoFill
@@ -159,9 +161,9 @@ export default function Settings() {
                   control={form.control}
                   name={"phone_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
-                      labelText={"Phone No."}
+                      labelText={"Phone Number"}
                       type={"tel"}
                       required
                       autoFill
@@ -172,9 +174,9 @@ export default function Settings() {
                   control={form.control}
                   name={"phone_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
-                      labelText={"Phone No."}
+                      labelText={"Phone Number"}
                       type={"tel"}
                       required
                       autoFill
@@ -185,9 +187,9 @@ export default function Settings() {
                   control={form.control}
                   name={"phone_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
-                      labelText={"Phone No."}
+                      labelText={"Phone Number"}
                       type={"tel"}
                       required
                       autoFill
@@ -198,9 +200,9 @@ export default function Settings() {
                   control={form.control}
                   name={"phone_no"}
                   render={({ field }) => (
-                    <AuthFormItem
+                    <FormItemWrapper
                       field={field}
-                      labelText={"Phone No."}
+                      labelText={"Phone Number"}
                       type={"tel"}
                       required
                       autoFill
@@ -209,7 +211,16 @@ export default function Settings() {
                 />
               </div>
             </div>
-            <CustomButton type="submit">UPDATE</CustomButton>
+            <div className="flex justify-center">
+              <CustomButton
+                type="submit"
+                buttonProps={{
+                  className: "py-2 text-lg px-10", // You can control the size of the button here
+                }}
+              >
+                UPDATE
+              </CustomButton>
+            </div>{" "}
           </div>
         </form>
       </Form>
