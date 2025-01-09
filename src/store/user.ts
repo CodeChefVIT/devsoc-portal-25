@@ -1,24 +1,12 @@
-import { getUserDetails } from "@/services/getUser";
+import { IUser } from "@/interfaces";
+import { throwAPIError } from "@/lib/error";
+import { getUserDetails } from "@/services/user";
 import { create } from "zustand";
-interface User {
-  id: string; // UUID
-  name?: string; // TEXT, optional as notNull is false
-  team_id?: string; // UUID, optional as notNull is false
-  email?: string; // TEXT, optional as notNull is false
-  is_vitian?: boolean; // BOOLEAN, optional as notNull is false
-  reg_no?: string; // TEXT, optional as notNull is false
-  password?: string; // TEXT, optional as notNull is false
-  phone_no?: string; // TEXT, optional as notNull is false
-  role?: string; // TEXT, optional as notNull is false
-  is_leader?: boolean; // BOOLEAN, optional as notNull is false
-  college?: string; // TEXT, optional as notNull is false
-  is_verified?: boolean; // BOOLEAN, optional as notNull is false
-}
+
 interface UserStore {
-  user: User;
-  fetch: () => void
-//   updateUser: (newUser: User) => void;
-//   updateUserField: <K extends keyof User>(field: K, value: User[K]) => void;
+  user: IUser;
+  fetch: () => void;
+  updateUser: (newUser: IUser) => void;
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -30,21 +18,26 @@ export const useUserStore = create<UserStore>((set) => ({
     reg_no: "",
     password: "",
     phone_no: "",
+    gender: "male",
     role: "",
     is_leader: false,
     college: "",
     is_verified: false,
   },
-  fetch: async() => {
-    const userResponse = await getUserDetails()
-    set({user: userResponse})
-  } 
-//   updateUser: (newUser: User) => set({ user: newUser }),
-//   updateUserField: (field, value) =>
-//     set((state) => ({
-//       user: {
-//         ...state.user,
-//         [field]: value,
-//       },
-//     })),
+  fetch: async () => {
+    try {
+      const userResponse = await getUserDetails();
+      set({ user: userResponse });
+    } catch (e) {
+      throwAPIError(e);
+    }
+  },
+  updateUser: (newUser: IUser) => set({ user: newUser }),
+  // updateUserField: (field, value) =>
+  //   set((state) => ({
+  //     user: {
+  //       ...state.user,
+  //       [field]: value,
+  //     },
+  //   })),
 }));

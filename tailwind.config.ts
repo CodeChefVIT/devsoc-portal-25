@@ -18,7 +18,7 @@ export default {
   			'cc-link': '#2800FF',
   			'cc-alert': '#3DFFD4',
   			card: {
-  				DEFAULT: 'hsl(var(--card))',
+  				DEFAULT: '#F7F30',
   				foreground: 'hsl(var(--card-foreground))'
   			},
   			popover: {

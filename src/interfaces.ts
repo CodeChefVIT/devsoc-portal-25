@@ -4,6 +4,7 @@ export interface IUser {
     name: string; // TEXT, not null
     team_id: string; // UUID, not null
     email: string; // TEXT, not null
+    gender: ""| "male" | "female" | "non-binary" | "other" | "prefer-not-to-say";
     is_vitian: boolean; // BOOLEAN, not null
     reg_no: string; // TEXT, not null
     password: string; // TEXT, not null
