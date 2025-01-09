@@ -18,6 +18,15 @@ const VITEmailSchema = z
     /^[a-zA-Z]+\.[a-zA-Z]+202[0-5]@vitstudent\.ac\.in$/,
     "Invalid Email Address"
   );
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { FormSelect } from "./formSelectItem";
+
 const userSchema = z.object({
   name: z.string().min(1, { message: "Name is not required field" }), // TEXT, non-nullable
   email: VITEmailSchema,
@@ -26,7 +35,53 @@ const userSchema = z.object({
   reg_no: z
     .string()
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no."),
+  gender: z.enum([
+    "male",
+    "female",
+    "non-binary",
+    "other",
+    "prefer-not-to-say",
+    "",
+  ]),
 });
+
+interface SelectItem {
+  value: string;
+  label: string;
+}
+
+interface GenderSelectProps {
+  items: SelectItem[];
+  placeholder?: string;
+}
+
+export const GenderSelect: React.FC<GenderSelectProps> = ({
+  items,
+  placeholder = "Select Gender",
+}) => {
+  return (
+    <Select>
+      <SelectTrigger className="outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
+        <SelectValue placeholder={placeholder} />
+      </SelectTrigger>
+      <SelectContent>
+        {items.map((item) => (
+          <SelectItem key={item.value} className="px-3 py-3" value={item.value}>
+            {item.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </Select>
+  );
+};
+
+const genderItems = [
+  { value: "male", label: "Male" },
+  { value: "female", label: "Female" },
+  { value: "non-binary", label: "Non-Binary" },
+  { value: "other", label: "Other" },
+  { value: "prefer-not-to-say", label: "Prefer not to say" },
+];
 export default function Settings() {
   //   const onSubmit = (data) => props.updateAction(data)
 
@@ -38,6 +93,7 @@ export default function Settings() {
     if (!user.id) {
       userFetch(); // Fetch user if not loaded
     }
+    console.log(user);
   }, [user, userFetch]);
 
   const form = useForm<z.infer<typeof userSchema>>({
@@ -48,6 +104,7 @@ export default function Settings() {
       reg_no: "",
       college: "",
       phone_no: "",
+      gender: "",
     },
   });
   React.useEffect(() => {
@@ -59,6 +116,7 @@ export default function Settings() {
         college: user.college || "",
         reg_no: user.reg_no || "",
         phone_no: user.phone_no || "",
+        gender: user.gender || "",
       });
     }
   }, [user, form, form.reset]);
@@ -68,11 +126,11 @@ export default function Settings() {
       ...data,
     };
     toast.promise(updateUserDetails, {
-      loading: 'Loading...',
-      success: 'Updated profile!',
+      loading: "Loading...",
+      success: "Updated profile!",
       error: (err: ApiError) => err.message,
     });
-    
+
     userUpdate(newUser);
   };
   if (!user.id) {
@@ -146,14 +204,14 @@ export default function Settings() {
                 />
                 <FormField
                   control={form.control}
-                  name={"phone_no"}
+                  name={"reg_no"}
                   render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Phone Number"}
-                      type={"tel"}
+                    <FormSelect
+                      type="Gender"
+                      {...field}
                       required
-                      autoFill
+                      items={genderItems}
+                      placeholder="Gender"
                     />
                   )}
                 />
@@ -171,7 +229,7 @@ export default function Settings() {
                       autoFill
                     />
                   )}
-                />{" "}
+                />
                 <FormField
                   control={form.control}
                   name={"phone_no"}

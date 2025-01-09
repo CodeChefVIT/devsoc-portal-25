@@ -1,10 +1,11 @@
 // import { IUser } from "@/interfaces";
 // import api from "."
+import { IUser } from "@/interfaces";
 import { throwAPIError } from "@/lib/error";
 
 export async function getUserDetails() {
   try {
-    const data = {
+    const data: IUser = {
       id: "23434",
       name: "XYZ 123",
       reg_no: "23BCE0000",
@@ -13,6 +14,7 @@ export async function getUserDetails() {
       is_vitian: false,
       password: "123456789",
       phone_no: "4444187333",
+      gender: "male",
       role: "testrolee",
       is_leader: false,
       college: "VIT Vellore",
