@@ -8,6 +8,9 @@ import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
 import FormItemWrapper from "./formItemWrapper";
+import { IUser } from "@/interfaces";
+import { updateUserDetails } from "@/services/user";
+import { ApiError } from "next/dist/server/api-utils";
 const VITEmailSchema = z
   .string()
   .email("Enter a valid email address")
@@ -29,6 +32,8 @@ export default function Settings() {
 
   const user = useUserStore((state) => state.user);
   const userFetch = useUserStore((state) => state.fetch);
+  const userUpdate = useUserStore((state) => state.updateUser);
+
   React.useEffect(() => {
     if (!user.id) {
       userFetch(); // Fetch user if not loaded
@@ -58,8 +63,17 @@ export default function Settings() {
     }
   }, [user, form, form.reset]);
   const onSubmit: SubmitHandler<z.infer<typeof userSchema>> = (data) => {
-    toast.success("user button was clicked");
-    console.log(data);
+    const newUser: IUser = {
+      ...user,
+      ...data,
+    };
+    toast.promise(updateUserDetails, {
+      loading: 'Loading...',
+      success: 'Updated profile!',
+      error: (err: ApiError) => err.message,
+    });
+    
+    userUpdate(newUser);
   };
   if (!user.id) {
     return <div>{"loading"}</div>;
@@ -71,10 +85,11 @@ export default function Settings() {
       </h1>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className=" w-[75%] space-y-8">
-          <div
-            className={"flex  rounded-lg flex-col gap-6"}
-          >
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className=" w-[75%] space-y-8"
+        >
+          <div className={"flex  rounded-lg flex-col gap-6"}>
             <div className="flex border-4 bg-cc-plain p-10 pb-16 rounded-lg border-black  gap-20">
               <div className="flex w-full  flex-col gap-6">
                 <FormField

@@ -1,10 +1,12 @@
 import { IUser } from "@/interfaces";
-import { getUserDetails } from "@/services/getUser";
+import { throwAPIError } from "@/lib/error";
+import { getUserDetails } from "@/services/user";
 import { create } from "zustand";
 
 interface UserStore {
   user: IUser;
   fetch: () => void
+  updateUser: (newUser: IUser) => void
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -22,15 +24,23 @@ export const useUserStore = create<UserStore>((set) => ({
     is_verified: false,
   },
   fetch: async() => {
-    const userResponse = await getUserDetails()
-    set({user: userResponse})
-  } 
-//   updateUser: (newUser: User) => set({ user: newUser }),
-//   updateUserField: (field, value) =>
-//     set((state) => ({
-//       user: {
-//         ...state.user,
-//         [field]: value,
-//       },
-//     })),
+    try
+    {
+      const userResponse = await getUserDetails()
+      set({user: userResponse})
+
+    }
+    catch(e)
+    {
+      throwAPIError(e)
+    }
+  } ,
+  updateUser: (newUser: IUser) => set({ user: newUser }),
+  // updateUserField: (field, value) =>
+  //   set((state) => ({
+  //     user: {
+  //       ...state.user,
+  //       [field]: value,
+  //     },
+  //   })),
 }));

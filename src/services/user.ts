@@ -11,14 +11,24 @@ export async function getUserDetails() {
       team_id: "324",
       email: "dgsgd.bsgs2023@vitstudent.ac.in",
       is_vitian: false,
-      password: "213",
+      password: "123456789",
       phone_no: "4444187333",
-      role: "supreme lender",
+      role: "testrolee",
       is_leader: false,
       college: "VIT Vellore",
       is_verified: false,
     };
     // const { data } = await api.get<IUser>(`/me`);
+    return data;
+  } catch (e) {
+    throw throwAPIError(e);
+  }
+}
+
+export async function updateUserDetails() {
+  try {
+    const data = "success"
+    // const { data } = await api.post<IUser>(`/me`);
     return data;
   } catch (e) {
     throw throwAPIError(e);
