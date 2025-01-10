@@ -1,5 +1,5 @@
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
-import AuthFormItem from "../(auth)/_components/auth-form-item";
+import AuthFormItem from "../../app/(auth)/_components/auth-form-item";
 
 interface FormItemProps<
   TFieldValues extends FieldValues,
@@ -30,7 +30,7 @@ const FormItemWrapper = <
       required={required}
       autoFill={autoFill}
       inputProps={{
-        className: "max-w-96 border w-full bg-white border-black py-5", // Default input styling
+        className: "co border w-full bg-white border-black py-5", // Default input styling
       }}
     />
   );
