@@ -30,7 +30,7 @@ export default function Idea() {
         buttonText="Submit"
         title="Submit An Idea For Devsoc'25"
       >
-        <div className="flex gap-20">
+        <div className="flex gap-5">
           <div className="flex w-full  flex-col gap-6">
             <FormField
               control={form.control}
