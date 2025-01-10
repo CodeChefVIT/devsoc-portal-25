@@ -21,7 +21,7 @@ export default function FormSkeleton<T extends FieldValues>({
   return (
     <div>
       <div className="flex flex-col gap-5 items-center">
-        <h1 className="font-monomaniac text-2xl mt-2 mb-5">{title}</h1>
+        <h1 className="font-monomaniac text-2xl mt-14 mb-5">{title}</h1>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
