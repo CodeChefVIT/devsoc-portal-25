@@ -21,7 +21,6 @@ export default function Idea() {
   ];
 
   return (
-    <div>
       <FormSkeleton
         onSubmit={(data) => {
           console.log(data);
@@ -30,7 +29,7 @@ export default function Idea() {
         buttonText="Submit"
         title="Submit An Idea For Devsoc'25"
       >
-        <div className="flex gap-5">
+        <div className="flex justify-center gap-5">
           <div className="flex w-full  flex-col gap-6">
             <FormField
               control={form.control}
@@ -100,6 +99,5 @@ export default function Idea() {
           </div>
         </div>
       </FormSkeleton>
-    </div>
   );
 }

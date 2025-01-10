@@ -25,9 +25,8 @@ export default function FormSkeleton<T extends FieldValues>({
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="flex  flex-col items-center gap-7"
+              className="flex flex-col gap-7"
             >
-              <div className="flex rounded-lg flex-col gap-6 items-center">
                 {children}
                 <div className="flex justify-center">
                   <CustomButton
@@ -39,7 +38,6 @@ export default function FormSkeleton<T extends FieldValues>({
                     {buttonText}
                   </CustomButton>
                 </div>
-              </div>
             </form>
           </Form>
         </div>
