@@ -8,6 +8,7 @@ interface FormItemProps<
   field: ControllerRenderProps<TFieldValues, TName>;
   labelText: string;
   type: "text" | "password" | "tel";
+  placeholderText?: string
   required?: boolean;
   autoFill?: boolean;
 }
@@ -20,6 +21,7 @@ const FormItemWrapper = <
   labelText,
   type,
   required,
+  placeholderText,
   autoFill,
 }: FormItemProps<TFieldValues, TName>) => {
   return (
@@ -29,8 +31,10 @@ const FormItemWrapper = <
       type={type}
       required={required}
       autoFill={autoFill}
+      
       inputProps={{
-        className: "co border w-full bg-white border-black py-5", // Default input styling
+        ...(placeholderText && { placeholder: placeholderText }), 
+        className: "co border w-full bg-white border-black py-5",
       }}
     />
   );
