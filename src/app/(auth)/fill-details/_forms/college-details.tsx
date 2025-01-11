@@ -1,5 +1,5 @@
 "use client"
-import React from 'react'
+import React, {useEffect} from 'react'
 import Modal from "@/app/(auth)/_components/modal";
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
@@ -14,7 +14,7 @@ import {useFormStore} from "@/app/(auth)/fill-details/_components/info-form";
 const CollegeDetails = () => {
     const router = useRouter();
     const form = useFormContext<UserDetailsFormType>();
-    const { updateFormData } = useFormStore();
+    const { updateFormData, error } = useFormStore();
 
     const handleNext = () => {
         const { regNo, vitEmail, githubProfile, hostelBlock, roomNo } = form.getValues();
@@ -22,6 +22,10 @@ const CollegeDetails = () => {
         router.push("/fill-details/3");
         return;
     }
+
+    useEffect(() => {
+        ;(async()=>error && await form.trigger())()
+    }, []);
 
     return (
         <div className={"flex justify-center w-full"}>

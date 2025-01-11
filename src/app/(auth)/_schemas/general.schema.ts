@@ -38,7 +38,7 @@ export const HostelBlockSchema = z.enum(
 );
 
 export const GenderSchema = z.enum(
-    Object.values(genders) as [string, ...string[]]
+    Object.keys(genders) as [string, ...string[]]
 );
 
 export const RoomNumberSchema = z.string().regex(

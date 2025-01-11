@@ -9,8 +9,10 @@ import { persist } from 'zustand/middleware'
 
 interface FormStore {
     formData: UserDetailsFormType
-    updateFormData: (data: Partial<UserDetailsFormType>) => void
-    clearFormData: () => void
+    updateFormData: (data: Partial<UserDetailsFormType>) => void,
+    clearFormData: () => void,
+    error: boolean,
+    setError: ()=>void,
 }
 
 export const useFormStore = create<FormStore>()(
@@ -20,7 +22,9 @@ export const useFormStore = create<FormStore>()(
             updateFormData: (data) => set((state) => ({
                 formData: { ...state.formData, ...data }
             })),
-            clearFormData: () => set({ formData: defaultUserDetails })
+            clearFormData: () => set({ formData: defaultUserDetails, error: false}),
+            error: false,
+            setError: ()=>set({ error: true }),
         }),
         {
             name: 'form-storage'
@@ -41,7 +45,7 @@ const InfoForm = ({
     const form = useForm<UserDetailsFormType>({
         resolver: zodResolver(UserDetailsSchema),
         mode: 'onBlur',
-        defaultValues: defaultUserDetails
+        defaultValues: formData
     })
 
     return (

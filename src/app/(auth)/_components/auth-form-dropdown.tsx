@@ -39,7 +39,7 @@ const AuthFormDropdown = <
             </FormLabel>
 
             <FormControl>
-                <Select onValueChange={field.onChange} defaultOpen={field.value}>
+                <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className={`bg-white shadow-none font-inter outline-0 ring-1 ring-cc-dark font-inter ${field.value === "" && "text-neutral-400"}`}>
                         <SelectValue placeholder={"Select"} />
                     </SelectTrigger>
@@ -53,6 +53,6 @@ const AuthFormDropdown = <
                 </Select>
             </FormControl>
         </FormItem>
-)
+    )
 }
 export default AuthFormDropdown

@@ -6,7 +6,7 @@ import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";
 import {Button} from "@/components/ui/button";
 import {useFormContext} from "react-hook-form";
-import {UserDetailsFormType} from "@/app/(auth)/_schemas/forms.schema";
+import {UserDetailsFormType, UserDetailsSchema} from "@/app/(auth)/_schemas/forms.schema";
 import {useRouter} from "next/navigation";
 import {useFormStore} from "@/app/(auth)/fill-details/_components/info-form";
 
@@ -17,24 +17,29 @@ const CreateOrJoinTeam = () => {
 
     const router = useRouter();
 
-    const { formData, clearFormData } = useFormStore();
+    const { updateFormData, clearFormData, setError } = useFormStore();
 
     const onSubmit = async ()=>{
         //TODO: Toasts
 
-        // console.log(form.getValues());
-        const { createTeam, joinTeam } = form.getValues();
+        const { joinTeam, createTeam } = form.getValues();
+        updateFormData({ joinTeam, createTeam });
 
-        const values = { ...formData, createTeam, joinTeam };
+        const isPersonalDetailsFilled = await form.trigger(['firstName', 'lastName', 'email', 'gender', 'phoneNo']) ;
+        if (!isPersonalDetailsFilled){
+            setError();
+            return router.push('/fill-details/1')
+        }
 
-        const isPersonalDetailsFilled = values.firstName && values.lastName && values.email && values.phoneNo && values.gender ;
-        if (!isPersonalDetailsFilled) return router.push('/fill-details/1');
+        const isCollegeDetailsFilled = await form.trigger(['regNo', 'githubProfile', 'hostelBlock', 'roomNo', 'vitEmail']);
+        if (!isCollegeDetailsFilled) {
+            setError();
+            return router.push('/fill-details/2')
+        };
 
-        const isCollegeDetailsFilled = values.roomNo && values.githubProfile && values.vitEmail && values.hostelBlock && values.regNo;
-        if (!isCollegeDetailsFilled) return router.push('/fill-details/2');
-
-        const isTeamDetailsFilled = values.createTeam || values.joinTeam;
-        if (!isTeamDetailsFilled) return;
+        const isJoinTeamFilled = checked ? true : await form.trigger('joinTeam');
+        const isCreateTeamFilled = checked ? await form.trigger('createTeam') : true;
+        if (!(isCreateTeamFilled || isJoinTeamFilled)) return;
 
         clearFormData();
         alert("Success");
