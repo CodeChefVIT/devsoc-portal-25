@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
-import FormItemWrapper from "./formItemWrapper";
+import FormItemWrapper from "../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
 import { updateUserDetails } from "@/services/user";
 import { ApiError } from "next/dist/server/api-utils";
@@ -18,14 +18,8 @@ const VITEmailSchema = z
     /^[a-zA-Z]+\.[a-zA-Z]+202[0-5]@vitstudent\.ac\.in$/,
     "Invalid Email Address"
   );
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FormSelect } from "./formSelectItem";
+
+import { FormSelect } from "../../components/form/formSelectItem";
 
 const userSchema = z.object({
   name: z.string().min(1, { message: "Name is not required field" }), // TEXT, non-nullable
@@ -44,36 +38,6 @@ const userSchema = z.object({
     "",
   ]),
 });
-
-interface SelectItem {
-  value: string;
-  label: string;
-}
-
-interface GenderSelectProps {
-  items: SelectItem[];
-  placeholder?: string;
-}
-
-export const GenderSelect: React.FC<GenderSelectProps> = ({
-  items,
-  placeholder = "Select Gender",
-}) => {
-  return (
-    <Select>
-      <SelectTrigger className="outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
-        <SelectValue placeholder={placeholder} />
-      </SelectTrigger>
-      <SelectContent>
-        {items.map((item) => (
-          <SelectItem key={item.value} className="px-3 py-3" value={item.value}>
-            {item.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
-};
 
 const genderItems = [
   { value: "male", label: "Male" },
@@ -138,6 +102,7 @@ export default function Settings() {
   }
   return (
     <div className="flex flex-col items-center">
+
       <h1 className={"font-monomaniac  text-2xl mt-2 mb-5"}>
         Settings and profile
       </h1>
