@@ -19,7 +19,7 @@ const Modal = ({
                 <div className={"text-6xl"}>DEVSOC</div>
                 <div className={"rotate-90 text-xs absolute -right-3 inset-y-0 bottom-2"}>2K25</div>
             </div>}
-            <div className={"font-monomaniac text-2xl mt-2 mb-5"}>{text}</div>
+            {text && <div className={"font-monomaniac text-2xl mt-2 mb-5"}>{text}</div>}
             {children}
         </div>
     )

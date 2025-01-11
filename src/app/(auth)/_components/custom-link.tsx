@@ -16,14 +16,14 @@ const CustomLink = ({
 }: ILink) => {
 
     if (href){
-        return <Link href={href} className={`text-cc-link active:text-neutral-700 select-none underline cursor-pointer ${className}`}>
+        return <Link href={href} className={`text-cc-link hover:text-violet-700 active:text-neutral-700 select-none underline underline-offset-2 cursor-pointer ${className}`}>
             {text}
         </Link>
     }
 
     return (
         <span
-            className={`text-cc-link active:text-neutral-700 select-none underline cursor-pointer ${className}`}
+            className={`text-cc-link hover:text-violet-700 active:text-neutral-700 select-none underline underline-offset-2 cursor-pointer ${className}`}
             onClick={onClick}
         >
             {text}

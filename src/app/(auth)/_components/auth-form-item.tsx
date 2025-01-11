@@ -12,7 +12,7 @@ import {Eye, EyeOff} from "lucide-react";
 interface IAuthFormItem<TFieldValues extends FieldValues, TName extends Path<TFieldValues>> {
     field: ControllerRenderProps<TFieldValues, TName>,
     labelText: string,
-    type: 'text'|'password'|'tel'
+    type: React.InputHTMLAttributes<HTMLInputElement>["type"],
     required?: boolean,
     autoFill?: boolean,
     inputProps?: React.ComponentPropsWithoutRef<typeof Input>;
@@ -50,7 +50,6 @@ const AuthFormItem = <
                             className={'outline-0 ring-1 ring-cc-dark font-inter bg-white'}
                             autoComplete={autoFill ? "on" : "off"}
                             {...field}
-                            onChange={field.onChange}
                             {...inputProps}
                         />
                     </FormControl>
