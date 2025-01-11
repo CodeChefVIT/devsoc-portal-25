@@ -1,5 +1,5 @@
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
-import AuthFormItem from "../../app/(auth)/_components/auth-form-item";
+import AuthFormItem from "../auth-form-item-v1";
 
 interface FormItemProps<
   TFieldValues extends FieldValues,
@@ -7,7 +7,7 @@ interface FormItemProps<
 > {
   field: ControllerRenderProps<TFieldValues, TName>;
   labelText: string;
-  type: "text" | "password" | "tel";
+  type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   subtitle?: string
   placeholderText?: string
   required?: boolean;
