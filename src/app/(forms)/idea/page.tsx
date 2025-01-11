@@ -6,6 +6,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { projectSchema } from "../schema";
 import ProjectFormFields from "../formFields";
+import { createSubmission } from "@/services/submit";
+import toast from "react-hot-toast";
+import { ApiError } from "next/dist/server/api-utils";
 
 export default function Idea() {
   const schema = projectSchema;
@@ -15,9 +18,12 @@ export default function Idea() {
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    console.log(data);
-  }
-
+    toast.promise(createSubmission("idea", { ...data, team_id: "3" }), {
+      loading: "Loading...",
+      success: "Added idea!",
+      error: (err: ApiError) => err.message,
+    });
+  };
   return (
     <FormSkeleton
       onSubmit={onSubmit}

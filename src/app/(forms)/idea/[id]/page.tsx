@@ -6,9 +6,11 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { projectSchema } from "../../schema";
 import { useParams } from "next/navigation";
-import { useIdeaStore } from "@/store/ideas";
+import { useIdeaStore } from "@/store/idea";
 import { updateSubmission } from "@/services/submit";
 import ProjectFormFields from "../../formFields";
+import toast from "react-hot-toast";
+import { ApiError } from "next/dist/server/api-utils";
 
 export default function Idea() {
   const { iid } = useParams<{ iid: string }>();
@@ -25,14 +27,7 @@ export default function Idea() {
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      title: "",
-      track: "Open Innovation",
-      description: "", //etc etc
-      figma_link: "",
-      github_link: "",
-      other_link: "",
-    },
+
   });
   React.useEffect(() => {
     if (idea.id) {
@@ -49,17 +44,25 @@ export default function Idea() {
   }, [idea, form, form.reset]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-      //TODO update idea from be
-      updateSubmission("idea",  "teamID", { ...data, ...idea })
-    ideaUpdate({ ...data, ...idea });
+    //TODO update idea from be
+    toast.promise(async () => {
+      updateSubmission("submission", "teamID", { ...data, ...idea });
+      ideaUpdate({ ...data, ...idea });
+    },
+    {
+      loading: "Loading...",
+      success: "Updated submission!",
+      error: (err: ApiError) => err.message,
+    })
   };
+
 
   return (
     <FormSkeleton
       onSubmit={onSubmit}
       form={form}
       buttonText="Submit"
-      title="Submit An Idea For Devsoc'25"
+      title="Edit Your idea For Devsoc’25"
     >
       <div className="flex w-full  flex-col gap-6">
       <ProjectFormFields  form={form}></ProjectFormFields>

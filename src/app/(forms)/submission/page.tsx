@@ -7,25 +7,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { projectSchema } from "../schema";
 import { createSubmission } from "@/services/submit";
 import ProjectFormFields from "../formFields";
+import toast from "react-hot-toast";
+import { ApiError } from "next/dist/server/api-utils";
 
 export default function Idea() {
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      title: "",
-      track: "Open Innovation",
-      description: "", //etc etc
-      figma_link: "",
-      github_link: "",
-      other_link: "",
-    },
   });
 
-
   const onSubmit = (data: z.infer<typeof schema>) => {
-    createSubmission("submission", {...data, team_id: "3"});
-    console.log(data);
+    toast.promise(createSubmission("submission", { ...data, team_id: "3" }), {
+      loading: "Loading...",
+      success: "Added submission!",
+      error: (err: ApiError) => err.message,
+    });
   };
 
   return (
@@ -33,10 +29,9 @@ export default function Idea() {
       onSubmit={onSubmit}
       form={form}
       buttonText="Submit"
-      title="Submit An Idea For Devsoc'25"
+      title="Submit A Project For Devsoc’25"
     >
-      <ProjectFormFields  form={form}></ProjectFormFields>
-
+      <ProjectFormFields form={form}></ProjectFormFields>
     </FormSkeleton>
   );
 }

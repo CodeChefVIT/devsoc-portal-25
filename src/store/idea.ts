@@ -21,7 +21,7 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
     other_link: "https://example.com/project-alpha-other",
   },
   updateIdea: (newIdea: IIdea) => set({ idea: newIdea }),
-  fetch: async (id: string) => {
+  fetch: async () => {
     try {
       const ideaResponse = await getSubmission("idea", "teamIDGlobal", );
       set({ idea: ideaResponse });
