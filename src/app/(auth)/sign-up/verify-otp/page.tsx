@@ -2,7 +2,6 @@
 
 import React from 'react'
 import Modal from "@/app/(auth)/_components/modal";
-import LabelledInput from "@/components/labelled-input";
 import Link from "@/app/(auth)/_components/custom-link";
 import {Button} from "@/components/ui/button";
 import {Form, FormField} from "@/components/ui/form";
