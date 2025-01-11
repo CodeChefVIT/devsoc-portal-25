@@ -19,28 +19,30 @@ export default function FormSkeleton<T extends FieldValues>({
   onSubmit: (data: T) => void;
 }) {
   return (
-      <div className="flex flex-col gap-5 items-center">
-        <h1 className="font-monomaniac text-2xl mt-2 mb-5">{title}</h1>
-        <div className="flex w-[75%] border-4 bg-cc-plain p-10 pb-16 rounded-lg border-black gap-5">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="flex flex-col gap-7"
-            >
-                {children}
-                <div className="flex justify-center">
-                  <CustomButton
-                    type="submit"
-                    buttonProps={{
-                      className: "py-2 text-lg px-10",
-                    }}
-                  >
-                    {buttonText}
-                  </CustomButton>
-                </div>
-            </form>
-          </Form>
-        </div>
+    <div className="flex flex-col gap-5 items-center">
+      <h1 className="font-monomaniac text-2xl mt-2 mb-5">{title}</h1>
+      <div className=" w-[75%]   rounded-lg  gap-5">
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="flex flex-col gap-7"
+          >
+            <div className="bg-cc-plain p-10 pb-16 border-black border-4">
+              {children}
+            </div>
+            <div className="flex justify-center">
+              <CustomButton
+                type="submit"
+                buttonProps={{
+                  className: "py-2 text-lg px-10",
+                }}
+              >
+                {buttonText}
+              </CustomButton>
+            </div>
+          </form>
+        </Form>
       </div>
+    </div>
   );
 }

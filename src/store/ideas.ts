@@ -1,25 +1,35 @@
-import { IIdeas } from "@/interfaces";
+import { IIdea } from "@/interfaces";
+import { throwAPIError } from "@/lib/error";
+import { getSubmission } from "@/services/submit";
 import { create } from "zustand";
 
-
-
 interface IdeaStore {
-  idea: IIdeas;
-  updateIdea: (newIdea: IIdeas) => void;
-  updateIdeaField: <K extends keyof IIdeas>(field: K, value: IIdeas[K]) => void;
+  idea: IIdea;
+  updateIdea: (newIdea: IIdea) => void;
+  fetch: (id: string) => void;
+  updateIdeaField: <K extends keyof IIdea>(field: K, value: IIdea[K]) => void;
 }
 export const useIdeaStore = create<IdeaStore>((set) => ({
   idea: {
     id: "", // UUID
-    title: "", // TEXT, not null
-    description: "", // TEXT, not null
-    track: "", // TEXT, not null
-    team_id: "", // UUID, not null
-    is_selected: true, // BOOLEAN, not null
-    created_at: new Date(), // TIMESTAMP, default: CURRENT_TIMESTAMP
-    updated_at: new Date(), // TIMESTAMP, default: CURRENT_TIMESTAMP
+    title: "abc123",
+    description: "123",
+    track: "Open Innovation",
+    github_link: "https://github.com/team-alpha/project-alpha",
+    figma_link: "https://www.figma.com/file/alpha-design",
+    ppt_link: "https://example.com/project-alpha-presentation.ppt",
+    other_link: "https://example.com/project-alpha-other",
   },
-  updateIdea: (newIdea: IIdeas) => set({ idea: newIdea }),
+  updateIdea: (newIdea: IIdea) => set({ idea: newIdea }),
+  fetch: async (id: string) => {
+    try {
+      const ideaResponse = await getSubmission("idea", "teamIDGlobal", );
+      set({ idea: ideaResponse });
+    } catch (e) {
+      throwAPIError(e);
+    }
+  },
+
   updateIdeaField: (field, value) =>
     set((state) => ({
       idea: {
