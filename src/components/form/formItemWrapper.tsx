@@ -1,5 +1,5 @@
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
-import AuthFormItem from "../(auth)/_components/auth-form-item";
+import AuthFormItem from "../auth-form-item-v1";
 
 interface FormItemProps<
   TFieldValues extends FieldValues,
@@ -7,7 +7,9 @@ interface FormItemProps<
 > {
   field: ControllerRenderProps<TFieldValues, TName>;
   labelText: string;
-  type: "text" | "password" | "tel";
+  type: React.InputHTMLAttributes<HTMLInputElement>["type"];
+  subtitle?: string
+  placeholderText?: string
   required?: boolean;
   autoFill?: boolean;
 }
@@ -18,19 +20,24 @@ const FormItemWrapper = <
 >({
   field,
   labelText,
+  subtitle,
   type,
   required,
+  placeholderText,
   autoFill,
 }: FormItemProps<TFieldValues, TName>) => {
   return (
     <AuthFormItem
       field={field}
+      subtitle={subtitle}
       labelText={labelText}
       type={type}
       required={required}
       autoFill={autoFill}
+      
       inputProps={{
-        className: "max-w-96 border w-full bg-white border-black py-5", // Default input styling
+        ...(placeholderText && { placeholder: placeholderText }), 
+        className: "co  border w-full bg-white border-black py-5",
       }}
     />
   );

@@ -61,6 +61,7 @@ const AuthFormItem = <
               className={"outline-0 ring-1 ring-cc-dark font-inter bg-white"}
               autoComplete={autoFill ? "on" : "off"}
               {...field}
+              onChange={field.onChange}
               {...inputProps}
             />
           </FormControl>

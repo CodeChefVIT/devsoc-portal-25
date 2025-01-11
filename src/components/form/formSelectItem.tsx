@@ -1,4 +1,4 @@
-interface SelectItem {
+export interface SelectItem {
   value: string;
   label: string;
 }
@@ -31,7 +31,7 @@ export const FormSelect: React.FC<ThemeSelectProps> = ({
         {required && <span className={"text-red-600"}> *</span>}
       </FormLabel>
       <Select>
-        <SelectTrigger className="max-w-96 outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
+        <SelectTrigger className=" outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>

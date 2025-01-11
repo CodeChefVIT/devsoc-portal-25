@@ -5,7 +5,7 @@ import { create } from "zustand";
 
 interface UserStore {
   user: IUser;
-  fetch: () => void;
+  fetch:  () => void;
   updateUser: (newUser: IUser) => void;
 
 }
@@ -35,11 +35,5 @@ export const useUserStore = create<UserStore>((set) => ({
     }
   },
   updateUser: (newUser: IUser) => set({ user: newUser }),
-  // updateUserField: (field, value) =>
-  //   set((state) => ({
-  //     user: {
-  //       ...state.user,
-  //       [field]: value,
-  //     },
-  //   })),
+
 }));

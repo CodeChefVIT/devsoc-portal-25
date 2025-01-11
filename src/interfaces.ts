@@ -45,14 +45,13 @@ export interface IUser {
   }
   
   // Interface for the 'ideas' table
-  export interface IIdeas {
+  export interface IIdea {
     id: string; // UUID
+    github_link: string;
+    figma_link: string;
+    other_link:string;
     title: string; // TEXT, not null
     description: string; // TEXT, not null
-    track: string; // TEXT, not null
-    team_id: string; // UUID, not null
-    is_selected: boolean; // BOOLEAN, not null
-    created_at: Date; // TIMESTAMP, default: CURRENT_TIMESTAMP
-    updated_at: Date; // TIMESTAMP, default: CURRENT_TIMESTAMP
+    track: "Open Innovation" | "Other Track Option 1" | "Other Track Option 2"; // TEXT, not null
   }
   

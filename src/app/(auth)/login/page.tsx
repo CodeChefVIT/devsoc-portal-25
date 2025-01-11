@@ -47,7 +47,7 @@ const Login = () => {
                             )} />
                         </div>
                         <div className={"flex flex-col justify-center items-center gap-6"}>
-                            <div className={"text-sm mt-2 font-inter"}>Don't have an account? <Link text={"Sign Up"} href={"/sign-up"} /></div>
+                            <div className={"text-sm mt-2 font-inter"}>Don&apos;t have an account? <Link text={"Sign Up"} href={"/sign-up"} /></div>
                             <Button variant={"primary"} size={"primary"} type={"submit"}>Login</Button>
                         </div>
                     </form>
