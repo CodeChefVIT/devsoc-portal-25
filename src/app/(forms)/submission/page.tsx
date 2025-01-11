@@ -10,7 +10,7 @@ import ProjectFormFields from "../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 
-export default function Idea() {
+export default function Submission() {
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),

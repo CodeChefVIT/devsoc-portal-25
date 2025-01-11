@@ -12,7 +12,7 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useSubmissionStore } from "@/store/submission";
 
-export default function Idea() {
+export default function EditSubmission() {
   const { iid } = useParams<{ iid: string }>();
 
   const submission = useSubmissionStore((state) => state.submission);

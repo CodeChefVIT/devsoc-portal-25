@@ -12,7 +12,7 @@ import ProjectFormFields from "../../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 
-export default function Idea() {
+export default function EditIdea() {
   const { iid } = useParams<{ iid: string }>();
 
   const idea = useIdeaStore((state) => state.idea);
