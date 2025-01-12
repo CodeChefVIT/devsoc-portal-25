@@ -9,11 +9,14 @@ import { createSubmission } from "@/services/submit";
 import ProjectFormFields from "../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
+import { defaults } from "../defaults";
 
 export default function Submission() {
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: defaults,
+
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {

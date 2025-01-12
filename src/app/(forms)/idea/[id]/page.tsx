@@ -11,6 +11,7 @@ import { updateSubmission } from "@/services/submit";
 import ProjectFormFields from "../../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
+import { defaults } from "../../defaults";
 
 export default function EditIdea() {
   const { iid } = useParams<{ iid: string }>();
@@ -27,6 +28,7 @@ export default function EditIdea() {
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: defaults,
 
   });
   React.useEffect(() => {

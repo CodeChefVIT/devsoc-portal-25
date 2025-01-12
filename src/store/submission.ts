@@ -1,5 +1,5 @@
 import { IIdea } from "@/interfaces";
-import { throwAPIError } from "@/lib/error";
+import { ConvertToAPIError } from "@/lib/error";
 import { getSubmission } from "@/services/submit";
 import { create } from "zustand";
 
@@ -26,7 +26,7 @@ export const useSubmissionStore = create<IdeaStore>((set) => ({
       const ideaResponse = await getSubmission("idea", "teamIDGlobal", );
       set({ submission: ideaResponse });
     } catch (e) {
-      throwAPIError(e);
+      ConvertToAPIError(e);
     }
   },
 

@@ -3,8 +3,12 @@ export interface SelectItem {
   label: string;
 }
 
-interface ThemeSelectProps {
+interface FormSelectProps<
+  TFieldValues extends FieldValues,
+  TName extends Path<TFieldValues>
+> {
   type: string;
+  field: ControllerRenderProps<TFieldValues, TName>;
   required: boolean;
   items: SelectItem[];
   placeholder?: string;
@@ -17,20 +21,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 
-export const FormSelect: React.FC<ThemeSelectProps> = ({
+export const FormSelect = <
+  TFieldValues extends FieldValues,
+  TName extends Path<TFieldValues>
+>({
   type,
   required = false,
   items,
+  field,
   placeholder = "Select an option",
-}) => {
+}: FormSelectProps<TFieldValues, TName>) => {
   return (
     <div>
       <FormLabel className={"font-inter text-neutral-700 font-normal text-xs"}>
         {type}
         {required && <span className={"text-red-600"}> *</span>}
       </FormLabel>
-      <Select>
+      <Select onValueChange={field.onChange} {...field}>
         <SelectTrigger className=" outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>

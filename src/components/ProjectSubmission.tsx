@@ -20,8 +20,10 @@ interface IGetButtons {
 
 export default function ProjectSubmission() {
   const user = useUserStore((state) => state.user);
+  const userSet = useUserStore((state) => state.userIsSet);
+
   const userFetch = useUserStore((state) => state.fetch);
-  if (!user.id) {
+  if (!userSet) {
     try {
       userFetch();
     } catch (e) {

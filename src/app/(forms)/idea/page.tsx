@@ -9,15 +9,20 @@ import ProjectFormFields from "../formFields";
 import { createSubmission } from "@/services/submit";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
+import { defaults } from "../defaults";
 
 export default function Idea() {
   const schema = projectSchema;
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
+    defaultValues: defaults,
 
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
+  console.log(data)
+
     toast.promise(createSubmission("idea", { ...data, team_id: "3" }), {
       loading: "Loading...",
       success: "Added idea!",

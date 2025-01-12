@@ -1,4 +1,4 @@
-import { throwAPIError } from "@/lib/error";
+import { ConvertToAPIError } from "@/lib/error";
 import api from ".";
 interface SubmissionData {
   team_id: string;
@@ -17,7 +17,7 @@ export const createSubmission = async (
     const response = await api.post(`${route}`,  submissionData);
     return response.data;
   } catch (error) {
-    throwAPIError(error);
+    ConvertToAPIError(error);
   }
 };
 export const getSubmission = async (route: string, teamId: string) => {
@@ -26,7 +26,7 @@ export const getSubmission = async (route: string, teamId: string) => {
     console.log("Submission retrieved successfully:", response.data);
     return response.data;
   } catch (error) {
-    throwAPIError(error);
+    ConvertToAPIError(error);
   }
 };
 export const updateSubmission = async (
@@ -39,6 +39,6 @@ export const updateSubmission = async (
     console.log("Submission updated successfully:", response.data);
     return response.data;
   } catch (error) {
-    throwAPIError(error);
+    ConvertToAPIError(error);
   }
 };
