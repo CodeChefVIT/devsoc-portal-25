@@ -34,11 +34,13 @@ export const RegNoSchema = z.string().regex(
 // 19ABC0001 - 25ABC9999
 
 export const HostelBlockSchema = z.enum(
-    hostels as [string, ...string[]]
+    hostels as [string, ...string[]],
+    { message: "Select your hostel block" }
 );
 
 export const GenderSchema = z.enum(
-    Object.keys(genders) as [string, ...string[]]
+    Object.keys(genders) as [string, ...string[]],
+    { message: "Required" }
 );
 
 export const RoomNumberSchema = z.string().regex(
@@ -50,7 +52,7 @@ export const GithubProfileSchema = z.string().regex(
         /^https:\/\/github\.com\/[a-zA-Z0-9-]+\/?$/,
         "Enter a valid Github Profile URL"
 );
-// https://github.com/githut-user
+// https://github.com/github-user
 
 export const JoinTeamSchema = z.string().trim().min(1, "Required");
 

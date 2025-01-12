@@ -37,7 +37,7 @@ const CollegeDetails = () => {
                     <AuthFormItem field={field} labelText={"VIT Email Address"} type={"text"} required />
                 )} />
                 <InfoFormField name={'roomNo'} render={({ field })=>(
-                    <AuthFormItem field={field} labelText={"Room Number"} type={"text"} required />
+                    <AuthFormItem field={field} labelText={"Room Number"} type={"number"} required />
                 )} />
                 <InfoFormField name={'githubProfile'} render={({ field })=>(
                     <AuthFormItem field={field} labelText={"Github Profile"} type={"text"} required />

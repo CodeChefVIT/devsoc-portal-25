@@ -35,7 +35,7 @@ const AuthFormItem = <
   type,
   required,
   subtitle,
-  autoFill,
+  autoFill = true,
   inputProps,
 }: IAuthFormItem<TFieldValues, TName>) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);

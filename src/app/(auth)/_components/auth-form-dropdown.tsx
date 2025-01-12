@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 
-import {FormControl, FormItem, FormLabel} from "@/components/ui/form";
+import {FormControl, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
 interface InfoFormDropdownProps<TFieldValues extends FieldValues, TName extends Path<TFieldValues>>{
     items: string[],
@@ -52,6 +52,7 @@ const AuthFormDropdown = <
                     </SelectContent>
                 </Select>
             </FormControl>
+            <FormMessage className={"text-xs mt-2"} />
         </FormItem>
     )
 }
