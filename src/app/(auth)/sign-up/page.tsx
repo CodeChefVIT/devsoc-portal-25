@@ -7,7 +7,7 @@ import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import Link from "@/app/(auth)/_components/custom-link";
 import {Button} from "@/components/ui/button";
 import {useForm} from "react-hook-form";
-import {SignupFormType, SignupSchema} from "@/app/(auth)/_schemas/schema";
+import {SignupFormType, SignupSchema} from "@/app/(auth)/_schemas/forms.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 
 const SignUp = () => {
@@ -19,17 +19,10 @@ const SignUp = () => {
             confirmPassword: '',
             password: '',
             email: '',
-            phoneNo: '',
-            regNo: '',
-            username: ''
         }
     })
 
     const onSubmit = (values: SignupFormType)=>{
-        // if (values.password !== values.confirmPassword){
-        //     form.setError("confirmPassword", { type: "custom", message: "Passwords don't match" });
-        //     return;
-        // }
         console.log(values)
     }
 
@@ -39,17 +32,8 @@ const SignUp = () => {
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className={"w-full max-w-xs flex flex-col items-center gap-6"}>
                         <div className={"flex w-full flex-col gap-6"}>
-                            <FormField control={form.control} name={"username"} render={({field}) => (
-                                <AuthFormItem field={field} labelText={"Username"} type={"text"} required autoFill />
-                            )}/>
                             <FormField control={form.control} name={"email"} render={({field}) => (
                                 <AuthFormItem field={field} labelText={"Email"} type={"text"} required autoFill />
-                            )}/>
-                            <FormField control={form.control} name={"regNo"} render={({field}) => (
-                                <AuthFormItem field={field} labelText={"Registration No."} type={"text"} required autoFill />
-                            )}/>
-                            <FormField control={form.control} name={"phoneNo"} render={({field}) => (
-                                <AuthFormItem field={field} labelText={"Phone No."} type={"tel"} required autoFill />
                             )}/>
                             <FormField control={form.control} name={"password"} render={({field}) => (
                                 <AuthFormItem field={field} labelText={"Password"} type={"password"} required autoFill />

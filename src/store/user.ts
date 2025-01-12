@@ -7,6 +7,7 @@ interface UserStore {
   user: IUser;
   fetch:  () => void;
   updateUser: (newUser: IUser) => void;
+
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -24,6 +25,7 @@ export const useUserStore = create<UserStore>((set) => ({
     college: "",
     is_verified: false,
   },
+
   fetch: async () => {
     try {
       const userResponse = await getUserDetails();
