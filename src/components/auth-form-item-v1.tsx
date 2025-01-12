@@ -61,7 +61,14 @@ const AuthFormItem = <
               className={"outline-0 ring-1 ring-cc-dark font-inter bg-white"}
               autoComplete={autoFill ? "on" : "off"}
               {...field}
-              onChange={field.onChange}
+              onChange={(e) => {
+                if (type === "number") {
+                  field.onChange(Number(e.target.value)); // Use valueAsNumber to get the number
+
+                } else {
+                  field.onChange(e.target.value); // Otherwise, use the string value
+                }
+              }}
               {...inputProps}
             />
           </FormControl>

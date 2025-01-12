@@ -2,7 +2,7 @@ import axios, { type AxiosError } from "axios";
 import { ApiError } from "next/dist/server/api-utils";
 import { toSentenceCase } from "./utils";
 
-export function throwAPIError(err: unknown): ApiError {
+export function ConvertToAPIError(err: unknown): ApiError {
   if (axios.isAxiosError(err)) {
     const error = err as AxiosError;
     if (error.response) {

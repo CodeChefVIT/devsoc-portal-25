@@ -48,8 +48,8 @@ const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
           render={({ field }) => (
             <FormSelect
               type="Tracks"
+              field={field}
               placeholder="Select a track"
-              {...field}
               required
               items={tracks}
             />

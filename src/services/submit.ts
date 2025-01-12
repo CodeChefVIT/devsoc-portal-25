@@ -1,4 +1,4 @@
-import { throwAPIError } from "@/lib/error";
+import { ConvertToAPIError } from "@/lib/error";
 import api from ".";
 interface SubmissionData {
   team_id: string;
@@ -14,19 +14,19 @@ export const createSubmission = async (
   submissionData: SubmissionData
 ) => {
   try {
-    const response = await api.post(`${route}`,  submissionData);
+    const response = await api.post(`${route}/create`,  submissionData);
     return response.data;
   } catch (error) {
-    throwAPIError(error);
+    ConvertToAPIError(error);
   }
 };
-export const getSubmission = async (route: string, teamId: string) => {
+export const getSubmission = async (route: string) => {
   try {
-    const response = await api.get(`${route}/${teamId}`);
+    const response = await api.get(`${route}/get`);
     console.log("Submission retrieved successfully:", response.data);
     return response.data;
   } catch (error) {
-    throwAPIError(error);
+    ConvertToAPIError(error);
   }
 };
 export const updateSubmission = async (
@@ -35,10 +35,28 @@ export const updateSubmission = async (
   submissionData: Omit<SubmissionData, "team_id">
 ) => {
   try {
-    const response = await api.post(`${route}/${teamId}`, submissionData);
+    const response = await api.post(`${route}/update/${teamId}`, submissionData);
     console.log("Submission updated successfully:", response.data);
     return response.data;
   } catch (error) {
-    throwAPIError(error);
+    ConvertToAPIError(error);
+  }
+};
+export const checkSubmissionExists = async (
+  route: string,
+) => {
+  try {
+    const response = await api.post(`${route}/update`);
+    if(response.status == 404)
+    {
+      return true
+    }
+    else
+    {
+      return false
+    }
+  } catch (error) {
+    ConvertToAPIError(error);
+    return false
   }
 };

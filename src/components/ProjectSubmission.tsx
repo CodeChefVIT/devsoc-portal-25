@@ -6,6 +6,7 @@ import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
+import { useSubmissionStore } from "@/store/submission";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -20,26 +21,42 @@ interface IGetButtons {
 
 export default function ProjectSubmission() {
   const user = useUserStore((state) => state.user);
+  const userSet = useUserStore((state) => state.userIsSet);
+  const checkIfSubmissionAlreadyExists = useSubmissionStore(
+    (state) => state.checkSubmissionExists
+  );
   const userFetch = useUserStore((state) => state.fetch);
-  if (!user.id) {
+  if (!userSet) {
     try {
       userFetch();
     } catch (e) {
       if (e instanceof ApiError) {
-        toast.error(e.message); // Assuming ApiError has a message property
+        toast.error(e.message);
       } else {
-        toast.error('An unexpected error occurred');
+        toast.error("An unexpected error occurred");
       }
-    
     }
   }
   const createOptions: Options = { enabled: true, visible: true };
   const editOptions: Options = { enabled: false, visible: false };
   const viewOptions: Options = { enabled: false, visible: false };
-  if (user.is_leader) {
-    // and edit options time is active
-    editOptions.enabled = true;
+  async function setFlags() {
+    if (user.is_leader && (await checkIfSubmissionAlreadyExists())) {
+      viewOptions.enabled = true;
+      viewOptions.visible = true;
+      editOptions.enabled = true;
+      editOptions.visible = true;
+    } else if (await checkIfSubmissionAlreadyExists()) {
+      viewOptions.enabled = true;
+      viewOptions.visible = true;
+      editOptions.enabled = false;
+      editOptions.visible = true;
+    } else if (user.is_leader) {
+      createOptions.enabled = false;
+      createOptions.visible = true;
+    }
   }
+  setFlags();
   return (
     <div>
       <ProjectSubmissionTemplate
