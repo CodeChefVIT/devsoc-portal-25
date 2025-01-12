@@ -6,13 +6,14 @@ import { create } from "zustand";
 
 interface IdeaStore {
   idea: IIdea;
+  checkIdeaExists: () => Promise<boolean>;
+
   updateIdea: (newIdea: IIdea) => void;
   fetch: (id: string) => void;
   updateIdeaField: <K extends keyof IIdea>(field: K, value: IIdea[K]) => void;
 }
 export const useIdeaStore = create<IdeaStore>((set) => ({
   idea: {
-    id: "", // UUID
     title: "abc123",
     description: "123",
     track: "Open Innovation",
@@ -38,7 +39,27 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
       }
     );
   },
+  checkIdeaExists: async () => {
+    try
+    {
+      const ideaExists = await checkSubmissionExists("idea");
+      return ideaExists;
+      
+    }
+    catch(e)
+    {
+      if(e instanceof ApiError)
+      {
+        toast.error(e.message)
 
+      }
+      else 
+      {
+        toast.error("internal server error")
+      }
+      return false
+    }
+  },
   updateIdeaField: (field, value) =>
     set((state) => ({
       idea: {

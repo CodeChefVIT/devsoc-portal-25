@@ -4,7 +4,6 @@ const isGitHubLink = (url: string | undefined) =>
 
 export const githubLinkSchema = z
   .string()
-  .url({ message: "GitHub link must be a valid URL" })
   .or(z.literal(""))
   .refine(isGitHubLink, {
     message: "GitHub link must be a valid GitHub URL (https://github.com/...)",

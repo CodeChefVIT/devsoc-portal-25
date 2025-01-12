@@ -16,7 +16,6 @@ export interface IdeaStore {
 }
 export const useSubmissionStore = create<IdeaStore>((set) => ({
   submission: {
-    id: "", // UUID
     title: "abc123",
     description: "123",
     track: "Open Innovation",

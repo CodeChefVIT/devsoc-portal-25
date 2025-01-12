@@ -19,11 +19,19 @@ export default function EditIdea() {
   const idea = useIdeaStore((state) => state.idea);
   const ideaFetch = useIdeaStore((state) => state.fetch);
   const ideaUpdate = useIdeaStore((state) => state.updateIdea);
+  const checkIdeaExists = useIdeaStore((state) => state.checkIdeaExists);
+
+
   React.useEffect(() => {
-    if (!idea.id) {
-      ideaFetch(iid); // Fetch idea if not loaded
-    }
-  }, [idea, ideaFetch, iid]);
+    const fetchIdeaIfNeeded = async () => {
+      if (await checkIdeaExists()) {
+        ideaFetch(iid); // Fetch idea if not loaded
+      }
+    };
+  
+    fetchIdeaIfNeeded(); // Call the async function inside the effect
+  
+  }, [idea, checkIdeaExists, ideaFetch, iid]);
 
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
@@ -32,18 +40,22 @@ export default function EditIdea() {
 
   });
   React.useEffect(() => {
-    if (idea.id) {
-      // Reset form values after user data is fetched
-      form.reset({
-        title: idea.title,
-        track: idea.track,
-        description: idea.description, //etc etc
-        figma_link: idea.figma_link,
-        github_link: idea.github_link,
-        other_link: idea.other_link,
-      });
-    }
-  }, [idea, form, form.reset]);
+    const resetFormIfIdeaExists = async () => {
+      if (await checkIdeaExists()) {
+        // Reset form values after user data is fetched
+        form.reset({
+          title: idea.title,
+          track: idea.track,
+          description: idea.description,
+          figma_link: idea.figma_link,
+          github_link: idea.github_link,
+          other_link: idea.other_link,
+        });
+      }
+    };
+  
+    resetFormIfIdeaExists();
+  }, [idea, form, checkIdeaExists, form.reset]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be

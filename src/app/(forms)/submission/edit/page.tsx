@@ -19,11 +19,13 @@ export default function EditSubmission() {
   const submission = useSubmissionStore((state) => state.submission);
   const submissionFetch = useSubmissionStore((state) => state.fetch);
   const submissionUpdate = useSubmissionStore((state) => state.updateSubmission);
+  const checkSubmissionExists = useSubmissionStore((state) => state.checkSubmissionExists);
+
   React.useEffect(() => {
-    if (!submission.id) {
+    if (!checkSubmissionExists) {
       submissionFetch(iid); // Fetch idea if not loaded
     }
-  }, [submission, submissionFetch, iid]);
+  }, [submission, submissionFetch,, checkSubmissionExists, iid]);
 
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
@@ -32,7 +34,7 @@ export default function EditSubmission() {
 
   });
   React.useEffect(() => {
-    if (submission.id) {
+    if (!checkSubmissionExists()) {
       // Reset form values after user data is fetched
       form.reset({
         title: submission.title,
@@ -43,7 +45,7 @@ export default function EditSubmission() {
         other_link: submission.other_link,
       });
     }
-  }, [submission, form, form.reset]);
+  }, [submission, form, checkSubmissionExists, form.reset]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be
