@@ -9,6 +9,7 @@ interface UserStore {
   userIsSet: boolean;
   fetch: () => Promise<void>;
   updateUser: (newUser: IUser) => void;
+
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -25,6 +26,7 @@ export const useUserStore = create<UserStore>((set) => ({
     github_profile: "https://example.com",
   },
   userIsSet: false,
+
 
   fetch: async () => {
     toast.promise(

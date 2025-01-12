@@ -2,7 +2,7 @@ import React from 'react'
 import Image from "next/image";
 
 interface InfoWrapperProps {
-    pageTitle: string,
+    pageTitle?: string,
     emojiSrc: string,
     children: React.ReactNode
 }
@@ -13,10 +13,10 @@ const InfoWrapper = ({
     children
 }: InfoWrapperProps) => {
     return (
-        <main className={'py-5 px-10 w-full h-full min-h-screen'}>
-            <h1 className={"text-3xl font-monomaniac w-full text-center"}>{pageTitle}</h1>
+        <main className={'py-5 px-10 w-full h-full min-h-screen flex flex-col gap-10 py-10'}>
+            {pageTitle && <h1 className={"text-3xl font-monomaniac w-full text-center"}>{pageTitle}</h1>}
             <div className={"w-full grid grid-cols-2"}>
-                <section className={"flex justify-center items-end"}>
+                <section className={"flex justify-center items-end h-full"}>
                     <Image
                         src={emojiSrc}
                         className={'size-80'}
