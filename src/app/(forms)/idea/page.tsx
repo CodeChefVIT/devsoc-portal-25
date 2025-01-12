@@ -17,12 +17,9 @@ export default function Idea() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
-
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-  console.log(data)
-
     toast.promise(createSubmission("idea", { ...data, team_id: "3" }), {
       loading: "Loading...",
       success: "Added idea!",
@@ -36,8 +33,7 @@ export default function Idea() {
       buttonText="Submit"
       title="Submit An Idea For Devsoc'25"
     >
-      <ProjectFormFields  form={form}></ProjectFormFields>
-
+      <ProjectFormFields form={form}></ProjectFormFields>
     </FormSkeleton>
   );
 }

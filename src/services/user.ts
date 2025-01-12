@@ -6,13 +6,10 @@ import api from ".";
 
 //change to take both submission data and user data
 export async function getUserDetails() {
-  try {
 
     const { data } = await api.get<IUser>(`/info/me`);
     return data;
-  } catch (e) {
-    throw ConvertToAPIError(e);
-  }
+
 }
 
 export async function updateUserDetails() {

@@ -1,6 +1,7 @@
 import { IIdea } from "@/interfaces";
-import { ConvertToAPIError } from "@/lib/error";
-import { getSubmission } from "@/services/submit";
+import { checkSubmissionExists, getSubmission } from "@/services/submit";
+import { ApiError } from "next/dist/server/api-utils";
+import toast from "react-hot-toast";
 import { create } from "zustand";
 
 interface IdeaStore {
@@ -20,14 +21,22 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
     ppt_link: "https://example.com/project-alpha-presentation.ppt",
     other_link: "https://example.com/project-alpha-other",
   },
+  ideaExists: () => {
+    return checkSubmissionExists("/idea");
+  },
   updateIdea: (newIdea: IIdea) => set({ idea: newIdea }),
   fetch: async () => {
-    try {
-      const ideaResponse = await getSubmission("idea", "teamIDGlobal", );
-      set({ idea: ideaResponse });
-    } catch (e) {
-      ConvertToAPIError(e);
-    }
+    toast.promise(
+      async () => {
+        const ideaResponse = await getSubmission("idea");
+        set({ idea: ideaResponse });
+      },
+      {
+        loading: "Loading...",
+        success: "Updated idea!",
+        error: (err: ApiError) => err.message,
+      }
+    );
   },
 
   updateIdeaField: (field, value) =>

@@ -127,12 +127,7 @@ export default function Settings() {
 
   React.useEffect(() => {
     if (!userIsSet) {
-      try {
-        userFetch(); // Fetch user if not loaded
-      } catch (e) {
-        console.log(e);
-        toast.error("Error fetching user details");
-      }
+      userFetch(); // Fetch user if not loaded
     }
     console.log(user);
   }, [user, userFetch, userIsSet]);
@@ -207,7 +202,6 @@ export default function Settings() {
                       field={field}
                       labelText={"Last Name"}
                       placeholderText="Last Name"
-
                       type={"text"}
                       required
                       autoFill
@@ -223,7 +217,6 @@ export default function Settings() {
                       field={field}
                       labelText={"Email"}
                       placeholderText="xyz@gmail.com"
-
                       type={"text"}
                       required
                       autoFill
@@ -238,7 +231,6 @@ export default function Settings() {
                       field={field}
                       labelText={"College"}
                       placeholderText="VIT Vellore"
-
                       type={"text"}
                       required
                       autoFill
@@ -254,7 +246,6 @@ export default function Settings() {
                       field={field}
                       required
                       items={genderItems}
-
                       placeholder="Gender"
                     />
                   )}

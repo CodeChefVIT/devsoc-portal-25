@@ -1,13 +1,18 @@
 import { IIdea } from "@/interfaces";
-import { ConvertToAPIError } from "@/lib/error";
-import { getSubmission } from "@/services/submit";
+import { checkSubmissionExists, getSubmission } from "@/services/submit";
+import { ApiError } from "next/dist/server/api-utils";
+import toast from "react-hot-toast";
 import { create } from "zustand";
 
 export interface IdeaStore {
   submission: IIdea;
   updateSubmission: (newIdea: IIdea) => void;
+  checkSubmissionExists: () => Promise<boolean>;
   fetch: (id: string) => void;
-  updateSubmissionField: <K extends keyof IIdea>(field: K, value: IIdea[K]) => void;
+  updateSubmissionField: <K extends keyof IIdea>(
+    field: K,
+    value: IIdea[K]
+  ) => void;
 }
 export const useSubmissionStore = create<IdeaStore>((set) => ({
   submission: {
@@ -20,14 +25,41 @@ export const useSubmissionStore = create<IdeaStore>((set) => ({
     ppt_link: "https://example.com/project-alpha-presentation.ppt",
     other_link: "https://example.com/project-alpha-other",
   },
+  // submissionExists: checkSubmissionExists("/submission"),
+  checkSubmissionExists: async () => {
+    try
+    {
+      const submissionExists = await checkSubmissionExists("submission");
+      return submissionExists;
+      
+    }
+    catch(e)
+    {
+      if(e instanceof ApiError)
+      {
+        toast.error(e.message)
+
+      }
+      else 
+      {
+        toast.error("internal server error")
+      }
+      return false
+    }
+  },
   updateSubmission: (newIdea: IIdea) => set({ submission: newIdea }),
   fetch: async () => {
-    try {
-      const ideaResponse = await getSubmission("idea", "teamIDGlobal", );
-      set({ submission: ideaResponse });
-    } catch (e) {
-      ConvertToAPIError(e);
-    }
+    toast.promise(
+      async () => {
+        const submissionResponse = await getSubmission("submission");
+        set({ submission: submissionResponse });
+      },
+      {
+        loading: "Loading...",
+        success: "Updated submission!",
+        error: (err: ApiError) => err.message,
+      }
+    );
   },
 
   updateSubmissionField: (field, value) =>
