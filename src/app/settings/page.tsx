@@ -1,3 +1,4 @@
+//TODO: Move this to (forms) and use the template provided there
 "use client";
 import { useUserStore } from "@/store/user";
 import React from "react";
@@ -21,6 +22,7 @@ const VITEmailSchema = z
 
 import { FormSelect } from "../../components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
+import { githubLinkSchema } from "../(forms)/schema";
 
 export const hostels: [string, ...string[]] = [
   "Men's Hostel - A Block",
@@ -79,6 +81,7 @@ const userSchema = z.object({
     .default(""), // Default registration number
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
   hostel_block: z.enum([...hostels]).default(""), // Default hostel
+  github_link: githubLinkSchema, // Default GitHub link is an empty string
 });
 
 //change to global gender and block schemas later
@@ -189,6 +192,7 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"First Name"}
+                      placeholderText="First Name"
                       type={"text"}
                       required
                       autoFill
@@ -202,6 +206,8 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"Last Name"}
+                      placeholderText="Last Name"
+
                       type={"text"}
                       required
                       autoFill
@@ -216,6 +222,8 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"Email"}
+                      placeholderText="xyz@gmail.com"
+
                       type={"text"}
                       required
                       autoFill
@@ -229,6 +237,8 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"College"}
+                      placeholderText="VIT Vellore"
+
                       type={"text"}
                       required
                       autoFill
@@ -244,6 +254,7 @@ export default function Settings() {
                       field={field}
                       required
                       items={genderItems}
+
                       placeholder="Gender"
                     />
                   )}
@@ -258,6 +269,7 @@ export default function Settings() {
                       field={field}
                       labelText={"Phone Number"}
                       type={"tel"}
+                      placeholderText="639..."
                       required
                       autoFill
                     />
@@ -271,6 +283,7 @@ export default function Settings() {
                       field={field}
                       labelText={"Registration No."}
                       type={"text"}
+                      placeholderText="23..."
                       required
                       autoFill
                     />
@@ -285,6 +298,7 @@ export default function Settings() {
                       field={field}
                       labelText={"VIT Email Address"}
                       type={"text"}
+                      placeholderText="name.lastname202X@vitstudent.ac.in"
                       required
                       autoFill
                     />
@@ -298,6 +312,7 @@ export default function Settings() {
                       field={field}
                       labelText={"Room Number"}
                       type={"number"}
+                      placeholderText="234"
                       required
                       autoFill
                     />
@@ -307,7 +322,26 @@ export default function Settings() {
                   control={form.control}
                   name={"hostel_block"}
                   render={({ field }) => (
-                    <FormSelect field={field}required items={hostelItems} type="Block"></FormSelect>
+                    <FormSelect
+                      field={field}
+                      required
+                      items={hostelItems}
+                      type="Block"
+                    ></FormSelect>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={"github_link"}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Github Link"}
+                      type={"string"}
+                      placeholderText="https://github.com/..."
+                      required
+                      autoFill
+                    />
                   )}
                 />
               </div>
