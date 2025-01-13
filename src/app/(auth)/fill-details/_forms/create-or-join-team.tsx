@@ -6,7 +6,7 @@ import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";
 import {Button} from "@/components/ui/button";
 import {useFormContext} from "react-hook-form";
-import {UserDetailsFormType, UserDetailsSchema} from "@/app/(auth)/_schemas/forms.schema";
+import {UserDetailsFormType} from "@/app/(auth)/_schemas/forms.schema";
 import {useRouter} from "next/navigation";
 import {useFormStore} from "@/app/(auth)/fill-details/_components/info-form";
 

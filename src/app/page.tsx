@@ -2,13 +2,11 @@
 "use client";
 import CustomButton from "@/components/CustomButton";
 import ProjectSubmission from "@/components/ProjectSubmission";
-import { useUserStore } from "@/store/user";
 import Image from "next/image";
 import { LiaLightbulb } from "react-icons/lia";
 
 export default function Home() {
   //store showcase
-  const user = useUserStore((state) => state.user);
 
 
   return (
@@ -112,92 +110,7 @@ export default function Home() {
         </a>
         <div className="m-20">
         <p>User store showcase:</p>
-          <table className="table-auto border-collapse border border-gray-300 w-full">
-            <tbody>
-              <tr className="bg-gray-100">
-                <td className="border border-gray-300 p-2 font-semibold">ID</td>
-                <td className="border border-gray-300 p-2">{user.id}</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Name
-                </td>
-                <td className="border border-gray-300 p-2">{user.name}</td>
-              </tr>
-              <tr className="bg-gray-100">
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Email
-                </td>
-                <td className="border border-gray-300 p-2">{user.email}</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Team ID
-                </td>
-                <td className="border border-gray-300 p-2">{user.team_id}</td>
-              </tr>
-              <tr className="bg-gray-100">
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Is Vitian?
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {user.is_vitian ? "Yes" : "No"}
-                </td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Registration No
-                </td>
-                <td className="border border-gray-300 p-2">{user.reg_no}</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Registration No
-                </td>
-                <td className="border border-gray-300 p-2">{user.reg_no}</td>
-              </tr>
-              <tr className="bg-gray-100">
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Password
-                </td>
-                <td className="border border-gray-300 p-2">{user.password}</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Phone No
-                </td>
-                <td className="border border-gray-300 p-2">{user.phone_no}</td>
-              </tr>
-              <tr className="bg-gray-100">
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Role
-                </td>
-                <td className="border border-gray-300 p-2">{user.role}</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Is Leader?
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {user.is_leader ? "Yes" : "No"}
-                </td>
-              </tr>
-              <tr className="bg-gray-100">
-                <td className="border border-gray-300 p-2 font-semibold">
-                  College
-                </td>
-                <td className="border border-gray-300 p-2">{user.college}</td>
-              </tr>
-              <tr>
-                <td className="border border-gray-300 p-2 font-semibold">
-                  Is Verified?
-                </td>
-                <td className="border border-gray-300 p-2">
-                  {user.is_verified ? "Yes" : "No"}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+
         </div>
       </footer>
     </div>

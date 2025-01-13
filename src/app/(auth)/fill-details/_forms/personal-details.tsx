@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, {useEffect} from 'react'
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";

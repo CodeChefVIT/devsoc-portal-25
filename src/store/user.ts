@@ -1,3 +1,4 @@
+"use client";
 import { IUser } from "@/interfaces";
 import { getUserDetails } from "@/services/user";
 import { ApiError } from "next/dist/server/api-utils";
