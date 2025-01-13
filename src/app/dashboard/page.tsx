@@ -60,7 +60,7 @@ const Dashboard: React.FC = () => {
   const canMakeTeam = (): boolean => {
     // Implement your logic here to check if the user can make a team
     // For example, if the user is an admin or if they are part of a certain group:
-    return true; // For now, it always returns true
+    return false; // For now, it always returns true
   };
 
   // Update the timer every second
