@@ -57,3 +57,6 @@ export const GithubProfileSchema = z.string().regex(
 export const JoinTeamSchema = z.string().trim().min(1, "Required");
 
 export const CreateTeamSchema = z.string().trim().min(1, "Required");
+
+export class OTPFormSchema {
+}

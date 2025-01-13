@@ -20,11 +20,11 @@ const VITEmailSchema = z
     "Invalid Email Address"
   );
 
-import { FormSelect } from "../../components/form/formSelectItem";
+import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
 
-export const hostels: [string, ...string[]] = [
+const hostels: [string, ...string[]] = [
   "Men's Hostel - A Block",
   "Men's Hostel - B Block",
   "Men's Hostel - C Block",
@@ -80,7 +80,7 @@ const userSchema = z.object({
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
     .default(""), // Default registration number
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
-  hostel_block: z.enum([...hostels]).default(""), // Default hostel
+  hostel_block: z.enum(hostels as [string, ...string[]]).default(""), // Default hostel
   github_link: githubLinkSchema, // Default GitHub link is an empty string
 });
 
@@ -90,7 +90,8 @@ const genderItems = [
   { value: "F", label: "Female" },
   { value: "O", label: "Other" },
 ];
-export const hostelItems = [
+
+const hostelItems = [
   { value: "Men's Hostel - A Block", label: "Men's Hostel - A Block" },
   { value: "Men's Hostel - B Block", label: "Men's Hostel - B Block" },
   { value: "Men's Hostel - C Block", label: "Men's Hostel - C Block" },
