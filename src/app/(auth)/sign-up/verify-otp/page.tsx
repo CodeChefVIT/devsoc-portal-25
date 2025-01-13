@@ -7,8 +7,8 @@ import {Button} from "@/components/ui/button";
 import {Form, FormField} from "@/components/ui/form";
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import {useForm} from "react-hook-form";
-import {OTPFormSchema, OTPFormType} from "@/app/(auth)/_schemas/general.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
+import {OTPFormSchema, OTPFormType} from "@/app/(auth)/_schemas/forms.schema";
 
 const Page = () => {
 

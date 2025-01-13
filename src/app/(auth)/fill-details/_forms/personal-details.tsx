@@ -26,7 +26,7 @@ const PersonalDetails = () => {
 
     useEffect(() => {
         ;(async()=>error && await form.trigger())()
-    }, []);
+    });
 
     return (
         <div className={"my-5 flex justify-center w-full"}>
