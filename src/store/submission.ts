@@ -8,7 +8,7 @@ export interface IdeaStore {
   submission: IIdea;
   updateSubmission: (newIdea: IIdea) => void;
   checkSubmissionExists: () => Promise<boolean>;
-  fetch: (id: string) => void;
+  fetch: () => void;
   updateSubmissionField: <K extends keyof IIdea>(
     field: K,
     value: IIdea[K]
@@ -33,7 +33,7 @@ export const useSubmissionStore = create<IdeaStore>((set) => ({
       if (e instanceof ApiError) {
         toast.error(e.message);
       } else {
-        toast.error("internal server error");
+        toast.error("unknown error occurred");
       }
       return false;
     }
@@ -47,7 +47,7 @@ export const useSubmissionStore = create<IdeaStore>((set) => ({
       if (e instanceof ApiError) {
         toast.error(e.message);
       } else {
-        toast.error("internal server error");
+        toast.error("unknown error occurred");
       }
     }
   },

@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import FormSkeleton from "../../formSkeleton";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { projectSchema } from "../../schema";
-import { useParams } from "next/navigation";
 import { updateSubmission } from "@/services/submit";
 import ProjectFormFields from "../../formFields";
 import toast from "react-hot-toast";
@@ -14,7 +13,6 @@ import { useSubmissionStore } from "@/store/submission";
 import { defaults } from "../../defaults";
 
 export default function EditSubmission() {
-  const { iid } = useParams<{ iid: string }>();
 
   const submission = useSubmissionStore((state) => state.submission);
   const submissionFetch = useSubmissionStore((state) => state.fetch);
@@ -25,20 +23,20 @@ export default function EditSubmission() {
     (state) => state.checkSubmissionExists
   );
 
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchIfSubmissionExists = async () => {
-      if ((await checkSubmissionExists)) submissionFetch(iid); // Fetch idea if not loaded
+      if (!checkSubmissionExists) submissionFetch(); // Fetch idea if not loaded
     };
-    
+
     fetchIfSubmissionExists();
-  }, [submission, submissionFetch, , checkSubmissionExists, iid]);
+  }, []);
 
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
   });
-  React.useEffect(() => {
+  useEffect(() => {
     const resetIfSubmissionExists = async () => {
       try {
         if (await checkSubmissionExists()) {
@@ -64,12 +62,12 @@ export default function EditSubmission() {
     //TODO update idea from be
     toast.promise(
       async () => {
-        updateSubmission("idea", "teamID", { ...data, ...submission });
+        updateSubmission("submission", { ...data, ...submission });
         submissionUpdate({ ...data, ...submission });
       },
       {
         loading: "Loading...",
-        success: "Updated asdf!",
+        success: "Updated your submission!",
         error: (err: ApiError) => err.message,
       }
     );

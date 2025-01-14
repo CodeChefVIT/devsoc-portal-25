@@ -33,7 +33,7 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
     } catch (err) {
       if (err instanceof ApiError) toast.error(err.message);
       else {
-        toast.error("internal server error");
+        toast.error("unknown error occurred");
       }
     }
   },
@@ -45,7 +45,7 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
       if (e instanceof ApiError) {
         toast.error(e.message);
       } else {
-        toast.error("internal server error");
+        toast.error("unknown error occurred");
       }
       return false;
     }
