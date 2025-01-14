@@ -2,7 +2,8 @@
 // import api from "."
 import { APIResponse, IUser } from "@/interfaces";
 import { ConvertToAPIError } from "@/lib/error";
-import api, { getData } from ".";
+import api from ".";
+import { getData } from "@/lib/utils";
 
 //change to take both submission data and user data
 export async function getUserDetails() {
