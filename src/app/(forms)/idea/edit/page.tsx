@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import FormSkeleton from "../../formSkeleton";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,23 +21,20 @@ export default function EditIdea() {
   const ideaUpdate = useIdeaStore((state) => state.updateIdea);
   const checkIdeaExists = useIdeaStore((state) => state.checkIdeaExists);
 
-
-  React.useEffect(() => {
+  useEffect(() => {
     const fetchIdeaIfNeeded = async () => {
-      if (await checkIdeaExists()) {
+      if (!(await checkIdeaExists())) {
         ideaFetch(iid); // Fetch idea if not loaded
       }
     };
-  
+
     fetchIdeaIfNeeded(); // Call the async function inside the effect
-  
-  }, [idea, checkIdeaExists, ideaFetch, iid]);
+  }, []);
 
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
-
   });
   React.useEffect(() => {
     const resetFormIfIdeaExists = async () => {
@@ -53,23 +50,24 @@ export default function EditIdea() {
         });
       }
     };
-  
+
     resetFormIfIdeaExists();
   }, [idea, form, checkIdeaExists, form.reset]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be
-    toast.promise(async () => {
-      updateSubmission("submission", "teamID", { ...data, ...idea });
-      ideaUpdate({ ...data, ...idea });
-    },
-    {
-      loading: "Loading...",
-      success: "Updated submission!",
-      error: (err: ApiError) => err.message,
-    })
+    toast.promise(
+      async () => {
+        updateSubmission("idea", { ...data, ...idea });
+        ideaUpdate({ ...data, ...idea });
+      },
+      {
+        loading: "Loading...",
+        success: "Updated idea!",
+        error: (err: ApiError) => err.message,
+      }
+    );
   };
-
 
   return (
     <FormSkeleton
@@ -79,8 +77,7 @@ export default function EditIdea() {
       title="Edit Your idea For Devsoc’25"
     >
       <div className="flex w-full  flex-col gap-6">
-      <ProjectFormFields  form={form}></ProjectFormFields>
-
+        <ProjectFormFields form={form}></ProjectFormFields>
       </div>
     </FormSkeleton>
   );

@@ -1,6 +1,6 @@
 import ProjectSubmissionTemplate from "./ProjectSubmissionTemplate";
 import icon from "../../public/bulb.svg";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { Idea, RequestQuote } from "@carbon/icons-react";
 import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
@@ -26,17 +26,26 @@ export default function ProjectSubmission() {
     (state) => state.checkSubmissionExists
   );
   const userFetch = useUserStore((state) => state.fetch);
-  if (!userSet) {
-    try {
-      userFetch();
-    } catch (e) {
-      if (e instanceof ApiError) {
-        toast.error(e.message);
-      } else {
-        toast.error("An unexpected error occurred");
-      }
+  useEffect(() => {
+    // Only run if userSet is false
+    if (!userSet) {
+      const fetchUser = async () => {
+        try {
+          await userFetch(); // Assuming this is an async function
+        } catch (e) {
+          if (e instanceof ApiError) {
+            toast.error(e.message);
+          } else {
+            toast.error("An unexpected error occurred");
+          }
+        }
+      };
+  
+      // Call the async function
+      fetchUser();
     }
-  }
+  }, [userSet, userFetch]); // Dependency array with `userSet`
+  
   const createOptions: Options = { enabled: true, visible: true };
   const editOptions: Options = { enabled: false, visible: false };
   const viewOptions: Options = { enabled: false, visible: false };

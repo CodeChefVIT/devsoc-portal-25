@@ -8,7 +8,7 @@ export interface IdeaStore {
   submission: IIdea;
   updateSubmission: (newIdea: IIdea) => void;
   checkSubmissionExists: () => Promise<boolean>;
-  fetch: (id: string) => void;
+  fetch: () => void;
   updateSubmissionField: <K extends keyof IIdea>(
     field: K,
     value: IIdea[K]
@@ -26,39 +26,30 @@ export const useSubmissionStore = create<IdeaStore>((set) => ({
   },
   // submissionExists: checkSubmissionExists("/submission"),
   checkSubmissionExists: async () => {
-    try
-    {
+    try {
       const submissionExists = await checkSubmissionExists("submission");
       return submissionExists;
-      
-    }
-    catch(e)
-    {
-      if(e instanceof ApiError)
-      {
-        toast.error(e.message)
-
+    } catch (e) {
+      if (e instanceof ApiError) {
+        toast.error(e.message);
+      } else {
+        toast.error("unknown error occurred");
       }
-      else 
-      {
-        toast.error("internal server error")
-      }
-      return false
+      return false;
     }
   },
   updateSubmission: (newIdea: IIdea) => set({ submission: newIdea }),
   fetch: async () => {
-    toast.promise(
-      async () => {
-        const submissionResponse = await getSubmission("submission");
-        set({ submission: submissionResponse });
-      },
-      {
-        loading: "Loading...",
-        success: "Updated submission!",
-        error: (err: ApiError) => err.message,
+    try {
+      const submissionResponse = await getSubmission("submission");
+      set({ submission: submissionResponse });
+    } catch (e) {
+      if (e instanceof ApiError) {
+        toast.error(e.message);
+      } else {
+        toast.error("unknown error occurred");
       }
-    );
+    }
   },
 
   updateSubmissionField: (field, value) =>

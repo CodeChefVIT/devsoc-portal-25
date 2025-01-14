@@ -29,7 +29,6 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[url('/images/auth-bg.svg')]`}
       >
-        {/*<Navbar></Navbar>*/}
         <Toaster position="top-right" reverseOrder={false} />
         {children}
       </body>
