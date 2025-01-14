@@ -1,4 +1,3 @@
-"use client";
 import { IUser } from "@/interfaces";
 import { getUserDetails } from "@/services/user";
 import { ApiError } from "next/dist/server/api-utils";
@@ -10,7 +9,6 @@ interface UserStore {
   userIsSet: boolean;
   fetch: () => Promise<void>;
   updateUser: (newUser: IUser) => void;
-
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -28,20 +26,18 @@ export const useUserStore = create<UserStore>((set) => ({
   },
   userIsSet: false,
 
-
   fetch: async () => {
-    toast.promise(
-      async () => {
-        const userResponse = await getUserDetails();
-        set({ userIsSet: true });
-        set({ user: userResponse });
-      },
-      {
-        loading: "Loading...",
-        success: "Updated your details!",
-        error: (err: ApiError) => err.message,
+    try {
+      const userResponse = await getUserDetails();
+      set({ userIsSet: true });
+      set({ user: userResponse });
+    } catch (e) {
+      if (e instanceof ApiError) {
+        toast.error(e.message);
+      } else {
+        toast.error("internal server error");
       }
-    );
+    }
   },
   updateUser: (newUser: IUser) => set({ user: newUser }),
 }));

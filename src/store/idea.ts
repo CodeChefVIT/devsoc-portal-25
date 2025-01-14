@@ -27,37 +27,27 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
   },
   updateIdea: (newIdea: IIdea) => set({ idea: newIdea }),
   fetch: async () => {
-    toast.promise(
-      async () => {
-        const ideaResponse = await getSubmission("idea");
-        set({ idea: ideaResponse });
-      },
-      {
-        loading: "Loading...",
-        success: "Updated idea!",
-        error: (err: ApiError) => err.message,
+    try {
+      const ideaResponse = await getSubmission("idea");
+      set({ idea: ideaResponse });
+    } catch (err) {
+      if (err instanceof ApiError) toast.error(err.message);
+      else {
+        toast.error("internal server error");
       }
-    );
+    }
   },
   checkIdeaExists: async () => {
-    try
-    {
+    try {
       const ideaExists = await checkSubmissionExists("idea");
       return ideaExists;
-      
-    }
-    catch(e)
-    {
-      if(e instanceof ApiError)
-      {
-        toast.error(e.message)
-
+    } catch (e) {
+      if (e instanceof ApiError) {
+        toast.error(e.message);
+      } else {
+        toast.error("internal server error");
       }
-      else 
-      {
-        toast.error("internal server error")
-      }
-      return false
+      return false;
     }
   },
   updateIdeaField: (field, value) =>

@@ -1,4 +1,3 @@
-
 "use client";
 import CustomButton from "@/components/CustomButton";
 import ProjectSubmission from "@/components/ProjectSubmission";
@@ -8,14 +7,12 @@ import { LiaLightbulb } from "react-icons/lia";
 export default function Home() {
   //store showcase
 
-
   return (
     <div className="items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-
-        <p>Submit showcase</p>
-        <ProjectSubmission></ProjectSubmission>
+      <p>Submit showcase</p>
+      <ProjectSubmission></ProjectSubmission>
       <p>Custom button showcase:</p>
-      <CustomButton icon={<LiaLightbulb  />}>idea</CustomButton>
+      <CustomButton icon={<LiaLightbulb />}>idea</CustomButton>
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
@@ -108,10 +105,7 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-        <div className="m-20">
-        <p>User store showcase:</p>
-
-        </div>
+        <div className="m-20"></div>
       </footer>
     </div>
   );

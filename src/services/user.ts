@@ -1,22 +1,20 @@
 // import { IUser } from "@/interfaces";
 // import api from "."
-import { IUser } from "@/interfaces";
+import { APIResponse, IUser } from "@/interfaces";
 import { ConvertToAPIError } from "@/lib/error";
-import api from ".";
+import api, { getData } from ".";
 
 //change to take both submission data and user data
 export async function getUserDetails() {
-
-    const { data } = await api.get<IUser>(`/info/me`);
-    return data;
-
+  const response = await api.get<APIResponse<IUser>>(`/info/me`);
+  return getData(response.data);
 }
 
 export async function updateUserDetails() {
   try {
-    const data = "success"
-    // const { data } = await api.post<IUser>(`/me`);
-    return data;
+    // const data = "success"
+    const response = await api.post<APIResponse<IUser>>(`/info/me`);
+    return getData(response.data);
   } catch (e) {
     throw ConvertToAPIError(e);
   }

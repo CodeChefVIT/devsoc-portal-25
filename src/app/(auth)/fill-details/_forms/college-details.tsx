@@ -1,4 +1,4 @@
-bh"use client"
+"use client"
 import React, {useEffect} from 'react'
 import Modal from "@/app/(auth)/_components/modal";
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";
@@ -25,7 +25,7 @@ const CollegeDetails = () => {
 
     useEffect(() => {
         ;(async()=>error && await form.trigger())()
-    });
+    }, []);
 
     return (
         <div className={"flex justify-center w-full"}>

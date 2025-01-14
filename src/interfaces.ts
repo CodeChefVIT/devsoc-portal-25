@@ -12,7 +12,11 @@ export interface IUser {
   room_no: number;
   github_profile: string;
 }
-
+export interface APIResponse<T> {
+  status: string;
+  message: string
+  data: T;
+}
 
 // Interface for the 'submission' table
 export interface ISubmission {
