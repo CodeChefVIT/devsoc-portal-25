@@ -40,32 +40,32 @@ export default function ProjectSubmission() {
           }
         }
       };
-  
+      
       // Call the async function
       fetchUser();
+      async function setFlags() {
+        if (user.is_leader && (await checkIfSubmissionAlreadyExists())) {
+          viewOptions.enabled = true;
+          viewOptions.visible = true;
+          editOptions.enabled = true;
+          editOptions.visible = true;
+        } else if (await checkIfSubmissionAlreadyExists()) {
+          viewOptions.enabled = true;
+          viewOptions.visible = true;
+          editOptions.enabled = false;
+          editOptions.visible = true;
+        } else if (user.is_leader) {
+          createOptions.enabled = false;
+          createOptions.visible = true;
+        }
+      }
+      setFlags();
     }
-  }, [userSet, userFetch]); // Dependency array with `userSet`
-  
+  }, [userSet, userFetch, checkIfSubmissionAlreadyExists, ]); // Dependency array with `userSet`
+
   const createOptions: Options = { enabled: true, visible: true };
   const editOptions: Options = { enabled: false, visible: false };
   const viewOptions: Options = { enabled: false, visible: false };
-  async function setFlags() {
-    if (user.is_leader && (await checkIfSubmissionAlreadyExists())) {
-      viewOptions.enabled = true;
-      viewOptions.visible = true;
-      editOptions.enabled = true;
-      editOptions.visible = true;
-    } else if (await checkIfSubmissionAlreadyExists()) {
-      viewOptions.enabled = true;
-      viewOptions.visible = true;
-      editOptions.enabled = false;
-      editOptions.visible = true;
-    } else if (user.is_leader) {
-      createOptions.enabled = false;
-      createOptions.visible = true;
-    }
-  }
-  setFlags();
   return (
     <div>
       <ProjectSubmissionTemplate
