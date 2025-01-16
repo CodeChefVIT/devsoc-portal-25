@@ -1,4 +1,5 @@
 "use client";
+import { useTimerStore } from "@/store/timer";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -36,12 +37,9 @@ const getTimeLeft = (expiry: number): TimeCount => {
   return { hours, minutes, seconds };
 };
 
-const Timer = ({
-  setTimeOver,
-}: {
-  setTimeOver: React.Dispatch<React.SetStateAction<boolean>>;
-}) => {
-  const router = useRouter();
+const Timer = () => {
+    const EndTimer = useTimerStore((state) => state.EndTimer);
+    const router = useRouter();
   const [timeLeft, setTimeLeft] = useState<TimeCount>();
   const [expiryTime, setExpiryTime] = useState<number | null>(null);
 
@@ -54,7 +52,7 @@ const Timer = ({
           const expiry = new Date().getTime() + data.remainingTime * 1000;
           setExpiryTime(expiry);
         } else if (data.remainingTime <= 0) {
-          setTimeOver(true);
+          EndTimer();
         }
       } catch {
         router.push("/dashboard");
@@ -62,7 +60,7 @@ const Timer = ({
     };
 
     void fetchTime();
-  }, [router, setTimeOver]);
+  }, [router, EndTimer]);
 
   useEffect(() => {
     if (!expiryTime) return;
@@ -89,14 +87,15 @@ const Timer = ({
       timeLeft?.minutes === "00" &&
       timeLeft?.seconds === "00"
     ) {
-      setTimeOver(true);
+      EndTimer();
     }
-  }, [timeLeft, setTimeOver]);
+  }, [timeLeft, EndTimer]);
 
   return (
+ 
     timeLeft && (
-      <div className="m-4 border-2 border-cream p-2 text-center text-accent">
-        <h1 className="w-[100px] text-xl font-bold">{`${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`}</h1>
+      <div >
+        <h1 >{`${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`}</h1>
       </div>
     )
   );
