@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_CLIENTVAR,
+  headers: {
+    "Content-Type": "application/json",
+  }
 });
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {

@@ -9,7 +9,10 @@ import {Button} from "@/components/ui/button";
 import {useForm} from "react-hook-form";
 import {SignupFormType, SignupSchema} from "@/app/(auth)/_schemas/forms.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {login} from "@/services/auth";
+import toast from "react-hot-toast";
+import {ApiError} from "next/dist/server/api-utils";
+import {login, signup} from "@/services/auth";
+import {redirect, useRouter} from "next/navigation";
 
 const SignUp = () => {
 
@@ -23,13 +26,18 @@ const SignUp = () => {
         }
     })
 
-    const onSubmit = async (values: SignupFormType)=>{
-        const res = await login({
-            email: values.email,
-            password: values.password
-        })
-        if (res.success){
+    const router = useRouter();
 
+    const onSubmit = async (values: SignupFormType) =>{
+        try {
+            const res = await signup({
+                email: values.email,
+                password: values.password
+            })
+            console.log(res)
+            router.push(`/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`)
+        } catch(error){
+            toast.error((error as Error).message)
         }
     }
 

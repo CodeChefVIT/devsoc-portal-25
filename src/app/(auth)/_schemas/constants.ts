@@ -1,4 +1,4 @@
-export const genders: {[key: string]: string} = {
+export const genders: {[key: string]: "M" | "F" | "O" } = {
     "Male": 'M',
     "Female": 'F',
     "Other": 'O'

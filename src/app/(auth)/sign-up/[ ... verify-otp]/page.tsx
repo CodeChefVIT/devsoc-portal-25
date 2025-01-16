@@ -9,8 +9,13 @@ import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {OTPFormSchema, OTPFormType} from "@/app/(auth)/_schemas/forms.schema";
+import { verifyOTP } from "@/services/auth"
+import toast from "react-hot-toast";
+import {redirect, useSearchParams} from "next/navigation";
 
 const Page = () => {
+    const searchParams = useSearchParams();
+    const email = searchParams.get('email');
 
     const form = useForm<OTPFormType>({
         resolver: zodResolver(OTPFormSchema),
@@ -20,9 +25,20 @@ const Page = () => {
         }
     })
 
-    const onSubmit = (values: OTPFormType)=>{
-
-        console.log(values)
+    const onSubmit = async (values: OTPFormType)=>{
+        if (!email) return;
+        console.log(email);
+        try {
+            const res = await verifyOTP({
+                otp: values.otp,
+                email,
+            });
+            console.log(res);
+            // toast.success(res.message);
+            redirect("/github-activity");
+        } catch(error){
+            toast.error((error as Error).message);
+        }
     }
 
     return (

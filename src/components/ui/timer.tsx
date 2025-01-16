@@ -55,7 +55,7 @@ const Timer = () => {
           EndTimer();
         }
       } catch {
-        router.push("/dashboard");
+        // router.push("/dashboard");
       }
     };
 

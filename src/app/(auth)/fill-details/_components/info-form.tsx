@@ -5,7 +5,7 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {Form} from "@/components/ui/form";
 
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+// import { persist } from 'zustand/middleware'
 
 interface FormStore {
     formData: UserDetailsFormType
@@ -16,8 +16,7 @@ interface FormStore {
 }
 
 export const useFormStore = create<FormStore>()(
-    persist(
-        (set) => ({
+    set => ({
             formData: defaultUserDetails,
             updateFormData: (data) => set((state) => ({
                 formData: { ...state.formData, ...data }
@@ -25,11 +24,7 @@ export const useFormStore = create<FormStore>()(
             clearFormData: () => set({ formData: defaultUserDetails, error: false}),
             error: false,
             setError: ()=>set({ error: true }),
-        }),
-        {
-            name: 'form-storage'
-        }
-    )
+        })
 )
 
 const InfoForm = ({
