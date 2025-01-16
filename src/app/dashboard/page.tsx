@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 // import iconContainer from "/public/images/iconContainer.png";
 // import github from "/public/images/github.png";
-import devsoc from "../../../public/images/devsoc.png";
 // import settings from "/public/images/settings.png";
 // import idea from "/public/images/idea.png";
 // import track_pic from "/public/images/track_pic.png";
@@ -21,8 +19,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import Link from "next/link";
-import ProjectSubmissionTemplate from "@/components/ProjectSubmissionTemplate";
 import ProjectSubmission from "@/components/ProjectSubmission";
 
 interface Event {
@@ -55,7 +51,6 @@ const tracks: Track[] = [
 ];
 
 const Dashboard: React.FC = () => {
-  const [time, setTime] = useState("");
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
 
   // Function to determine if the user can make a team or should join/create a team
@@ -65,70 +60,12 @@ const Dashboard: React.FC = () => {
     return false; // For now, it always returns true
   };
 
-  // Update the timer every second
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const now = new Date();
-      const formattedTime = now.toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-      });
-      setTime(formattedTime);
-    }, 1000);
 
-    return () => clearInterval(interval);
-  }, []);
+
 
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header
-        className="flex justify-between items-center px-4"
-        style={{ backgroundColor: "#FF6D33", height: "65px" }}
-      >
-        {/* Left Section */}
-        <div className="flex items-center gap-2">
-          <Image
-            src={devsoc}
-            alt="DEVSOC Logo"
-            width={40}
-            height={40}
-            className="ml-5"
-          />
-          <div className="text-white font-yerk font-bold text-3xl ml-4">
-            PORTAL
-          </div>
-        </div>
-
-        {/* Right Section */}
-        <div className="flex items-center gap-4">
-          <div className="bg-white text-black border border-black rounded-lg px-4 py-2 font-bold text-lg">
-            {time}
-          </div>
-          <Image
-            src="/images/github.png"
-            alt="Github Logo"
-            width={40}
-            height={40}
-          />
-          <Image
-            src="/images/devsoc.png"
-            alt="Another Logo"
-            width={40}
-            height={40}
-          />
-          <Link href={"/settings"}>
-            <Image
-              src="/images/settings.png"
-              alt="Setting Icon"
-              width={40}
-              height={40}
-            />
-          </Link>
-          <div className="w-6 h-6 rounded-full flex items-center justify-center"></div>
-        </div>
-      </header>
 
       <div className="flex flex-1 p-4 gap-6 ">
         {/* Sidebar */}
