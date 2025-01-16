@@ -26,10 +26,8 @@ export default function Navbar() {
 
     {/* Right Section */}
     <div className="flex items-center gap-4">
-      <div className="bg-white text-black border border-black rounded-lg px-4 py-2 font-bold text-lg">
-        <Timer></Timer>
+        <Timer />
         {/* change to real timer */}
-      </div>
       <Image
         src="/images/github.png"
         alt="Github Logo"
