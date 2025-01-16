@@ -21,6 +21,7 @@ const Page = () => {
     })
 
     const onSubmit = (values: OTPFormType)=>{
+
         console.log(values)
     }
 

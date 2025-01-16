@@ -1,12 +1,13 @@
 "use client"
 
-import React from 'react'
+import React, {useState} from 'react'
 import InfoWrapper from "@/app/(auth)/fill-details/_components/info-wrapper";
 import PersonalDetails from "@/app/(auth)/fill-details/_forms/personal-details";
 import CollegeDetails from "@/app/(auth)/fill-details/_forms/college-details";
 import CreateOrJoinTeam from "@/app/(auth)/fill-details/_forms/create-or-join-team";
 import {notFound} from "next/navigation";
 import InfoForm from "@/app/(auth)/fill-details/_components/info-form";
+import TeamAlert from "@/app/(auth)/fill-details/_components/team-alert";
 
 const pageEmojis = [
     "/images/emoji_1.svg",
@@ -15,6 +16,7 @@ const pageEmojis = [
 ];
 
 const formPage = (level: string) => {
+
     if (level === '1'){
         return <InfoWrapper pageTitle={"Tell Us About Yourself"} emojiSrc={pageEmojis[0]}>
             <PersonalDetails />
@@ -28,9 +30,12 @@ const formPage = (level: string) => {
     }
 
     else if (level === '3'){
-        return <InfoWrapper pageTitle={"Team Formation"} emojiSrc={pageEmojis[2]}>
-            <CreateOrJoinTeam />
-        </InfoWrapper>
+        return <div>
+            <TeamAlert open={true} />
+            <InfoWrapper pageTitle={"Team Formation"} emojiSrc={pageEmojis[2]}>
+                <CreateOrJoinTeam />
+            </InfoWrapper>
+        </div>
     }
 
     else {
