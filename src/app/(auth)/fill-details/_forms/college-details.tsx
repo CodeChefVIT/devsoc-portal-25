@@ -25,7 +25,7 @@ const CollegeDetails = () => {
 
     useEffect(() => {
         ;(async()=>error && await form.trigger())()
-    }, []);
+    }, [error, form]);
 
     return (
         <div className={"flex justify-center w-full"}>
@@ -45,7 +45,7 @@ const CollegeDetails = () => {
                 <InfoFormField name={'hostelBlock'} render={({ field })=>(
                     <AuthFormDropdown items={hostels} labelText={"Hostel Block"} field={field} required />
                 )} />
-                <Button variant={"primary"} size={"primary"} className={"my-2"} onClick={handleNext}>
+                <Button variant={"primary"} size={"primary"} type={"button"} className={"my-2"} onClick={handleNext}>
                     Next
                 </Button>
             </Modal>

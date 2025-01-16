@@ -2,7 +2,7 @@ import React from 'react'
 
 interface IAuthFormToggle{
     checked: boolean,
-    setChecked: React.Dispatch<React.SetStateAction<boolean>>,
+    setChecked: (checkState: boolean)=>void,
     text: string
 }
 
