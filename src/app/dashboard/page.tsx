@@ -2,16 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import iconContainer from "/public/images/iconContainer.png";
-import github from "/public/images/github.png";
-import devsoc from "/public/images/devsoc.png";
-import settings from "/public/images/settings.png";
-import idea from "/public/images/idea.png";
-import track_pic from "/public/images/track_pic.png";
+// import iconContainer from "/public/images/iconContainer.png";
+// import github from "/public/images/github.png";
+import devsoc from "../../../public/images/devsoc.png";
+// import settings from "/public/images/settings.png";
+// import idea from "/public/images/idea.png";
+// import track_pic from "/public/images/track_pic.png";
 import Timeline from "@/components/timeline/timeline";
 import JoinTeamDialog from "@/components/join_team/join_team";
 import CreateTeamDialog from "@/components/create_team/create_team";
-import SubmitDialog from "@/components/submit_idea/submit_idea";
 import MakeTeam from "@/components/make_team/make_team";
 
 import {
@@ -22,6 +21,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import Link from "next/link";
+import ProjectSubmissionTemplate from "@/components/ProjectSubmissionTemplate";
+import ProjectSubmission from "@/components/ProjectSubmission";
 
 interface Event {
   time: string;
@@ -88,7 +90,7 @@ const Dashboard: React.FC = () => {
         {/* Left Section */}
         <div className="flex items-center gap-2">
           <Image
-            src="/images/DEVSOC.png"
+            src={devsoc}
             alt="DEVSOC Logo"
             width={40}
             height={40}
@@ -104,9 +106,26 @@ const Dashboard: React.FC = () => {
           <div className="bg-white text-black border border-black rounded-lg px-4 py-2 font-bold text-lg">
             {time}
           </div>
-          <Image src="/images/github.png" alt="Github Logo" width={40} height={40} />
-          <Image src="/images/DEVSOC.png" alt="Another Logo" width={40} height={40} />
-          <Image src="/images/settings.png" alt="Setting Icon" width={40} height={40} />
+          <Image
+            src="/images/github.png"
+            alt="Github Logo"
+            width={40}
+            height={40}
+          />
+          <Image
+            src="/images/devsoc.png"
+            alt="Another Logo"
+            width={40}
+            height={40}
+          />
+          <Link href={"/settings"}>
+            <Image
+              src="/images/settings.png"
+              alt="Setting Icon"
+              width={40}
+              height={40}
+            />
+          </Link>
           <div className="w-6 h-6 rounded-full flex items-center justify-center"></div>
         </div>
       </header>
@@ -132,12 +151,22 @@ const Dashboard: React.FC = () => {
               </DialogTrigger>
               <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-6">
                 <DialogHeader>
-                  <DialogTitle className="font-yerk mb-6">Track Details</DialogTitle>
+                  <DialogTitle className="font-yerk mb-6">
+                    Track Details
+                  </DialogTitle>
                   <DialogDescription className="">
                     <b className="mb-3">Hardware Problems</b>
                     <div>
-                      <li>Detailed information about the track goes here. You can add descriptions, links, or anything else related to the track.</li>
-                      <li>Detailed information about the track goes here. You can add descriptions, links, or anything else related to the track.</li>
+                      <li>
+                        Detailed information about the track goes here. You can
+                        add descriptions, links, or anything else related to the
+                        track.
+                      </li>
+                      <li>
+                        Detailed information about the track goes here. You can
+                        add descriptions, links, or anything else related to the
+                        track.
+                      </li>
                     </div>
                   </DialogDescription>
                 </DialogHeader>
@@ -165,7 +194,9 @@ const Dashboard: React.FC = () => {
                 <div className="flex items-center justify-center bg-[#F7F3F0] mt-10 mb-10">
                   <img src="images/iconContainer.png" alt="Icon Container" />
                 </div>
-                <div className="text-sm mb-4 text-center">No Team Members Yet?</div>
+                <div className="text-sm mb-4 text-center">
+                  No Team Members Yet?
+                </div>
                 <div className="flex gap-2 justify-center">
                   <JoinTeamDialog />
                   <CreateTeamDialog />
@@ -174,19 +205,7 @@ const Dashboard: React.FC = () => {
             )}
 
             {/* Project Submission Box */}
-            <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0]">
-              <div className="font-bold bg-black h-[40px] text-white flex justify-between px-4 items-center">
-                Project Submission
-                <div className="w-4 h-4 border-2 border-black rounded-full bg-white"></div>
-              </div>
-              <div className="flex items-center justify-center bg-[#F7F3F0] mt-10 mb-10 ">
-                <img src="/images/idea.png" alt="Idea Icon" />
-              </div>
-              <div className="text-sm mb-4 text-center">No Idea Submitted Yet</div>
-              <div className="flex justify-center">
-                <SubmitDialog />
-              </div>
-            </div>
+            <ProjectSubmission></ProjectSubmission>
           </div>
         </main>
       </div>

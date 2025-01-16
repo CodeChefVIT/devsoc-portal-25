@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import CustomButton from "../CustomButton";
 
 const JoinTeamDialog: React.FC = () => {
   const [teamCode, setTeamCode] = useState("");
@@ -22,9 +23,9 @@ const JoinTeamDialog: React.FC = () => {
     <Dialog>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <button className="bg-[#FF6D33] text-white py-2 px-4 rounded">
+        <CustomButton>
           🛡️ Join Team
-        </button>
+        </CustomButton>
       </DialogTrigger>
 
       {/* Dialog Content */}

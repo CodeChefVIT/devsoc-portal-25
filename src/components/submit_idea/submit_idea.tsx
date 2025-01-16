@@ -9,6 +9,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import CustomButton from "../CustomButton";
 
 const SubmitDialog: React.FC = () => {
   const [teamCode, setTeamCode] = useState("");
@@ -49,12 +50,11 @@ const SubmitDialog: React.FC = () => {
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
             
-            <button
-              className="bg-orange-500 text-white py-2 px-4 rounded"
+            <CustomButton
               onClick={handleJoinTeam}
             >
               Join
-            </button>
+            </CustomButton>
           </div>
         </div>
       </DialogContent>

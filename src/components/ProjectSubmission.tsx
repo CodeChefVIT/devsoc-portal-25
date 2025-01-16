@@ -7,6 +7,7 @@ import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useSubmissionStore } from "@/store/submission";
+import Link from "next/link";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -40,7 +41,7 @@ export default function ProjectSubmission() {
           }
         }
       };
-      
+
       // Call the async function
       fetchUser();
       async function setFlags() {
@@ -61,7 +62,7 @@ export default function ProjectSubmission() {
       }
       setFlags();
     }
-  }, [userSet, userFetch, checkIfSubmissionAlreadyExists, ]); // Dependency array with `userSet`
+  }, [userSet, userFetch, checkIfSubmissionAlreadyExists]); // Dependency array with `userSet`
 
   const createOptions: Options = { enabled: true, visible: true };
   const editOptions: Options = { enabled: false, visible: false };
@@ -87,23 +88,29 @@ function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
   const buttons: ReactNode[] = [];
   if (view.visible) {
     buttons.push(
-      <CustomButton disabled={!view.enabled} icon={<Idea />}>
-        VIEW SUBMISSION
-      </CustomButton>
+      <Link href={"submission/edit"}>
+        <CustomButton disabled={!view.enabled} icon={<Idea />}>
+          VIEW SUBMISSION
+        </CustomButton>
+      </Link>
     );
   }
   if (edit.visible) {
     buttons.push(
-      <CustomButton disabled={!edit.enabled} icon={<RequestQuote />}>
-        EDIT SUBMISSION
-      </CustomButton>
+      <Link href="/submission/edit">
+        <CustomButton disabled={!edit.enabled} icon={<RequestQuote />}>
+          EDIT SUBMISSION
+        </CustomButton>
+      </Link>
     );
   }
   if (create.visible) {
     buttons.push(
-      <CustomButton disabled={!create.enabled} icon={<Idea />}>
-        CREATE SUBMISSION
-      </CustomButton>
+      <Link href="/submission">
+        <CustomButton disabled={!create.enabled} icon={<Idea />}>
+          CREATE SUBMISSION
+        </CustomButton>
+      </Link>
     );
   }
   return buttons;
