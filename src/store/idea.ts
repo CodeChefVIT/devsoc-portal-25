@@ -7,8 +7,9 @@ import { create } from "zustand";
 interface IdeaStore {
   idea: IIdea;
   checkIdeaExists: () => Promise<boolean>;
-
+  ideaExists: boolean;
   updateIdea: (newIdea: IIdea) => void;
+  
   fetch: (id: string) => void;
   updateIdeaField: <K extends keyof IIdea>(field: K, value: IIdea[K]) => void;
 }
@@ -22,9 +23,7 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
     ppt_link: "https://example.com/project-alpha-presentation.ppt",
     other_link: "https://example.com/project-alpha-other",
   },
-  ideaExists: () => {
-    return checkSubmissionExists("/idea");
-  },
+  ideaExists: false,
   updateIdea: (newIdea: IIdea) => set({ idea: newIdea }),
   fetch: async () => {
     try {
@@ -40,6 +39,8 @@ export const useIdeaStore = create<IdeaStore>((set) => ({
   checkIdeaExists: async () => {
     try {
       const ideaExists = await checkSubmissionExists("idea");
+      set({ ideaExists: ideaExists });
+
       return ideaExists;
     } catch (e) {
       if (e instanceof ApiError) {

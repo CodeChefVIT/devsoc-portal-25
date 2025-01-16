@@ -8,6 +8,7 @@ export interface IdeaStore {
   submission: IIdea;
   updateSubmission: (newIdea: IIdea) => void;
   checkSubmissionExists: () => Promise<boolean>;
+  submissionExists: boolean;
   fetch: () => void;
   updateSubmissionField: <K extends keyof IIdea>(
     field: K,
@@ -24,13 +25,16 @@ export const useSubmissionStore = create<IdeaStore>((set) => ({
     ppt_link: "https://example.com/project-alpha-presentation.ppt",
     other_link: "https://example.com/project-alpha-other",
   },
-  // submissionExists: checkSubmissionExists("/submission"),
+  submissionExists: false,
   checkSubmissionExists: async () => {
     try {
       const submissionExists = await checkSubmissionExists("submission");
+      set({ submissionExists: submissionExists });
+
       return submissionExists;
     } catch (e) {
       if (e instanceof ApiError) {
+
         toast.error(e.message);
       } else {
         toast.error("unknown error occurred");

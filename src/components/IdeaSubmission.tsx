@@ -6,8 +6,8 @@ import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import { useSubmissionStore } from "@/store/submission";
 import Link from "next/link";
+import { useIdeaStore } from "@/store/idea";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -23,24 +23,24 @@ interface IGetButtons {
 export default function ProjectSubmission() {
   const user = useUserStore((state) => state.user);
   const userSet = useUserStore((state) => state.userIsSet);
-  const checkIfSubmissionAlreadyExists = useSubmissionStore(
-    (state) => state.checkSubmissionExists
+  const checkIfIdeaAlreadyExists = useIdeaStore(
+    (state) => state.checkIdeaExists
   );
   const userFetch = useUserStore((state) => state.fetch);
   useEffect(() => {
     async function submissionCheck() {
-      await checkIfSubmissionAlreadyExists();
+      await checkIfIdeaAlreadyExists();
     }
     submissionCheck();
   }, []);
-  const submissionExists = useSubmissionStore(
-    (state) => state.submissionExists
+  const ideaExists = useIdeaStore(
+    (state) => state.ideaExists
   );  
-  let subtitle =  "Submit Your Project Before < date > < time >";
-  let title = "No Project Submitted Yet"
-  if(submissionExists)
+  let subtitle =  "Submit Your Idea Before < date > < time >";
+  let title = "No Idea Submitted Yet"
+  if(ideaExists)
   {
-    title = "Project Submitted"
+    title = "Idea Submitted"
     subtitle = "Submitted at < date > < time >"
   }
   useEffect(() => {
@@ -61,12 +61,12 @@ export default function ProjectSubmission() {
       // Call the async function
       fetchUser();
       async function setFlags() {
-        if (user.is_leader && (await checkIfSubmissionAlreadyExists())) {
+        if (user.is_leader && (ideaExists)) {
           viewOptions.enabled = true;
           viewOptions.visible = true;
           editOptions.enabled = true;
           editOptions.visible = true;
-        } else if (await checkIfSubmissionAlreadyExists()) {
+        } else if (ideaExists) {
           viewOptions.enabled = true;
           viewOptions.visible = true;
           editOptions.enabled = false;
@@ -78,7 +78,7 @@ export default function ProjectSubmission() {
       }
       setFlags();
     }
-  }, [userSet, userFetch, checkIfSubmissionAlreadyExists]); // Dependency array with `userSet`
+  }, [userSet, userFetch, ideaExists]); // Dependency array with `userSet`
 
   const createOptions: Options = { enabled: true, visible: true };
   const editOptions: Options = { enabled: false, visible: false };
@@ -104,18 +104,18 @@ function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
   const buttons: ReactNode[] = [];
   if (view.visible) {
     buttons.push(
-      <Link href={"submission/edit"}>
+      <Link href={"/idea"}>
         <CustomButton disabled={!view.enabled} icon={<Idea />}>
-          VIEW SUBMISSION
+          VIEW IDEA
         </CustomButton>
       </Link>
     );
   }
   if (edit.visible) {
     buttons.push(
-      <Link href="/submission/edit">
+      <Link href="/idea/edit">
         <CustomButton disabled={!edit.enabled} icon={<RequestQuote />}>
-          EDIT SUBMISSION
+          EDIT IDEA
         </CustomButton>
       </Link>
     );
@@ -124,7 +124,7 @@ function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
     buttons.push(
       <Link href="/submission">
         <CustomButton disabled={!create.enabled} icon={<Idea />}>
-          CREATE SUBMISSION
+          CREATE IDEA
         </CustomButton>
       </Link>
     );
