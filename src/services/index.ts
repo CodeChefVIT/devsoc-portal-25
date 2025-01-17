@@ -50,7 +50,8 @@ api.interceptors.response.use(
         // Handle refresh token error or redirect to login
         toast.error("Session expired. Please login again.");
         setTimeout(() => {
-          // window.location.href = "/";
+          //UNCOMMENT WHEN LOGIN DONE
+          // window.location.href = "/login";
         }, 2000);
       }
     }
