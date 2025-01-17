@@ -55,7 +55,8 @@ const Timer = () => {
           EndTimer();
         }
       } catch {
-        router.push("/dashboard");
+        //uncomment when needed (redirected to somewhere if timer not started) (or login done)
+        // router.push("/dashboard");
       }
     };
 
