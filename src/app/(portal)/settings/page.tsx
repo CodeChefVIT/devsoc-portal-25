@@ -8,7 +8,7 @@ import { z } from "zod";
 import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
-import FormItemWrapper from "../../components/form/formItemWrapper";
+import FormItemWrapper from "../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
 import { updateUserDetails } from "@/services/user";
 import { ApiError } from "next/dist/server/api-utils";
@@ -21,8 +21,8 @@ const VITEmailSchema = z
   );
 
 import { FormSelect } from "@/components/form/formSelectItem";
-import { getDefaultsFromSchema } from "../(forms)/defaults";
-import { githubLinkSchema } from "../(forms)/schema";
+import { getDefaultsFromSchema } from "../../(forms)/defaults";
+import { githubLinkSchema } from "../../(forms)/schema";
 
 const hostels: [string, ...string[]] = [
   "Men's Hostel - A Block",
