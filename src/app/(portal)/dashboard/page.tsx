@@ -21,27 +21,27 @@ import {
 } from "@/components/ui/dialog";
 import ProjectSubmission from "@/components/ProjectSubmission";
 
-interface Event {
-  time: string;
-  description: string;
-}
+// interface Event {
+//   time: string;
+//   description: string;
+// }
 
 interface Track {
   name: string;
   image: string;
 }
 
-const events: Event[] = [
-  { time: "9:00 AM", description: "Long Description of things happening" },
-  { time: "10:00 AM", description: "Another description of an event" },
-  { time: "11:00 AM", description: "More event details here" },
-  { time: "9:00 AM", description: "Long Description of things happening" },
-  { time: "10:00 AM", description: "Another description of an event" },
-  { time: "11:00 AM", description: "More event details here" },
-  { time: "9:00 AM", description: "Long Description of things happening" },
-  { time: "10:00 AM", description: "Another description of an event" },
-  { time: "11:00 AM", description: "More event details here" },
-];
+// const events: Event[] = [
+//   { time: "9:00 AM", description: "Long Description of things happening" },
+//   { time: "10:00 AM", description: "Another description of an event" },
+//   { time: "11:00 AM", description: "More event details here" },
+//   { time: "9:00 AM", description: "Long Description of things happening" },
+//   { time: "10:00 AM", description: "Another description of an event" },
+//   { time: "11:00 AM", description: "More event details here" },
+//   { time: "9:00 AM", description: "Long Description of things happening" },
+//   { time: "10:00 AM", description: "Another description of an event" },
+//   { time: "11:00 AM", description: "More event details here" },
+// ];
 
 const tracks: Track[] = [
   { name: "Open Innovation", image: "/track.jpg" },
@@ -51,13 +51,13 @@ const tracks: Track[] = [
 ];
 
 const Dashboard: React.FC = () => {
-  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+  const [, setSelectedTrack] = useState<Track | null>(null); // selectedTrack,
 
   // Function to determine if the user can make a team or should join/create a team
   const canMakeTeam = (): boolean => {
     // Implement your logic here to check if the user can make a team
     // For example, if the user is an admin or if they are part of a certain group:
-    return false; // For now, it always returns true
+    return true; // For now, it always returns true
   };
 
 

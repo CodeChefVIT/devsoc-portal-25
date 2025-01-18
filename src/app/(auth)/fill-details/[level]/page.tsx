@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useState} from 'react'
+import React from 'react'
 import InfoWrapper from "@/app/(auth)/fill-details/_components/info-wrapper";
 import PersonalDetails from "@/app/(auth)/fill-details/_forms/personal-details";
 import CollegeDetails from "@/app/(auth)/fill-details/_forms/college-details";

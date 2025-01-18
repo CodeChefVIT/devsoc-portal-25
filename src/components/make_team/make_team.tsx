@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { PencilIcon } from "@heroicons/react/20/solid";
+// import { PencilIcon } from "@heroicons/react/20/solid";
 import EditTeamDialog from "../edit_team/edit_team";
 const MakeTeam: React.FC = () => {
 
