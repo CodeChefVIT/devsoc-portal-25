@@ -31,7 +31,7 @@ api.interceptors.response.use(
 
     if (!error.response) {
       setTimeout(() => {
-        window.location.href = "/";
+        // window.location.href = "/";
       }, 2000);
     }
 
@@ -53,7 +53,7 @@ api.interceptors.response.use(
         // Handle refresh token error or redirect to login
         toast.error("Session expired. Please login again.");
         setTimeout(() => {
-          window.location.href = "/";
+          // window.location.href = "/";
         }, 2000);
       }
     }

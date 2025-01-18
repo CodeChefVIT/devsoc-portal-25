@@ -14,9 +14,10 @@ import {
     FormField,
 } from "@/components/ui/form"
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
-import {login} from "@/services/auth";
+import {login, signup} from "@/services/auth";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
+import {ApiError} from "next/dist/server/api-utils";
 
 const Login = () => {
     const router = useRouter();
@@ -31,6 +32,17 @@ const Login = () => {
     })
 
     const onSubmit = async (values: LoginFormType)=>{
+        // toast.promise(login({
+        //     email: values.email,
+        //     password: values.password
+        // }), {
+        //     loading: "Loading...",
+        //     success: "logged in successfully",
+        //     error: (err: ApiError) => err.message,
+        // }).then((data: any) => {
+        //     if (data.is_profile_complete) router.push(`/github-activity`);
+        //     else router.push(`/fill-details/1`);
+        // })
         try {
             const res = await login({
                 email: values.email,

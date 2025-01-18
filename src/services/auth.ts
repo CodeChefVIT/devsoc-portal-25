@@ -1,7 +1,7 @@
 import api from "@/services/index";
 import {ConvertToAPIError} from "@/lib/error";
 import {getData} from "@/lib/utils";
-import {IUser} from "@/interfaces";
+// import {IUser} from "@/interfaces";
 
 interface ILoginRequest {
     email: string,
@@ -10,8 +10,8 @@ interface ILoginRequest {
 
 export const login = async (request: ILoginRequest)=>{
     try {
-        const res = await api.post("/auth/login");
-        return getData(res.data);
+        const res = await api.post("/auth/login", request);
+        return res.data.data;
     } catch(error){
         throw ConvertToAPIError(error);
     }

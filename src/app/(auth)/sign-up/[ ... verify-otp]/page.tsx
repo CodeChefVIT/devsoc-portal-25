@@ -9,13 +9,15 @@ import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {OTPFormSchema, OTPFormType} from "@/app/(auth)/_schemas/forms.schema";
-import { verifyOTP } from "@/services/auth"
+import {verifyOTP} from "@/services/auth"
 import toast from "react-hot-toast";
-import {redirect, useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
+import {ApiError} from "next/dist/server/api-utils";
 
 const Page = () => {
     const searchParams = useSearchParams();
     const email = searchParams.get('email');
+    const router = useRouter();
 
     const form = useForm<OTPFormType>({
         resolver: zodResolver(OTPFormSchema),
@@ -27,18 +29,16 @@ const Page = () => {
 
     const onSubmit = async (values: OTPFormType)=>{
         if (!email) return;
-        console.log(email);
-        try {
-            const res = await verifyOTP({
-                otp: values.otp,
-                email,
-            });
-            console.log(res);
-            // toast.success(res.message);
-            redirect("/github-activity");
-        } catch(error){
-            toast.error((error as Error).message);
-        }
+        toast.promise(verifyOTP({
+            otp: values.otp,
+            email,
+        }), {
+            loading: "Loading...",
+            success: "Updated profile!",
+            error: (err: ApiError) => err.message,
+        }).then(() => {
+            router.push("/github-activity")
+        })
     }
 
     return (

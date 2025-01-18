@@ -30,28 +30,16 @@ const SignUp = () => {
 
     const onSubmit = async (values: SignupFormType) =>{
 
-        await toast.promise(signup({
+        toast.promise(signup({
             email: values.email,
             password: values.password
         }), {
             loading: "Loading...",
-            success: "Updated profile!",
+            success: "verify otp to continue!",
             error: (err: ApiError) => err.message,
-        });
-
-
-        // try {
-        //     const res = await signup({
-        //         email: values.email,
-        //         password: values.password
-        //     })
-        //     console.log(res)
-        //     toast("Account created")
-        //     router.push(`/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`)
-        // } catch(error){
-        //     // toast.error("Account created")
-        //     toast.error((error as Error).message)
-        // }
+        }).then(() => {
+            router.push(`/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`)
+        })
     }
 
     return (
