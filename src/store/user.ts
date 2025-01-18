@@ -29,6 +29,7 @@ export const useUserStore = create<UserStore>((set) => ({
   fetch: async () => {
     try {
       const userResponse = await getUser();
+      console.log(userResponse)
       set({ userIsSet: true });
       set({ user: userResponse });
     } catch (e) {

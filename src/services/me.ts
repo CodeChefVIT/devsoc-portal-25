@@ -9,6 +9,7 @@ import { getData } from "@/lib/utils";
 export async function me() {
   try {
     const response = await api.get<APIResponse<Me>>(`/info/me`);
+    console.log(response.data)
     const data: Me | undefined = getData(response.data);
     return data;
   } catch (e) {
