@@ -70,10 +70,7 @@ const userSchema = z.object({
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
     .default(""), // Default phone number
-  college: z
-    .string()
-    .min(1, { message: "College is required field" })
-    .default(""), // Default college
+
   reg_no: z
     .string()
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
@@ -215,7 +212,7 @@ export default function Settings() {
                       field={field}
                       labelText={"Phone Number"}
                       type={"tel"}
-                      placeholderText="639..."
+                      placeholderText="639XXXX..."
                       required
                       autoFill
                     />
