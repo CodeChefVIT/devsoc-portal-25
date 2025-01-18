@@ -1,5 +1,5 @@
 import { IUser } from "@/interfaces";
-import { getUserDetails } from "@/services/user";
+import { getUser, updateUserDetails } from "@/services/user";
 import { ApiError } from "next/dist/server/api-utils";
 import toast from "react-hot-toast";
 import { create } from "zustand";
@@ -8,7 +8,7 @@ interface UserStore {
   user: IUser;
   userIsSet: boolean;
   fetch: () => Promise<void>;
-  updateUser: (newUser: IUser) => void;
+  updateUser: (newUser: IUser) => Promise<void>;
 }
 export const useUserStore = create<UserStore>((set) => ({
   user: {
@@ -28,7 +28,7 @@ export const useUserStore = create<UserStore>((set) => ({
 
   fetch: async () => {
     try {
-      const userResponse = await getUserDetails();
+      const userResponse = await getUser();
       set({ userIsSet: true });
       set({ user: userResponse });
     } catch (e) {
@@ -39,5 +39,16 @@ export const useUserStore = create<UserStore>((set) => ({
       }
     }
   },
-  updateUser: (newUser: IUser) => set({ user: newUser }),
+  updateUser: async (newUser: IUser) =>{
+    try {
+      await updateUserDetails(newUser);
+      set({ user: newUser })
+    } catch (e) {
+      if (e instanceof ApiError) {
+        toast.error(e.message);
+      } else {
+        toast.error("unknown error occurred");
+      }
+    }
+  },
 }));
