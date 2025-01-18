@@ -14,8 +14,13 @@ import {
     FormField,
 } from "@/components/ui/form"
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
+import {login, signup} from "@/services/auth";
+import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
+import {ApiError} from "next/dist/server/api-utils";
 
 const Login = () => {
+    const router = useRouter();
 
     const form = useForm<LoginFormType>({
         resolver: zodResolver(LoginSchema),
@@ -26,8 +31,32 @@ const Login = () => {
         }
     })
 
-    const onSubmit = (values: LoginFormType)=>{
-        console.log(values)
+    const onSubmit = async (values: LoginFormType)=>{
+        // toast.promise(login({
+        //     email: values.email,
+        //     password: values.password
+        // }), {
+        //     loading: "Loading...",
+        //     success: "logged in successfully",
+        //     error: (err: ApiError) => err.message,
+        // }).then((data: any) => {
+        //     if (data.is_profile_complete) router.push(`/github-activity`);
+        //     else router.push(`/fill-details/1`);
+        // })
+        try {
+            const res = await login({
+                email: values.email,
+                password: values.password
+            })
+            console.log(res)
+            if ((res as { is_profile_complete: boolean } ).is_profile_complete){
+                router.push(`/github-activity`)
+            } else {
+                router.push(`/fill-details/1`);
+            }
+        } catch(error){
+            toast.error((error as Error).message)
+        }
     }
 
     return (

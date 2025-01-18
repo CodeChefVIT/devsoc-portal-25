@@ -4,6 +4,9 @@ import toast from "react-hot-toast";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_CLIENTVAR,
+  headers: {
+    "Content-Type": "application/json",
+  }
 });
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -28,7 +31,7 @@ api.interceptors.response.use(
 
     if (!error.response) {
       setTimeout(() => {
-        window.location.href = "/";
+        // window.location.href = "/";
       }, 2000);
     }
 
@@ -50,8 +53,7 @@ api.interceptors.response.use(
         // Handle refresh token error or redirect to login
         toast.error("Session expired. Please login again.");
         setTimeout(() => {
-          //UNCOMMENT WHEN LOGIN DONE
-          // window.location.href = "/login";
+          window.location.href = "/login";
         }, 2000);
       }
     }

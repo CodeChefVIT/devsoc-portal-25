@@ -5,6 +5,9 @@ import Image from "next/image";
 import {Button} from "@/components/ui/button";
 
 const GithubActivityPage = () => {
+
+
+
     return (
         <InfoWrapper emojiSrc={"/images/emoji_alert.svg"} wrapperClass={"justify-center"}>
             <div className={"w-full h-full flex flex-col justify-around items-center space-y-24"}>
