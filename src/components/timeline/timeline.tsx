@@ -8,7 +8,7 @@ interface Event {
 }
 
 const Timeline: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [ ,setActiveIndex] = useState<number>(0); //activeIndex,
   const timelineRef = useRef<HTMLDivElement>(null);
 
   const events: Event[] = [
@@ -23,7 +23,7 @@ const Timeline: React.FC = () => {
     if (!timelineRef.current) return;
 
     const scrollLeft = timelineRef.current.scrollLeft;
-    const containerWidth = timelineRef.current.offsetWidth;
+    // const containerWidth = timelineRef.current.offsetWidth;
     const totalWidth = timelineRef.current.scrollWidth;
 
     const totalHexagons = events.length;
