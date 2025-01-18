@@ -10,7 +10,6 @@ import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
 import FormItemWrapper from "../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
-import { updateUserDetails } from "@/services/user";
 import { ApiError } from "next/dist/server/api-utils";
 const VITEmailSchema = z
   .string()
@@ -158,13 +157,13 @@ export default function Settings() {
       ...user,
       ...data,
     };
-    toast.promise(updateUserDetails, {
+    toast.promise(userUpdate(newUser), {
       loading: "Loading...",
       success: "Updated profile!",
       error: (err: ApiError) => err.message,
     });
 
-    userUpdate(newUser);
+    ;
   };
 
   return (

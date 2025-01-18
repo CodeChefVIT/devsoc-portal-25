@@ -1,4 +1,31 @@
 // Interface for the 'user' table
+
+
+
+interface TeamMember {
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone_no: string;
+  github_profile: string;
+}
+
+interface Team {
+  team_name: string;
+  number_of_people: number;
+  round_qualified: number;
+  code: string;
+  members: TeamMember[];
+}
+
+export interface Me {
+  message: string;
+  user: IUser;
+  team: Team;
+}
+
+
+
 export interface IUser {
   first_name: string;
   last_name: string;
@@ -14,7 +41,7 @@ export interface IUser {
 }
 export interface APIResponse<T> {
   status: string;
-  message: string
+  message: string;
   data: T;
 }
 
