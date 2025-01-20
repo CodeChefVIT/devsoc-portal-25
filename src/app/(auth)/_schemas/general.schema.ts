@@ -49,8 +49,8 @@ export const RoomNumberSchema = z.string().regex(
 );
 
 export const GithubProfileSchema = z.string().regex(
-        /^https:\/\/github\.com\/[a-zA-Z0-9-]+\/?$/,
-        "Enter a valid Github Profile URL"
+/^(?:https:\/\/)?github\.com\/[a-zA-Z0-9-]+\/?$/,
+        "Enter a valid Github Profile URL EG. https://github.com/UserName/"
 );
 // https://github.com/github-user
 

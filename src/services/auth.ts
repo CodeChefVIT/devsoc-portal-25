@@ -11,7 +11,7 @@ interface ILoginRequest {
 export const login = async (request: ILoginRequest)=>{
     try {
         const res = await api.post("/auth/login", request);
-        return res.data.data;
+        return getData(res.data);
     } catch(error){
         throw ConvertToAPIError(error);
     }

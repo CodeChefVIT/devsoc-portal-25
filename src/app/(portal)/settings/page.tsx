@@ -70,10 +70,7 @@ const userSchema = z.object({
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
     .default(""), // Default phone number
-  college: z
-    .string()
-    .min(1, { message: "College is required field" })
-    .default(""), // Default college
+
   reg_no: z
     .string()
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
@@ -129,7 +126,6 @@ export default function Settings() {
     if (!userIsSet) {
       userFetch(); // Fetch user if not loaded
     }
-    console.log(user);
   }, [user, userFetch, userIsSet]);
 
   const form = useForm<z.infer<typeof userSchema>>({
@@ -149,6 +145,7 @@ export default function Settings() {
         phone_no: user.phone_no || "",
         gender: user.gender || "M", // Default gender
         hostel_block: user.hostel_block || "", // Default hostel
+        github_link: user.github_profile || "", // Default GitHub link
       });
     }
   }, [user, form, form.reset, userIsSet]);
@@ -162,8 +159,6 @@ export default function Settings() {
       success: "Updated profile!",
       error: (err: ApiError) => err.message,
     });
-
-    ;
   };
 
   return (
@@ -211,6 +206,20 @@ export default function Settings() {
 
                 <FormField
                   control={form.control}
+                  name={"phone_no"}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Phone Number"}
+                      type={"tel"}
+                      placeholderText="639XXXX..."
+                      required
+                      autoFill
+                    />
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name={"email"}
                   render={({ field }) => (
                     <FormItemWrapper
@@ -223,20 +232,7 @@ export default function Settings() {
                     />
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name={"college"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"College"}
-                      placeholderText="VIT Vellore"
-                      type={"text"}
-                      required
-                      autoFill
-                    />
-                  )}
-                />
+
                 <FormField
                   control={form.control}
                   name={"gender"}
@@ -252,20 +248,6 @@ export default function Settings() {
                 />
               </div>
               <div className="flex  w-full flex-col gap-6">
-                <FormField
-                  control={form.control}
-                  name={"phone_no"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Phone Number"}
-                      type={"tel"}
-                      placeholderText="639..."
-                      required
-                      autoFill
-                    />
-                  )}
-                />
                 <FormField
                   control={form.control}
                   name={"reg_no"}

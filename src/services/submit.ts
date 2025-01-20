@@ -15,7 +15,7 @@ export const createSubmission = async (
   submissionData: SubmissionData
 ) => {
   try {
-    const response = await api.post(`${route}/create`, submissionData);
+    const response = await api.post(`/${route}/create`, submissionData);
 
     return getData(response.data);
   } catch (error) {
@@ -24,7 +24,7 @@ export const createSubmission = async (
 };
 export const getSubmission = async (route: string) => {
   try {
-    const response = await api.get(`${route}/get`);
+    const response = await api.get(`/${route}/get`);
     return response.data;
   } catch (error) {
     throw ConvertToAPIError(error);
@@ -35,7 +35,7 @@ export const updateSubmission = async (
   submissionData: Omit<SubmissionData, "team_id">
 ) => {
   try {
-    const response = await api.post(`${route}/update`, submissionData);
+    const response = await api.post(`/${route}/update`, submissionData);
     return getData(response.data);
   } catch (error) {
     throw ConvertToAPIError(error);
@@ -43,7 +43,7 @@ export const updateSubmission = async (
 };
 export const checkSubmissionExists = async (route: string) => {
   try {
-    const response = await api.post(`${route}/update`);
+    const response = await api.post(`/${route}/update`);
     if (response.status == 404) {
       return true;
     } else {

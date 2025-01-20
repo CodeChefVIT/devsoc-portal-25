@@ -7,7 +7,7 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function getData<T>(response: APIResponse<T>) {
-  if (response.status == "pass") {
+  if (response.status == "pass" || response.status == "success") {
     if (!response.message) {
       return response.data;
     }

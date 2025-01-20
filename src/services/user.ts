@@ -8,6 +8,7 @@ import { APIResponse, IUser } from "@/interfaces";
 export async function getUser() {
     try {
       const response = await me();
+      console.log(response)
       return response?.user;
     }
     catch (e) {
