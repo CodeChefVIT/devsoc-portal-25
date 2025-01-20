@@ -14,10 +14,9 @@ import {
     FormField,
 } from "@/components/ui/form"
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
-import {login, signup} from "@/services/auth";
+import {login} from "@/services/auth";
 import toast from "react-hot-toast";
 import {useRouter} from "next/navigation";
-import {ApiError} from "next/dist/server/api-utils";
 
 const Login = () => {
     const router = useRouter();
