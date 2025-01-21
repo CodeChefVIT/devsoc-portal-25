@@ -13,7 +13,7 @@ import {
 } from "./general.schema"
 
 export const LoginSchema = z.object({
-    email: VITEmailSchema,
+    email: EmailSchema,
     password: PasswordSchema
 })
 
@@ -55,7 +55,7 @@ export const defaultUserDetails: UserDetailsFormType = {
 export type UserDetailsFormType = z.infer<typeof UserDetailsSchema>;
 
 export const SignupSchema = z.object({
-    email: VITEmailSchema,
+    email: EmailSchema,
     password: PasswordSchema,
     confirmPassword: PasswordSchema,
 }).refine(data=> data.password === data.confirmPassword, {

@@ -1,16 +1,11 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import devsoc from "../../public/images/devsoc.png";
 import Link from "next/link";
 import Timer from "./ui/timer";
 
 export default function Navbar() {
-  const [rotated, setRotated] = useState(false);
 
-  const handleClick = () => {
-    setRotated(!rotated); // Toggle rotation state
-  };
   return (
     <header
     className="flex justify-between items-center px-4"

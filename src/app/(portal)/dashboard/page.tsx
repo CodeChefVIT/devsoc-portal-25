@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import iconContainer from "../../../../public/images/iconContainer.png";
 // import github from "/public/images/github.png";
 // import settings from "/public/images/settings.png";
@@ -21,6 +21,7 @@ import {
 } from "@/components/ui/dialog";
 // import ProjectSubmission from "@/components/ProjectSubmission";
 import ProjectSubmission from "@/components/ProjectSubmission";
+import { useTeamStore } from "@/store/team";
 
 // interface Event {
 //   time: string;
@@ -53,13 +54,17 @@ const tracks: Track[] = [
 
 const Dashboard: React.FC = () => {
   const [, setSelectedTrack] = useState<Track | null>(null); // selectedTrack,
-
+  const fetchTeamInfo = useTeamStore((state) => state.fetch);
+  const team = useTeamStore((state) => state.team);
   // Function to determine if the user can make a team or should join/create a team
-  const canMakeTeam = (): boolean => {
-    // Implement your logic here to check if the user can make a team
-    // For example, if the user is an admin or if they are part of a certain group:
-    return false; // For now, it always returns true
-  };
+
+  useEffect(() => {
+    async function fetchInfo() {
+      await fetchTeamInfo();
+    }
+    fetchInfo();
+  }, [fetchTeamInfo]);
+
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -122,7 +127,7 @@ const Dashboard: React.FC = () => {
           {/* Dev Team and Project Submission Boxes */}
           <div className="flex gap-4 mt-6">
             {/* Dev Team Box */}
-            {canMakeTeam() ? (
+            {team ? (
               <MakeTeam />
             ) : (
               <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0]">

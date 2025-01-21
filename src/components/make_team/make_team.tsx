@@ -5,11 +5,14 @@ import { ClipboardIcon } from "@heroicons/react/24/outline"; // Ensure correct i
 import EditTeamDialog from "../edit_team/edit_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
+import toast from "react-hot-toast";
 
 const MakeTeam = () => {
   const user = useUserStore((state) => state.user);
 
   const team = useTeamStore((state) => state.team);
+  const removeMember = useTeamStore((state) => state.removeMember);
+
   const teamFetch = useTeamStore((state) => state.fetch);
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -18,9 +21,13 @@ const MakeTeam = () => {
     teamFetch();
   }, [teamFetch]);
 
-
-
-  const removeMember = () => {};
+  const kickMember = (email: string) => {
+    toast.promise(removeMember(email), {
+      loading: "Removing member...",
+      success: "Member removed successfully",
+      error: "Failed to remove member",
+    });
+  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(team.code);
@@ -43,6 +50,16 @@ const MakeTeam = () => {
             {/* Fixed box for logged-in user */}
 
             {/* Input boxes for other team members */}
+            {user.is_leader ? (
+              <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
+                <span>{user.first_name + " " + user.last_name}</span>
+                <span className="text-yellow-500">👑</span>
+              </div>
+            ) : (
+              <div className="flex-1 border-none outline-none bg-transparent">
+                {user.first_name + " " + user.last_name}
+              </div>
+            )}
             {team.members.map((member, index) => (
               <div
                 key={index}
@@ -59,7 +76,7 @@ const MakeTeam = () => {
                     {user.is_leader && (
                       <button
                         className="text-red-500"
-                        onClick={() => removeMember()}
+                        onClick={() => kickMember(member.email)}
                       >
                         ⛔
                       </button>
