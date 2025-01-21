@@ -21,7 +21,7 @@ const Timeline: React.FC = () => {
 
   // Function to calculate how many hexagons should be filled
   const getFilledHexagons = (remainingTime: number) => {
-    const intervalsPassed = Math.floor(remainingTime / (5 * 60)); // Each interval is 30 minutes (in seconds)
+    const intervalsPassed = Math.floor(remainingTime / (5 * 60)); 
     return intervalsPassed;
   };
 
