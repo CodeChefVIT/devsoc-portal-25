@@ -47,11 +47,12 @@ export interface APIResponse<T> {
 
 // Interface for the 'submission' table
 export interface ISubmission {
-  github_link?: string; // TEXT, nullable
-  figma_link?: string; // TEXT, nullable
-  ppt_link?: string; // TEXT, nullable
-  other_link?: string; // TEXT, nullable
-  team_id: string; // UUID, not null
+  title: string;
+  description: string;
+  track: "Open Innovation"| "Other Track Option 1"| "Other Track Option 2";
+  github_link: string; // TEXT, nullable
+  figma_link: string; // TEXT, nullable
+  other_link: string; // TEXT, nullable
 }
 
 // Interface for the 'ideas' table

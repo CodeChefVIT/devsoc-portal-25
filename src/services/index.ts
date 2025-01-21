@@ -4,9 +4,6 @@ import toast from "react-hot-toast";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_CLIENTVAR,
-  headers: {
-    "Content-Type": "application/json",
-  }
 });
 
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -15,11 +12,18 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 // Add a request interceptor
 api.interceptors.request.use(
   (config: CustomAxiosRequestConfig) => {
-    config.withCredentials = true;
+    // Retrieve the token from local storage or any other method
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5NDg0MjktZGQxOS03NTc3LWJlYjgtODI4YTA5ODMzZTZiIiwiZXhwIjoxNzM3NDA3NDI2LCJpYXQiOjE3Mzc0MDM4MjZ9.oOAfK_0IaR71WIuh9XtgVU_T9p2r5AD11RtI7JeUtb8";
 
+    if (token) {
+      // Add the token to the Authorization header
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    config.withCredentials = true;
     return config;
   },
-  (error: AxiosError) => Promise.reject(error),
+  (error: AxiosError) => Promise.reject(error)
 );
 
 // Add a response interceptor
@@ -31,7 +35,7 @@ api.interceptors.response.use(
 
     if (!error.response) {
       setTimeout(() => {
-        // window.location.href = "/";
+        window.location.href = "/login";
       }, 2000);
     }
 
@@ -46,7 +50,7 @@ api.interceptors.response.use(
           {},
           {
             withCredentials: true,
-          },
+          }
         );
         return api(originalRequest); // Use the api instance to retry the request
       } catch {
@@ -59,9 +63,7 @@ api.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default api;
-
-

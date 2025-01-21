@@ -1,12 +1,12 @@
 import ProjectSubmissionTemplate from "./ProjectSubmissionTemplate";
 import icon from "../../public/bulb.svg";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Idea, RequestQuote } from "@carbon/icons-react";
 import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import { useSubmissionStore } from "@/store/submission";
+import { useIdeaStore } from "@/store/submission";
 import Link from "next/link";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
@@ -23,26 +23,38 @@ interface IGetButtons {
 export default function ProjectSubmission() {
   const user = useUserStore((state) => state.user);
   const userSet = useUserStore((state) => state.userIsSet);
-  const checkIfSubmissionAlreadyExists = useSubmissionStore(
+  const checkIfSubmissionAlreadyExists = useIdeaStore(
     (state) => state.checkSubmissionExists
   );
+
   const userFetch = useUserStore((state) => state.fetch);
   useEffect(() => {
     async function submissionCheck() {
       await checkIfSubmissionAlreadyExists();
     }
     submissionCheck();
-  }, []);
-  const submissionExists = useSubmissionStore(
+  }, [checkIfSubmissionAlreadyExists]);
+  const submissionExists = useIdeaStore(
     (state) => state.submissionExists
-  );  
-  let subtitle =  "Submit Your Project Before < date > < time >";
-  let title = "No Project Submitted Yet"
-  if(submissionExists)
-  {
-    title = "Project Submitted"
-    subtitle = "Submitted at < date > < time >"
+  );
+  let subtitle = "Submit Your Project Before < date > < time >";
+  let title = "No Project Submitted Yet";
+  if (submissionExists) {
+    title = "Project Submitted";
+    subtitle = "Submitted at < date > < time >";
   }
+  const [createOptions, setCreateOptions] = useState<Options>({
+    enabled: true,
+    visible: true,
+  });
+  const [editOptions, setEditOptions] = useState<Options>({
+    enabled: false,
+    visible: false,
+  });
+  const [viewOptions, setViewOptions] = useState<Options>({
+    enabled: false,
+    visible: false,
+  });
   useEffect(() => {
     // Only run if userSet is false
     if (!userSet) {
@@ -57,32 +69,28 @@ export default function ProjectSubmission() {
           }
         }
       };
-
-      // Call the async function
       fetchUser();
-      async function setFlags() {
-        if (user.is_leader && (await checkIfSubmissionAlreadyExists())) {
-          viewOptions.enabled = true;
-          viewOptions.visible = true;
-          editOptions.enabled = true;
-          editOptions.visible = true;
-        } else if (await checkIfSubmissionAlreadyExists()) {
-          viewOptions.enabled = true;
-          viewOptions.visible = true;
-          editOptions.enabled = false;
-          editOptions.visible = true;
-        } else if (user.is_leader) {
-          createOptions.enabled = false;
-          createOptions.visible = true;
-        }
-      }
-      setFlags();
     }
-  }, [userSet, userFetch, checkIfSubmissionAlreadyExists]); // Dependency array with `userSet`
 
-  const createOptions: Options = { enabled: true, visible: true };
-  const editOptions: Options = { enabled: false, visible: false };
-  const viewOptions: Options = { enabled: false, visible: false };
+    // Call the async function
+    const setFlags = () => {
+      if (user.is_leader && submissionExists) {
+        setCreateOptions((prev) => ({ ...prev, visible: false }));
+        setViewOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: true, visible: true });
+      } else if (submissionExists) {
+        setCreateOptions((prev) => ({ ...prev, visible: false }));
+        setViewOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: false, visible: true });
+      } else if (user.is_leader) {
+        setCreateOptions({ enabled: true, visible: true });
+      } else {
+        setCreateOptions({ enabled: false, visible: true });
+      }
+    };
+    setFlags();
+  }, [submissionExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
+
   return (
     <div>
       <ProjectSubmissionTemplate

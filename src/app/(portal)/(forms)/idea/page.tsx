@@ -20,7 +20,7 @@ export default function Idea() {
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    toast.promise(createSubmission("idea", { ...data, team_id: "3" }), {
+    toast.promise(createSubmission("idea", data), {
       loading: "Loading...",
       success: "Added idea!",
       error: (err: ApiError) => err.message,

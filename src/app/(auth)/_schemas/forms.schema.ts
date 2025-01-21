@@ -55,7 +55,7 @@ export const defaultUserDetails: UserDetailsFormType = {
 export type UserDetailsFormType = z.infer<typeof UserDetailsSchema>;
 
 export const SignupSchema = z.object({
-    email: EmailSchema,
+    email: VITEmailSchema,
     password: PasswordSchema,
     confirmPassword: PasswordSchema,
 }).refine(data=> data.password === data.confirmPassword, {
