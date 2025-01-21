@@ -9,32 +9,36 @@ import { updateSubmission } from "@/services/submit";
 import ProjectFormFields from "../../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import { useSubmissionStore } from "@/store/submission";
+import { useIdeaStore } from "@/store/submission";
 import { defaults } from "../../defaults";
 
 export default function EditSubmission() {
 
-  const submission = useSubmissionStore((state) => state.submission);
-  const submissionFetch = useSubmissionStore((state) => state.fetch);
-  const submissionUpdate = useSubmissionStore(
+  const submission = useIdeaStore((state) => state.submission);
+  const submissionFetch = useIdeaStore((state) => state.fetch);
+  const submissionExists = useIdeaStore((state) => state.submissionExists);
+
+  const submissionUpdate = useIdeaStore(
     (state) => state.updateSubmission
   );
-  const checkSubmissionExists = useSubmissionStore(
+  const checkSubmissionExists = useIdeaStore(
     (state) => state.checkSubmissionExists
   );
 
   useEffect(() => {
     const fetchIfSubmissionExists = async () => {
-      if (!checkSubmissionExists) submissionFetch(); // Fetch idea if not loaded
+       submissionFetch();
     };
 
     fetchIfSubmissionExists();
-  }, []);
+  }, [checkSubmissionExists, submissionExists, submissionFetch]);
 
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
+    mode: "onBlur",  // Trigger validation when the input field loses focus
+
   });
   useEffect(() => {
     const resetIfSubmissionExists = async () => {
@@ -62,8 +66,8 @@ export default function EditSubmission() {
     //TODO update idea from be
     toast.promise(
       async () => {
-        updateSubmission("submission", { ...data, ...submission });
-        submissionUpdate({ ...data, ...submission });
+        updateSubmission("submission",data);
+        submissionUpdate(data);
       },
       {
         loading: "Loading...",

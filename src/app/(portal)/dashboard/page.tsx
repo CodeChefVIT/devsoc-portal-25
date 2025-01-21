@@ -1,11 +1,17 @@
+
 "use client";
 
 import React, { useState } from "react";
+// import iconContainer from "/public/images/iconContainer.png";
+// import github from "/public/images/github.png";
+// import settings from "/public/images/settings.png";
+// import idea from "/public/images/idea.png";
+// import track_pic from "/public/images/track_pic.png";
 import Timeline from "@/components/timeline/timeline";
 import JoinTeamDialog from "@/components/join_team/join_team";
 import CreateTeamDialog from "@/components/create_team/create_team";
 import MakeTeam from "@/components/make_team/make_team";
-
+import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -14,29 +20,30 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+// import ProjectSubmission from "@/components/ProjectSubmission";
 import ProjectSubmission from "@/components/ProjectSubmission";
 
-interface Event {
-  time: string;
-  description: string;
-}
+// interface Event {
+//   time: string;
+//   description: string;
+// }
 
 interface Track {
   name: string;
   image: string;
 }
 
-const events: Event[] = [
-  { time: "9:00 AM", description: "Long Description of things happening" },
-  { time: "10:00 AM", description: "Another description of an event" },
-  { time: "11:00 AM", description: "More event details here" },
-  { time: "9:00 AM", description: "Long Description of things happening" },
-  { time: "10:00 AM", description: "Another description of an event" },
-  { time: "11:00 AM", description: "More event details here" },
-  { time: "9:00 AM", description: "Long Description of things happening" },
-  { time: "10:00 AM", description: "Another description of an event" },
-  { time: "11:00 AM", description: "More event details here" },
-];
+// const events: Event[] = [
+//   { time: "9:00 AM", description: "Long Description of things happening" },
+//   { time: "10:00 AM", description: "Another description of an event" },
+//   { time: "11:00 AM", description: "More event details here" },
+//   { time: "9:00 AM", description: "Long Description of things happening" },
+//   { time: "10:00 AM", description: "Another description of an event" },
+//   { time: "11:00 AM", description: "More event details here" },
+//   { time: "9:00 AM", description: "Long Description of things happening" },
+//   { time: "10:00 AM", description: "Another description of an event" },
+//   { time: "11:00 AM", description: "More event details here" },
+// ];
 
 const tracks: Track[] = [
   { name: "Open Innovation", image: "/track.jpg" },
@@ -46,22 +53,19 @@ const tracks: Track[] = [
 ];
 
 const Dashboard: React.FC = () => {
-  const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
-  const [teamMembers, setTeamMembers] = useState<number>(0); // State to track the number of team members
+  const [, setSelectedTrack] = useState<Track | null>(null); // selectedTrack,
 
   // Function to determine if the user can make a team or should join/create a team
-  const hasMinimumTeamMembers = (): boolean => {
-    // Replace this with actual logic to determine team size
-    const teamMembersCount = 4; // Example team member count
-    return teamMembersCount >= 3;
-  };
-
   const canMakeTeam = (): boolean => {
-    return false;
+    // Implement your logic here to check if the user can make a team
+    // For example, if the user is an admin or if they are part of a certain group:
+    return true; // For now, it always returns true
   };
 
   return (
     <div className="min-h-screen flex flex-col">
+      {/* Header */}
+
       <div className="flex flex-1 p-4 gap-6 ">
         {/* Sidebar */}
         <aside className="w-1/4 p-2 overflow-y-scroll bg-[#F7F3F0] border-4 border-black mt-1 pt-4 rounded-2xl">
@@ -74,10 +78,15 @@ const Dashboard: React.FC = () => {
                   onClick={() => setSelectedTrack(track)}
                 >
                   <div className="text-center mt-2 font-bold">{track.name}</div>
-                  <img
+          
+                  <Image
                     src="/images/track_pic.png"
                     alt={track.name}
+                    layout="intrinsic"  // Use intrinsic layout for natural size
+                    width={500}          // Provide the intrinsic width (can be any value)
+                    height={300}         // Provide the intrinsic height (can be any value)
                     className="w-full"
+                          
                   />
                 </div>
               </DialogTrigger>
@@ -124,7 +133,7 @@ const Dashboard: React.FC = () => {
                   <div className="w-4 h-4 border-2 border-black rounded-full bg-white"></div>
                 </div>
                 <div className="flex items-center justify-center bg-[#F7F3F0] mt-10 mb-10">
-                  <img src="images/iconContainer.png" alt="Icon Container" />
+                  <Image src="images/iconContainer.png" alt="Icon Container" />
                 </div>
                 <div className="text-sm mb-4 text-center">
                   No Team Members Yet?
@@ -137,13 +146,7 @@ const Dashboard: React.FC = () => {
             )}
 
             {/* Project Submission Box */}
-            <div
-              className={` ${
-                !hasMinimumTeamMembers() ? "opacity-50 pointer-events-none" : ""
-              }`}
-            >
-              <ProjectSubmission />
-            </div>
+            <ProjectSubmission></ProjectSubmission>
           </div>
         </main>
       </div>

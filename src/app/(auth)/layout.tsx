@@ -1,5 +1,4 @@
 import Navbar from "@/app/(auth)/_components/navbar";
-import {Toaster} from "react-hot-toast";
 
 export default function AuthLayout({
    children,
@@ -9,7 +8,7 @@ export default function AuthLayout({
     return (
         <div className={"w-full h-full min-h-screen bg-[url('/images/auth-bg.svg')]"}>
             <Navbar />
-            <div className={"w-full h-full pt-16 min-h-screen flex items-center justify-center"}>
+            <div className={"w-full h-full min-h-screen flex items-center justify-center"}>
                 {children}
             </div>
         </div>

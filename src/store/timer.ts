@@ -8,7 +8,7 @@ interface TimerStore {
 export const useTimerStore = create<TimerStore>((set) => ({
 
 
-    timeEnded: false,
+  timeEnded: false,
     EndTimer: () => {
         set({timeEnded: true})
     }

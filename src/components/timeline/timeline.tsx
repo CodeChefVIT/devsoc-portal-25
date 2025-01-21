@@ -47,7 +47,7 @@ const Timeline: React.FC = () => {
     if (!timelineRef.current) return;
 
     const scrollLeft = timelineRef.current.scrollLeft;
-    const containerWidth = timelineRef.current.offsetWidth;
+    // const containerWidth = timelineRef.current.offsetWidth;
     const totalWidth = timelineRef.current.scrollWidth;
 
     const totalHexagons = events.length;

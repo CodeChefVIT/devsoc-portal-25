@@ -2,24 +2,25 @@
 
 import React, { useState, useEffect } from "react";
 import { PencilIcon } from "@heroicons/react/20/solid";
+import { ClipboardIcon } from "@heroicons/react/24/outline"; // Ensure correct import
 import EditTeamDialog from "../edit_team/edit_team";
-import { ClipboardIcon } from "@heroicons/react/24/outline"; // Import the clipboard icon
+import { getTeam } from "@/services/team";
 
 const MakeTeam: React.FC = () => {
-  const loggedInUser = "Ansuka"; // Replace with actual login logic to fetch user name
-  const [teamMembers, setTeamMembers] = useState<string[]>(["", "", "", ""]); 
-  const [teamCode, setTeamCode] = useState<string>("");
+  const loggedInUser = "Ansuka"; // Replace with actual login logic
+  const [teamMembers, setTeamMembers] = useState<string[]>(["", "", "", ""]);
+  const [teamCode, setTeamCode] = useState<string>("Loading...");
   const [copied, setCopied] = useState<boolean>(false);
 
   // Fetch the team code from the API
   useEffect(() => {
     const fetchTeamCode = async () => {
       try {
-        const response = await fetch("/api/fetchTeamCode");
-        const data = await response.json();
-        setTeamCode(data.teamCode);
+        const response = await getTeam();
+        setTeamCode(response || "No code available");
       } catch (error) {
         console.error("Failed to fetch team code:", error);
+        setTeamCode("Error fetching code");
       }
     };
 
@@ -34,21 +35,21 @@ const MakeTeam: React.FC = () => {
 
   const addMember = () => {
     if (teamMembers.length < 4) {
-      // Allow up to 10 team members if needed
       setTeamMembers([...teamMembers, ""]);
     }
   };
 
   const removeMember = (index: number) => {
-    const newTeamMembers = [...teamMembers];
-    newTeamMembers[index] = ""; // Clear the value of the member
+    const newTeamMembers = teamMembers.filter((_, i) => i !== index); 
     setTeamMembers(newTeamMembers);
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(teamCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (teamCode !== "Loading..." && teamCode !== "Error fetching code") {
+      navigator.clipboard.writeText(teamCode);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
@@ -90,6 +91,8 @@ const MakeTeam: React.FC = () => {
                 </button>
               </div>
             ))}
+            {/* Add Member Button */}
+            
           </div>
         </div>
 
@@ -97,14 +100,14 @@ const MakeTeam: React.FC = () => {
         <div className="text-center mt-6">
           <div className="text-sm">Team Code</div>
           <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-            <span>{teamCode || "Loading..."}</span>
+            <span>{teamCode}</span>
             <button
               onClick={copyToClipboard}
-              disabled={!teamCode}
-              className=" text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
+              disabled={teamCode === "Loading..." || teamCode === "Error fetching code"}
+              className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
             >
-              {/* Clipboard Icon */}
               <ClipboardIcon className="w-5 h-5 mr-2" />
+              {copied ? "Copied" : "Copy"}
             </button>
           </div>
         </div>

@@ -10,9 +10,9 @@ import {useForm} from "react-hook-form";
 import {SignupFormType, SignupSchema} from "@/app/(auth)/_schemas/forms.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import toast from "react-hot-toast";
+import {signup} from "@/services/auth";
+import {useRouter} from "next/navigation";
 import {ApiError} from "next/dist/server/api-utils";
-import {login} from "@/services/auth";
-import {redirect} from "next/navigation";
 
 const SignUp = () => {
 
@@ -26,14 +26,20 @@ const SignUp = () => {
         }
     })
 
-    const onSubmit = async (values: SignupFormType)=>{
-        const res = await login({
+    const router = useRouter();
+
+    const onSubmit = async (values: SignupFormType) =>{
+
+        toast.promise(signup({
             email: values.email,
             password: values.password
+        }), {
+            loading: "Loading...",
+            success: "verify otp to continue!",
+            error: (err: ApiError) => err.message,
+        }).then(() => {
+            router.push(`/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`)
         })
-        if (res.success){
-
-        }
     }
 
     return (

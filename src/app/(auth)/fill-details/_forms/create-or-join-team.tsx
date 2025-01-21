@@ -9,6 +9,9 @@ import {useFormContext} from "react-hook-form";
 import {UserDetailsFormType} from "@/app/(auth)/_schemas/forms.schema";
 import {useRouter} from "next/navigation";
 import {useFormStore} from "@/app/(auth)/fill-details/_components/info-form";
+import {completeProfile, createTeam, joinTeam} from "@/services/auth";
+import {genders} from "@/app/(auth)/_schemas/constants";
+import toast from 'react-hot-toast';
 
 const CreateOrJoinTeam = () => {
     const [ checked, setChecked ] = useState(true);
@@ -17,13 +20,13 @@ const CreateOrJoinTeam = () => {
 
     const router = useRouter();
 
-    const { updateFormData, clearFormData, setError } = useFormStore();
+    const { updateFormData, clearFormData, setError, formData } = useFormStore();
 
     const onSubmit = async ()=>{
         //TODO: Toasts
 
-        const { joinTeam, createTeam } = form.getValues();
-        updateFormData({ joinTeam, createTeam });
+        const values = form.getValues();
+        updateFormData({ joinTeam: values.joinTeam, createTeam: values.createTeam });
 
         const isPersonalDetailsFilled = await form.trigger(['firstName', 'lastName', 'email', 'gender', 'phoneNo']) ;
         if (!isPersonalDetailsFilled){
@@ -41,8 +44,45 @@ const CreateOrJoinTeam = () => {
         const isCreateTeamFilled = checked ? await form.trigger('createTeam') : true;
         if (!(isCreateTeamFilled || isJoinTeamFilled)) return;
 
-        clearFormData();
-        alert("Success");
+        toast.promise(
+            async () => {
+
+                // Complete profile
+                const res = await completeProfile({
+                  first_name: formData.firstName,
+                  last_name: formData.lastName,
+                  email: formData.email,
+                  phone_no: formData.phoneNo,
+                  reg_no: formData.regNo,
+                  github_profile: formData.githubProfile,
+                  vit_email: formData.vitEmail,
+                  gender: genders[formData.gender],
+                  room_no: parseInt(formData.roomNo),
+                  hostel_block: formData.hostelBlock,
+                });
+        
+                let teamRes;
+                if (checked && formData.createTeam) {
+                  teamRes = await createTeam({
+                    name: formData.createTeam,
+                  });
+                } else if (!checked && formData.joinTeam) {
+                  teamRes = await joinTeam({
+                    code: formData.joinTeam,
+                  });
+                }
+        
+                console.log(res, teamRes);
+                clearFormData(); // Clear form after successful submission
+                router.push('/github-activity');
+            },
+            {
+              loading: 'Submitting...',
+              success: 'Profile submitted successfully!',
+              error: 'There was an error submitting the profile!',
+            }
+          );
+        
     }
 
     return (
