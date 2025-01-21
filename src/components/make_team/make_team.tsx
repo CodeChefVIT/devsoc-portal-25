@@ -1,19 +1,29 @@
-"use client";
-
 import React, { useState, useEffect } from "react";
-import { PencilIcon } from "@heroicons/react/20/solid";
-import { ClipboardIcon } from "@heroicons/react/24/outline"; // Ensure correct import
-import EditTeamDialog from "../edit_team/edit_team";
+import { PenBoxIcon } from "lucide-react";
 import { getTeam } from "@/services/team";
+import { getTeamLead } from "@/services/teamlead";
+import EditTeamDialog  from "@/components/edit_team/edit_team"; // Import the EditTeamDialog
+import RemoveFromTeamDialog from "../remove_from_team/remove_from_team";
+ // Import RemoveFromTeamDialog
 
 const MakeTeam: React.FC = () => {
-  const loggedInUser = "Ansuka"; // Replace with actual login logic
   const [teamMembers, setTeamMembers] = useState<string[]>(["", "", "", ""]);
   const [teamCode, setTeamCode] = useState<string>("Loading...");
   const [copied, setCopied] = useState<boolean>(false);
+  const [loggedInUser, setLoggedInUser] = useState<string>("TeamLead");
+  const [editDialogVisible, setEditDialogVisible] = useState<boolean>(false); // This controls the visibility of the dialog
+  const [dialogVisibleIndex, setDialogVisibleIndex] = useState<number | null>(null); // Controls which member's remove dialog is visible
 
-  // Fetch the team code from the API
   useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userData = await getTeamLead();
+        setLoggedInUser(userData || "User");
+      } catch (error) {
+        console.error("Failed to fetch logged-in user:", error);
+        setLoggedInUser("Error fetching user");
+      }
+    };
     const fetchTeamCode = async () => {
       try {
         const response = await getTeam();
@@ -25,24 +35,8 @@ const MakeTeam: React.FC = () => {
     };
 
     fetchTeamCode();
+    fetchUserData();
   }, []);
-
-  const updateMember = (index: number, value: string) => {
-    const newTeamMembers = [...teamMembers];
-    newTeamMembers[index] = value;
-    setTeamMembers(newTeamMembers);
-  };
-
-  const addMember = () => {
-    if (teamMembers.length < 4) {
-      setTeamMembers([...teamMembers, ""]);
-    }
-  };
-
-  const removeMember = (index: number) => {
-    const newTeamMembers = teamMembers.filter((_, i) => i !== index); 
-    setTeamMembers(newTeamMembers);
-  };
 
   const copyToClipboard = () => {
     if (teamCode !== "Loading..." && teamCode !== "Error fetching code") {
@@ -52,12 +46,22 @@ const MakeTeam: React.FC = () => {
     }
   };
 
+  const handleRemoveMember = (index: number) => {
+    setDialogVisibleIndex(index); // Set the member's index to show the remove dialog
+  };
+
+  const closeRemoveDialog = () => {
+    setDialogVisibleIndex(null); // Close the remove dialog
+  };
+
   return (
     <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0]">
       {/* Header */}
       <div className="font-monomaniac bg-black h-[40px] text-white flex justify-between px-4 items-center">
         Your Devsoc Team
-        <EditTeamDialog />
+        <button onClick={() => setEditDialogVisible(true)}>
+          <PenBoxIcon className="w-5 h-5 mr-2" />
+        </button>
       </div>
 
       <div className="p-4">
@@ -79,20 +83,23 @@ const MakeTeam: React.FC = () => {
                 <input
                   type="text"
                   value={name}
-                  onChange={(e) => updateMember(index, e.target.value)}
+                  onChange={(e) => setTeamMembers(prev => {
+                    const newTeamMembers = [...prev];
+                    newTeamMembers[index] = e.target.value;
+                    return newTeamMembers;
+                  })}
                   placeholder={`Member ${index + 2}`}
                   className="flex-1 border-none outline-none bg-transparent"
                 />
+                {/* Remove button */}
                 <button
                   className="text-red-500"
-                  onClick={() => removeMember(index)}
+                  onClick={() => handleRemoveMember(index)} // Open the dialog for this member
                 >
                   ⛔
                 </button>
               </div>
             ))}
-            {/* Add Member Button */}
-            
           </div>
         </div>
 
@@ -106,12 +113,28 @@ const MakeTeam: React.FC = () => {
               disabled={teamCode === "Loading..." || teamCode === "Error fetching code"}
               className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
             >
-              <ClipboardIcon className="w-5 h-5 mr-2" />
               {copied ? "Copied" : "Copy"}
             </button>
           </div>
         </div>
       </div>
+
+      {/* Open Edit Team Dialog on pen icon click */}
+      {editDialogVisible && (
+        <EditTeamDialog
+          isOpen={editDialogVisible}
+          onClose={() => setEditDialogVisible(false)} // Close dialog on action
+        />
+      )}
+
+      {/* Open Remove From Team Dialog for selected member */}
+      {dialogVisibleIndex !== null && (
+        <RemoveFromTeamDialog
+          isOpen={dialogVisibleIndex !== null}
+          onClose={closeRemoveDialog}
+          memberIndex={dialogVisibleIndex}
+        />
+      )}
     </div>
   );
 };

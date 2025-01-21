@@ -2,11 +2,6 @@
 "use client";
 
 import React, { useState } from "react";
-// import iconContainer from "/public/images/iconContainer.png";
-// import github from "/public/images/github.png";
-// import settings from "/public/images/settings.png";
-// import idea from "/public/images/idea.png";
-// import track_pic from "/public/images/track_pic.png";
 import Timeline from "@/components/timeline/timeline";
 import JoinTeamDialog from "@/components/join_team/join_team";
 import CreateTeamDialog from "@/components/create_team/create_team";
@@ -20,7 +15,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-// import ProjectSubmission from "@/components/ProjectSubmission";
 import ProjectSubmission from "@/components/ProjectSubmission";
 
 // interface Event {
