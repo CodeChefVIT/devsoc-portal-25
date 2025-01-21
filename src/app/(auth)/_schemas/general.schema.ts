@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import {genders, hostels} from "@/app/(auth)/_schemas/constants";
 
-export const VITEmailSchema =  z.string().email("Enter a valid email address").regex(
+export const VITEmailSchema =  z.string().email("Enter a valid vit email address").regex(
     /^[a-zA-Z]+\.[a-zA-Z]+20(?:19|2[0-5])@vitstudent\.ac\.in$/,
-    "Invalid Email Address"
+    "Invalid VIT Email Address"
 ).trim();
 // name.surname[2019-2025]@vitstudent.ac.in
 

@@ -10,22 +10,36 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import CustomButton from "../CustomButton";
+import { jointeam } from "@/services/join"; // Import the API function
 
 const JoinTeamDialog: React.FC = () => {
   const [teamCode, setTeamCode] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [success, setSuccess] = useState<boolean>(false);
 
-  const handleJoinTeam = () => {
-    console.log("Joining team with code:", teamCode);
-    // Add your logic here (e.g., API call to join team)
+  const handleJoinTeam = async () => {
+    setLoading(true);
+    setError(null);
+    setSuccess(false);
+
+    try {
+      await jointeam(teamCode); // Call the API function with the team code
+      setSuccess(true); // Set success to true if API call succeeds
+      console.log("Successfully joined the team!");
+    } catch (err) {
+      setError("Failed to join the team. Please check the code and try again.");
+      console.error("Error during API call:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Dialog>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <CustomButton>
-          🛡️ Join Team
-        </CustomButton>
+        <CustomButton>🛡️ Join Team</CustomButton>
       </DialogTrigger>
 
       {/* Dialog Content */}
@@ -47,13 +61,20 @@ const JoinTeamDialog: React.FC = () => {
             className="border-2 border-black rounded-lg px-4 py-2"
           />
 
+          {/* Display Error or Success Message */}
+          {error && <div className="text-red-500">{error}</div>}
+          {success && <div className="text-green-500">Successfully joined the team!</div>}
+
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
             <button
-              className="bg-orange-500 text-white py-2 px-4 rounded"
+              className={`${
+                loading ? "bg-gray-400" : "bg-orange-500"
+              } text-white py-2 px-4 rounded`}
               onClick={handleJoinTeam}
+              disabled={loading || !teamCode.trim()}
             >
-              Join
+              {loading ? "Joining..." : "Join"}
             </button>
           </div>
         </div>
