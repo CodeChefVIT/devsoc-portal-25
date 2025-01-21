@@ -10,7 +10,7 @@ import Timeline from "@/components/timeline/timeline";
 import JoinTeamDialog from "@/components/join_team/join_team";
 import CreateTeamDialog from "@/components/create_team/create_team";
 import MakeTeam from "@/components/make_team/make_team";
-
+import Image from "next/image";
 import {
   Dialog,
   DialogContent,
@@ -19,6 +19,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+// import ProjectSubmission from "@/components/ProjectSubmission";
 import ProjectSubmission from "@/components/ProjectSubmission";
 
 // interface Event {
@@ -60,9 +61,6 @@ const Dashboard: React.FC = () => {
     return true; // For now, it always returns true
   };
 
-
-
-
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
@@ -79,10 +77,15 @@ const Dashboard: React.FC = () => {
                   onClick={() => setSelectedTrack(track)}
                 >
                   <div className="text-center mt-2 font-bold">{track.name}</div>
-                  <img
+          
+                  <Image
                     src="/images/track_pic.png"
                     alt={track.name}
+                    layout="intrinsic"  // Use intrinsic layout for natural size
+                    width={500}          // Provide the intrinsic width (can be any value)
+                    height={300}         // Provide the intrinsic height (can be any value)
                     className="w-full"
+                          
                   />
                 </div>
               </DialogTrigger>
@@ -129,7 +132,7 @@ const Dashboard: React.FC = () => {
                   <div className="w-4 h-4 border-2 border-black rounded-full bg-white"></div>
                 </div>
                 <div className="flex items-center justify-center bg-[#F7F3F0] mt-10 mb-10">
-                  <img src="images/iconContainer.png" alt="Icon Container" />
+                  <Image src="images/iconContainer.png" alt="Icon Container" />
                 </div>
                 <div className="text-sm mb-4 text-center">
                   No Team Members Yet?

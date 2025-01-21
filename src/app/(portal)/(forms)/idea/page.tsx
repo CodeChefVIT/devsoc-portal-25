@@ -17,6 +17,8 @@ export default function Idea() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
+    mode: "onBlur",  // Trigger validation when the input field loses focus
+
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {

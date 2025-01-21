@@ -37,6 +37,8 @@ export default function EditSubmission() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
+    mode: "onBlur",  // Trigger validation when the input field loses focus
+
   });
   useEffect(() => {
     const resetIfSubmissionExists = async () => {

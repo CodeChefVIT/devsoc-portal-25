@@ -13,12 +13,7 @@ interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
 api.interceptors.request.use(
   (config: CustomAxiosRequestConfig) => {
     // Retrieve the token from local storage or any other method
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDE5NDg0MjktZGQxOS03NTc3LWJlYjgtODI4YTA5ODMzZTZiIiwiZXhwIjoxNzM3NDA3NDI2LCJpYXQiOjE3Mzc0MDM4MjZ9.oOAfK_0IaR71WIuh9XtgVU_T9p2r5AD11RtI7JeUtb8";
 
-    if (token) {
-      // Add the token to the Authorization header
-      config.headers.Authorization = `Bearer ${token}`;
-    }
 
     config.withCredentials = true;
     return config;

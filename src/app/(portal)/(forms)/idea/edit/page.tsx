@@ -31,6 +31,8 @@ export default function EditIdea() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
+    mode: "onBlur",  // Trigger validation when the input field loses focus
+
   });
   React.useEffect(() => {
     const resetFormIfIdeaExists = async () => {

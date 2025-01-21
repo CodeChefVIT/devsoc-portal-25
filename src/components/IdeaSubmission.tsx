@@ -20,7 +20,7 @@ interface IGetButtons {
 }
 //If ideaSubmitted is false, set create as visible
 
-export default function ProjectSubmission() {
+export default function IdeaSubmission() {
   const user = useUserStore((state) => state.user);
   const userSet = useUserStore((state) => state.userIsSet);
   const checkIfIdeaAlreadyExists = useIdeaStore(
