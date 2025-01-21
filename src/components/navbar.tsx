@@ -5,6 +5,7 @@ import Link from "next/link";
 import Timer from "./ui/timer";
 
 export default function Navbar() {
+
   return (
     <header
     className="flex justify-between items-center px-4"
@@ -19,9 +20,9 @@ export default function Navbar() {
         height={40}
         className="ml-5"
       />
-      <div className="text-white font-yerk font-bold text-3xl ml-4">
+      <Link className="text-white font-yerk font-bold text-3xl ml-4" href={"/dashboard"}>
         PORTAL
-      </div>
+      </Link>
     </div>
 
     {/* Right Section */}
@@ -40,14 +41,15 @@ export default function Navbar() {
         width={40}
         height={40}
       />
-      <Link href={"/settings"}>
-        <Image
-          src="/images/settings.png"
-          alt="Setting Icon"
-          width={40}
-          height={40}
-        />
-      </Link>
+    <Link href="/settings" className="group">
+      <Image
+        src="/images/settings.png"
+        alt="Setting Icon"
+        width={40}
+        height={40}
+        className="transition-transform duration-300 ease-in-out group-active:rotate-180"
+      />
+    </Link>
       <div className="w-6 h-6 rounded-full flex items-center justify-center"></div>
     </div>
   </header>

@@ -9,14 +9,15 @@ interface TeamStore {
   userIsSet: boolean;
   fetch: () => Promise<void>;
   updateTeam: (newUser: ITeam) => Promise<void>;
+  removeMember: (email: string) => Promise<void>;
 }
 export const useTeamStore = create<TeamStore>((set) => ({
   team: {
-    code: "", // Default team code
-    members: [], // Empty array as the default for team members
-    number_of_people: 0, // Default to zero members initially
-    round_qualified: 0, // Default round qualification as 0 (not qualified)
-    team_name: "", // Default team name
+    code: "",
+    members: [],
+    number_of_people: 0,
+    round_qualified: 0,
+    team_name: "",
   },
   userIsSet: false,
 
@@ -33,6 +34,14 @@ export const useTeamStore = create<TeamStore>((set) => ({
         toast.error("unknown error occurred");
       }
     }
+  },
+  removeMember: async (email: string) => {
+    set((state) => ({
+      team: {
+        ...state.team, // Keep other properties of team intact
+        members: state.team.members.filter((member) => member.email !== email), // Remove the member
+      },
+    }));
   },
   updateTeam: async (newTeam: ITeam) => {
     try {

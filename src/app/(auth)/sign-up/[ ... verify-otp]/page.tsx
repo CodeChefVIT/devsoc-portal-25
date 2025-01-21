@@ -37,7 +37,7 @@ const Page = () => {
             success: "Updated profile!",
             error: (err: ApiError) => err.message,
         }).then(() => {
-            router.push("/github-activity")
+            router.push("/fill-details/1")
         })
     }
 
