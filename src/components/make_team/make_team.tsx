@@ -1,49 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { PenBoxIcon } from "lucide-react";
-import { getTeam } from "@/services/team";
-import { getTeamLead } from "@/services/teamlead";
-import EditTeamDialog  from "@/components/edit_team/edit_team"; // Import the EditTeamDialog
 import RemoveFromTeamDialog from "../remove_from_team/remove_from_team";
- // Import RemoveFromTeamDialog
+import { IoMdCopy } from "react-icons/io";
 
-const MakeTeam: React.FC = () => {
-  const [teamMembers, setTeamMembers] = useState<string[]>(["", "", "", ""]);
-  const [teamCode, setTeamCode] = useState<string>("Loading...");
+import EditTeamDialog from "../edit_team/edit_team";
+import { useTeamStore } from "@/store/team";
+import { useUserStore } from "@/store/user";
+import toast from "react-hot-toast";
+
+const MakeTeam = () => {
+  const user = useUserStore((state) => state.user);
+
+  const team = useTeamStore((state) => state.team);
+  const removeMember = useTeamStore((state) => state.removeMember);
+
+  const teamFetch = useTeamStore((state) => state.fetch);
   const [copied, setCopied] = useState<boolean>(false);
-  const [loggedInUser, setLoggedInUser] = useState<string>("TeamLead");
   const [editDialogVisible, setEditDialogVisible] = useState<boolean>(false); // This controls the visibility of the dialog
-  const [dialogVisibleIndex, setDialogVisibleIndex] = useState<number | null>(null); // Controls which member's remove dialog is visible
+  const [dialogVisibleIndex, setDialogVisibleIndex] = useState<number | null>(
+    null
+  ); // Controls which member's remove dialog is visible
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await getTeamLead();
-        setLoggedInUser(userData || "User");
-      } catch (error) {
-        console.error("Failed to fetch logged-in user:", error);
-        setLoggedInUser("Error fetching user");
-      }
-    };
-    const fetchTeamCode = async () => {
-      try {
-        const response = await getTeam();
-        setTeamCode(response || "No code available");
-      } catch (error) {
-        console.error("Failed to fetch team code:", error);
-        setTeamCode("Error fetching code");
-      }
-    };
+    teamFetch();
+  }, [teamFetch]);
 
-    fetchTeamCode();
-    fetchUserData();
-  }, []);
+  const kickMember = (email: string) => {
+    toast.promise(removeMember(email), {
+      loading: "Removing member...",
+      success: "Member removed successfully",
+      error: "Failed to remove member",
+    });
+  };
 
   const copyToClipboard = () => {
-    if (teamCode !== "Loading..." && teamCode !== "Error fetching code") {
-      navigator.clipboard.writeText(teamCode);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    }
+    navigator.clipboard.writeText(team.code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const handleRemoveMember = (index: number) => {
@@ -69,37 +62,45 @@ const MakeTeam: React.FC = () => {
         <div className="mb-6">
           <div className="flex flex-col gap-2">
             {/* Fixed box for logged-in user */}
-            <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
-              <span>{loggedInUser}</span>
-              <span className="text-yellow-500">👑</span>
-            </div>
 
             {/* Input boxes for other team members */}
-            {teamMembers.map((name, index) => (
+            {user.is_leader ? (
+              <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
+                <span>{user.first_name + " " + user.last_name}</span>
+                <span className="text-yellow-500">👑</span>
+              </div>
+            ) : (
+              <div className="flex-1 border-none outline-none bg-transparent">
+                {user.first_name + " " + user.last_name}
+              </div>
+            )}
+            {team.members.map((member, index) => (
               <div
                 key={index}
                 className="flex justify-between items-center bg-white border border-black rounded-lg p-2"
               >
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setTeamMembers(prev => {
-                    const newTeamMembers = [...prev];
-                    newTeamMembers[index] = e.target.value;
-                    return newTeamMembers;
-                  })}
-                  placeholder={`Member ${index + 2}`}
-                  className="flex-1 border-none outline-none bg-transparent"
-                />
-                {/* Remove button */}
-                <button
-                  className="text-red-500"
-                  onClick={() => handleRemoveMember(index)} // Open the dialog for this member
-                >
-                  ⛔
-                </button>
+                {member.is_leader ? (
+                  <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
+                    <span>{member.first_name + " " + member.last_name}</span>
+                    <span className="text-yellow-500">👑</span>
+                  </div>
+                ) : (
+                  <div className="flex-1 border-none outline-none bg-transparent">
+                    {member.first_name + " " + member.last_name}
+                    {user.is_leader && (
+                      <button
+                        className="text-red-500"
+                        onClick={() => kickMember(member.email)} // or handle remove member
+                      >
+                        ⛔
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
             ))}
+
+            {/* Add Member Button */}
           </div>
         </div>
 
@@ -107,10 +108,10 @@ const MakeTeam: React.FC = () => {
         <div className="text-center mt-6">
           <div className="text-sm">Team Code</div>
           <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-            <span>{teamCode}</span>
+            <IoMdCopy />
+            <span>{team.code}</span>
             <button
               onClick={copyToClipboard}
-              disabled={teamCode === "Loading..." || teamCode === "Error fetching code"}
               className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
             >
               {copied ? "Copied" : "Copy"}

@@ -3,14 +3,12 @@
 import React, { useState } from "react";
 import {
   Dialog,
-  DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import CustomButton from "../CustomButton";
-import { jointeam } from "@/services/join"; // Import the API function
+import { joinTeam } from "@/services/team"; // Import the API function
 
 interface EditTeamDialogProps {
   isOpen: boolean;
@@ -29,7 +27,7 @@ const EditTeamDialog: React.FC<EditTeamDialogProps> = ({ isOpen, onClose }) => {
     setSuccess(false);
 
     try {
-      await jointeam(teamCode); // Call the API function with the team code
+      await joinTeam(teamCode); // Call the API function with the team code
       setSuccess(true); // Set success to true if API call succeeds
       console.log("Successfully joined the team!");
     } catch (err) {
