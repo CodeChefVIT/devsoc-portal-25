@@ -10,10 +10,12 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import CustomButton from "../CustomButton";
-import { jointeam } from "@/services/join"; // Import the API function
+import {  joinTeam } from "@/services/team"; // Import the API function
+import { useTeamStore } from "@/store/team";
 
 const JoinTeamDialog: React.FC = () => {
   const [teamCode, setTeamCode] = useState("");
+  const fetchTeam = useTeamStore((state)=> state.fetch)
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<boolean>(false);
@@ -24,8 +26,9 @@ const JoinTeamDialog: React.FC = () => {
     setSuccess(false);
 
     try {
-      await jointeam(teamCode); // Call the API function with the team code
+      await joinTeam(teamCode); // Call the API function with the team code
       setSuccess(true); // Set success to true if API call succeeds
+      fetchTeam()
       console.log("Successfully joined the team!");
     } catch (err) {
       setError("Failed to join the team. Please check the code and try again.");

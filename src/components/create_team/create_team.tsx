@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import CustomButton from "../CustomButton";
-import { createteam } from "@/services/create"; // Import the create team API
+import { createTeam } from "@/services/team"; // Import the create team API
 
 const CreateTeamDialog: React.FC = () => {
   const [teamName, setTeamName] = useState("");
@@ -25,7 +25,7 @@ const CreateTeamDialog: React.FC = () => {
     setSuccess(false);
 
     try {
-      const response = await createteam(teamName); // Call API with team name
+      const response = await createTeam(teamName); // Call API with team name
       setSuccess(true); // If successful, set success state
       console.log("Team created successfully:", response);
     } catch (err) {

@@ -8,9 +8,10 @@ interface TeamMember {
   email: string;
   phone_no: string;
   github_profile: string;
+  is_leader: boolean;
 }
 
-interface Team {
+export interface ITeam {
   team_name: string;
   number_of_people: number;
   round_qualified: number;
@@ -21,9 +22,8 @@ interface Team {
 export interface Me {
   message: string;
   user: IUser;
-  team: Team;
+  team: ITeam;
 }
-
 
 
 export interface IUser {
