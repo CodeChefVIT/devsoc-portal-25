@@ -10,7 +10,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { PencilIcon } from "lucide-react";
-import CustomButton from "../CustomButton";
+
 
 const EditTeamDialog: React.FC = () => {
   const [teamCode, setTeamCode] = useState("");
@@ -24,10 +24,10 @@ const EditTeamDialog: React.FC = () => {
     <Dialog>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <CustomButton>
-       <PencilIcon className="w-4 h-4 text-gray-500" /> {/* Edit icon */}
+        <button>
+       <PencilIcon className="w-8 h-4 text-white bg-black " /> {/* Edit icon */}
        
-       </CustomButton>
+       </button>
       </DialogTrigger>
 
       {/* Dialog Content */}

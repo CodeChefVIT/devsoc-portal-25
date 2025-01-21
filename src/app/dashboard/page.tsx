@@ -1,11 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-// import iconContainer from "/public/images/iconContainer.png";
-// import github from "/public/images/github.png";
-// import settings from "/public/images/settings.png";
-// import idea from "/public/images/idea.png";
-// import track_pic from "/public/images/track_pic.png";
 import Timeline from "@/components/timeline/timeline";
 import JoinTeamDialog from "@/components/join_team/join_team";
 import CreateTeamDialog from "@/components/create_team/create_team";
@@ -52,21 +47,21 @@ const tracks: Track[] = [
 
 const Dashboard: React.FC = () => {
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+  const [teamMembers, setTeamMembers] = useState<number>(0); // State to track the number of team members
 
   // Function to determine if the user can make a team or should join/create a team
-  const canMakeTeam = (): boolean => {
-    // Implement your logic here to check if the user can make a team
-    // For example, if the user is an admin or if they are part of a certain group:
-    return false; // For now, it always returns true
+  const hasMinimumTeamMembers = (): boolean => {
+    // Replace this with actual logic to determine team size
+    const teamMembersCount = 4; // Example team member count
+    return teamMembersCount >= 3;
   };
 
-
-
+  const canMakeTeam = (): boolean => {
+    return false;
+  };
 
   return (
     <div className="min-h-screen flex flex-col">
-      {/* Header */}
-
       <div className="flex flex-1 p-4 gap-6 ">
         {/* Sidebar */}
         <aside className="w-1/4 p-2 overflow-y-scroll bg-[#F7F3F0] border-4 border-black mt-1 pt-4 rounded-2xl">
@@ -142,7 +137,13 @@ const Dashboard: React.FC = () => {
             )}
 
             {/* Project Submission Box */}
-            <ProjectSubmission></ProjectSubmission>
+            <div
+              className={` ${
+                !hasMinimumTeamMembers() ? "opacity-50 pointer-events-none" : ""
+              }`}
+            >
+              <ProjectSubmission />
+            </div>
           </div>
         </main>
       </div>
