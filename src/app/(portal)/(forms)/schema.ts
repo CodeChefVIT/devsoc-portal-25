@@ -26,7 +26,6 @@ export const projectSchema = z.object({
     .min(1, { message: "Description of the project is required" })
     .max(500, { message: "Description should not exceed 500 words" })
     .default(""), // Default description is an empty string
-
   figma_link: z
     .string()
     .url({ message: "Figma link must be a valid URL" })

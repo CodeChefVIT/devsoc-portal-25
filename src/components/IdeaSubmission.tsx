@@ -1,6 +1,6 @@
 import ProjectSubmissionTemplate from "./ProjectSubmissionTemplate";
 import icon from "../../public/bulb.svg";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import { Idea, RequestQuote } from "@carbon/icons-react";
 import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
@@ -20,21 +20,21 @@ interface IGetButtons {
 }
 //If ideaSubmitted is false, set create as visible
 
-export default function ProjectSubmission() {
+export default function IdeaSubmission() {
   const user = useUserStore((state) => state.user);
   const userSet = useUserStore((state) => state.userIsSet);
   const checkIfIdeaAlreadyExists = useIdeaStore(
-    (state) => state.checkIdeaExists
+    (state) => state.checkSubmissionExists
   );
   const userFetch = useUserStore((state) => state.fetch);
   useEffect(() => {
-    async function submissionCheck() {
+    async function ideaCheck() {
       await checkIfIdeaAlreadyExists();
     }
-    submissionCheck();
-  }, []);
+    ideaCheck();
+  }, [checkIfIdeaAlreadyExists]);
   const ideaExists = useIdeaStore(
-    (state) => state.ideaExists
+    (state) => state.submissionExists
   );  
   let subtitle =  "Submit Your Idea Before < date > < time >";
   let title = "No Idea Submitted Yet"
@@ -43,6 +43,18 @@ export default function ProjectSubmission() {
     title = "Idea Submitted"
     subtitle = "Submitted at < date > < time >"
   }
+    const [createOptions, setCreateOptions] = useState<Options>({
+      enabled: true,
+      visible: true,
+    });
+    const [editOptions, setEditOptions] = useState<Options>({
+      enabled: false,
+      visible: false,
+    });
+    const [viewOptions, setViewOptions] = useState<Options>({
+      enabled: false,
+      visible: false,
+    });
   useEffect(() => {
     // Only run if userSet is false
     if (!userSet) {
@@ -57,36 +69,32 @@ export default function ProjectSubmission() {
           }
         }
       };
-
-      // Call the async function
       fetchUser();
-      async function setFlags() {
-        if (user.is_leader && (ideaExists)) {
-          viewOptions.enabled = true;
-          viewOptions.visible = true;
-          editOptions.enabled = true;
-          editOptions.visible = true;
-        } else if (ideaExists) {
-          viewOptions.enabled = true;
-          viewOptions.visible = true;
-          editOptions.enabled = false;
-          editOptions.visible = true;
-        } else if (user.is_leader) {
-          createOptions.enabled = false;
-          createOptions.visible = true;
-        }
-      }
-      setFlags();
     }
-  }, [userSet, userFetch, ideaExists]); // Dependency array with `userSet`
 
-  const createOptions: Options = { enabled: true, visible: true };
-  const editOptions: Options = { enabled: false, visible: false };
-  const viewOptions: Options = { enabled: false, visible: false };
+    // Call the async function
+    const setFlags = () => {
+      if (user.is_leader && ideaExists) {
+        setCreateOptions((prev) => ({ ...prev, visible: false }));
+        setViewOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: true, visible: true });
+      } else if (ideaExists) {
+        setCreateOptions((prev) => ({ ...prev, visible: false }));
+        setViewOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: false, visible: true });
+      } else if (user.is_leader) {
+        setCreateOptions({ enabled: true, visible: true });
+      } else {
+        setCreateOptions({ enabled: false, visible: true });
+      }
+    };
+    setFlags();
+  }, [ideaExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
+
   return (
     <div>
       <ProjectSubmissionTemplate
-        header="Project Submission"
+        header="Idea Submission"
         subtitle={subtitle} //TODO: Change to actual time and date function
         title={title}
         icon={icon}

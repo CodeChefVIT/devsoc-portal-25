@@ -1,18 +1,12 @@
 import { ConvertToAPIError } from "@/lib/error";
 import api from ".";
 import { getData } from "@/lib/utils";
-interface SubmissionData {
-  team_id: string;
-  title: string;
-  description: string;
-  github_link: string;
-  figma_link: string;
-  other_link?: string;
-}
+import axios, { AxiosError } from "axios";
+import { APIResponse, IIdea, ISubmission } from "@/interfaces";
 
 export const createSubmission = async (
   route: string,
-  submissionData: SubmissionData
+  submissionData: ISubmission
 ) => {
   try {
     const response = await api.post(`/${route}/create`, submissionData);
@@ -22,17 +16,20 @@ export const createSubmission = async (
     throw ConvertToAPIError(error);
   }
 };
-export const getSubmission = async (route: string) => {
+export const getSubmission = async <T extends ISubmission | IIdea>(
+  route: "submission" | "idea"
+): Promise<T> => {
   try {
-    const response = await api.get(`/${route}/get`);
-    return response.data;
+    const response = await api.get<APIResponse<T>>(`/${route}/get`);
+
+    return getData<T>(response.data) as T;
   } catch (error) {
     throw ConvertToAPIError(error);
   }
 };
 export const updateSubmission = async (
   route: string,
-  submissionData: Omit<SubmissionData, "team_id">
+  submissionData: Omit<ISubmission, "team_id">
 ) => {
   try {
     const response = await api.post(`/${route}/update`, submissionData);
@@ -43,13 +40,16 @@ export const updateSubmission = async (
 };
 export const checkSubmissionExists = async (route: string) => {
   try {
-    const response = await api.post(`/${route}/update`);
-    if (response.status == 404) {
-      return true;
-    } else {
-      return false;
+    await api.get(`/${route}/get`);
+    return true;
+  } catch (err) {
+    if (axios.isAxiosError(err)) {
+      const error = err as AxiosError;
+      if (error.status == 404) {
+        return false;
+      }
     }
-  } catch (error) {
-    throw ConvertToAPIError(error);
+
+    throw ConvertToAPIError(err);
   }
 };

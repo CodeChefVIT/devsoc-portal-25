@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { projectSchema } from "../../schema";
-import { useParams } from "next/navigation";
 import { useIdeaStore } from "@/store/idea";
 import { updateSubmission } from "@/services/submit";
 import ProjectFormFields from "../../formFields";
@@ -14,27 +13,26 @@ import { ApiError } from "next/dist/server/api-utils";
 import { defaults } from "../../defaults";
 
 export default function EditIdea() {
-  const { iid } = useParams<{ iid: string }>();
 
   const idea = useIdeaStore((state) => state.idea);
   const ideaFetch = useIdeaStore((state) => state.fetch);
-  const ideaUpdate = useIdeaStore((state) => state.updateIdea);
-  const checkIdeaExists = useIdeaStore((state) => state.checkIdeaExists);
+  const ideaUpdate = useIdeaStore((state) => state.updateSubmission);
+  const checkIdeaExists = useIdeaStore((state) => state.checkSubmissionExists);
 
   useEffect(() => {
     const fetchIdeaIfNeeded = async () => {
-      if (!(await checkIdeaExists())) {
-        ideaFetch(iid); // Fetch idea if not loaded
-      }
+        ideaFetch(); // Fetch idea if not loaded
     };
 
     fetchIdeaIfNeeded(); // Call the async function inside the effect
-  }, []);
+  }, [checkIdeaExists, ideaFetch]);
 
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
+    mode: "onBlur",  // Trigger validation when the input field loses focus
+
   });
   React.useEffect(() => {
     const resetFormIfIdeaExists = async () => {
@@ -58,8 +56,8 @@ export default function EditIdea() {
     //TODO update idea from be
     toast.promise(
       async () => {
-        updateSubmission("idea", { ...data, ...idea });
-        ideaUpdate({ ...data, ...idea });
+        updateSubmission("idea", data);
+        ideaUpdate(data);
       },
       {
         loading: "Loading...",

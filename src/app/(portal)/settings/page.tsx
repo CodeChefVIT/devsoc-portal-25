@@ -20,8 +20,8 @@ const VITEmailSchema = z
   );
 
 import { FormSelect } from "@/components/form/formSelectItem";
-import { getDefaultsFromSchema } from "../../(forms)/defaults";
-import { githubLinkSchema } from "../../(forms)/schema";
+import { getDefaultsFromSchema } from "../(forms)/defaults";
+import { githubLinkSchema } from "../(forms)/schema";
 
 const hostels: [string, ...string[]] = [
   "Men's Hostel - A Block",
