@@ -1,17 +1,13 @@
 "use client";
 
-
 import React, { useEffect, useState } from "react";
-import iconContainer from "../../../../public/images/iconContainer.png";
 // import github from "/public/images/github.png";
 // import settings from "/public/images/settings.png";
 // import idea from "/public/images/idea.png";
 // import track_pic from "/public/images/track_pic.png";
 
 import Timeline from "@/components/timeline/timeline";
-import JoinTeamDialog from "@/components/dialogs/join_team";
-import CreateTeamDialog from "@/components/dialogs/create_team";
-import MakeTeam from "@/components/dialogs/make_team";
+import TeamView from "@/components/dialogs/make_team";
 import Image from "next/image";
 import {
   Dialog,
@@ -23,6 +19,7 @@ import {
 } from "@/components/ui/dialog";
 import ProjectSubmission from "@/components/ProjectSubmission";
 import { useTeamStore } from "@/store/team";
+import JoinTeam from "@/components/joinTeam";
 
 // interface Event {
 //   time: string;
@@ -65,7 +62,6 @@ const Dashboard: React.FC = () => {
     }
     fetchInfo();
   }, [fetchTeamInfo]);
-
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -128,31 +124,7 @@ const Dashboard: React.FC = () => {
           {/* Dev Team and Project Submission Boxes */}
           <div className="flex gap-4 mt-6">
             {/* Dev Team Box */}
-            {team ? (
-              <MakeTeam />
-            ) : (
-              <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0]">
-                <div className="font-bold bg-black h-[40px] text-white flex justify-between px-4 items-center">
-                  Your Devsoc Team
-                  <div className="w-4 h-4 border-2 border-black rounded-full bg-white"></div>
-                </div>
-                <div className="flex items-center justify-center bg-[#F7F3F0] mt-10 mb-10">
-                  <Image
-                    src={iconContainer}
-                    alt="Icon Container"
-                    layout="intrinsic" // Use intrinsic layout for natural size
-                    className="w-fit"
-                  />
-                </div>
-                <div className="text-sm mb-4 text-center">
-                  No Team Members Yet?
-                </div>
-                <div className="flex gap-2 justify-center">
-                  <JoinTeamDialog />
-                  <CreateTeamDialog />
-                </div>
-              </div>
-            )}
+            {!team ? <TeamView /> : <JoinTeam />}
 
             {/* Project Submission Box */}
             <ProjectSubmission></ProjectSubmission>

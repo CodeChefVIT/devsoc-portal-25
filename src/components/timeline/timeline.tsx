@@ -7,7 +7,7 @@ interface Event {
 }
 
 const Timeline: React.FC = () => {
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [, setActiveIndex] = useState<number>(0);
   const [remainingTime, setRemainingTime] = useState<number>(0); // Store the remaining time from API
   const timelineRef = useRef<HTMLDivElement>(null);
 

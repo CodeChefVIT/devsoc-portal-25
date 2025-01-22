@@ -12,63 +12,41 @@ import { deleteTeam, updateTeamName } from "@/services/team"; // Import the API 
 import LabelledInput from "../labelled-input";
 import { ApiError } from "next/dist/server/api-utils";
 import { useTeamStore } from "@/store/team";
+import toast from "react-hot-toast";
+import { Button } from "../ui/button";
+import { DialogTrigger } from "@radix-ui/react-dialog";
+import { PenBoxIcon } from "lucide-react";
 
-interface EditTeamDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-const EditTeamDialog: React.FC<EditTeamDialogProps> = ({ isOpen, onClose }) => {
+const EditTeamDialog: React.FC = () => {
   const teamName = useTeamStore((state) => state.team.team_name);
   const [inputTeamName, setInputTeamName] = useState("");
   const [newTeamName, setNewTeamName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
   const handleDisbandTeam = async () => {
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
     if (inputTeamName !== teamName) {
-      setError("You inputted incorrect teamname.");
-      setLoading(false);
+      toast.error("You inputted incorrect teamname.");
       return;
     }
-    try {
-      await deleteTeam(); // Call the API function with the team code
-      setSuccess(true); // Set success to true if API call succeeds
-    } catch (err) {
-      if (err instanceof ApiError) {
-        setError(err.message);
-      }
-      setError("Failed to join the team. Please check the code and try again.");
-      console.error("Error during API call:", err);
-    } finally {
-      setLoading(false);
-    }
+    toast.promise(deleteTeam, {
+      loading: "Loading...",
+      success: "Deleted team!",
+      error: (err: ApiError) => err.message,
+    });
   };
-  const handleJoinTeam = async () => {
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
 
-    try {
-      await updateTeamName(newTeamName); // Call the API function with the team code
-      setSuccess(true); // Set success to true if API call succeeds
-    } catch (err) {
-      if (err instanceof ApiError) {
-        setError(err.message);
-      }
-      setError("Failed to join the team. Please check the code and try again.");
-      console.error("Error during API call:", err);
-    } finally {
-      setLoading(false);
-    }
+  const handleUpdateTeamName = async () => {
+    toast.promise(updateTeamName(newTeamName), {
+      loading: "Loading...",
+      success: "Edited Team Name!",
+      error: (err: ApiError) => err.message,
+    });
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog>
       {/* Dialog Content */}
+      <DialogTrigger>
+      <PenBoxIcon className="w-5 h-5 mr-2" />
+      </DialogTrigger>
       <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-6">
         <DialogHeader>
           <DialogTitle className="font-yerk mb-4">Edit Team</DialogTitle>
@@ -99,24 +77,15 @@ const EditTeamDialog: React.FC<EditTeamDialogProps> = ({ isOpen, onClose }) => {
           ></LabelledInput>
 
           {/* Display Error or Success Message */}
-          {error && <div className="text-red-500">{error}</div>}
-          {success && (
-            <div className="text-green-500">
-              Successfully updated the team name!
-            </div>
-          )}
 
           {/* Action Buttons */}
           <div className="flex justify-center gap-2 mt-6">
-            <button
-              className={`${
-                loading ? "bg-gray-400" : "bg-orange-500"
-              } text-white py-3 px-8 rounded text-lg`}
-              onClick={handleJoinTeam}
-              disabled={loading}
+            <Button
+              className={"bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white py-3 px-8 rounded text-lg"}
+              onClick={handleUpdateTeamName}
             >
-              {loading ? "Editing..." : "Edit"}
-            </button>
+              Edit
+            </Button>
           </div>
         </div>
 
@@ -127,6 +96,10 @@ const EditTeamDialog: React.FC<EditTeamDialogProps> = ({ isOpen, onClose }) => {
             Disband Team
           </DialogDescription>
 
+          <p className="text-xs text-red-700">
+            {" "}
+            Enter your team name here to disband it
+          </p>
           {/* Repeated Input Field */}
           <LabelledInput
             id="team-name"
@@ -140,22 +113,15 @@ const EditTeamDialog: React.FC<EditTeamDialogProps> = ({ isOpen, onClose }) => {
           ></LabelledInput>
 
           {/* Repeated Display Error or Success Message */}
-          {error && <div className="text-red-500">{error}</div>}
-          {success && (
-            <div className="text-green-500">Successfully joined the team!</div>
-          )}
 
           {/* Repeated Action Buttons */}
           <div className="flex justify-center gap-2 mt-6">
-            <button
-              className={`${
-                loading ? "bg-gray-400" : "bg-[#F7F3F0] border-4 border-red-800"
-              } text-[#991b1b] py-3 px-8 rounded-lg text-lg`}
+            <Button
+              className={`${"bg-[#F7F3F0] border-4 border-red-800"} text-[#991b1b] py-3 px-8 rounded-lg text-lg`}
               onClick={handleDisbandTeam}
-              disabled={loading}
             >
-              {loading ? "Disbanding..." : "Disband"}
-            </button>
+              Disband
+            </Button>
           </div>
         </div>
       </DialogContent>

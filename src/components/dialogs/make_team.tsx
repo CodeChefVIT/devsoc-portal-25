@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { PenBoxIcon } from "lucide-react";
 import RemoveFromTeamDialog from "./remove_from_team";
 import { IoMdCopy } from "react-icons/io";
 
@@ -7,19 +6,17 @@ import EditTeamDialog from "./edit_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
 
-const MakeTeam = () => {
+const TeamView = () => {
   const user = useUserStore((state) => state.user);
 
   const team = useTeamStore((state) => state.team);
 
   const teamFetch = useTeamStore((state) => state.fetch);
   const [copied, setCopied] = useState<boolean>(false);
-  const [editDialogVisible, setEditDialogVisible] = useState<boolean>(false); // This controls the visibility of the dialog
 
   useEffect(() => {
     teamFetch();
   }, [teamFetch]);
-
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(team.code);
@@ -27,16 +24,12 @@ const MakeTeam = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-
-
   return (
-    <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0]">
+    <div className="border-4 flex-1 rounded-xl  shadow-m border-black overflow-hidden bg-[#F7F3F0]">
       {/* Header */}
-      <div className="font-monomaniac bg-black h-[40px] text-white flex justify-between px-4 items-center">
+      <div className="font-monomaniac  bg-black h-[40px] text-white flex justify-between px-4 items-center">
         Your Devsoc Team
-        <button onClick={() => setEditDialogVisible(true)}>
-          <PenBoxIcon className="w-5 h-5 mr-2" />
-        </button>
+        <EditTeamDialog />
       </div>
 
       <div className="p-4">
@@ -70,10 +63,7 @@ const MakeTeam = () => {
                   <div className="flex-1 border-none outline-none bg-transparent">
                     {member.first_name + " " + member.last_name}
                     {user.is_leader && (
-                      <RemoveFromTeamDialog
-                        email={member.email}
-                      />
-  
+                      <RemoveFromTeamDialog email={member.email} />
                     )}
                   </div>
                 )}
@@ -101,16 +91,8 @@ const MakeTeam = () => {
       </div>
 
       {/* Open Edit Team Dialog on pen icon click */}
-      {editDialogVisible && (
-        <EditTeamDialog
-          isOpen={editDialogVisible}
-          onClose={() => setEditDialogVisible(false)} // Close dialog on action
-        />
-      )}
-
-
     </div>
   );
 };
 
-export default MakeTeam;
+export default TeamView;
