@@ -78,7 +78,7 @@ const Dashboard: React.FC = () => {
                   className="border shadow-md mb-4 border-black rounded-3xl cursor-pointer"
                   onClick={() => setSelectedTrack(track)}
                 >
-                  <div className="text-center mt-2 font-bold">{track.name}</div>
+                  <div className=" mt-2  mx-4">{track.name}</div>
 
                   <Image
                     src="/images/track_pic.png"
