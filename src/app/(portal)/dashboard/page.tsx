@@ -95,21 +95,24 @@ const Dashboard: React.FC = () => {
                   <DialogTitle className="font-yerk mb-6">
                     Track Details
                   </DialogTitle>
-                  <DialogDescription className="">
-                    <b className="mb-3">Hardware Problems</b>
-                    <div>
-                      <li>
-                        Detailed information about the track goes here. You can
-                        add descriptions, links, or anything else related to the
-                        track.
-                      </li>
-                      <li>
-                        Detailed information about the track goes here. You can
-                        add descriptions, links, or anything else related to the
-                        track.
-                      </li>
+
+                    <div className=" text-gray-500">
+                      <div className="font-bold mb-3 ">Hardware Problems</div>
+                      <div>
+                        <div>
+                          <div>
+                            Detailed information about the track goes here. You can
+                            add descriptions, links, or anything else related to the
+                            track.
+                          </div>
+                          <div>
+                            Detailed information about the track goes here. You can
+                            add descriptions, links, or anything else related to the
+                            track.
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </DialogDescription>
                 </DialogHeader>
               </DialogContent>
             </Dialog>
