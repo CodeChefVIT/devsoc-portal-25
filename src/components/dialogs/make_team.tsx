@@ -5,6 +5,9 @@ import { IoMdCopy } from "react-icons/io";
 import EditTeamDialog from "./edit_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
+import { leaveTeam } from "@/services/team";
+import { ApiError } from "next/dist/server/api-utils";
+import toast from "react-hot-toast";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
@@ -23,6 +26,13 @@ const TeamView = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
+  function leave() {
+    toast.promise(leaveTeam(), {
+      loading: "Leaving team...",
+      success: "Left team successfully",
+      error: (err: ApiError) => err.message,
+    });
+  }
 
   return (
     <div className="border-4 flex-1 rounded-xl  shadow-m border-black overflow-hidden bg-[#F7F3F0]">
@@ -76,16 +86,32 @@ const TeamView = () => {
 
         {/* Team Code */}
         <div className="text-center mt-6">
-          <div className="text-sm">Team Code</div>
-          <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-            <IoMdCopy />
-            <span>{team.code}</span>
-            <button
-              onClick={copyToClipboard}
-              className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
-            >
-              {copied ? "Copied" : "Copy"}
-            </button>
+          {" "}
+          <div className="flex items-center gap-4 justify-center">
+            <div>
+              <div>leave team</div>
+              <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
+                <button
+                  onClick={leave}
+                  className="text-white font-medium px-2 py-1 rounded-lg  flex items-center"
+                >
+                  Leave team
+                </button>
+              </div>
+            </div>
+            <div>
+              <div className="text-sm">Team Code</div>
+              <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
+                <IoMdCopy />
+                <div>{team.code}</div>
+                <button
+                  onClick={copyToClipboard}
+                  className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
+                >
+                  {copied ? "Copied" : "Copy"}
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
