@@ -1,37 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { PenBoxIcon } from "lucide-react";
-import RemoveFromTeamDialog from "../remove_from_team/remove_from_team";
+import RemoveFromTeamDialog from "./remove_from_team";
 import { IoMdCopy } from "react-icons/io";
 
-import EditTeamDialog from "../edit_team/edit_team";
+import EditTeamDialog from "./edit_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
-import toast from "react-hot-toast";
 
 const MakeTeam = () => {
   const user = useUserStore((state) => state.user);
 
   const team = useTeamStore((state) => state.team);
-  const removeMember = useTeamStore((state) => state.removeMember);
 
   const teamFetch = useTeamStore((state) => state.fetch);
   const [copied, setCopied] = useState<boolean>(false);
   const [editDialogVisible, setEditDialogVisible] = useState<boolean>(false); // This controls the visibility of the dialog
-  const [dialogVisibleIndex, setDialogVisibleIndex] = useState<number | null>(
-    null
-  ); // Controls which member's remove dialog is visible
 
   useEffect(() => {
     teamFetch();
   }, [teamFetch]);
 
-  const kickMember = (email: string) => {
-    toast.promise(removeMember(email), {
-      loading: "Removing member...",
-      success: "Member removed successfully",
-      error: "Failed to remove member",
-    });
-  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(team.code);
@@ -39,13 +27,7 @@ const MakeTeam = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleRemoveMember = (index: number) => {
-    setDialogVisibleIndex(index); // Set the member's index to show the remove dialog
-  };
 
-  const closeRemoveDialog = () => {
-    setDialogVisibleIndex(null); // Close the remove dialog
-  };
 
   return (
     <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0]">
@@ -88,12 +70,10 @@ const MakeTeam = () => {
                   <div className="flex-1 border-none outline-none bg-transparent">
                     {member.first_name + " " + member.last_name}
                     {user.is_leader && (
-                      <button
-                        className="text-red-500"
-                        onClick={() => kickMember(member.email)} // or handle remove member
-                      >
-                        ⛔
-                      </button>
+                      <RemoveFromTeamDialog
+                        email={member.email}
+                      />
+  
                     )}
                   </div>
                 )}
@@ -128,14 +108,7 @@ const MakeTeam = () => {
         />
       )}
 
-      {/* Open Remove From Team Dialog for selected member */}
-      {dialogVisibleIndex !== null && (
-        <RemoveFromTeamDialog
-          isOpen={dialogVisibleIndex !== null}
-          onClose={closeRemoveDialog}
-          memberIndex={dialogVisibleIndex}
-        />
-      )}
+
     </div>
   );
 };

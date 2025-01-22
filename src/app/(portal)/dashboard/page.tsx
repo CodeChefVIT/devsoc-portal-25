@@ -9,9 +9,9 @@ import iconContainer from "../../../../public/images/iconContainer.png";
 // import track_pic from "/public/images/track_pic.png";
 
 import Timeline from "@/components/timeline/timeline";
-import JoinTeamDialog from "@/components/join_team/join_team";
-import CreateTeamDialog from "@/components/create_team/create_team";
-import MakeTeam from "@/components/make_team/make_team";
+import JoinTeamDialog from "@/components/dialogs/join_team";
+import CreateTeamDialog from "@/components/dialogs/create_team";
+import MakeTeam from "@/components/dialogs/make_team";
 import Image from "next/image";
 import {
   Dialog,

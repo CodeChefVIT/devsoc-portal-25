@@ -11,10 +11,11 @@ type LabelledInputProps = {
     required?: boolean,
     labelText: string,
     onInputChange: (value: string) => void,
+    className?: string,
     type: React.InputHTMLAttributes<HTMLInputElement>["type"],
     autoFill?: boolean,
     disabled?: boolean,
-
+    placeholder?: string,
     labelProps?: Omit<React.ComponentPropsWithoutRef<typeof Label>, 'id' | 'htmlFor'>
     inputProps?: Omit<
         React.ComponentPropsWithoutRef<typeof Input>,
@@ -40,8 +41,9 @@ const LabelledInput = (props: LabelledInputProps)=>{
                     type={props.type === "password" ? showPassword ? "text" : "password" : props.type}
                     value = {props.value ?? ''}
                     onChange={(e)=>props.onInputChange(e.target.value)}
+                    placeholder={props.placeholder}
                     // focus-visible:ring-cc-primary
-                    className={'outline-0 ring-1 ring-cc-dark font-inter bg-white'}
+                    className={'outline-0 ring-1 ring-cc-dark font-inter bg-white' + props.className}
                     autoComplete={props.autoFill ? "on" : "off"}
                     disabled={props.disabled}
                     {...props.inputProps}
