@@ -10,32 +10,30 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import CustomButton from "../CustomButton";
-import {  joinTeam } from "@/services/team"; // Import the API function
+import { joinTeam } from "@/services/team"; // Import the API function
 import { useTeamStore } from "@/store/team";
+import { ApiError } from "next/dist/server/api-utils";
+import toast from "react-hot-toast";
 
 const JoinTeamDialog: React.FC = () => {
   const [teamCode, setTeamCode] = useState("");
-  const fetchTeam = useTeamStore((state)=> state.fetch)
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
+  const fetchTeam = useTeamStore((state) => state.fetch);
+  // const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState<string | null>(null);
+  // const [success, setSuccess] = useState<boolean>(false);
 
   const handleJoinTeam = async () => {
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
-
-    try {
-      await joinTeam(teamCode); // Call the API function with the team code
-      setSuccess(true); // Set success to true if API call succeeds
-      fetchTeam()
-      console.log("Successfully joined the team!");
-    } catch (err) {
-      setError("Failed to join the team. Please check the code and try again.");
-      console.error("Error during API call:", err);
-    } finally {
-      setLoading(false);
-    }
+    toast.promise(
+      async () => {
+        await joinTeam(teamCode);
+        fetchTeam();
+      },
+      {
+        loading: "Joining Team...",
+        success: "Successfully joined the team!",
+        error: (err: ApiError) => err.message,
+      }
+    );
   };
 
   return (
@@ -65,19 +63,21 @@ const JoinTeamDialog: React.FC = () => {
           />
 
           {/* Display Error or Success Message */}
-          {error && <div className="text-red-500">{error}</div>}
-          {success && <div className="text-green-500">Successfully joined the team!</div>}
+          {/* {error && <div className="text-red-500">{error}</div>}
+          {success && <div className="text-green-500">Successfully joined the team!</div>} */}
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
             <button
               className={`${
-                loading ? "bg-gray-400" : "bg-orange-500"
+                // loading ? "bg-gray-400" :
+                "bg-orange-500"
               } text-white py-2 px-4 rounded`}
               onClick={handleJoinTeam}
-              disabled={loading || !teamCode.trim()}
+              // disabled={loading || !teamCode.trim()}
             >
-              {loading ? "Joining..." : "Join"}
+              Join
+              {/* {loading ? "Joining..." : "Join"} */}
             </button>
           </div>
         </div>

@@ -34,9 +34,9 @@ export const createTeam = async (teamName: string) => {
 };
 
 // Leave Team
-export const leaveTeam = async (userID: string) => {
+export const leaveTeam = async () => {
   try {
-    const response = await api.post('/team/leave', { userID });
+    const response = await api.post('/team/leave');
     return getData(response.data);
   } catch (error) {
     throw ConvertToAPIError(error);
@@ -44,9 +44,9 @@ export const leaveTeam = async (userID: string) => {
 };
 
 // Kick Member
-export const kickMember = async (userID: string) => {
+export const kickMember = async (email: string) => {
   try {
-    const response = await api.post('/team/kick', { userID });
+    const response = await api.post('/team/kick', { email });
     return getData(response.data);
   } catch (error) {
     throw ConvertToAPIError(error);
