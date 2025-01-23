@@ -1,4 +1,5 @@
 import React from "react";
+import { IoMdRemoveCircleOutline } from "react-icons/io";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,7 +11,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
 import { useTeamStore } from "@/store/team";
 import { ApiError } from "next/dist/server/api-utils";
@@ -22,24 +22,20 @@ interface RemoveFromTeamDialogProps {
 const RemoveFromTeamDialog: React.FC<RemoveFromTeamDialogProps> = ({
   email,
 }) => {
-    const removeMember = useTeamStore((state) => state.removeMember);
-  
+  const removeMember = useTeamStore((state) => state.removeMember);
+
   const handleRemove = (email: string) => {
     toast.promise(removeMember(email), {
       loading: "Removing member...",
       success: "Member removed successfully",
       error: (err: ApiError) => err.message,
-    });  };
+    });
+  };
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button
-          className="text-red-500"
-          onClick={() => handleRemove(email)} // or handle remove member
-        >
-          ⛔
-        </Button>{" "}
+      <AlertDialogTrigger>
+        <IoMdRemoveCircleOutline className="text-red-500" />
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -53,7 +49,9 @@ const RemoveFromTeamDialog: React.FC<RemoveFromTeamDialogProps> = ({
             Cancel
           </AlertDialogCancel>
           <AlertDialogAction
-            onClick={() => {handleRemove(email)}}
+            onClick={() => {
+              handleRemove(email);
+            }}
             className="bg-red-500 text-white py-2 px-4 rounded"
           >
             Remove

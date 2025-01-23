@@ -11,36 +11,37 @@ import {
 } from "@/components/ui/dialog";
 import CustomButton from "../CustomButton";
 import { createTeam } from "@/services/team"; // Import the create team API
+import toast from "react-hot-toast";
+import { ApiError } from "next/dist/server/api-utils";
+import { useTeamStore } from "@/store/team";
 
 const CreateTeamDialog: React.FC = () => {
   const [teamName, setTeamName] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
-
-
+  const [isDialogOpen, setIsDialogOpen] = useState(false); // Control the dialog open state
+  const fetchTeam = useTeamStore((state) => state.fetch);
   const handleCreateTeam = async () => {
-    setLoading(true);
-    setError(null);
-    setSuccess(false);
-
-    try {
-      const response = await createTeam(teamName); // Call API with team name
-      setSuccess(true); // If successful, set success state
-      console.log("Team created successfully:", response);
-    } catch (err) {
-      setError("Failed to create the team. Please try again.");
-      console.error("Error during API call:", err);
-    } finally {
-      setLoading(false);
-    }
+    await toast.promise(
+      async () => {
+        await createTeam(teamName);
+        await fetchTeam();
+      },
+      {
+        loading: "Loading...",
+        success: "Created team!",
+        error: (err: ApiError) => err.message,
+      }
+    );
+    // Fetch the team data after creating the team
+    setIsDialogOpen(false); // Close the dialog on success
   };
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <CustomButton>🛡️ Create Team</CustomButton>
+        <CustomButton onClick={() => setIsDialogOpen(true)}>
+          🛡️ Create Team
+        </CustomButton>
       </DialogTrigger>
 
       {/* Dialog Content */}
@@ -62,20 +63,13 @@ const CreateTeamDialog: React.FC = () => {
             className="border-2 border-black rounded-lg px-4 py-2"
           />
 
-          {/* Display Error or Success Message */}
-          {error && <div className="text-red-500">{error}</div>}
-          {success && <div className="text-green-500">Team created successfully!</div>}
-
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
             <button
-              className={`${
-                loading ? "bg-gray-400" : "bg-orange-500"
-              } text-white py-2 px-4 rounded`}
+              className={`${"bg-orange-500"} text-white py-2 px-4 rounded`}
               onClick={handleCreateTeam}
-              disabled={loading || !teamName.trim()}
             >
-              {loading ? "Creating..." : "Create"}
+              Create
             </button>
           </div>
         </div>

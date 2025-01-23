@@ -24,7 +24,6 @@ export const useTeamStore = create<TeamStore>((set) => ({
   fetch: async () => {
     try {
       const teamResponse = await getTeam();
-      console.log(teamResponse);
       set({ userIsSet: true });
       set({ team: teamResponse });
     } catch (e) {
