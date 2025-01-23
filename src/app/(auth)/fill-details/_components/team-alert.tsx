@@ -20,7 +20,7 @@ const TeamAlert = ({
                 <p>If You do not have a team at the moment, consider joining the discord to socialize and form your dream team!</p>
             </div>
             <div className={"flex gap-4 items-center"}>
-                <Link href={"#"} className={"flex items-center gap-2 bg-indigo-500 p-1.5 px-3 rounded-lg"}>
+                <Link href={"https://discord.gg/M8V6vxXnUq"} target={"_blank"} className={"flex items-center gap-2 bg-indigo-500 p-1.5 px-3 rounded-lg"}>
                     <span><FaDiscord className={"size-8 bg-[#5865F2] text-white p-1 rounded-md shadow-sm"} /></span>
                     <span className={"text-white"}>Join Discord</span>
                 </Link>

@@ -24,8 +24,8 @@ const CollegeDetails = () => {
     }
 
     useEffect(() => {
-        ;(async()=>error && await form.trigger())()
-    }, [error, form]);
+        if (error) form.trigger();
+    }, [error]);
 
     return (
         <div className={"flex justify-center w-full"}>
