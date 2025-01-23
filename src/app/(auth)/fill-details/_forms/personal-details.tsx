@@ -18,8 +18,8 @@ const PersonalDetails = () => {
     const { updateFormData, error } = useFormStore();
 
     const handleNext = () => {
-        const { firstName, lastName, email, phoneNo, gender } = form.getValues();
-        updateFormData({ firstName, lastName, email, phoneNo, gender })
+        const { firstName, lastName, githubProfile, regNo, phoneNo, gender } = form.getValues();
+        updateFormData({ firstName, lastName,  githubProfile, regNo, phoneNo, gender })
         router.push("/fill-details/2");
         return;
     }
@@ -31,14 +31,19 @@ const PersonalDetails = () => {
     return (
         <div className={"my-0 flex justify-center w-full"}>
             <Modal branding={false} classname={"px-12 py-8 flex gap-2"}>
-                <InfoFormField name={'firstName'} render={({ field })=>(
-                    <AuthFormItem field={field} labelText={"First Name"} type={"text"} required />
+                <div className='flex gap-5'>
+                    <InfoFormField name={'firstName'} render={({ field })=>(
+                        <AuthFormItem field={field} labelText={"First Name"} type={"text"} required />
+                    )} />
+                    <InfoFormField name={'lastName'} render={({ field })=>(
+                        <AuthFormItem field={field} labelText={"Last Name"} type={"text"} required />
+                    )} />
+                </div>
+                <InfoFormField name={'githubProfile'} render={({ field })=>(
+                    <AuthFormItem field={field} labelText={"Github Profile"} type={"text"} required />
                 )} />
-                <InfoFormField name={'lastName'} render={({ field })=>(
-                    <AuthFormItem field={field} labelText={"Last Name"} type={"text"} required />
-                )} />
-                <InfoFormField name={'email'} render={({ field })=>(
-                    <AuthFormItem field={field} labelText={"Email"} type={"email"} required />
+                <InfoFormField name={'regNo'} render={({ field })=>(
+                    <AuthFormItem field={field} labelText={"Registation Number"} type={"text"} required />
                 )} />
                 <InfoFormField name={'phoneNo'} render={({ field })=>(
                     <AuthFormItem field={field} labelText={"Phone Number"} type={"tel"} required />
