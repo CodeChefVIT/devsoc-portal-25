@@ -66,6 +66,9 @@ const EditTeamDialog: React.FC = () => {
             onInputChange={setNewTeamName}
             placeholder="Enter New Team Name"
             className="border-2 border-black rounded-lg px-4 py-2 mt-2 mb-4" // Add spacing
+            inputProps={{
+              className:"ring-0 border border-black bg-white py-5 mt-1"
+            }}
           />
 
           {/* Action Buttons */}
@@ -74,11 +77,11 @@ const EditTeamDialog: React.FC = () => {
             <CustomButton
               buttonProps={{
                 className:
-                  "bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white py-3 px-8 rounded text-lg",
+                  "bg-orange-500 font-monomaniac hover:bg-orange-400 active:bg-orange-600 text-white py-6 px-14 rounded-xl text-lg",
               }}
               onClick={handleUpdateTeamName}
             >
-              Edit
+              EDIT
             </CustomButton>
           </div>
         </div>
@@ -96,19 +99,22 @@ const EditTeamDialog: React.FC = () => {
             value={inputTeamName}
             onInputChange={setInputTeamName}
             placeholder="Enter Team Name"
-            className="border-2 border-black text-red-600 rounded-lg p-3 mt-2 mb-2" // Add spacing
+            className="border-1 border-black text-red-600 rounded-lg p-3 mt-2" // Add spacing
+            inputProps={{
+              className:"ring-0 border border-black bg-white py-5 mt-1"
+            }}
           />
 
-          <p className="text-gray-400 text-xs mt-0 mb-4">This action cannot be undone</p>
+          <p className="text-gray-400 text-xs -mt-2">This action cannot be undone</p>
 
           <div className="flex justify-center gap-4 mt-2">
             <Button
               className={
-                "bg-[#F7F3F0] border-4 border-red-800 text-[#991b1b] py-6 px-16 rounded-lg text-xl"
+                "bg-[#F7F3F0] font-monomaniac border-2 border-red-800 font-bold text-[#991b1b] py-6 px-10 rounded-xl text-xl"
               } // Larger button
               onClick={handleDisbandTeam}
             >
-              Disband
+              DISBAND
             </Button>
           </div>
         </div>
