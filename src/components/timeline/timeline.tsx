@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 
 interface Event {
@@ -12,16 +12,16 @@ const Timeline: React.FC = () => {
   const timelineRef = useRef<HTMLDivElement>(null);
 
   const events: Event[] = [
-    { time: "10:00 AM", description: "Event 1" },
-    { time: "11:00 AM", description: "Event 2" },
-    { time: "12:00 PM", description: "Event 3" },
-    { time: "1:00 PM", description: "Event 4" },
-    { time: "2:00 PM", description: "Event 5" },
+    { time: "10:00 AM", description: "Long Description of things happening " },
+    { time: "11:00 AM", description: "Long Description of things happening " },
+    { time: "12:00 PM", description: "Long Description of things happening " },
+    { time: "1:00 PM", description: "Long Description of things happening " },
+    { time: "2:00 PM", description: "Long Description of things happening " },
   ];
 
   // Function to calculate how many hexagons should be filled
   const getFilledHexagons = (remainingTime: number) => {
-    const intervalsPassed = Math.floor(remainingTime / (5 * 60)); 
+    const intervalsPassed = Math.floor(remainingTime / (5 * 60));
     return intervalsPassed;
   };
 
@@ -61,23 +61,23 @@ const Timeline: React.FC = () => {
   };
 
   return (
-    <main className="p-3 mb-4">
+    <main>
       {/* Timeline */}
       <div className="border-4 border-black p-3 mt-1 rounded-2xl bg-[#F7F3F0]">
-        <section className="bg-[#F7F3F0] p-4 rounded-xl relative">
+        <section className="bg-[#F7F3F0] rounded-xl relative">
           <h2 className="font-yerk text-xl font-bold mb-4">Timeline</h2>
 
           {/* Scrollable Timeline */}
           <div
             ref={timelineRef}
             onScroll={handleScroll}
-            className="relative overflow-x-auto flex scrollbar-hide px-32" // Add padding to avoid clipping
+            className="relative overflow-x-auto flex scrollbar-hide " // Add padding to avoid clipping
           >
             {/* Line Connecting Events */}
-            <div className="absolute top-1/2 left-0 h-[4px] w-[1500px] bg-black transform -translate-y-1/2"></div>
+            <div className="absolute top-1/2 left-0 h-[4px] w-full bg-black "></div>
 
             {/* Hexagons */}
-            <div className="flex flex-nowrap gap-64 relative">
+            <div className="flex gap-16 ">
               {events.map((event, index) => {
                 const filledHexagons = getFilledHexagons(remainingTime);
                 const isFilled = index <= filledHexagons; // Check if this hexagon should be filled
@@ -87,22 +87,27 @@ const Timeline: React.FC = () => {
                     key={index}
                     className="relative flex flex-col items-center"
                   >
-                    <div
-                      className={`w-14 h-14 clip-hexagon bg-black scale-125 transition-colors duration-300 top-1/2 transform -translate-y-1/2 relative`}
-                    >
+                    {/* Time - Above the hexagon */}
+                    <div className="font-bold text-lg mb-2">{event.time}</div>
+
+                    {/* Hexagon */}
+                    <div className="relative flex items-center justify-center">
                       <div
-                        className={`w-full h-full clip-hexagon ${
-                          isFilled ? "bg-[#FF6600]" : "bg-[#F7F3F0] scale-[0.92] "
-                        }  absolute top-0 left-0 transform`}
-                      ></div>
+                        className={`w-12 h-12 clip-hexagon bg-black scale-125 transition-colors duration-300 relative`}
+                      >
+                        <div
+                          className={`w-full h-full clip-hexagon ${
+                            isFilled
+                              ? "bg-[#FF6600]"
+                              : "bg-[#F7F3F0] scale-[0.92]"
+                          } absolute top-0 left-0 transform`}
+                        ></div>
+                      </div>
                     </div>
 
-                    {/* Time & Description */}
-                    <div className="text-center mt-24">
-                      <div className="text-sm font-bold text-[#333]">
-                        {event.time}
-                      </div>
-                      <div className="text-xs text-gray-800 mt-1">
+                    {/* Description - Below the hexagon */}
+                    <div className="text-center mt-2">
+                      <div className="text-xs text-gray-800">
                         {event.description}
                       </div>
                     </div>
