@@ -11,7 +11,7 @@ interface IButton {
 export default function CustomButton({ disabled, icon, children,type = "button", onClick,buttonProps: inputProps}: IButton) {
   return (
 <Button type={type} disabled={disabled} {...inputProps} className={`disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl  ${inputProps?.className || ""}`}  onClick={onClick}>
-      <div className="flex font-monomaniac  items-center text-lg">
+      <div className="flex font-monomaniac gap-2 items-center text-lg">
         {icon}
         {children}
       </div>

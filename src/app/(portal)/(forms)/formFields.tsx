@@ -24,7 +24,7 @@ const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
 }) => {
   return (
     <div className="flex justify-center gap-20">
-      <div className="flex w-full flex-col gap-6">
+      <div className="flex w-full flex-col gap-2">
         {/* Project Name */}
         <FormField
           control={form.control}
