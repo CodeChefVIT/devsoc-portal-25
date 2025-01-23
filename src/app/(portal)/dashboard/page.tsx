@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-2 gap-1 min-h-0">
           {/* Dev Team Box */}
           <div className="flex flex-col items-start justify-start  rounded-lg p-3 h-[75%]">
-            {team ? <TeamView /> : <JoinTeam />}
+            {team.code ? <TeamView /> : <JoinTeam />}
           </div>
 
           {/* Project Submission Box */}

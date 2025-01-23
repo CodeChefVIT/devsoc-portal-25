@@ -20,12 +20,14 @@ import EditTeamDialog from "./edit_team";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
+  const fetchUser = useUserStore((state) => state.fetch);
   const team = useTeamStore((state) => state.team);
   const teamFetch = useTeamStore((state) => state.fetch);
 
   useEffect(() => {
     teamFetch();
-  }, [teamFetch]);
+    fetchUser();
+  }, [teamFetch, fetchUser]);
 
   const copyToClipboard = () => {
     toast.promise(navigator.clipboard.writeText(team.code), {
@@ -36,11 +38,17 @@ const TeamView = () => {
   };
 
   const leave = () => {
-    toast.promise(leaveTeam(user.email), {
-      loading: "Leaving team...",
-      success: "Left team successfully",
-      error: (err: ApiError) => err.message,
-    });
+    toast.promise(
+      async () => {
+        leaveTeam(user.email);
+        teamFetch();
+      },
+      {
+        loading: "Leaving team...",
+        success: "Left team successfully",
+        error: (err: ApiError) => err.message,
+      }
+    );
   };
 
   return (
@@ -84,10 +92,10 @@ const TeamView = () => {
                     </div>
                   ) : (
                     <div className=" w-full flex justify-between border-none outline-none bg-transparent">
-                        {`${member.first_name}  ${member.last_name}`}
-                        {user.is_leader && (
-                          <RemoveFromTeamDialog email={member.email} />
-                        )}
+                      {`${member.first_name}  ${member.last_name}`}
+                      {user.is_leader && (
+                        <RemoveFromTeamDialog email={member.email} />
+                      )}
                     </div>
                   )}
                 </div>
