@@ -51,14 +51,14 @@ const Dashboard: React.FC = () => {
         <Tracks></Tracks>
 
         {/* Main Content */}
-        <main className="w-3/4 p-1">
+        <main className="w-3/4 ">
           {/* Timeline */}
           <Timeline />
 
           {/* Dev Team and Project Submission Boxes */}
           <div className="flex gap-4 mt-6">
             {/* Dev Team Box */}
-            {team ? <TeamView /> : <JoinTeam />}
+            {team.code ? <TeamView /> : <JoinTeam />}
 
             {/* Project Submission Box */}
             <ProjectSubmission></ProjectSubmission>

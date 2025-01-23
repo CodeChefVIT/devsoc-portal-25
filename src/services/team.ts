@@ -34,9 +34,9 @@ export const createTeam = async (teamName: string) => {
 };
 
 // Leave Team
-export const leaveTeam = async () => {
+export const leaveTeam = async (email: string) => {
   try {
-    const response = await api.post('/team/leave');
+    const response = await api.post('/team/leave', { email });
     return getData(response.data);
   } catch (error) {
     throw ConvertToAPIError(error);

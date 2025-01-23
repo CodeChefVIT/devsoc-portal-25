@@ -1,126 +1,105 @@
-import React, { useState, useEffect } from "react";
-import RemoveFromTeamDialog from "./remove_from_team";
+import React, { useEffect } from "react";
 import { IoMdCopy } from "react-icons/io";
 import { LuCrown } from "react-icons/lu";
 
-import EditTeamDialog from "./edit_team";
+import RemoveFromTeamDialog from "./remove_from_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
 import { leaveTeam } from "@/services/team";
 import { ApiError } from "next/dist/server/api-utils";
 import toast from "react-hot-toast";
+import CustomButton from "../CustomButton";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "../ui/card"; // Import ShadCN components
+import EditTeamDialog from "./edit_team";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
-
   const team = useTeamStore((state) => state.team);
-
   const teamFetch = useTeamStore((state) => state.fetch);
-  const [copied, setCopied] = useState<boolean>(false);
 
   useEffect(() => {
     teamFetch();
   }, [teamFetch]);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(team.code);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    toast.promise(navigator.clipboard.writeText(team.code), {
+      loading: "Copying code...",
+      success: "Codied team code!",
+      error: (err: ApiError) => err.message,
+    });
   };
-  function leave() {
-    toast.promise(leaveTeam(), {
+
+  const leave = () => {
+    toast.promise(leaveTeam(user.email), {
       loading: "Leaving team...",
       success: "Left team successfully",
       error: (err: ApiError) => err.message,
     });
-  }
+  };
 
   return (
-    <div className="border-4 flex-1 rounded-xl  shadow-m border-black overflow-hidden bg-[#F7F3F0]">
-      {/* Header */}
-      <div className="font-monomaniac  bg-black h-[40px] text-white flex justify-between px-4 items-center">
-        Your Devsoc Team
-        <EditTeamDialog />
-      </div>
+    <Card className="border-4 flex flex-col w-[472px] border-black">
+      {/* Card Header */}
+      <CardHeader className="w-full p-3 bg-black text-white">
+        <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
+          Your Devsoc Team
+          <EditTeamDialog />
+        </CardTitle>
+      </CardHeader>
 
-      <div className="p-4">
+      {/* Card Content */}
+      <CardContent className="px-16 flex-grow flex gap-5 flex-col bg-cc-plain items-center">
         {/* Team Member List */}
-        <div className="mb-6 justify-between">
-          <div className="flex flex-col justify-between gap-2">
-            {/* Fixed box for logged-in user */}
-
-            {/* Input boxes for other team members */}
-            {user.is_leader ? (
-              <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
-                <span>{user.first_name + " " + user.last_name}</span>
-                <span className="text-yellow-500">
-                  <LuCrown />
-                </span>
-              </div>
-            ) : (
-              <div className="flex-1 border-none outline-none bg-transparent">
-                {user.first_name + " " + user.last_name}
-              </div>
-            )}
-            {team.members.map((member, index) => (
-              <div
-                key={index}
-                className="flex justify-between items-center bg-white border border-black rounded-lg p-2"
-              >
-                {member.is_leader ? (
-                  <div className="flex justify-center items-center bg-white border border-black rounded-lg p-2">
-                    <span>{member.first_name + " " + member.last_name}</span>
-                    <span className="text-yellow-500">👑</span>
-                  </div>
-                ) : (
-                  <div className="flex-1 border-none outline-none bg-transparent">
-                    {member.first_name + " " + member.last_name}
-                    {user.is_leader && (
-                      <RemoveFromTeamDialog email={member.email} />
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
-
-            {/* Add Member Button */}
-          </div>
-        </div>
-
-        {/* Team Code */}
-        <div className="text-center mt-6">
-          {" "}
-          <div className="flex items-center gap-4 justify-center">
-            <div>
-              <div>leave team</div>
-              <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-                <button
-                  onClick={leave}
-                  className="text-white font-medium px-2 py-1 rounded-lg  flex items-center"
-                >
-                  Leave team
-                </button>
-              </div>
+        <div className="w-full flex flex-col mt-6 gap-3">
+          {user.is_leader ? (
+            <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
+              <span>{user.first_name + " " + user.last_name}</span>
+              <span className="text-yellow-500">
+                <LuCrown />
+              </span>
             </div>
-            <div>
-              <div className="text-sm">Team Code</div>
-              <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-                <IoMdCopy />
-                <div>{team.code}</div>
-                <button
-                  onClick={copyToClipboard}
-                  className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
-                >
-                  {copied ? "Copied" : "Copy"}
-                </button>
-              </div>
+          ) : (
+            <div className="flex-1 border-none outline-none bg-transparent">
+              {user.first_name + " " + user.last_name}
             </div>
-          </div>
+          )}
+          { team.members.map((member, index) => (
+            <div
+              key={index}
+              className="flex justify-between items-center bg-white border border-black rounded-lg p-2"
+            >
+              {member.is_leader ? (
+                <div className="flex justify-center items-center bg-white border border-black rounded-lg p-2">
+                  <span>{member.first_name + " " + member.last_name}</span>
+                  <span className="text-yellow-500">👑</span>
+                </div>
+              ) : (
+                <div className="flex-1 border-none outline-none bg-transparent">
+                  {member.first_name + " " + member.last_name}
+                  {user.is_leader && (
+                    <RemoveFromTeamDialog email={member.email} />
+                  )}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-      </div>
+      </CardContent>
 
-      {/* Open Edit Team Dialog on pen icon click */}
-    </div>
+      {/* Card Footer */}
+      <CardFooter className="w-full mt-auto flex justify-center gap-8 p-4 bg-cc-plain">
+        <CustomButton onClick={leave}>Leave team</CustomButton>
+        <CustomButton icon={<IoMdCopy />} onClick={copyToClipboard}>
+          {team.code}
+        </CustomButton>
+      </CardFooter>
+    </Card>
   );
 };
 

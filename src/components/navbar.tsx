@@ -29,12 +29,14 @@ export default function Navbar() {
     <div className="flex items-center gap-4">
         <Timer />
         {/* change to real timer */}
-      <Image
-        src="/images/github.png"
-        alt="Github Logo"
-        width={40}
-        height={40}
-      />
+      <Link href={'https://discord.gg/M8V6vxXnUq'} className="active:-rotate-12">
+        <Image
+          src="/images/discord.png"
+          alt="Discord Logo"
+          width={40}
+          height={40}
+        />
+      </Link>
       <Image
         src="/images/devsoc.png"
         alt="Another Logo"

@@ -24,9 +24,8 @@ export default function trackCard({
               src="/images/track_pic.png"
               alt={track.name}
               layout="intrinsic" // Use intrinsic layout for natural size
-              width={500} // Provide the intrinsic width (can be any value)
+              width={400} // Provide the intrinsic width (can be any value)
               height={300} // Provide the intrinsic height (can be any value)
-              className="w-full"
             />
           </div>
         </DialogTrigger>
