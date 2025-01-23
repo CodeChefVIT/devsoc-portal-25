@@ -7,7 +7,7 @@ import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useIdeaStore } from "@/store/submission";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -21,6 +21,7 @@ interface IGetButtons {
 //If ideaSubmitted is false, set create as visible
 
 export default function ProjectSubmission() {
+  const router = useRouter();
   const user = useUserStore((state) => state.user);
   const userSet = useUserStore((state) => state.userIsSet);
   const checkIfSubmissionAlreadyExists = useIdeaStore(
@@ -55,6 +56,31 @@ export default function ProjectSubmission() {
     enabled: false,
     visible: false,
   });
+  function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
+    const buttons: ReactNode[] = [];
+    if (view.visible) {
+      buttons.push(
+          <CustomButton disabled={!view.enabled} onClick={() => {router.push("/submission/edit")}} icon={<Idea />}>
+            VIEW SUBMISSION
+          </CustomButton>
+      );
+    }
+    if (edit.visible) {
+      buttons.push(
+          <CustomButton disabled={!edit.enabled} onClick={() => {router.push("/submission/edit")}} icon={<RequestQuote />} >
+            EDIT SUBMISSION
+          </CustomButton>
+      );
+    }
+    if (create.visible) {
+      buttons.push(
+          <CustomButton disabled={!create.enabled} icon={<Idea />} onClick={() => {router.push("/submission")}}>
+            CREATE SUBMISSION
+          </CustomButton>
+      );
+    }
+    return buttons;
+  }
   useEffect(() => {
     // Only run if userSet is false
     if (!userSet) {
@@ -90,7 +116,7 @@ export default function ProjectSubmission() {
     };
     setFlags();
   }, [submissionExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
-
+  
   return (
     <div>
       <ProjectSubmissionTemplate
@@ -108,34 +134,3 @@ export default function ProjectSubmission() {
   );
 }
 
-function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
-  const buttons: ReactNode[] = [];
-  if (view.visible) {
-    buttons.push(
-      <Link href={"submission/edit"}>
-        <CustomButton disabled={!view.enabled} icon={<Idea />}>
-          VIEW SUBMISSION
-        </CustomButton>
-      </Link>
-    );
-  }
-  if (edit.visible) {
-    buttons.push(
-      <Link href="/submission/edit">
-        <CustomButton disabled={!edit.enabled} icon={<RequestQuote />}>
-          EDIT SUBMISSION
-        </CustomButton>
-      </Link>
-    );
-  }
-  if (create.visible) {
-    buttons.push(
-      <Link href="/submission">
-        <CustomButton disabled={!create.enabled} icon={<Idea />}>
-          CREATE SUBMISSION
-        </CustomButton>
-      </Link>
-    );
-  }
-  return buttons;
-}

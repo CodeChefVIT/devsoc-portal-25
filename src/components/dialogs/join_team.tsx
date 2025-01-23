@@ -26,7 +26,7 @@ const JoinTeamDialog: React.FC = () => {
     toast.promise(
       async () => {
         await joinTeam(teamCode);
-        fetchTeam();
+        await fetchTeam();
       },
       {
         loading: "Joining Team...",

@@ -6,7 +6,7 @@ import { create } from "zustand";
 
 interface TeamStore {
   team: ITeam;
-  userIsSet: boolean;
+  teamIsSet: boolean;
   fetch: () => Promise<void>;
   updateTeam: (newUser: ITeam) => Promise<void>;
   removeMember: (email: string) => Promise<void>;
@@ -19,13 +19,12 @@ export const useTeamStore = create<TeamStore>((set) => ({
     round_qualified: 0,
     team_name: "",
   },
-  userIsSet: false,
+  teamIsSet: false,
 
   fetch: async () => {
     try {
       const teamResponse = await getTeam();
-      console.log(teamResponse);
-      set({ userIsSet: true });
+      set({ teamIsSet: true });
       set({ team: teamResponse });
     } catch (e) {
       if (e instanceof ApiError) {

@@ -6,8 +6,8 @@ import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import Link from "next/link";
 import { useIdeaStore } from "@/store/idea";
+import { useRouter } from "next/navigation";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -22,6 +22,7 @@ interface IGetButtons {
 
 export default function IdeaSubmission() {
   const user = useUserStore((state) => state.user);
+  const router = useRouter();
   const userSet = useUserStore((state) => state.userIsSet);
   const checkIfIdeaAlreadyExists = useIdeaStore(
     (state) => state.checkSubmissionExists
@@ -33,28 +34,51 @@ export default function IdeaSubmission() {
     }
     ideaCheck();
   }, [checkIfIdeaAlreadyExists]);
-  const ideaExists = useIdeaStore(
-    (state) => state.submissionExists
-  );  
-  let subtitle =  "Submit Your Idea Before < date > < time >";
-  let title = "No Idea Submitted Yet"
-  if(ideaExists)
-  {
-    title = "Idea Submitted"
-    subtitle = "Submitted at < date > < time >"
+  const ideaExists = useIdeaStore((state) => state.submissionExists);
+  let subtitle = "Submit Your Idea Before < date > < time >";
+  let title = "No Idea Submitted Yet";
+  if (ideaExists) {
+    title = "Idea Submitted";
+    subtitle = "Submitted at < date > < time >";
   }
-    const [createOptions, setCreateOptions] = useState<Options>({
-      enabled: true,
-      visible: true,
-    });
-    const [editOptions, setEditOptions] = useState<Options>({
-      enabled: false,
-      visible: false,
-    });
-    const [viewOptions, setViewOptions] = useState<Options>({
-      enabled: false,
-      visible: false,
-    });
+
+  function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
+    const buttons: ReactNode[] = [];
+    if (view.visible) {
+      buttons.push(
+          <CustomButton disabled={!view.enabled} icon={<Idea />} onClick={() => {router.push("/submission/edit")}} >
+            VIEW IDEA
+          </CustomButton>
+      );
+    }
+    if (edit.visible) {
+      buttons.push(
+          <CustomButton disabled={!edit.enabled} icon={<RequestQuote />} onClick={() => {router.push("/submission/edit")}}>
+            EDIT IDEA
+          </CustomButton>
+      );
+    }
+    if (create.visible) {
+      buttons.push(
+          <CustomButton disabled={!create.enabled} icon={<Idea />} onClick={() => {router.push("/submission")}}>
+            CREATE IDEA
+          </CustomButton>
+      );
+    }
+    return buttons;
+  }
+  const [createOptions, setCreateOptions] = useState<Options>({
+    enabled: true,
+    visible: true,
+  });
+  const [editOptions, setEditOptions] = useState<Options>({
+    enabled: false,
+    visible: false,
+  });
+  const [viewOptions, setViewOptions] = useState<Options>({
+    enabled: false,
+    visible: false,
+  });
   useEffect(() => {
     // Only run if userSet is false
     if (!userSet) {
@@ -106,36 +130,4 @@ export default function IdeaSubmission() {
       />
     </div>
   );
-}
-
-function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
-  const buttons: ReactNode[] = [];
-  if (view.visible) {
-    buttons.push(
-      <Link href={"/idea"}>
-        <CustomButton disabled={!view.enabled} icon={<Idea />}>
-          VIEW IDEA
-        </CustomButton>
-      </Link>
-    );
-  }
-  if (edit.visible) {
-    buttons.push(
-      <Link href="/idea/edit">
-        <CustomButton disabled={!edit.enabled} icon={<RequestQuote />}>
-          EDIT IDEA
-        </CustomButton>
-      </Link>
-    );
-  }
-  if (create.visible) {
-    buttons.push(
-      <Link href="/submission">
-        <CustomButton disabled={!create.enabled} icon={<Idea />}>
-          CREATE IDEA
-        </CustomButton>
-      </Link>
-    );
-  }
-  return buttons;
 }

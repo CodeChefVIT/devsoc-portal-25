@@ -61,12 +61,11 @@ const Timeline: React.FC = () => {
   };
 
   return (
-    <main >
+    <main>
       {/* Timeline */}
       <div className="border-4 border-black py-5 mt-1 rounded-2xl bg-[#F7F3F0] ">
         <section className="bg-[#F7F3F0] rounded-xl relative">
           <h2 className="font-yerk text-xl font-bold px-3 mb-4">Timeline</h2>
-
 
           {/* Scrollable Timeline */}
           <div
@@ -75,12 +74,12 @@ const Timeline: React.FC = () => {
             className="relative overflow-x-auto flex scrollbar-hide " // Add padding to avoid clipping
           >
             {/* Line Connecting Events */}
-            <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2 flex items-center">
-              <div className="h-[4px] w-full bg-black"></div>
-            </div>
 
             {/* Hexagons */}
             <div className="flex gap-16 ">
+              <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2 flex items-center">
+                <div className="h-[4px] w-full bg-black"></div>
+              </div>
               {events.map((event, index) => {
                 const filledHexagons = getFilledHexagons(remainingTime);
                 const isFilled = index <= filledHexagons; // Check if this hexagon should be filled
