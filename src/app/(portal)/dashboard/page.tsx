@@ -58,7 +58,7 @@ const Dashboard: React.FC = () => {
           {/* Dev Team and Project Submission Boxes */}
           <div className="flex gap-4 mt-6">
             {/* Dev Team Box */}
-            {team ? <TeamView /> : <JoinTeam />}
+            {team.code ? <TeamView /> : <JoinTeam />}
 
             {/* Project Submission Box */}
             <ProjectSubmission></ProjectSubmission>
