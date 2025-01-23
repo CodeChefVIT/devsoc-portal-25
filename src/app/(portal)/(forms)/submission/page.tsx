@@ -10,7 +10,7 @@ import ProjectFormFields from "../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { defaults } from "../defaults";
-import  { useRouter } from "next/router";
+import  { useRouter } from "next/navigation";
 export default function Submission() {
   const router = useRouter();
   const schema = projectSchema;

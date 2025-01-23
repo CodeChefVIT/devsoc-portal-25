@@ -67,6 +67,7 @@ const Timeline: React.FC = () => {
         <section className="bg-[#F7F3F0] rounded-xl relative">
           <h2 className="font-yerk text-xl font-bold px-3 mb-4">Timeline</h2>
 
+
           {/* Scrollable Timeline */}
           <div
             ref={timelineRef}
