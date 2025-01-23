@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
         <Tracks></Tracks>
 
         {/* Main Content */}
-        <main className="w-3/4 p-1">
+        <main className="w-3/4 ">
           {/* Timeline */}
           <Timeline />
 

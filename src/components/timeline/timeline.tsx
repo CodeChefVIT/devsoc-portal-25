@@ -74,7 +74,9 @@ const Timeline: React.FC = () => {
             className="relative overflow-x-auto flex scrollbar-hide " // Add padding to avoid clipping
           >
             {/* Line Connecting Events */}
-            <div className="absolute top-1/2 left-0 h-[4px] w-full bg-black "></div>
+            <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2 flex items-center">
+              <div className="h-[4px] w-full bg-black"></div>
+            </div>
 
             {/* Hexagons */}
             <div className="flex gap-16 ">
@@ -93,7 +95,7 @@ const Timeline: React.FC = () => {
                     {/* Hexagon */}
                     <div className="relative flex items-center justify-center">
                       <div
-                        className={`w-12 h-12 clip-hexagon bg-black scale-125 transition-colors duration-300 relative`}
+                        className={`w-8 h-8 clip-hexagon bg-black scale-125 transition-colors duration-300 relative`}
                       >
                         <div
                           className={`w-full h-full clip-hexagon ${

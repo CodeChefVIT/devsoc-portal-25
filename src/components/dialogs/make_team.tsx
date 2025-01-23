@@ -9,12 +9,11 @@ import { useUserStore } from "@/store/user";
 import { leaveTeam } from "@/services/team";
 import { ApiError } from "next/dist/server/api-utils";
 import toast from "react-hot-toast";
+import CustomButton from "../CustomButton";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
-
   const team = useTeamStore((state) => state.team);
-
   const teamFetch = useTeamStore((state) => state.fetch);
   const [copied, setCopied] = useState<boolean>(false);
 
@@ -27,29 +26,28 @@ const TeamView = () => {
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-  function leave() {
+
+  const leave = () => {
     toast.promise(leaveTeam(), {
       loading: "Leaving team...",
       success: "Left team successfully",
       error: (err: ApiError) => err.message,
     });
-  }
+  };
 
   return (
-    <div className="border-4 flex-1 rounded-xl  shadow-m border-black overflow-hidden bg-[#F7F3F0]">
+    <div className="border-4 flex-1 rounded-xl shadow-m border-black overflow-hidden bg-[#F7F3F0] flex flex-col">
       {/* Header */}
-      <div className="font-monomaniac  bg-black h-[40px] text-white flex justify-between px-4 items-center">
+      <div className="font-monomaniac bg-black h-[40px] text-white flex justify-between px-4 items-center">
         Your Devsoc Team
         <EditTeamDialog />
       </div>
 
-      <div className="p-4">
+      {/* Content */}
+      <div className="p-4 flex flex-col flex-grow">
         {/* Team Member List */}
-        <div className="mb-6 justify-between">
+        <div className="mb-6 justify-between flex-grow">
           <div className="flex flex-col justify-between gap-2">
-            {/* Fixed box for logged-in user */}
-
-            {/* Input boxes for other team members */}
             {user.is_leader ? (
               <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
                 <span>{user.first_name + " " + user.last_name}</span>
@@ -82,44 +80,25 @@ const TeamView = () => {
                 )}
               </div>
             ))}
-
-            {/* Add Member Button */}
           </div>
         </div>
 
-        {/* Team Code */}
-        <div className="text-center mt-6">
-          {" "}
-          <div className="flex items-center gap-4 justify-center">
-            <div>
-              <div>leave team</div>
-              <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-                <button
-                  onClick={leave}
-                  className="text-white font-medium px-2 py-1 rounded-lg  flex items-center"
-                >
-                  Leave team
-                </button>
+        {/* Team Code & Leave Button - Stays at the Bottom */}
+        <div className="mt-auto">
+          <div className="text-center mt-6">
+            <div className="flex items-center gap-4 justify-center">
+              <div>
+                <CustomButton onClick={leave}>Leave team</CustomButton>
               </div>
-            </div>
-            <div>
-              <div className="text-sm">Team Code</div>
-              <div className="bg-orange-500 text-white rounded-lg px-4 py-2 inline-flex items-center gap-2 mt-2">
-                <IoMdCopy />
-                <div>{team.code}</div>
-                <button
-                  onClick={copyToClipboard}
-                  className="text-white font-medium px-2 py-1 rounded-lg ml-4 flex items-center"
-                >
-                  {copied ? "Copied" : "Copy"}
-                </button>
+              <div>
+                <CustomButton icon={<IoMdCopy />} onClick={copyToClipboard}>
+                  {team.code}
+                </CustomButton>
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Open Edit Team Dialog on pen icon click */}
     </div>
   );
 };

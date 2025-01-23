@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { Button } from "../ui/button";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { PenBoxIcon } from "lucide-react";
+import CustomButton from "../CustomButton";
 
 const EditTeamDialog: React.FC = () => {
   const teamName = useTeamStore((state) => state.team.team_name);
@@ -45,7 +46,7 @@ const EditTeamDialog: React.FC = () => {
     <Dialog>
       {/* Dialog Content */}
       <DialogTrigger>
-      <PenBoxIcon className="w-5 h-5 mr-2" />
+        <PenBoxIcon className="w-5 h-5 mr-2" />
       </DialogTrigger>
       <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-6">
         <DialogHeader>
@@ -80,12 +81,15 @@ const EditTeamDialog: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-center gap-2 mt-6">
-            <Button
-              className={"bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white py-3 px-8 rounded text-lg"}
+            <CustomButton
+              buttonProps={{
+                className:
+                  "bg-orange-500 hover:bg-orange-400 active:bg-orange-600 text-white py-3 px-8 rounded text-lg",
+              }}
               onClick={handleUpdateTeamName}
             >
               Edit
-            </Button>
+            </CustomButton>
           </div>
         </div>
 
