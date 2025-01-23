@@ -9,7 +9,8 @@ type LabelledInputProps = {
     id: string,
     value?: string,
     required?: boolean,
-    labelText: string,
+    labelText: React.ReactNode; 
+    labelClassName?: string; 
     onInputChange: (value: string) => void,
     className?: string,
     type: React.InputHTMLAttributes<HTMLInputElement>["type"],

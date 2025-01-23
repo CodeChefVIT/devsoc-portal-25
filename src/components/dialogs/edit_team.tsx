@@ -8,7 +8,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
-import { deleteTeam, updateTeamName } from "@/services/team"; // Import the API function
+import { deleteTeam, updateTeamName } from "@/services/team"; 
 import LabelledInput from "../labelled-input";
 import { ApiError } from "next/dist/server/api-utils";
 import { useTeamStore } from "@/store/team";
@@ -22,6 +22,7 @@ const EditTeamDialog: React.FC = () => {
   const teamName = useTeamStore((state) => state.team.team_name);
   const [inputTeamName, setInputTeamName] = useState("");
   const [newTeamName, setNewTeamName] = useState("");
+
   const handleDisbandTeam = async () => {
     if (inputTeamName !== teamName) {
       toast.error("You inputted incorrect teamname.");
@@ -48,24 +49,15 @@ const EditTeamDialog: React.FC = () => {
       <DialogTrigger>
         <PenBoxIcon className="w-5 h-5 mr-2" />
       </DialogTrigger>
-      <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-6">
+      <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-0 w-96">
         <DialogHeader>
-          <DialogTitle className="font-yerk mb-4">Edit Team</DialogTitle>
-          <DialogDescription className="text-sm mb-4">
-            Team Details
-          </DialogDescription>
+          <DialogTitle className="font-monomaniac text-white bg-black p-4 mb-4">Edit Team</DialogTitle>
+          <DialogDescription className="text-xl font-bold px-6">Team Details</DialogDescription>
         </DialogHeader>
 
         {/* First Set of Elements */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 px-6 pb-6">
           {/* Input Field */}
-          {/* <input
-            type="text"
-            value={teamCode}
-            onChange={(e) => setTeamCode(e.target.value)}
-            placeholder="Enter New Team Name"
-            className="border-2 border-black rounded-lg px-4 py-2"
-          /> */}
           <LabelledInput
             id="team-name"
             labelText="Team Name"
@@ -73,13 +65,11 @@ const EditTeamDialog: React.FC = () => {
             value={newTeamName}
             onInputChange={setNewTeamName}
             placeholder="Enter New Team Name"
-            className="border-2 border-black rounded-lg px-4 py-5"
-            required
-          ></LabelledInput>
-
-          {/* Display Error or Success Message */}
+            className="border-2 border-black rounded-lg px-4 py-2 mt-2 mb-4" // Add spacing
+          />
 
           {/* Action Buttons */}
+
           <div className="flex justify-center gap-2 mt-6">
             <CustomButton
               buttonProps={{
@@ -93,35 +83,29 @@ const EditTeamDialog: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 mt-6">
-          {/* Repeated Title and Description */}
-          <DialogTitle className="font-yerk mb-4"></DialogTitle>
-          <DialogDescription className="text-sm mb-4">
-            Disband Team
-          </DialogDescription>
+        {/* Disband Team Section */}
+        <div className="flex flex-col gap-4 mt-2 px-6 pb-6">
+          <DialogDescription className="font-bold text-gray-500 text-xl mb-2">Disband Team</DialogDescription>
 
-          <p className="text-xs text-red-700">
-            {" "}
-            Enter your team name here to disband it
-          </p>
-          {/* Repeated Input Field */}
           <LabelledInput
             id="team-name"
-            labelText="Team Name"
+            labelText={
+              <span className="text-red-600">Enter your team name here to disband it</span>
+            }
             type="text"
             value={inputTeamName}
             onInputChange={setInputTeamName}
-            placeholder="Enter New Team Name"
-            className="border-2 border-black rounded-lg px-4 py-5"
-            required
-          ></LabelledInput>
+            placeholder="Enter Team Name"
+            className="border-2 border-black text-red-600 rounded-lg p-3 mt-2 mb-2" // Add spacing
+          />
 
-          {/* Repeated Display Error or Success Message */}
+          <p className="text-gray-400 text-xs mt-0 mb-4">This action cannot be undone</p>
 
-          {/* Repeated Action Buttons */}
-          <div className="flex justify-center gap-2 mt-6">
+          <div className="flex justify-center gap-4 mt-2">
             <Button
-              className={`${"bg-[#F7F3F0] border-4 border-red-800"} text-[#991b1b] py-3 px-8 rounded-lg text-lg`}
+              className={
+                "bg-[#F7F3F0] border-4 border-red-800 text-[#991b1b] py-6 px-16 rounded-lg text-xl"
+              } // Larger button
               onClick={handleDisbandTeam}
             >
               Disband
