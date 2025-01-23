@@ -18,14 +18,15 @@ export default function trackCard({
       <Dialog>
         <DialogTrigger asChild>
           <div className="border shadow-md mb-4 border-black rounded-3xl cursor-pointer">
-            <div className=" mt-2  mx-4">{track.name}</div>
+            <div className=" rounded-t-3xl pt-2 px-4 bg-white">{track.name}</div>
 
             <Image
               src="/images/track_pic.png"
               alt={track.name}
               layout="intrinsic" // Use intrinsic layout for natural size
-              width={400} // Provide the intrinsic width (can be any value)
-              height={300} // Provide the intrinsic height (can be any value)
+              width={800} // Provide the intrinsic width (can be any value)
+              height={600} // Provide the intrinsic height (can be any value)
+              className={"w-80"}
             />
           </div>
         </DialogTrigger>

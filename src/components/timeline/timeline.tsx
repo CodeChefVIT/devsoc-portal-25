@@ -63,9 +63,9 @@ const Timeline: React.FC = () => {
   return (
     <main>
       {/* Timeline */}
-      <div className="border-4 border-black p-3 mt-1 rounded-2xl bg-[#F7F3F0]">
+      <div className="border-4 border-black py-5 mt-1 rounded-2xl bg-[#F7F3F0]">
         <section className="bg-[#F7F3F0] rounded-xl relative">
-          <h2 className="font-yerk text-xl font-bold mb-4">Timeline</h2>
+          <h2 className="font-yerk text-xl font-bold mb-4 px-3">Timeline</h2>
 
           {/* Scrollable Timeline */}
           <div

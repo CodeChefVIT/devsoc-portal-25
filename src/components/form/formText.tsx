@@ -58,7 +58,7 @@ const FormText = <
             />
           </FormControl>
         </div>
-        <FormDescription className="text-sm mt-3 text-right text-muted-foreground">
+        <FormDescription className="text-xs mt-3 text-right text-muted-foreground">
               {subtitle}
         </FormDescription>
 

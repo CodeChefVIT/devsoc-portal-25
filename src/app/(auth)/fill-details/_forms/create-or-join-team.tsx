@@ -22,6 +22,11 @@ const CreateOrJoinTeam = () => {
 
     const { updateFormData, clearFormData, setError, formData } = useFormStore();
 
+    const onSkip = ()=>{
+        clearFormData();
+        router.push("/github-activity");
+    }
+
     const onSubmit = async ()=>{
         //TODO: Toasts
 
@@ -87,7 +92,7 @@ const CreateOrJoinTeam = () => {
 
     return (
         <div className={"h-full w-full flex flex-col items-center justify-around space-y-24"}>
-            <Modal branding={false} classname={"px-12 py-8 flex gap-4"}>
+            <Modal branding={false} classname={"px-12 py-8 flex gap-2"}>
                 <div className={"font-inter text-sm flex flex-col items-center gap-2"}>
                     <p>Create a new Team?</p>
                     <Toggle checked={checked} setChecked={setChecked} text={checked?"Yes":"No"} />
@@ -103,7 +108,7 @@ const CreateOrJoinTeam = () => {
             </Modal>
             <div className={"w-full flex flex-col items-center gap-2 max-w-sm"}>
                 <div className={"w-full flex justify-around"}>
-                    <Button variant={"primary"} size={"primary"} type={"button"}>Skip</Button>
+                    <Button variant={"primary"} size={"primary"} type={"button"} onClick={onSkip}>Skip</Button>
                     <Button variant={"primary"} size={"primary"} type={"submit"} onClick={onSubmit}>Continue</Button>
                 </div>
                 <p className={"text-xs font-inter"}>You can join / create a team later!</p>
