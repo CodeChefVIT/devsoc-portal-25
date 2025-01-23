@@ -1,6 +1,10 @@
 // Interface for the 'user' table
 
-
+export interface Track {
+  name: string;
+  description: string[];
+  image: string;
+}
 
 interface TeamMember {
   first_name: string;
