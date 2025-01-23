@@ -11,23 +11,22 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useIdeaStore } from "@/store/submission";
 import { defaults } from "../../defaults";
+import { useRouter } from "next/navigation";
 
 export default function EditSubmission() {
-
+  const router = useRouter();
   const submission = useIdeaStore((state) => state.submission);
   const submissionFetch = useIdeaStore((state) => state.fetch);
   const submissionExists = useIdeaStore((state) => state.submissionExists);
 
-  const submissionUpdate = useIdeaStore(
-    (state) => state.updateSubmission
-  );
+  const submissionUpdate = useIdeaStore((state) => state.updateSubmission);
   const checkSubmissionExists = useIdeaStore(
     (state) => state.checkSubmissionExists
   );
 
   useEffect(() => {
     const fetchIfSubmissionExists = async () => {
-       submissionFetch();
+      submissionFetch();
     };
 
     fetchIfSubmissionExists();
@@ -37,8 +36,7 @@ export default function EditSubmission() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
-    mode: "onBlur",  // Trigger validation when the input field loses focus
-
+    mode: "onBlur", // Trigger validation when the input field loses focus
   });
   useEffect(() => {
     const resetIfSubmissionExists = async () => {
@@ -64,10 +62,12 @@ export default function EditSubmission() {
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be
+    let success = false;
     toast.promise(
       async () => {
-        updateSubmission("submission",data);
+        updateSubmission("submission", data);
         submissionUpdate(data);
+        success = true;
       },
       {
         loading: "Loading...",
@@ -75,6 +75,9 @@ export default function EditSubmission() {
         error: (err: ApiError) => err.message,
       }
     );
+    if (success) {
+      router.push("/dashboard");
+    }
   };
 
   return (

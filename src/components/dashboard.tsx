@@ -19,8 +19,8 @@ const tracks: Track[] = [
 ];
 export default function Tracks() {
   return (
-    <div className="h-full">
-      <aside className="  p-2 overflow-y-scroll bg-[#F7F3F0] border-4 border-black mt-1 pt-4 rounded-2xl">
+    <div  >
+      <aside className=" w-80 p-2 overflow-y-scroll bg-[#F7F3F0] border-4 border-black mt-1 pt-4 rounded-2xl">
         <div className="font-yerk mb-4 text-xl">TRACK DETAILS</div>
         {tracks.map((track, index) => (
           <Dialog key={index}>

@@ -11,9 +11,10 @@ import ProjectFormFields from "../../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { defaults } from "../../defaults";
+import { useRouter } from "next/navigation";
 
 export default function EditIdea() {
-
+  const router = useRouter()
   const idea = useIdeaStore((state) => state.idea);
   const ideaFetch = useIdeaStore((state) => state.fetch);
   const ideaUpdate = useIdeaStore((state) => state.updateSubmission);
@@ -54,10 +55,12 @@ export default function EditIdea() {
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be
+    let success = false
     toast.promise(
       async () => {
         updateSubmission("idea", data);
         ideaUpdate(data);
+        success = true
       },
       {
         loading: "Loading...",
@@ -65,6 +68,9 @@ export default function EditIdea() {
         error: (err: ApiError) => err.message,
       }
     );
+    if (success) {
+      router.push("/dashboard");
+    }
   };
 
   return (

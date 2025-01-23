@@ -43,10 +43,10 @@ const Dashboard: React.FC = () => {
   }, [fetchTeamInfo]);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className=" flex flex-col">
       {/* Header */}
 
-      <div className="h-5/6 flex flex-1 p-4 gap-6 ">
+      <div className="flex flex-1 p-4 gap-6 ">
         {/* Sidebar */}
         <Tracks></Tracks>
 

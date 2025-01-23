@@ -10,8 +10,9 @@ import ProjectFormFields from "../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { defaults } from "../defaults";
-
+import  { useRouter } from "next/router";
 export default function Submission() {
+  const router = useRouter();
   const schema = projectSchema;
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -21,7 +22,9 @@ export default function Submission() {
   });
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    toast.promise(createSubmission("submission", { ...data }), {
+    toast.promise(createSubmission("submission", { ...data }).then(()=>{
+      router.push("/dashboard")
+    }), {
       loading: "Loading...",
       success: "Added submission!",
       error: (err: ApiError) => err.message,
