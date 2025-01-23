@@ -11,7 +11,7 @@ import TeamView from "@/components/dialogs/make_team";
 import ProjectSubmission from "@/components/ProjectSubmission";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
-import Tracks from "@/components/dashboard";
+import Tracks from "@/components/tracks";
 
 // interface Event {
 //   time: string;
@@ -51,7 +51,7 @@ const Dashboard: React.FC = () => {
         <Tracks></Tracks>
 
         {/* Main Content */}
-        <main className="w-3/4 p-1 mb-4">
+        <main className="w-3/4 p-1">
           {/* Timeline */}
           <Timeline />
 

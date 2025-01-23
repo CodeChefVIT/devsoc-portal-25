@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import RemoveFromTeamDialog from "./remove_from_team";
 import { IoMdCopy } from "react-icons/io";
+import { LuCrown } from "react-icons/lu";
 
 import EditTeamDialog from "./edit_team";
 import { useTeamStore } from "@/store/team";
@@ -44,15 +45,17 @@ const TeamView = () => {
 
       <div className="p-4">
         {/* Team Member List */}
-        <div className="mb-6">
-          <div className="flex flex-col gap-2">
+        <div className="mb-6 justify-between">
+          <div className="flex flex-col justify-between gap-2">
             {/* Fixed box for logged-in user */}
 
             {/* Input boxes for other team members */}
             {user.is_leader ? (
               <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
                 <span>{user.first_name + " " + user.last_name}</span>
-                <span className="text-yellow-500">👑</span>
+                <span className="text-yellow-500">
+                  <LuCrown />
+                </span>
               </div>
             ) : (
               <div className="flex-1 border-none outline-none bg-transparent">
@@ -65,7 +68,7 @@ const TeamView = () => {
                 className="flex justify-between items-center bg-white border border-black rounded-lg p-2"
               >
                 {member.is_leader ? (
-                  <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
+                  <div className="flex justify-center items-center bg-white border border-black rounded-lg p-2">
                     <span>{member.first_name + " " + member.last_name}</span>
                     <span className="text-yellow-500">👑</span>
                   </div>
