@@ -37,5 +37,11 @@ export const projectSchema = z.object({
 
   github_link: githubLinkSchema, // Default GitHub link is an empty string
 
-  other_link: z.string().optional().or(z.literal("").optional()).default(""), // Default other link is an empty string
+  other_link: z
+    .union([
+      z.string().url({ message: "Link must be a valid URL " }),
+      z.literal(""),
+    ])
+    .optional()
+    .default(""),
 });
