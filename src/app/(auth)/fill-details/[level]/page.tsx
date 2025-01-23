@@ -3,7 +3,6 @@
 import React from 'react'
 import InfoWrapper from "@/app/(auth)/fill-details/_components/info-wrapper";
 import PersonalDetails from "@/app/(auth)/fill-details/_forms/personal-details";
-import CollegeDetails from "@/app/(auth)/fill-details/_forms/college-details";
 import CreateOrJoinTeam from "@/app/(auth)/fill-details/_forms/create-or-join-team";
 import {notFound} from "next/navigation";
 import InfoForm from "@/app/(auth)/fill-details/_components/info-form";
@@ -23,16 +22,12 @@ const formPage = (level: string) => {
         </InfoWrapper>
     }
 
-    else if (level === '2'){
-        return <InfoWrapper pageTitle={"College Related Questions"} emojiSrc={pageEmojis[1]}>
-            <CollegeDetails />
-        </InfoWrapper>
-    }
 
-    else if (level === '3'){
+
+    else if (level === '2'){
         return <div>
             <TeamAlert open={true} />
-            <InfoWrapper pageTitle={"Team Formation"} emojiSrc={pageEmojis[2]}>
+            <InfoWrapper pageTitle={"Team Formation"} emojiSrc={pageEmojis[1]}>
                 <CreateOrJoinTeam />
             </InfoWrapper>
         </div>

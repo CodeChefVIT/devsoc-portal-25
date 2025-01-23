@@ -5,15 +5,13 @@ import {
     GenderSchema,
     VITEmailSchema,
     RegNoSchema,
-    HostelBlockSchema,
-    RoomNumberSchema,
     GithubProfileSchema,
     PasswordSchema,
-    EmailSchema, JoinTeamSchema, CreateTeamSchema,
+     JoinTeamSchema, CreateTeamSchema,
 } from "./general.schema"
 
 export const LoginSchema = z.object({
-    email: EmailSchema,
+    email: VITEmailSchema,
     password: PasswordSchema
 })
 
@@ -24,11 +22,7 @@ export const UserDetailsSchema =  z.object({
     lastName: NameSchema,
     phoneNo: PhoneNoSchema,
     gender: GenderSchema,
-    vitEmail: VITEmailSchema,
-    email: EmailSchema,
     regNo: RegNoSchema,
-    hostelBlock: HostelBlockSchema,
-    roomNo: RoomNumberSchema,
     githubProfile: GithubProfileSchema,
     joinTeam: JoinTeamSchema.optional(),
     createTeam: CreateTeamSchema.optional(),
@@ -42,12 +36,8 @@ export const defaultUserDetails: UserDetailsFormType = {
     lastName: "",
     phoneNo: "",
     gender: "",
-    vitEmail: "",
-    email: "",
     regNo: "",
-    hostelBlock: "",
     githubProfile: "",
-    roomNo: "",
     joinTeam: "",
     createTeam: ""
 }
@@ -55,7 +45,7 @@ export const defaultUserDetails: UserDetailsFormType = {
 export type UserDetailsFormType = z.infer<typeof UserDetailsSchema>;
 
 export const SignupSchema = z.object({
-    email: EmailSchema,
+    email: VITEmailSchema,
     password: PasswordSchema,
     confirmPassword: PasswordSchema,
 }).refine(data=> data.password === data.confirmPassword, {
