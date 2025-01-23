@@ -6,9 +6,9 @@ export default function AuthLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <div className={"w-full h-full min-h-screen bg-[url('/images/auth-bg.svg')]"}>
+        <div className={"w-full  h-screen  "}>
             <Navbar />
-            <div className={"w-full h-full min-h-screen flex items-center justify-center"}>
+            <div className={"w-full h-full  flex items-center justify-center"}>
                 {children}
             </div>
         </div>
