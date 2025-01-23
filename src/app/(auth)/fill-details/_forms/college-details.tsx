@@ -24,12 +24,12 @@ const CollegeDetails = () => {
     }
 
     useEffect(() => {
-        ;(async()=>error && await form.trigger())()
-    }, [error, form]);
+        if (error) form.trigger();
+    }, [error]);
 
     return (
         <div className={"flex justify-center w-full"}>
-            <Modal branding={false} classname={"px-12 py-8 flex gap-4"}>
+            <Modal branding={false} classname={"px-12 py-8 flex gap-2"}>
                 <InfoFormField name={'regNo'} render={({ field })=>(
                     <AuthFormItem field={field} labelText={"Registation Number"} type={"text"} required />
                 )} />

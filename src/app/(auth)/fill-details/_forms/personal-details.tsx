@@ -25,12 +25,12 @@ const PersonalDetails = () => {
     }
 
     useEffect(() => {
-        ;(async()=>error && await form.trigger())()
-    }, [error, form]);
+        if (error) form.trigger();
+    }, [error]);
 
     return (
-        <div className={"my-5 flex justify-center w-full"}>
-            <Modal branding={false} classname={"px-12 py-8 flex gap-4"}>
+        <div className={"my-0 flex justify-center w-full"}>
+            <Modal branding={false} classname={"px-12 py-8 flex gap-2"}>
                 <InfoFormField name={'firstName'} render={({ field })=>(
                     <AuthFormItem field={field} labelText={"First Name"} type={"text"} required />
                 )} />

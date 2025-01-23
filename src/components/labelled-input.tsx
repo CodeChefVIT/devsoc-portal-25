@@ -44,7 +44,7 @@ const LabelledInput = (props: LabelledInputProps)=>{
                     onChange={(e)=>props.onInputChange(e.target.value)}
                     placeholder={props.placeholder}
                     // focus-visible:ring-cc-primary
-                    className={'outline-0 ring-1 ring-cc-dark font-inter bg-white' + props.className}
+                    className={`outline-0 ring-1 ring-cc-dark font-inter bg-white ${props.className}`}
                     autoComplete={props.autoFill ? "on" : "off"}
                     disabled={props.disabled}
                     {...props.inputProps}
