@@ -1,6 +1,5 @@
 "use client";
 import { useTimerStore } from "@/store/timer";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -38,20 +37,22 @@ const getTimeLeft = (expiry: number): TimeCount => {
 };
 
 const Timer = () => {
-    const EndTimer = useTimerStore((state) => state.EndTimer);
-    const router = useRouter();
-  const [timeLeft, setTimeLeft] = useState<TimeCount>();
+  const timeLeft = useTimerStore((state) => state.timeLeft);
+  const fetchTimeLeft = useTimerStore((state) => state.fetchTimeLeft);
+
+  const EndTimer = useTimerStore((state) => state.EndTimer);
+  const router = useRouter();
+  const [timeLeftObject, setTimeLeftObject] = useState<TimeCount>();
   const [expiryTime, setExpiryTime] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchTime = async () => {
       try {
-        const res = await axios.get<TimerResponse>("/api/countdown");
-        const data = res.data;
-        if (data.remainingTime > 0) {
-          const expiry = new Date().getTime() + data.remainingTime * 1000;
+        fetchTimeLeft();
+        if (timeLeft > 0) {
+          const expiry = new Date().getTime() + timeLeft * 1000;
           setExpiryTime(expiry);
-        } else if (data.remainingTime <= 0) {
+        } else if (timeLeft <= 0) {
           EndTimer();
         }
       } catch {
@@ -61,14 +62,14 @@ const Timer = () => {
     };
 
     void fetchTime();
-  }, [router, EndTimer]);
+  }, [router, timeLeft, EndTimer, fetchTimeLeft]);
 
   useEffect(() => {
     if (!expiryTime) return;
 
     const interval = setInterval(() => {
       const time = getTimeLeft(expiryTime);
-      setTimeLeft(time);
+      setTimeLeftObject(time);
 
       if (
         time.hours === "00" &&
@@ -84,19 +85,18 @@ const Timer = () => {
 
   useEffect(() => {
     if (
-      timeLeft?.hours === "00" &&
-      timeLeft?.minutes === "00" &&
-      timeLeft?.seconds === "00"
+      timeLeftObject?.hours === "00" &&
+      timeLeftObject?.minutes === "00" &&
+      timeLeftObject?.seconds === "00"
     ) {
       EndTimer();
     }
-  }, [timeLeft, EndTimer]);
+  }, [timeLeftObject, EndTimer]);
 
   return (
- 
-    timeLeft && (
-      <div className="bg-white text-black border border-black rounded-lg px-4 py-2 font-bold text-lg" >
-        <h1 >{`${timeLeft.hours}:${timeLeft.minutes}:${timeLeft.seconds}`}</h1>
+    timeLeftObject && (
+      <div className="bg-white text-black border border-black rounded-lg px-4 py-2 font-bold text-lg">
+        <h1>{`${timeLeftObject.hours}:${timeLeftObject.minutes}:${timeLeftObject.seconds}`}</h1>
       </div>
     )
   );
