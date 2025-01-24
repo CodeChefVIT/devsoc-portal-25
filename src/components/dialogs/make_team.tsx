@@ -57,7 +57,7 @@ const TeamView = () => {
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
           Your Devsoc Team
-          <EditTeamDialog />
+          {user.is_leader && <EditTeamDialog />}
         </CardTitle>
       </CardHeader>
 
@@ -73,7 +73,7 @@ const TeamView = () => {
               </span>
             </div>
           ) : (
-            <div className="flex-1 border-none outline-none bg-transparent">
+            <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
               {user.first_name + " " + user.last_name}
             </div>
           )}
@@ -83,15 +83,17 @@ const TeamView = () => {
               (
                 <div
                   key={index}
-                  className="flex justify-between items-center bg-white border border-black rounded-lg p-2"
+                  className="flex  justify-between items-center bg-white border border-black rounded-lg p-2"
                 >
                   {member.is_leader ? (
-                    <div className="flex justify-center items-center bg-white border border-black rounded-lg p-2">
-                      <span>{member.first_name + " " + member.last_name}</span>
-                      <span className="text-yellow-500">👑</span>
-                    </div>
+                      <div className="flex flex-1 justify-between items-center">
+                        <span>{member.first_name + " " + member.last_name}</span>
+                        <span className="text-yellow-500">
+                          <LuCrown />
+                        </span>
+                      </div>
                   ) : (
-                    <div className=" w-full flex justify-between border-none outline-none bg-transparent">
+                    <div className=" w-full  flex justify-between border-none outline-none bg-transparent">
                       {`${member.first_name}  ${member.last_name}`}
                       {user.is_leader && (
                         <RemoveFromTeamDialog email={member.email} />
