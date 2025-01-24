@@ -1,5 +1,5 @@
 "use client"
-
+export const runtime = 'edge';
 import React from 'react'
 import InfoWrapper from "@/app/(auth)/fill-details/_components/info-wrapper";
 import PersonalDetails from "@/app/(auth)/fill-details/_forms/personal-details";
