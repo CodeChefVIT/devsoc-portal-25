@@ -153,7 +153,7 @@ const Timeline: React.FC = () => {
 
                     {/* Description - Below the hexagon */}
                     <div className="text-center mt-2">
-                      <div className="text-xs text-gray-800">
+                      <div className="text-xs max-w-40 text-wrap text-gray-800">
                         {event.description}
                       </div>
                     </div>
