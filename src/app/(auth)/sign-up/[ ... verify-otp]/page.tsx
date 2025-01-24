@@ -1,4 +1,5 @@
 "use client"
+export const runtime = "edge";
 
 import React from 'react'
 import Modal from "@/app/(auth)/_components/modal";
