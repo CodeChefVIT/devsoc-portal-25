@@ -35,7 +35,15 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
-        if ((res as { is_profile_complete: boolean }).is_profile_complete) {
+        if (
+          (res as { is_profile_complete: boolean }).is_profile_complete &&
+          (res as { is_starred: boolean }).is_starred
+        ) {
+          router.push(`/dashboard`);
+        } else if (
+          (res as { is_profile_complete: boolean }).is_profile_complete &&
+          !(res as { is_starred: boolean }).is_starred
+        ) {
           router.push(`/github-activity`);
         } else {
           router.push(`/fill-details/1`);

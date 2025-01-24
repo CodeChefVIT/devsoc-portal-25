@@ -88,3 +88,12 @@ export const joinTeam = async (request: IJoinTeamRequest)=>{
         throw ConvertToAPIError(error);
     }
 }
+
+export const pingStar = async () => {
+    try {
+        const res = await api.get("/auth/star");
+        return getData(res.data);
+    } catch (error) {
+        throw ConvertToAPIError(error);
+    }
+}

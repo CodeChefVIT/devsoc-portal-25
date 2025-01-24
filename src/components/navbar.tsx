@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import devsoc from "../../public/images/devsoc.png";
 import Link from "next/link";
-import Timer from "./ui/timer";
+// import Timer from "./ui/timer";
 
 export default function Navbar() {
 
@@ -27,7 +27,7 @@ export default function Navbar() {
 
     {/* Right Section */}
     <div className="flex items-center gap-4">
-        <Timer />
+        {/* <Timer /> */}
         {/* change to real timer */}
       <Link href={'https://discord.gg/M8V6vxXnUq'} className="active:-rotate-12">
         <Image
