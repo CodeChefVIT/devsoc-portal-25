@@ -1,5 +1,6 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import { useTimerStore } from "@/store/timer";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 
 interface Event {
   time: string;
@@ -7,58 +8,108 @@ interface Event {
 }
 
 const Timeline: React.FC = () => {
-  const [, setActiveIndex] = useState<number>(0);
-  const [remainingTime, setRemainingTime] = useState<number>(0); // Store the remaining time from API
+  const timeLeft = useTimerStore((state) => state.timeLeft);
+  const [hexagonsFilled, setFilledHexagons] = useState<number>(0);
   const timelineRef = useRef<HTMLDivElement>(null);
-
-  const events: Event[] = [
-    { time: "10:00 AM", description: "Long Description of things happening " },
-    { time: "11:00 AM", description: "Long Description of things happening " },
-    { time: "12:00 PM", description: "Long Description of things happening " },
-    { time: "1:00 PM", description: "Long Description of things happening " },
-    { time: "2:00 PM", description: "Long Description of things happening " },
-  ];
-
-  // Function to calculate how many hexagons should be filled
-  const getFilledHexagons = (remainingTime: number) => {
-    const intervalsPassed = Math.floor(remainingTime / (5 * 60));
-    return intervalsPassed;
-  };
-
-  // Fetch remaining time from the API
+  console.log("Current timeLeft:", timeLeft);
+  const timeLeftRef = useRef(timeLeft);
   useEffect(() => {
-    const fetchRemainingTime = async () => {
-      try {
-        const response = await fetch("/api/countdown");
-        const data = await response.json();
-        setRemainingTime(data.remainingTime); // Set remaining time from API
-      } catch (error) {
-        console.error("Error fetching remaining time:", error);
+    // Update ref whenever `timeLeft` changes
+    timeLeftRef.current = timeLeft;
+  }, [timeLeft]);
+  const events: Event[] = useMemo(
+    () => [
+      {
+        time: "10:00 AM",
+        description: "Long Description of things happening ",
+      },
+      {
+        time: "11:00 AM",
+        description: "Long Description of things happening ",
+      },
+      {
+        time: "12:00 PM",
+        description: "Long Description of things happening ",
+      },
+      { time: "1:00 PM", description: "Long Description of things happening " },
+      {
+        time: "11:00 PM",
+        description: "Long Description of things happening ",
+      },
+    ],
+    [] // Empty dependency array ensures this array is memoized and not recalculated on every render
+  );
+
+  // skill issue. This should have dependancy array as [timeLeft]
+  // but it wasn't updating everysecond like it should
+  // so have to update every second instead
+  useEffect(() => {
+    // Helper function to convert time strings (like "10:00 AM") into Date objects
+    const convertTimeToDate = (timeString: string) => {
+      const today = new Date();
+      const [time, period] = timeString.split(" ");
+      const [hours, minutes] = time.split(":").map(Number);
+
+      let convertedHours = period === "PM" && hours !== 12 ? hours + 12 : hours;
+      if (period === "AM" && hours === 12) convertedHours = 0; // Special case for 12 AM
+
+      const date = new Date(today);
+      date.setHours(convertedHours, minutes, 0, 0); // Set hours and minutes
+      return date;
+    };
+
+    const checkTimeMatch = () => {
+      const currentTime = new Date(); // Get the current date/time
+
+      // Find the most recent event whose time is less than or equal to the current time
+      let latestEventIndex = -1;
+
+      for (let i = 0; i < events.length; i++) {
+        const eventTime = convertTimeToDate(events[i].time);
+
+        if (eventTime <= currentTime) {
+          latestEventIndex = i; // Update the latest index to this event
+        } else {
+          break; // Once we find a future event, we can stop
+        }
+      }
+
+      if (latestEventIndex !== -1) {
+        setFilledHexagons(latestEventIndex); // Set to the most recent past event
+      } else {
+        setFilledHexagons(0); // If no past events, set to 0
       }
     };
 
-    fetchRemainingTime();
-    const intervalId = setInterval(fetchRemainingTime, 1000); // Update every second
+    // Call the function every second to check time
+    const interval = setInterval(() => {
+      checkTimeMatch();
+    }, 1000);
 
-    return () => clearInterval(intervalId); // Clean up the interval on unmount
+    // Cleanup interval when the component unmounts
+    return () => clearInterval(interval);
+  }, [events]);
+
+  useEffect(() => {
+    // Handle horizontal scroll using the mouse wheel
+    const handleScroll = (e: WheelEvent) => {
+      if (timelineRef.current) {
+        // Only scroll horizontally
+        timelineRef.current.scrollLeft += e.deltaY;
+      }
+    };
+
+    const timelineElement = timelineRef.current;
+    if (timelineElement) {
+      timelineElement.addEventListener("wheel", handleScroll);
+    }
+
+    return () => {
+      if (timelineElement) {
+        timelineElement.removeEventListener("wheel", handleScroll);
+      }
+    };
   }, []);
-
-  const handleScroll = () => {
-    if (!timelineRef.current) return;
-
-    const scrollLeft = timelineRef.current.scrollLeft;
-    // const containerWidth = timelineRef.current.offsetWidth;
-    const totalWidth = timelineRef.current.scrollWidth;
-
-    const totalHexagons = events.length;
-    const sectionWidth = totalWidth / totalHexagons;
-    const index = Math.min(
-      Math.floor(scrollLeft / sectionWidth),
-      totalHexagons - 1
-    );
-
-    setActiveIndex(index);
-  };
 
   return (
     <main>
@@ -70,46 +121,39 @@ const Timeline: React.FC = () => {
           {/* Scrollable Timeline */}
           <div
             ref={timelineRef}
-            onScroll={handleScroll}
-            className="relative overflow-x-auto flex scrollbar-hide " // Add padding to avoid clipping
+            className="relative overflow-x-auto scrollbar-hide flex " // Add padding to avoid clipping
           >
             {/* Line Connecting Events */}
 
             {/* Hexagons */}
-            <div className="flex gap-16 ">
-              <div className="absolute top-1/2 left-0 w-full transform -translate-y-1/2 flex items-center">
-                <div className="h-[4px] w-full bg-black"></div>
+            <div className="flex items-center gap-16 min-w-max relative">
+              <div className="absolute left-0 w-full transform  flex items-center">
+                <div className="h-[4px]  w-full bg-black"></div>
               </div>
               {events.map((event, index) => {
-                const filledHexagons = getFilledHexagons(remainingTime);
-                const isFilled = index <= filledHexagons; // Check if this hexagon should be filled
-
                 return (
-                  <div
-                    key={index}
-                    className="relative flex flex-col items-center"
-                  >
+                  <div key={index} className="flex -translate-y-1 flex-col items-center">
                     {/* Time - Above the hexagon */}
                     <div className="font-bold text-lg mb-2">{event.time}</div>
 
                     {/* Hexagon */}
-                    <div className="relative flex items-center justify-center">
+                    <div className=" flex items-center justify-center">
                       <div
-                        className={`w-8 h-8 clip-hexagon bg-black scale-125 transition-colors duration-300 relative`}
+                        className={`w-8 h-8 clip-hexagon   bg-black scale-125 transition-colors duration-300 `}
                       >
                         <div
                           className={`w-full h-full clip-hexagon ${
-                            isFilled
+                            index <= hexagonsFilled
                               ? "bg-[#FF6600]"
                               : "bg-[#F7F3F0] scale-[0.92]"
-                          } absolute top-0 left-0 transform`}
+                          }  transform`}
                         ></div>
                       </div>
                     </div>
 
                     {/* Description - Below the hexagon */}
                     <div className="text-center mt-2">
-                      <div className="text-xs text-gray-800">
+                      <div className="text-xs max-w-40 text-wrap text-gray-800">
                         {event.description}
                       </div>
                     </div>
