@@ -19,7 +19,7 @@ export default function ProjectSubmissionTemplate({
   buttons,
 }: Project) {
   return (
-    <Card className="border-4  border-black rounded-xl">
+    <Card className="border-4 w-full border-black rounded-xl">
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac  tracking-wider	 items-center justify-between">
           {header}
@@ -34,7 +34,7 @@ export default function ProjectSubmissionTemplate({
           <h2 className=" text-lg font-semibold">{title}</h2>
           <p className="text-gray-400   text-sm">{subtitle}</p>
         </div>
-        <div className="flex gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 items-center justify-center md:gap-2">
           {buttons.map((btn, index) => (
             <div key={index}>{btn}</div>
           ))}{" "}

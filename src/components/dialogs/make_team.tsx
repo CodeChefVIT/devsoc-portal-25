@@ -40,8 +40,8 @@ const TeamView = () => {
   const leave = () => {
     toast.promise(
       async () => {
-        leaveTeam(user.email);
-        teamFetch();
+        await leaveTeam(user.email);
+        await teamFetch();
       },
       {
         loading: "Leaving team...",
