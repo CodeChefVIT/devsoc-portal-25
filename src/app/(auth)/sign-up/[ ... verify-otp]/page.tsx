@@ -13,7 +13,7 @@ import {verifyOTP} from "@/services/auth"
 import toast from "react-hot-toast";
 import {useRouter, useSearchParams} from "next/navigation";
 import {ApiError} from "next/dist/server/api-utils";
-
+export const runtime = 'edge';
 const Page = () => {
     const searchParams = useSearchParams();
     const email = searchParams.get('email');
