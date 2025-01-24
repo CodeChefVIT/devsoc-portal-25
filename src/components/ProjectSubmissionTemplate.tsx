@@ -19,18 +19,19 @@ export default function ProjectSubmissionTemplate({
   buttons,
 }: Project) {
   return (
-    <Card className="border-4 w-[472px] border-black rounded-xl">
-
+    <Card className="border-4  border-black rounded-xl">
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac  tracking-wider	 items-center justify-between">
           {header}
           <span className="inline-block ml-2 h-3 w-3 rounded-full bg-white"></span>
         </CardTitle>
       </CardHeader>
-      <CardContent className={`rounded-xl px-16 flex gap-5 flex-col bg-cc-plain items-center`}>
-        <Image className="mb-6 mt-4" src={icon} alt={""} />
+      <CardContent
+        className={`rounded-xl px-16 flex gap-5 flex-col bg-cc-plain items-center`}
+      >
+        <Image className=" mt-6" src={icon} alt={""} />
         <div className=" gap-1 flex flex-col items-center">
-          <h2 className="font-medium text-lg">{title}</h2>
+          <h2 className=" text-lg font-semibold">{title}</h2>
           <p className="text-gray-400   text-sm">{subtitle}</p>
         </div>
         <div className="flex gap-8">

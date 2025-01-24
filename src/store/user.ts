@@ -19,17 +19,15 @@ export const useUserStore = create<UserStore>((set) => ({
     phone_no: "…",
     is_leader: true,
     gender: "M",
-    vit_email: "first.last202X@vitstudent.ac.in",
-    hostel_block: "…",
-    room_no: 1,
     github_profile: "https://example.com",
   },
+
   userIsSet: false,
 
   fetch: async () => {
     try {
       const userResponse = await getUser();
-      console.log(userResponse)
+      console.log(userResponse);
       set({ userIsSet: true });
       set({ user: userResponse });
     } catch (e) {
@@ -40,10 +38,10 @@ export const useUserStore = create<UserStore>((set) => ({
       }
     }
   },
-  updateUser: async (newUser: IUser) =>{
+  updateUser: async (newUser: IUser) => {
     try {
       await updateUserDetails(newUser);
-      set({ user: newUser })
+      set({ user: newUser });
     } catch (e) {
       if (e instanceof ApiError) {
         toast.error(e.message);

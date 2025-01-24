@@ -14,8 +14,9 @@ import { createTeam } from "@/services/team"; // Import the create team API
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useTeamStore } from "@/store/team";
+import { LiaHandshake } from "react-icons/lia";
 
-const CreateTeamDialog: React.FC = () => {
+const CreateTeamDialog = () => {
   const [teamName, setTeamName] = useState("");
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Control the dialog open state
   const fetchTeam = useTeamStore((state) => state.fetch);
@@ -39,8 +40,11 @@ const CreateTeamDialog: React.FC = () => {
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <CustomButton onClick={() => setIsDialogOpen(true)}>
-          🛡️ Create Team
+        <CustomButton
+          icon={<LiaHandshake size={70} />}
+          onClick={() => setIsDialogOpen(true)}
+        >
+          Create Team
         </CustomButton>
       </DialogTrigger>
 
