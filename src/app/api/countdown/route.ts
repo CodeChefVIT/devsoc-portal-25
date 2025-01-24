@@ -1,13 +1,13 @@
 import { type NextRequest, NextResponse } from "next/server";
 import clientPromise from "@/lib/startMongo";
-
+ 
 const SECRET_KEY = process.env.SECRET_KEY!;
 
 interface CountdownBody {
   secretKey: string;
   countdownTime?: number;
 }
-
+export const runtime = "edge";
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as CountdownBody;
