@@ -5,10 +5,11 @@ interface FormItemProps<
   TFieldValues extends FieldValues,
   TName extends Path<TFieldValues>
 > {
-  field: ControllerRenderProps<TFieldValues, TName>;
+  field?: ControllerRenderProps<TFieldValues, TName>;
   labelText: string;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   subtitle?: string
+  disabled?: boolean;
   placeholderText?: string
   required?: boolean;
   autoFill?: boolean;
@@ -22,6 +23,7 @@ const FormItemWrapper = <
   labelText,
   subtitle,
   type,
+  disabled =false,
   required,
   placeholderText,
   autoFill,
@@ -34,10 +36,10 @@ const FormItemWrapper = <
       type={type}
       required={required}
       autoFill={autoFill}
-      
+      disabled={disabled}
       inputProps={{
         ...(placeholderText && { placeholder: placeholderText }), 
-        className: "co  border w-full bg-white border-black py-5",
+        className: "co border w-full bg-white border-black py-5",
       }}
     />
   );

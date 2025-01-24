@@ -11,44 +11,11 @@ import toast from "react-hot-toast";
 import FormItemWrapper from "../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
 import { ApiError } from "next/dist/server/api-utils";
-const VITEmailSchema = z
-  .string()
-  .email("Enter a valid email address")
-  .regex(
-    /^[a-zA-Z]+\.[a-zA-Z]+202[0-5]@vitstudent\.ac\.in$/,
-    "Invalid Email Address"
-  );
 
 import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
 
-const hostels: [string, ...string[]] = [
-  "Men's Hostel - A Block",
-  "Men's Hostel - B Block",
-  "Men's Hostel - C Block",
-  "Men's Hostel - D Block",
-  "Men's Hostel - E Block",
-  "Men's Hostel - F Block",
-  "Men's Hostel - G Block",
-  "Men's Hostel - H Block",
-  "Men's Hostel - J Block",
-  "Men's Hostel - K Block",
-  "Men's Hostel - L Block",
-  "Men's Hostel - M Block",
-  "Men's Hostel - N Block",
-  "Men's Hostel - P Block",
-  "Men's Hostel - Q Block",
-  "Men's Hostel - R Block",
-  "Men's Hostel - S Block",
-  "Men's Hostel - T Block",
-
-  "Ladies' Hostel - A Block",
-  "Ladies' Hostel - B Block",
-  "Ladies' Hostel - C Block",
-  "Ladies' Hostel - D Block",
-  "Ladies' Hostel - F Block",
-];
 const userSchema = z.object({
   first_name: z
     .string()
@@ -64,19 +31,17 @@ const userSchema = z.object({
     .min(100, { message: "Must be at least 100" })
     .max(1399, { message: "Must be at most 1399" })
     .default(100), // Default room number
-  email: z.string().email("Invalid email format").trim().default(""), // Default email
-  vit_email: VITEmailSchema.default(""), // Default VIT email
   phone_no: z
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
     .default(""), // Default phone number
+  email: z.string().email("Invalid email format").trim().default(""), // Default email
 
   reg_no: z
     .string()
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
     .default(""), // Default registration number
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
-  hostel_block: z.enum(hostels as [string, ...string[]]).default(""), // Default hostel
   github_link: githubLinkSchema, // Default GitHub link is an empty string
 });
 
@@ -85,33 +50,6 @@ const genderItems = [
   { value: "M", label: "Male" },
   { value: "F", label: "Female" },
   { value: "O", label: "Other" },
-];
-
-const hostelItems = [
-  { value: "Men's Hostel - A Block", label: "Men's Hostel - A Block" },
-  { value: "Men's Hostel - B Block", label: "Men's Hostel - B Block" },
-  { value: "Men's Hostel - C Block", label: "Men's Hostel - C Block" },
-  { value: "Men's Hostel - D Block", label: "Men's Hostel - D Block" },
-  { value: "Men's Hostel - E Block", label: "Men's Hostel - E Block" },
-  { value: "Men's Hostel - F Block", label: "Men's Hostel - F Block" },
-  { value: "Men's Hostel - G Block", label: "Men's Hostel - G Block" },
-  { value: "Men's Hostel - H Block", label: "Men's Hostel - H Block" },
-  { value: "Men's Hostel - J Block", label: "Men's Hostel - J Block" },
-  { value: "Men's Hostel - K Block", label: "Men's Hostel - K Block" },
-  { value: "Men's Hostel - L Block", label: "Men's Hostel - L Block" },
-  { value: "Men's Hostel - M Block", label: "Men's Hostel - M Block" },
-  { value: "Men's Hostel - N Block", label: "Men's Hostel - N Block" },
-  { value: "Men's Hostel - P Block", label: "Men's Hostel - P Block" },
-  { value: "Men's Hostel - Q Block", label: "Men's Hostel - Q Block" },
-  { value: "Men's Hostel - R Block", label: "Men's Hostel - R Block" },
-  { value: "Men's Hostel - S Block", label: "Men's Hostel - S Block" },
-  { value: "Men's Hostel - T Block", label: "Men's Hostel - T Block" },
-
-  { value: "Ladies' Hostel - A Block", label: "Ladies' Hostel - A Block" },
-  { value: "Ladies' Hostel - B Block", label: "Ladies' Hostel - B Block" },
-  { value: "Ladies' Hostel - C Block", label: "Ladies' Hostel - C Block" },
-  { value: "Ladies' Hostel - D Block", label: "Ladies' Hostel - D Block" },
-  { value: "Ladies' Hostel - F Block", label: "Ladies' Hostel - F Block" },
 ];
 
 export default function Settings() {
@@ -139,12 +77,9 @@ export default function Settings() {
         first_name: user.first_name || "",
         last_name: user.last_name || "",
         email: user.email || "",
-        vit_email: user.vit_email || "",
-        room_number: user.room_no || 100, // Ensure you set default value for room_number
         reg_no: user.reg_no || "",
         phone_no: user.phone_no || "",
         gender: user.gender || "M", // Default gender
-        hostel_block: user.hostel_block || "", // Default hostel
         github_link: user.github_profile || "", // Default GitHub link
       });
     }
@@ -194,44 +129,30 @@ export default function Settings() {
                   name={"last_name"}
                   render={({ field }) => (
                     <FormItemWrapper
-                      field={field}
-                      labelText={"Last Name"}
-                      placeholderText="Last Name"
-                      type={"text"}
-                      required
-                      autoFill
+                    field={field}
+                    labelText={"Last Name"}
+                    placeholderText="Last Name"
+                    type={"text"}
+                    required
+                    autoFill
                     />
                   )}
                 />
-
-                <FormField
-                  control={form.control}
-                  name={"phone_no"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Phone Number"}
-                      type={"tel"}
-                      placeholderText="639XXXX..."
-                      required
-                      autoFill
-                    />
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={"email"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Email"}
-                      placeholderText="xyz@gmail.com"
-                      type={"text"}
-                      required
-                      autoFill
-                    />
-                  )}
-                />
+                  <FormField
+                    control={form.control}
+                    name={"email"}
+                    render={({ field }) => (
+                      <FormItemWrapper
+                        field={field}
+                        labelText={"Email"}
+                        placeholderText="xyz@gmail.com"
+                        type={"text"}
+                        disabled={true}
+                        required
+                        autoFill
+                      />
+                    )}
+                  />
 
                 <FormField
                   control={form.control}
@@ -262,45 +183,18 @@ export default function Settings() {
                     />
                   )}
                 />
-
                 <FormField
                   control={form.control}
-                  name={"vit_email"}
+                  name={"phone_no"}
                   render={({ field }) => (
                     <FormItemWrapper
                       field={field}
-                      labelText={"VIT Email Address"}
-                      type={"text"}
-                      placeholderText="name.lastname202X@vitstudent.ac.in"
+                      labelText={"Phone Number"}
+                      type={"tel"}
+                      placeholderText="639XXXX..."
                       required
                       autoFill
                     />
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={"room_number"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Room Number"}
-                      type={"number"}
-                      placeholderText="234"
-                      required
-                      autoFill
-                    />
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={"hostel_block"}
-                  render={({ field }) => (
-                    <FormSelect
-                      field={field}
-                      required
-                      items={hostelItems}
-                      type="Block"
-                    ></FormSelect>
                   )}
                 />
                 <FormField

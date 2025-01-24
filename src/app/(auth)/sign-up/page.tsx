@@ -33,7 +33,7 @@ const SignUp = () => {
   const onSubmit = async (values: SignupFormType) => {
     toast.promise(
       async () => {
-        signup({
+        await signup({
           email: values.email,
           password: values.password,
         });

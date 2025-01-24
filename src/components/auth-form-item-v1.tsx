@@ -17,7 +17,8 @@ interface IAuthFormItem<
   TFieldValues extends FieldValues,
   TName extends Path<TFieldValues>
 > {
-  field: ControllerRenderProps<TFieldValues, TName>;
+  field?: ControllerRenderProps<TFieldValues, TName>;
+  disabled?: boolean;
   labelText: string;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   subtitle?: string;
@@ -31,6 +32,7 @@ const AuthFormItem = <
   TName extends Path<TFieldValues>
 >({
   field,
+  disabled = false,
   labelText,
   type,
   required,
@@ -59,14 +61,16 @@ const AuthFormItem = <
               }
               // focus-visible:ring-cc-primary
               className={"outline-0 ring-1 ring-cc-dark font-inter bg-white"}
+              disabled={disabled}
               autoComplete={autoFill ? "on" : "off"}
               {...field}
               onChange={(e) => {
-                if (type === "number") {
-                  field.onChange(Number(e.target.value)); // Use valueAsNumber to get the number
-
-                } else {
-                  field.onChange(e.target.value); // Otherwise, use the string value
+                if (field) {
+                  if (type === "number") {
+                    field.onChange(Number(e.target.value)); // Use valueAsNumber to get the number
+                  } else {
+                    field.onChange(e.target.value); // Otherwise, use the string value
+                  }
                 }
               }}
               {...inputProps}

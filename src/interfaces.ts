@@ -38,9 +38,6 @@ export interface IUser {
   reg_no: string;
   phone_no: string;
   gender: "M" | "F" | "O";
-  vit_email: string;
-  hostel_block: string;
-  room_no: number;
   github_profile: string;
 }
 export interface APIResponse<T> {

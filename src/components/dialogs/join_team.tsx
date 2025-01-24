@@ -14,8 +14,9 @@ import { joinTeam } from "@/services/team"; // Import the API function
 import { useTeamStore } from "@/store/team";
 import { ApiError } from "next/dist/server/api-utils";
 import toast from "react-hot-toast";
+import { FaPlus } from "react-icons/fa";
 
-const JoinTeamDialog: React.FC = () => {
+const JoinTeamDialog = () => {
   const [teamCode, setTeamCode] = useState("");
   const fetchTeam = useTeamStore((state) => state.fetch);
   // const [loading, setLoading] = useState(false);
@@ -37,10 +38,10 @@ const JoinTeamDialog: React.FC = () => {
   };
 
   return (
-    <Dialog>
+    <Dialog key={"joinTeam"}>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <CustomButton>🛡️ Join Team</CustomButton>
+        <CustomButton icon={<FaPlus size={10} />}>Join Team</CustomButton>
       </DialogTrigger>
 
       {/* Dialog Content */}
