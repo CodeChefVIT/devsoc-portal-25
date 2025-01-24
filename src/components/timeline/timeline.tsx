@@ -132,7 +132,7 @@ const Timeline: React.FC = () => {
               </div>
               {events.map((event, index) => {
                 return (
-                  <div key={index} className="flex -translate-y-1 flex-col items-center">
+                  <div key={index} className="flex  flex-col items-center">
                     {/* Time - Above the hexagon */}
                     <div className="font-bold text-lg mb-2">{event.time}</div>
 
