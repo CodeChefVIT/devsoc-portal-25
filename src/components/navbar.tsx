@@ -48,7 +48,7 @@ export default function Navbar() {
       </div>
 
       {/* Right Section */}
-      <div className="flex items-centeur gap-4">
+      <div className="flex items-center gap-4">
         {/* <Timer /> */}
         {/* change to real timer */}
         <Link
