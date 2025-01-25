@@ -92,3 +92,15 @@ export const joinTeam = async (request: IJoinTeamRequest)=>{
         throw ConvertToAPIError(error);
     }
 }
+
+export const checkIfRepoStarred = async () => {
+    try {
+        const res = await api.get("/auth/star");
+        if (res.status !== 200 || !res.data.success){
+            return false;
+        }
+        return true;
+    } catch(error) {
+        throw ConvertToAPIError(error);
+    }
+}
