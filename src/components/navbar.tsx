@@ -1,5 +1,22 @@
 "use client";
-import React from "react";
+import { Menu } from "lucide-react"; // Icons for menu and close
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import React, { useState } from "react";
 import Image from "next/image";
 import devsoc from "../../public/images/devsoc.png";
 import Link from "next/link";
@@ -8,9 +25,13 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
+import Tracks from "./tracks";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function Navbar() {
   const router = useRouter();
+  const [showTracks, setShowTracks] = useState(false); // State to toggle Tracks visibility
+
   function handleLogout(): void {
     toast.promise(
       async () => {
@@ -46,14 +67,13 @@ export default function Navbar() {
           PORTAL
         </Link>
       </div>
-
       {/* Right Section */}
-      <div className="flex items-center gap-4">
+      <div className=" items-center gap-4 hidden md:flex">
         {/* <Timer /> */}
         {/* change to real timer */}
         <Link
           href={"https://discord.gg/M8V6vxXnUq"}
-          className="active:-rotate-12"
+          className="active:-rotate-12 "
         >
           <Image
             src="/images/discord.png"
@@ -68,7 +88,7 @@ export default function Navbar() {
           width={40}
           height={40}
         />
-        <Link href="/settings" className="group">
+        <Link href="/settings" className="group ">
           <Image
             src="/images/settings.png"
             alt="Setting Icon"
@@ -77,8 +97,62 @@ export default function Navbar() {
             className="transition-transform duration-300 ease-in-out group-active:rotate-180"
           />
         </Link>
-        <CustomButton onClick={handleLogout} buttonProps={{className: "border border-white"}} >Logout</CustomButton>
+        <CustomButton
+          onClick={handleLogout}
+          buttonProps={{ className: "border border-white " }}
+        >
+          Logout
+        </CustomButton>
       </div>
+      <Dialog>
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            {" "}
+            <Menu className="text-white "></Menu>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="bg-cc-primary ">
+            <DropdownMenuLabel>Other options</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DialogTrigger asChild>
+              <DropdownMenuItem className="text-white hover:bg-[#fe7842]">
+                <div
+                  onClick={() => setShowTracks(!showTracks)}
+                  aria-label="Toggle Tracks"
+                >
+                  Tracks
+                </div>
+              </DropdownMenuItem>
+            </DialogTrigger>
+
+            <Link href="/settings">
+              <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
+                {" "}
+                <div>Settings</div>
+              </DropdownMenuItem>
+            </Link>
+            <Link href={"https://discord.gg/M8V6vxXnUq"}>
+              <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
+                {" "}
+                Discord
+              </DropdownMenuItem>
+            </Link>
+            <DropdownMenuItem
+              onClick={handleLogout}
+              className="hover:bg-[#fe7842] text-white"
+            >
+              Logout
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <DialogContent>
+          <DialogTitle></DialogTitle>
+          <DialogHeader>
+            <DialogDescription>
+              <Tracks />
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 }

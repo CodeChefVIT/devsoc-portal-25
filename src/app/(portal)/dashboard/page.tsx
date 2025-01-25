@@ -25,33 +25,31 @@ const Dashboard: React.FC = () => {
   }, [fetchTeamInfo]);
 
   return (
-    <div className="h-screen grid grid-cols-[33%_67%]">
-      {/* Sidebar (30% width) */}
-      <div className="h-full p-4 ">
-        <Tracks />
+    <div className="h-screen grid grid-cols-1 md:grid-cols-[33%_67%]">
+  {/* Sidebar */}
+  <div className="h-full p-4 hidden md:block">
+    <Tracks />
+  </div>
+
+  {/* Main Content */}
+  <div className="grid grid-rows-[auto_1fr] gap-2 p-2 h-full min-h-0">
+    {/* Timeline */}
+    <div className="overflow-auto rounded-lg p-2 min-h-0">
+      <Timeline />
+    </div>
+
+    {/* Team Box and Project Submission */}
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-0">
+      <div className="flex flex-col items-start justify-start rounded-lg p-3 ">
+        {team.code ? <TeamView /> : <JoinTeam />}
       </div>
-
-      {/* Main Content (70% width) */}
-      <div className="grid grid-rows-[auto_1fr] gap-2 p-2 h-full min-h-0">
-        {/* Timeline (1st row) */}
-        <div className="overflow-auto rounded-lg p-2 min-h-0">
-          <Timeline />
-        </div>
-
-        {/* Team Box and Project Submission (2nd row) */}
-        <div className="grid grid-cols-2 min-h-0">
-          {/* Dev Team Box */}
-          <div className="flex flex-col items-start justify-start  rounded-lg p-3 h-[75%]">
-            {team.code ? <TeamView /> : <JoinTeam />}
-          </div>
-
-          {/* Project Submission Box */}
-          <div className="flex flex-col items-start justify-start rounded-lg p-3 h-[75%]">
-            <ProjectSubmission />
-          </div>
-        </div>
+      <div className="flex flex-col items-start justify-start rounded-lg p-3 ">
+        <ProjectSubmission />
       </div>
     </div>
+  </div>
+</div>
+
   );
 };
 
