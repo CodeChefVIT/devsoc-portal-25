@@ -72,7 +72,7 @@ const Login = () => {
                 render={({ field }) => (
                   <AuthFormItem
                     field={field}
-                    labelText={"Email"}
+                    labelText={"VIT Email"}
                     type={"text"}
                     required
                     autoFill
