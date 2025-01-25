@@ -35,15 +35,13 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
-        if (
-          (res as { is_profile_complete: boolean }).is_profile_complete &&
-          (res as { is_starred: boolean }).is_starred
-        ) {
+        if (res.is_verified === false) {
+          router.push(
+            `/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`
+          );
+        } else if (res.is_profile_complete && res.is_starred) {
           router.push(`/dashboard`);
-        } else if (
-          (res as { is_profile_complete: boolean }).is_profile_complete &&
-          !(res as { is_starred: boolean }).is_starred
-        ) {
+        } else if (res.is_profile_complete && !res.is_starred) {
           router.push(`/github-activity`);
         } else {
           router.push(`/fill-details/1`);
@@ -72,7 +70,7 @@ const Login = () => {
                 render={({ field }) => (
                   <AuthFormItem
                     field={field}
-                    labelText={"Email"}
+                    labelText={"VIT Email"}
                     type={"text"}
                     required
                     autoFill

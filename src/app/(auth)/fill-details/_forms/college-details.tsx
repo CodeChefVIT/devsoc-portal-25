@@ -36,13 +36,13 @@
 //                 <InfoFormField name={'vitEmail'} render={({ field })=>(
 //                     <AuthFormItem field={field} labelText={"VIT Email Address"} type={"text"} required />
 //                 )} />
-//                 <InfoFormField name={'roomNo'} render={({ field })=>(
-//                     <AuthFormItem field={field} labelText={"Room Number"} type={"number"} required />
-//                 )} />
+                // <InfoFormField name={'roomNo'} render={({ field })=>(
+                //     <AuthFormItem field={field} labelText={"Room Number"} type={"number"} required />
+                // )} />
 
-//                 <InfoFormField name={'hostelBlock'} render={({ field })=>(
-//                     <AuthFormDropdown items={hostels} labelText={"Hostel Block"} field={field} required />
-//                 )} />
+                // <InfoFormField name={'hostelBlock'} render={({ field })=>(
+                //     <AuthFormDropdown items={hostels} labelText={"Hostel Block"} field={field} required />
+                // )} />
 //                 <Button variant={"primary"} size={"primary"} type={"button"} className={"my-2"} onClick={handleNext}>
 //                     Next
 //                 </Button>

@@ -21,9 +21,9 @@ export default function CustomButton({
       type={type}
       disabled={disabled}
       {...inputProps}
-      className={`disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl  ${
+      className={` ${
         inputProps?.className || ""
-      }`}
+      } disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl `}
       onClick={onClick}
     >
       <div className="flex font-monomaniac gap-2 items-center text-lg">

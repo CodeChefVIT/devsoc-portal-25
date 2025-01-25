@@ -7,11 +7,15 @@ interface ILoginRequest {
     email: string,
     password: string
 }
-
+interface LoginResponse {
+  is_profile_complete: boolean | undefined;
+  is_verified: boolean | undefined;
+  is_starred: boolean | undefined;
+}
 export const login = async (request: ILoginRequest)=>{
     try {
         const res = await api.post("/auth/login", request);
-        return getData(res.data);
+        return getData(res.data) as  LoginResponse;
     } catch(error){
         throw ConvertToAPIError(error);
     }
@@ -48,6 +52,8 @@ export const verifyOTP = async (request: IVerifyOTPRequest) => {
 interface ICompleteProfileRequest {
     first_name: string;
     last_name: string;
+    hostel_block: string;
+    room_no: string;
     phone_no: string;
     reg_no: string;
     gender: "M" | "F" | "O";
@@ -92,6 +98,15 @@ export const joinTeam = async (request: IJoinTeamRequest)=>{
 export const pingStar = async () => {
     try {
         const res = await api.get("/auth/star");
+        return getData(res.data);
+    } catch (error) {
+        throw ConvertToAPIError(error);
+    }
+}
+
+export const logout = async () => {
+    try {
+        const res = await api.post("/auth/logout");
         return getData(res.data);
     } catch (error) {
         throw ConvertToAPIError(error);
