@@ -8,7 +8,7 @@ import { z } from "zod";
 import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
-import FormItemWrapper from "../../../components/form/formItemWrapper";
+import FormItemWrapper from "../../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
 import { ApiError } from "next/dist/server/api-utils";
 

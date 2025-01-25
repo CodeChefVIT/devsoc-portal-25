@@ -101,3 +101,12 @@ export const pingStar = async () => {
         throw ConvertToAPIError(error);
     }
 }
+
+export const logout = async () => {
+    try {
+        const res = await api.get("/auth/logout");
+        return getData(res.data);
+    } catch (error) {
+        throw ConvertToAPIError(error);
+    }
+}
