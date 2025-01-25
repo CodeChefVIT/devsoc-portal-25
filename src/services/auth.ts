@@ -7,11 +7,15 @@ interface ILoginRequest {
     email: string,
     password: string
 }
-
+interface LoginResponse {
+  is_profile_complete: boolean | undefined;
+  is_verified: boolean | undefined;
+  is_starred: boolean | undefined;
+}
 export const login = async (request: ILoginRequest)=>{
     try {
         const res = await api.post("/auth/login", request);
-        return getData(res.data);
+        return getData(res.data) as  LoginResponse;
     } catch(error){
         throw ConvertToAPIError(error);
     }
