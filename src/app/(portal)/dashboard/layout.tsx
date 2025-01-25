@@ -11,8 +11,8 @@ export default function RootLayout({
         <Image
         src="/images/mascot_french_pos.svg"
         alt="SVG Image"
-        height={300}
-        width={300}
+        height={170}
+        width={200}
 
         className="absolute -z-[1] bottom-0 right-0"
       />
