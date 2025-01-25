@@ -10,7 +10,6 @@ import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
 import FormItemWrapper from "../../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
-import { ApiError } from "next/dist/server/api-utils";
 
 import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
@@ -30,7 +29,7 @@ const userSchema = z.object({
     .string()
     .min(1, { message: "Last name is required field" })
     .default(""), // Default last name
-  room_number: z
+  room_no: z
     .number()
     .int()
     .min(100, { message: "Must be at least 100" })
@@ -83,7 +82,7 @@ export default function Settings() {
         first_name: user.first_name || "",
         last_name: user.last_name || "",
         email: user.email || "",
-        room_number: user.room_no || 100,
+        room_no: Number(user.room_no) || 100,
         reg_no: user.reg_no || "",
         hostel_block: user.hostel_block || "",
         phone_no: user.phone_no || "",
@@ -100,15 +99,13 @@ export default function Settings() {
     toast.promise(userUpdate(newUser), {
       loading: "Loading...",
       success: "Updated profile!",
-      error: (err: ApiError) => err.message,
+      error: () => "",
     });
   };
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className={"font-monomaniac  text-2xl mt-2 mb-5"}>
-        Settings and profile
-      </h1>
+      <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
 
       <Form {...form}>
         <form
@@ -130,18 +127,6 @@ export default function Settings() {
                       required
                       autoFill
                     />
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name={"hostel_block"}
-                  render={({ field }) => (
-                    <FormSelect
-                      field={field}
-                      required
-                      items={hostelItems}
-                      type="Block"
-                    ></FormSelect>
                   )}
                 />
                 <FormField
@@ -187,8 +172,6 @@ export default function Settings() {
                     />
                   )}
                 />
-              </div>
-              <div className="flex  w-full flex-col gap-6">
                 <FormField
                   control={form.control}
                   name={"reg_no"}
@@ -201,6 +184,20 @@ export default function Settings() {
                       required
                       autoFill
                     />
+                  )}
+                />
+              </div>
+              <div className="flex  w-full flex-col gap-6">
+                <FormField
+                  control={form.control}
+                  name={"hostel_block"}
+                  render={({ field }) => (
+                    <FormSelect
+                      field={field}
+                      required
+                      items={hostelItems}
+                      type="Block"
+                    ></FormSelect>
                   )}
                 />
                 <FormField
@@ -219,13 +216,13 @@ export default function Settings() {
                 />
                 <FormField
                   control={form.control}
-                  name={"room_number"}
+                  name={"room_no"}
                   render={({ field }) => (
                     <FormItemWrapper
                       field={field}
                       labelText={"Room Number"}
                       type={"number"}
-                      placeholderText="234"
+                      placeholderText="233"
                       required
                       autoFill
                     />

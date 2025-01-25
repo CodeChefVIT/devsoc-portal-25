@@ -48,6 +48,7 @@ export const useUserStore = create<UserStore>((set) => ({
     } catch (e) {
       if (e instanceof ApiError) {
         toast.error(e.message);
+        throw e;
       } else {
         toast.error("unknown error occurred");
       }
