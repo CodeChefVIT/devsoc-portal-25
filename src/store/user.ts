@@ -13,6 +13,9 @@ interface UserStore {
 export const useUserStore = create<UserStore>((set) => ({
   user: {
     first_name: "…",
+
+    hostel_block: "…",
+    room_no: 1,
     last_name: "…",
     email: "hello@example.com",
     reg_no: "…",

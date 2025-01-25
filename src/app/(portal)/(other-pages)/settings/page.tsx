@@ -15,7 +15,12 @@ import { ApiError } from "next/dist/server/api-utils";
 import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-
+import { HostelBlockSchema } from "@/app/(auth)/_schemas/general.schema";
+import { hostels } from "@/app/(auth)/_schemas/constants";
+export const hostelItems = hostels.map((hostel) => ({
+  value: hostel,
+  label: hostel,
+}));
 const userSchema = z.object({
   first_name: z
     .string()
@@ -31,6 +36,7 @@ const userSchema = z.object({
     .min(100, { message: "Must be at least 100" })
     .max(1399, { message: "Must be at most 1399" })
     .default(100), // Default room number
+  hostel_block: HostelBlockSchema.default(""),
   phone_no: z
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
@@ -77,7 +83,9 @@ export default function Settings() {
         first_name: user.first_name || "",
         last_name: user.last_name || "",
         email: user.email || "",
+        room_number: user.room_no || 100,
         reg_no: user.reg_no || "",
+        hostel_block: user.hostel_block || "",
         phone_no: user.phone_no || "",
         gender: user.gender || "M", // Default gender
         github_link: user.github_profile || "", // Default GitHub link
@@ -126,33 +134,45 @@ export default function Settings() {
                 />
                 <FormField
                   control={form.control}
+                  name={"hostel_block"}
+                  render={({ field }) => (
+                    <FormSelect
+                      field={field}
+                      required
+                      items={hostelItems}
+                      type="Block"
+                    ></FormSelect>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name={"last_name"}
                   render={({ field }) => (
                     <FormItemWrapper
-                    field={field}
-                    labelText={"Last Name"}
-                    placeholderText="Last Name"
-                    type={"text"}
-                    required
-                    autoFill
+                      field={field}
+                      labelText={"Last Name"}
+                      placeholderText="Last Name"
+                      type={"text"}
+                      required
+                      autoFill
                     />
                   )}
                 />
-                  <FormField
-                    control={form.control}
-                    name={"email"}
-                    render={({ field }) => (
-                      <FormItemWrapper
-                        field={field}
-                        labelText={"Email"}
-                        placeholderText="xyz@gmail.com"
-                        type={"text"}
-                        disabled={true}
-                        required
-                        autoFill
-                      />
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name={"email"}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Email"}
+                      placeholderText="xyz@gmail.com"
+                      type={"text"}
+                      disabled={true}
+                      required
+                      autoFill
+                    />
+                  )}
+                />
 
                 <FormField
                   control={form.control}
@@ -192,6 +212,20 @@ export default function Settings() {
                       labelText={"Phone Number"}
                       type={"tel"}
                       placeholderText="639XXXX..."
+                      required
+                      autoFill
+                    />
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={"room_number"}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Room Number"}
+                      type={"number"}
+                      placeholderText="234"
                       required
                       autoFill
                     />
