@@ -208,6 +208,7 @@ const Timeline: React.FC = () => {
                       {/* Time - Above the hexagon */}
                       <div className="font-bold text-lg mb-2">{event.time}</div>
 
+
                       {/* Hexagon */}
                       <div className="flex items-center justify-center">
                         <div

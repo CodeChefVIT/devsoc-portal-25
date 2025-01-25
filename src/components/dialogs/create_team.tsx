@@ -21,7 +21,7 @@ const CreateTeamDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Control the dialog open state
   const fetchTeam = useTeamStore((state) => state.fetch);
   const handleCreateTeam = async () => {
-    await toast.promise(
+     toast.promise(
       async () => {
         await createTeam(teamName);
         await fetchTeam();
