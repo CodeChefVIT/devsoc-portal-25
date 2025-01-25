@@ -15,7 +15,7 @@ export const useUserStore = create<UserStore>((set) => ({
     first_name: "…",
 
     hostel_block: "…",
-    room_no: 1,
+    room_no: "…",
     last_name: "…",
     email: "hello@example.com",
     reg_no: "…",

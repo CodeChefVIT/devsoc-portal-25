@@ -14,9 +14,9 @@ import { IUser } from "@/interfaces";
 import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-import { HostelBlockSchema } from "@/app/(auth)/_schemas/general.schema";
+import { HostelBlockSchema, RoomNumberSchema } from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
-export const hostelItems = hostels.map((hostel) => ({
+ const hostelItems = hostels.map((hostel) => ({
   value: hostel,
   label: hostel,
 }));
@@ -29,12 +29,7 @@ const userSchema = z.object({
     .string()
     .min(1, { message: "Last name is required field" })
     .default(""), // Default last name
-  room_no: z
-    .number()
-    .int()
-    .min(100, { message: "Must be at least 100" })
-    .max(1399, { message: "Must be at most 1399" })
-    .default(100), // Default room number
+  room_no: RoomNumberSchema.default(""), // Default room number
   hostel_block: HostelBlockSchema.default(""),
   phone_no: z
     .string()
@@ -47,7 +42,7 @@ const userSchema = z.object({
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
     .default(""), // Default registration number
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
-  github_link: githubLinkSchema, // Default GitHub link is an empty string
+  github_profile: githubLinkSchema, // Default GitHub link is an empty string
 });
 
 //change to global gender and block schemas later
@@ -82,12 +77,12 @@ export default function Settings() {
         first_name: user.first_name || "",
         last_name: user.last_name || "",
         email: user.email || "",
-        room_no: Number(user.room_no) || 100,
+        room_no: user.room_no || "",
         reg_no: user.reg_no || "",
         hostel_block: user.hostel_block || "",
         phone_no: user.phone_no || "",
         gender: user.gender || "M", // Default gender
-        github_link: user.github_profile || "", // Default GitHub link
+        github_profile: user.github_profile || "", // Default GitHub link
       });
     }
   }, [user, form, form.reset, userIsSet]);
@@ -221,8 +216,8 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"Room Number"}
-                      type={"number"}
-                      placeholderText="233"
+                      type={"string"}
+                      placeholderText=""
                       required
                       autoFill
                     />
@@ -230,7 +225,7 @@ export default function Settings() {
                 />
                 <FormField
                   control={form.control}
-                  name={"github_link"}
+                  name={"github_profile"}
                   render={({ field }) => (
                     <FormItemWrapper
                       field={field}

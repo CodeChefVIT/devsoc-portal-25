@@ -36,7 +36,7 @@ export interface IUser {
   email: string;
   is_leader: boolean;
   hostel_block: string;
-  room_no: number;
+  room_no: string;
   reg_no: string;
   phone_no: string;
   gender: "M" | "F" | "O";
