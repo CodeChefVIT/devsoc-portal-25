@@ -13,6 +13,9 @@ interface UserStore {
 export const useUserStore = create<UserStore>((set) => ({
   user: {
     first_name: "…",
+
+    hostel_block: "…",
+    room_no: "…",
     last_name: "…",
     email: "hello@example.com",
     reg_no: "…",
@@ -45,6 +48,7 @@ export const useUserStore = create<UserStore>((set) => ({
     } catch (e) {
       if (e instanceof ApiError) {
         toast.error(e.message);
+        throw e;
       } else {
         toast.error("unknown error occurred");
       }

@@ -52,6 +52,8 @@ export const verifyOTP = async (request: IVerifyOTPRequest) => {
 interface ICompleteProfileRequest {
     first_name: string;
     last_name: string;
+    hostel_block: string;
+    room_no: string;
     phone_no: string;
     reg_no: string;
     gender: "M" | "F" | "O";
@@ -96,6 +98,15 @@ export const joinTeam = async (request: IJoinTeamRequest)=>{
 export const pingStar = async () => {
     try {
         const res = await api.get("/auth/star");
+        return getData(res.data);
+    } catch (error) {
+        throw ConvertToAPIError(error);
+    }
+}
+
+export const logout = async () => {
+    try {
+        const res = await api.post("/auth/logout");
         return getData(res.data);
     } catch (error) {
         throw ConvertToAPIError(error);

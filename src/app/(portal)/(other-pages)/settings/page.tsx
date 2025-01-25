@@ -8,14 +8,18 @@ import { z } from "zod";
 import { Form, FormField } from "@/components/ui/form";
 import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
-import FormItemWrapper from "../../../components/form/formItemWrapper";
+import FormItemWrapper from "../../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
-import { ApiError } from "next/dist/server/api-utils";
 
 import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-
+import { HostelBlockSchema, RoomNumberSchema } from "@/app/(auth)/_schemas/general.schema";
+import { hostels } from "@/app/(auth)/_schemas/constants";
+ const hostelItems = hostels.map((hostel) => ({
+  value: hostel,
+  label: hostel,
+}));
 const userSchema = z.object({
   first_name: z
     .string()
@@ -25,12 +29,8 @@ const userSchema = z.object({
     .string()
     .min(1, { message: "Last name is required field" })
     .default(""), // Default last name
-  room_number: z
-    .number()
-    .int()
-    .min(100, { message: "Must be at least 100" })
-    .max(1399, { message: "Must be at most 1399" })
-    .default(100), // Default room number
+  room_no: RoomNumberSchema.default(""), // Default room number
+  hostel_block: HostelBlockSchema.default(""),
   phone_no: z
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
@@ -42,7 +42,7 @@ const userSchema = z.object({
     .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
     .default(""), // Default registration number
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
-  github_link: githubLinkSchema, // Default GitHub link is an empty string
+  github_profile: githubLinkSchema, // Default GitHub link is an empty string
 });
 
 //change to global gender and block schemas later
@@ -77,10 +77,12 @@ export default function Settings() {
         first_name: user.first_name || "",
         last_name: user.last_name || "",
         email: user.email || "",
+        room_no: user.room_no || "",
         reg_no: user.reg_no || "",
+        hostel_block: user.hostel_block || "",
         phone_no: user.phone_no || "",
         gender: user.gender || "M", // Default gender
-        github_link: user.github_profile || "", // Default GitHub link
+        github_profile: user.github_profile || "", // Default GitHub link
       });
     }
   }, [user, form, form.reset, userIsSet]);
@@ -92,15 +94,13 @@ export default function Settings() {
     toast.promise(userUpdate(newUser), {
       loading: "Loading...",
       success: "Updated profile!",
-      error: (err: ApiError) => err.message,
+      error: () => "",
     });
   };
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className={"font-monomaniac  text-2xl mt-2 mb-5"}>
-        Settings and profile
-      </h1>
+      <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
 
       <Form {...form}>
         <form
@@ -129,30 +129,30 @@ export default function Settings() {
                   name={"last_name"}
                   render={({ field }) => (
                     <FormItemWrapper
-                    field={field}
-                    labelText={"Last Name"}
-                    placeholderText="Last Name"
-                    type={"text"}
-                    required
-                    autoFill
+                      field={field}
+                      labelText={"Last Name"}
+                      placeholderText="Last Name"
+                      type={"text"}
+                      required
+                      autoFill
                     />
                   )}
                 />
-                  <FormField
-                    control={form.control}
-                    name={"email"}
-                    render={({ field }) => (
-                      <FormItemWrapper
-                        field={field}
-                        labelText={"Email"}
-                        placeholderText="xyz@gmail.com"
-                        type={"text"}
-                        disabled={true}
-                        required
-                        autoFill
-                      />
-                    )}
-                  />
+                <FormField
+                  control={form.control}
+                  name={"email"}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Email"}
+                      placeholderText="xyz@gmail.com"
+                      type={"text"}
+                      disabled={true}
+                      required
+                      autoFill
+                    />
+                  )}
+                />
 
                 <FormField
                   control={form.control}
@@ -167,8 +167,6 @@ export default function Settings() {
                     />
                   )}
                 />
-              </div>
-              <div className="flex  w-full flex-col gap-6">
                 <FormField
                   control={form.control}
                   name={"reg_no"}
@@ -181,6 +179,20 @@ export default function Settings() {
                       required
                       autoFill
                     />
+                  )}
+                />
+              </div>
+              <div className="flex  w-full flex-col gap-6">
+                <FormField
+                  control={form.control}
+                  name={"hostel_block"}
+                  render={({ field }) => (
+                    <FormSelect
+                      field={field}
+                      required
+                      items={hostelItems}
+                      type="Block"
+                    ></FormSelect>
                   )}
                 />
                 <FormField
@@ -199,7 +211,21 @@ export default function Settings() {
                 />
                 <FormField
                   control={form.control}
-                  name={"github_link"}
+                  name={"room_no"}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Room Number"}
+                      type={"string"}
+                      placeholderText=""
+                      required
+                      autoFill
+                    />
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name={"github_profile"}
                   render={({ field }) => (
                     <FormItemWrapper
                       field={field}
