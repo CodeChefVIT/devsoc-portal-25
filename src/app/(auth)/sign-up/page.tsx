@@ -50,8 +50,8 @@ const SignUp = () => {
   };
 
   return (
-    <div className={"w-full flex justify-center items-center py-5"}>
-      <Modal classname={""} text={"Welcome back!"}>
+    <div className={"w-full flex justify-center items-center"}>
+      <Modal classname={"py-10"} text={"Welcome back!"}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
