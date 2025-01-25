@@ -11,7 +11,9 @@ import {genders} from "@/app/(auth)/_schemas/constants";
 import {useFormContext} from "react-hook-form";
 import {UserDetailsFormType} from "@/app/(auth)/_schemas/forms.schema";
 import {useFormStore} from "@/app/(auth)/fill-details/_components/info-form";
-
+const removeTrailingSlash = (url: string) => {
+    return url.replace(/\/+$/, '');
+  };
 const PersonalDetails = () => {
     const router = useRouter();
     const form = useFormContext<UserDetailsFormType>();
@@ -19,7 +21,8 @@ const PersonalDetails = () => {
 
     const handleNext = () => {
         const { firstName, lastName, githubProfile, regNo, phoneNo, gender } = form.getValues();
-        updateFormData({ firstName, lastName,  githubProfile, regNo, phoneNo, gender })
+        const cleanedProfile = removeTrailingSlash(githubProfile);
+        updateFormData({ firstName, lastName,  githubProfile: cleanedProfile, regNo, phoneNo, gender })
         router.push("/fill-details/2");
         return;
     }
