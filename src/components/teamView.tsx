@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 import { IoMdCopy } from "react-icons/io";
 import { LuCrown } from "react-icons/lu";
 
-import RemoveFromTeamDialog from "./remove_from_team";
+import RemoveFromTeamDialog from "./dialogs/remove_from_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
 import { leaveTeam } from "@/services/team";
 import { ApiError } from "next/dist/server/api-utils";
 import toast from "react-hot-toast";
-import CustomButton from "../CustomButton";
+import CustomButton from "./CustomButton";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
   CardFooter,
-} from "../ui/card"; // Import ShadCN components
-import EditTeamDialog from "./edit_team";
+} from "./ui/card"; // Import ShadCN components
+import EditTeamDialog from "./dialogs/edit_team";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
@@ -56,7 +56,7 @@ const TeamView = () => {
       {/* Card Header */}
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
-          Your Devsoc Team
+          Your team: {team.team_name}
           {user.is_leader && <EditTeamDialog />}
         </CardTitle>
       </CardHeader>
@@ -65,7 +65,8 @@ const TeamView = () => {
       <CardContent className="px-16 flex-grow flex gap-5 flex-col bg-cc-plain items-center">
         {/* Team Member List */}
         <div className="w-full flex flex-col mt-6 gap-3">
-          {user.is_leader ? (
+          {/* Comment out if needed. Fixes the double rendering issue for now */}
+          {/* {user.is_leader ? (
             <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
               <span>{user.first_name + " " + user.last_name}</span>
               <span className="text-yellow-500">
@@ -76,7 +77,7 @@ const TeamView = () => {
             <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
               {user.first_name + " " + user.last_name}
             </div>
-          )}
+          )} */}
           {team.members.map(
             (member, index) => (
               console.log(member),

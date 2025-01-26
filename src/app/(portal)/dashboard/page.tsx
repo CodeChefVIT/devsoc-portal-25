@@ -7,7 +7,7 @@ import React, { useEffect } from "react";
 // import track_pic from "/public/images/track_pic.png";
 
 import Timeline from "@/components/timeline/timeline";
-import TeamView from "@/components/dialogs/make_team";
+import TeamView from "@/components/teamView";
 import ProjectSubmission from "@/components/ProjectSubmission";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
