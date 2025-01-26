@@ -2,21 +2,21 @@ import React, { useEffect } from "react";
 import { IoMdCopy } from "react-icons/io";
 import { LuCrown } from "react-icons/lu";
 
-import RemoveFromTeamDialog from "./remove_from_team";
+import RemoveFromTeamDialog from "./dialogs/remove_from_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
 import { leaveTeam } from "@/services/team";
 import { ApiError } from "next/dist/server/api-utils";
 import toast from "react-hot-toast";
-import CustomButton from "../CustomButton";
+import CustomButton from "./CustomButton";
 import {
   Card,
   CardHeader,
   CardTitle,
   CardContent,
   CardFooter,
-} from "../ui/card"; // Import ShadCN components
-import EditTeamDialog from "./edit_team";
+} from "./ui/card"; // Import ShadCN components
+import EditTeamDialog from "./dialogs/edit_team";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
@@ -56,7 +56,7 @@ const TeamView = () => {
       {/* Card Header */}
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
-          {team.team_name}
+          Your team: {team.team_name}
           {user.is_leader && <EditTeamDialog />}
         </CardTitle>
       </CardHeader>
