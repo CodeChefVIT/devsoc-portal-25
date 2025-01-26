@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-cover bg-no-repeat  overflow-clip  antialiased bg-[url('/images/auth-bg.svg')]`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-cover bg-no-repeat    antialiased bg-[url('/images/auth-bg.svg')]`}
       >
         <Toaster position="top-right" reverseOrder={false} />
         {children}
