@@ -105,10 +105,10 @@ export default function Settings() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className=" w-[75%] space-y-8"
+          className="w-[90%] md:w-[75%] space-y-8"
         >
           <div className={"flex  rounded-lg flex-col gap-6"}>
-            <div className="flex border-4 bg-cc-plain p-10 pb-16 rounded-lg border-black  gap-20">
+            <div className="md:flex-row flex-col flex border-4 bg-cc-plain md:p-10 md:pb-16 rounded-lg border-black  gap-4 md:gap-20 px-4 py-6">
               <div className="flex w-full  flex-col gap-6">
                 <FormField
                   control={form.control}
@@ -239,7 +239,7 @@ export default function Settings() {
                 />
               </div>
             </div>
-            <div className="flex justify-center">
+            <div className="flex justify-center  mb-8">
               <CustomButton
                 type="submit"
                 buttonProps={{
