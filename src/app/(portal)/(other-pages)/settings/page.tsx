@@ -99,7 +99,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center -translate-y-8">
       <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
 
       <Form {...form}>
@@ -107,9 +107,10 @@ export default function Settings() {
           onSubmit={form.handleSubmit(onSubmit)}
           className=" w-[75%] space-y-8"
         >
-          <div className={"flex  rounded-lg flex-col gap-6"}>
-            <div className="flex border-4 bg-cc-plain p-10 pb-16 rounded-lg border-black  gap-20">
-              <div className="flex w-full  flex-col gap-6">
+          <div className={"flex  rounded-lg flex-col gap-4"}>
+          <div
+          className=" flex flex-col md:flex-row border-4 bg-cc-plain p-10 pb-16 rounded-lg border-black gap-4 md:gap-20">
+              <div className="flex w-full  flex-col ">
                 <FormField
                   control={form.control}
                   name={"first_name"}
