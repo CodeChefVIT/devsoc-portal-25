@@ -52,7 +52,7 @@ const TeamView = () => {
   };
 
   return (
-    <Card className="border-4 flex flex-col w-[472px] border-black rounded">
+    <Card className="border-4 flex flex-col w-full  border-black rounded">
       {/* Card Header */}
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
