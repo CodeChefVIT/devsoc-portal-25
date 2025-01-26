@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Monomaniac+One&display=swap');
 
+@import url("https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -11,8 +12,8 @@ body {
 
 @font-face {
   font-family: "Yerk";
-  src: url("../../public/fonts/Yerk/Yerk-Regular.otf") format('opentype'),
-    url("../../public/fonts/Yerk/Yerk-Regular.ttf") format('truetype');
+  src: url("/fonts/Yerk/Yerk-Regular.otf") format('opentype'),
+    url("/fonts/Yerk/Yerk-Regular.ttf") format('truetype');
 }
 
 @layer base {
