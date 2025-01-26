@@ -67,9 +67,7 @@ const Page = () => {
                 />
               )}
             />
-            <div className={"text-sm mt-2 font-inter"}>
-              Already have an account? <Link text={"Log in"} href={"/login"} />
-            </div>
+
             <Link text={"Resend OTP"} className={"block text-sm"} />
             <Button variant={"primary"} size={"primary"} type={"submit"}>
               Create Account
