@@ -8,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative min-h-screen">
+    <div className="relative ">
     
       <Image
         src="/images/mascot_french_pos.svg"
