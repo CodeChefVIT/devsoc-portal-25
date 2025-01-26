@@ -12,8 +12,6 @@ import {
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import React, { useState } from "react";
@@ -106,9 +104,9 @@ export default function Navbar() {
       </div>
       <Dialog>
         <DropdownMenu>
-          <DropdownMenuTrigger>
+          <DropdownMenuTrigger className="md:hidden block">
             {" "}
-            <Menu className="text-white "></Menu>
+            <Menu className="  text-white "></Menu>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-cc-primary ">
             <DropdownMenuLabel>Other options</DropdownMenuLabel>
@@ -146,11 +144,7 @@ export default function Navbar() {
         </DropdownMenu>
         <DialogContent>
           <DialogTitle></DialogTitle>
-          <DialogHeader>
-            <DialogDescription>
               <Tracks />
-            </DialogDescription>
-          </DialogHeader>
         </DialogContent>
       </Dialog>
     </header>
