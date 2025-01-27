@@ -8,22 +8,24 @@ import { z } from "zod";
 import { projectSchema } from "./schema";
 
 interface ProjectFormFieldsProps {
-  form: UseFormReturn<
-      z.infer<typeof projectSchema>
-  >;
+  form: UseFormReturn<z.infer<typeof projectSchema>>;
   tracks?: SelectItem[]; // Assuming `tracks` is an array of strings, adjust as necessary
 }
 const trackOptions = [
   { value: "Open Innovation", label: "Open Innovation" },
-  { value: "Other Track Option 1", label: "Other Track Option 1" },
-  { value: "Other Track Option 2", label: "Other Track Option 2" },
+  { value: "Environment and Sustainability", label: "Environment and Sustainability" },
+  { value: "Digital Security", label: "Digital Security" },
+  { value: "Healthcare and Education", label: "Healthcare and Education" },
+  { value: "Finance and Fintech", label: "Finance and Fintech" },
+  { value: "Media and Entertainment", label: "Media and Entertainment" },
 ];
+
 const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
   form,
   tracks = trackOptions,
 }) => {
   return (
-    <div className="flex justify-center gap-20">
+    <div className="flex md:flex-row flex-col justify-center md:gap-20">
       <div className="flex w-full flex-col gap-2">
         {/* Project Name */}
         <FormField

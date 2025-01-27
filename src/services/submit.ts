@@ -20,6 +20,12 @@ export const getSubmission = async <T extends ISubmission | IIdea>(
   route: "submission" | "idea"
 ): Promise<T> => {
   try {
+    if(route == 'idea')
+    {
+      const response = await api.get<APIResponse<T>>(`/${route}/`);
+      return getData<T>(response.data) as T;
+
+    }
     const response = await api.get<APIResponse<T>>(`/${route}/get`);
 
     return getData<T>(response.data) as T;
@@ -40,6 +46,11 @@ export const updateSubmission = async (
 };
 export const checkSubmissionExists = async (route: string) => {
   try {
+    if(route == 'idea')
+    {
+      await api.get(`/${route}/`);
+      return true;
+    }
     await api.get(`/${route}/get`);
     return true;
   } catch (err) {

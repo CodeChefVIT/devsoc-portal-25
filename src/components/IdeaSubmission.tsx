@@ -35,7 +35,8 @@ export default function IdeaSubmission() {
     ideaCheck();
   }, [checkIfIdeaAlreadyExists]);
   const ideaExists = useIdeaStore((state) => state.submissionExists);
-  let subtitle = "Submit Your Idea Before < date > < time >";
+
+  let subtitle = "Submit Your Idea Before 2end feb 10PM";
   let title = "No Idea Submitted Yet";
   if (ideaExists) {
     title = "Idea Submitted";
@@ -50,7 +51,7 @@ export default function IdeaSubmission() {
           disabled={!view.enabled}
           icon={<Idea />}
           onClick={() => {
-            router.push("/submission/edit");
+            router.push("/idea/edit");
           }}
         >
           VIEW IDEA
@@ -63,7 +64,7 @@ export default function IdeaSubmission() {
           disabled={!edit.enabled}
           icon={<RequestQuote />}
           onClick={() => {
-            router.push("/submission/edit");
+            router.push("/idea/edit");
           }}
         >
           EDIT IDEA
@@ -76,7 +77,7 @@ export default function IdeaSubmission() {
           disabled={!create.enabled}
           icon={<Idea />}
           onClick={() => {
-            router.push("/submission");
+            router.push("/idea");
           }}
         >
           CREATE IDEA
