@@ -17,8 +17,7 @@ const getDayValue = () => {
     return 1;
   } else if (day == 5) {
     return 2;
-  }
-  else{
+  } else {
     return 0;
   }
 };
@@ -49,49 +48,49 @@ const Timeline: React.FC = () => {
     () => [
       // Day 1 - 03.02.2025
       [
-        { time: "9:00 am", description: "Doors open and check-in", day: 1 },
-        { time: "10:00 am", description: "Opening Ceremony", day: 1 },
-        { time: "11:00 am", description: "Hacking Session", day: 1 },
-        { time: "1:00 pm", description: "Lunch Break", day: 1 },
-        { time: "2:00 pm", description: "Hacking Session", day: 1 },
+        { time: "9:00 AM", description: "Doors open and check-in", day: 1 },
+        { time: "10:00 AM", description: "Opening Ceremony", day: 1 },
+        { time: "11:00 AM", description: "Hacking Session", day: 1 },
+        { time: "1:00 PM", description: "Lunch Break", day: 1 },
+        { time: "2:00 PM", description: "Hacking Session", day: 1 },
         {
-          time: "3:30 pm",
+          time: "3:30 PM",
           description: "Informative Tech Session - 1",
           day: 1,
         },
-        { time: "4:30 pm", description: "Hacking Session", day: 1 },
-        { time: "7:00 pm", description: "Dinner Break", day: 1 },
-        { time: "9:00 pm", description: "Hacking Session", day: 1 },
-        { time: "10:00 pm", description: "Engagement Activity", day: 1 },
-        { time: "11:30 pm", description: "Review 1", day: 1 },
+        { time: "4:30 PM", description: "Hacking Session", day: 1 },
+        { time: "7:00 PM", description: "Dinner Break", day: 1 },
+        { time: "9:00 PM", description: "Hacking Session", day: 1 },
+        { time: "10:00 PM", description: "Engagement Activity", day: 1 },
+        { time: "11:30 PM", description: "Review 1", day: 1 },
       ],
 
       // Day 2 - 04.02.2025
       [
-        { time: "2:30 am", description: "Hacking Session", day: 2 },
-        { time: "6:00 am", description: "Breakfast Break", day: 2 },
-        { time: "9:00 am", description: "Hacking Session", day: 2 },
-        { time: "12:00 pm", description: "Lunch Break", day: 2 },
-        { time: "2:00 pm", description: "Hacking Session", day: 2 },
+        { time: "2:30 AM", description: "Hacking Session", day: 2 },
+        { time: "6:00 AM", description: "Breakfast Break", day: 2 },
+        { time: "9:00 AM", description: "Hacking Session", day: 2 },
+        { time: "12:00 PM", description: "Lunch Break", day: 2 },
+        { time: "2:00 PM", description: "Hacking Session", day: 2 },
         {
-          time: "4:00 pm",
+          time: "4:00 PM",
           description: "Informative Tech Session - 2",
           day: 2,
         },
-        { time: "5:30 pm", description: "Hacking Session", day: 2 },
-        { time: "7:00 pm", description: "Dinner Break", day: 2 },
-        { time: "9:00 pm", description: "Hacking Session", day: 2 },
+        { time: "5:30 PM", description: "Hacking Session", day: 2 },
+        { time: "7:00 PM", description: "Dinner Break", day: 2 },
+        { time: "9:00 PM", description: "Hacking Session", day: 2 },
       ],
 
       // Day 3 - 05.02.2025
       [
-        { time: "12:00 am", description: "Review 2", day: 3 },
-        { time: "3:00 am", description: "Hacking Session", day: 3 },
-        { time: "5:30 am", description: "Final Submission", day: 3 },
-        { time: "6:00 am", description: "Breakfast Break", day: 3 },
+        { time: "12:00 AM", description: "Review 2", day: 3 },
+        { time: "3:00 AM", description: "Hacking Session", day: 3 },
+        { time: "5:30 AM", description: "Final Submission", day: 3 },
+        { time: "6:00 AM", description: "Breakfast Break", day: 3 },
         { time: "9:00 am", description: "Final Pitches", day: 3 },
         {
-          time: "11:00 am",
+          time: "11:00 AM",
           description: "Prize Distribution and Closing Ceremony",
           day: 3,
         },
@@ -235,13 +234,14 @@ const Timeline: React.FC = () => {
                       {/* Hexagon */}
                       <div className="flex items-center justify-center">
                         <div
-                          className={`w-8 h-8 clip-hexagon bg-black scale-125 transition-colors duration-300`}
+                          className={`w-7 h-7 ${
+                            eventIndex + previousEvents <= hexagonsFilled ? "":"clip-hexagon bg-black"}    transition-colors duration-300`}
                         >
                           <div
-                            className={`w-full h-full clip-hexagon ${
+                            className={`w-full h-full clip-hexagon  ${
                               eventIndex + previousEvents <= hexagonsFilled
-                                ? "bg-[#FF6600]"
-                                : "bg-[#F7F3F0] scale-[0.92]"
+                                ? "bg-[#FF6600] scale-[1.30]"
+                                : "bg-[#F7F3F0]  scale-[0.83] "
                             } transform`}
                           ></div>
                         </div>
