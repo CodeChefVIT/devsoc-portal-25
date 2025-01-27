@@ -38,7 +38,7 @@ export default function trackCard({ track }: { track: Track }) {
                   <div>
                     <ul className="list-disc list-inside space-y-2">
                       {track.description.map((desc, index) => (
-                        <li key={index}>{desc}</li>
+                        <div key={index}>{desc}</div>
                       ))}
                     </ul>
                   </div>
