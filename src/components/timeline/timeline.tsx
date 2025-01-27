@@ -7,10 +7,34 @@ interface Event {
   time: string;
   description: string;
 }
+const getDayValue = () => {
+  const today = new Date();
+  const day = today.getDate();
+
+  if (day === 3) {
+    return 0;
+  } else if (day === 4) {
+    return 1;
+  } else if (day == 5) {
+    return 2;
+  }
+  else{
+    return 0;
+  }
+};
 
 const Timeline: React.FC = () => {
   const timeLeft = useTimerStore((state) => state.timeLeft);
-  const day = 0;
+  const [day, setDay] = useState(getDayValue());
+  useEffect(() => {
+    setDay(getDayValue());
+
+    const intervalId = setInterval(() => {
+      setDay(getDayValue());
+    }, 12 * 60 * 60 * 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
   const [hexagonsFilled, setFilledHexagons] = useState<number>(0);
   const [selectedDay, setSelectedDay] = useState<number>(1);
 
@@ -188,7 +212,7 @@ const Timeline: React.FC = () => {
             {/* Line Connecting Events */}
 
             {/* Hexagons */}
-            
+
             <div className="flex items-center gap-16 min-w-max relative">
               <div className="absolute left-0 w-full transform  flex items-center">
                 <div className="h-[4px]  w-full bg-black"></div>
@@ -207,7 +231,6 @@ const Timeline: React.FC = () => {
                     >
                       {/* Time - Above the hexagon */}
                       <div className="font-bold text-lg mb-2">{event.time}</div>
-
 
                       {/* Hexagon */}
                       <div className="flex items-center justify-center">
