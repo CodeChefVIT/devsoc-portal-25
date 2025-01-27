@@ -8,10 +8,10 @@ import React, { useEffect } from "react";
 
 import Timeline from "@/components/timeline/timeline";
 import TeamView from "@/components/teamView";
-import ProjectSubmission from "@/components/ProjectSubmission";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
 import Tracks from "@/components/tracks";
+import IdeaSubmission from "@/components/IdeaSubmission";
 
 const Dashboard: React.FC = () => {
   const fetchTeamInfo = useTeamStore((state) => state.fetch);
@@ -38,13 +38,14 @@ const Dashboard: React.FC = () => {
       <Timeline />
     </div>
 
-    {/* Team Box and Project Submission */}
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 min-h-0">
       <div className="flex flex-col items-start justify-start rounded-lg p-3 ">
         {team.code ? <TeamView /> : <JoinTeam />}
       </div>
       <div className="flex flex-col items-start justify-start rounded-lg p-3 ">
-        <ProjectSubmission />
+        {/* <ProjectSubmission /> */}
+        {/* uncomment and import  when project submission is active */}
+        <IdeaSubmission></IdeaSubmission>
       </div>
     </div>
   </div>

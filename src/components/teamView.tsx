@@ -32,7 +32,7 @@ const TeamView = () => {
   const copyToClipboard = () => {
     toast.promise(navigator.clipboard.writeText(team.code), {
       loading: "Copying code...",
-      success: "Codied team code!",
+      success: "Copied team code!",
       error: (err: ApiError) => err.message,
     });
   };
