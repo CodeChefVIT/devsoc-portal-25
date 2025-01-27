@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {  useState } from "react";
 import Modal from "@/app/(auth)/_components/modal";
 import Link from "@/app/(auth)/_components/custom-link";
 import { Button } from "@/components/ui/button";
