@@ -1,6 +1,6 @@
 // layout.tsx
 
-import Image from 'next/image';
+import Image from "next/image";
 
 export default function RootLayout({
   children,
@@ -9,7 +9,6 @@ export default function RootLayout({
 }>) {
   return (
     <div className="relative">
-
       <Image
         src="/images/mascot_french_pos.svg"
         alt="Mascot"
@@ -19,6 +18,5 @@ export default function RootLayout({
       />
       {children}
     </div>
-
   );
 }

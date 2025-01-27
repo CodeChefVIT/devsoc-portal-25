@@ -52,7 +52,7 @@ const TeamView = () => {
   };
 
   return (
-    <Card className="border-4 flex flex-col w-full  border-black rounded">
+    <Card className="border-4 flex flex-col w-full  border-black rounded-lg">
       {/* Card Header */}
       <CardHeader className="w-full p-3 bg-black text-white">
         <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
@@ -87,12 +87,12 @@ const TeamView = () => {
                   className="flex  justify-between items-center bg-white border border-black rounded-lg p-2"
                 >
                   {member.is_leader ? (
-                      <div className="flex flex-1 justify-between items-center">
-                        <span>{member.first_name + " " + member.last_name}</span>
-                        <span className="text-yellow-500">
-                          <LuCrown />
-                        </span>
-                      </div>
+                    <div className="flex flex-1 justify-between items-center">
+                      <span>{member.first_name + " " + member.last_name}</span>
+                      <span className="text-yellow-500">
+                        <LuCrown />
+                      </span>
+                    </div>
                   ) : (
                     <div className=" w-full  flex justify-between border-none outline-none bg-transparent">
                       {`${member.first_name}  ${member.last_name}`}
@@ -109,7 +109,7 @@ const TeamView = () => {
       </CardContent>
 
       {/* Card Footer */}
-      <CardFooter className="w-full mt-auto flex justify-center gap-8 p-4 bg-cc-plain">
+      <CardFooter className="w-full mt-auto flex justify-center gap-8 p-4 bg-cc-plain leading-loose items-center">
         <CustomButton onClick={leave}>Leave team</CustomButton>
         <CustomButton icon={<IoMdCopy />} onClick={copyToClipboard}>
           {team.code}

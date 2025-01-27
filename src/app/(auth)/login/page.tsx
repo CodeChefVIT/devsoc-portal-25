@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "@/app/(auth)/_components/modal";
 import Link from "@/app/(auth)/_components/custom-link";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import { ApiError } from "next/dist/server/api-utils";
 
 const Login = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(LoginSchema),
@@ -29,6 +30,7 @@ const Login = () => {
   });
 
   const onSubmit = async (values: LoginFormType) => {
+    setLoading(true);
     toast.promise(
       async () => {
         const res = await login({
@@ -49,10 +51,11 @@ const Login = () => {
       },
       {
         loading: "Loading...",
-        success: "logged in successfully",
+        success: "Logged in successfully",
         error: (err: ApiError) => err.message,
       }
     );
+    setLoading(false);
   };
 
   return (
@@ -61,7 +64,7 @@ const Login = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className={"w-full  flex flex-col items-center gap-10"}
+            className={"w-full flex flex-col items-center gap-10"}
           >
             <div className={"flex w-full flex-col gap-6"}>
               <FormField
@@ -102,8 +105,13 @@ const Login = () => {
                 Don&apos;t have an account?{" "}
                 <Link text={"Sign Up"} href={"/sign-up"} />
               </div>
-              <Button variant={"primary"} size={"primary"} type={"submit"}>
-                Login
+              <Button
+                variant={"primary"}
+                size={"primary"}
+                type={"submit"}
+                disabled={loading}
+              >
+                {loading ? "Logging in..." : "Login"}
               </Button>
             </div>
           </form>
@@ -112,4 +120,5 @@ const Login = () => {
     </div>
   );
 };
+
 export default Login;

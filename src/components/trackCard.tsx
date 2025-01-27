@@ -8,17 +8,15 @@ import {
 } from "./ui/dialog";
 import { Track } from "@/interfaces";
 import Image from "next/image";
-export default function trackCard({
-  track,
-}: {
-  track: Track;
-}) {
+export default function trackCard({ track }: { track: Track }) {
   return (
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="border shadow-md mb-4 border-black rounded-3xl cursor-pointer">
-            <div className=" rounded-t-3xl pt-2 px-4 bg-white">{track.name}</div>
+          <div className=" mb-4  rounded-3xl cursor-pointer overflow-hidden">
+            <div className="border rounded-t-3xl pt-2 px-4 bg-white pb-1 border-black">
+              {track.name}
+            </div>
 
             <Image
               src="/images/track_pic.png"
@@ -29,7 +27,7 @@ export default function trackCard({
             />
           </div>
         </DialogTrigger>
-        <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-6">
+        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-6">
           <DialogHeader>
             <DialogTitle className="font-yerk mb-6">Track Details</DialogTitle>
 

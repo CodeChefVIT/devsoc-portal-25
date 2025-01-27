@@ -46,23 +46,41 @@ export default function IdeaSubmission() {
     const buttons: ReactNode[] = [];
     if (view.visible) {
       buttons.push(
-          <CustomButton disabled={!view.enabled} icon={<Idea />} onClick={() => {router.push("/submission/edit")}} >
-            VIEW IDEA
-          </CustomButton>
+        <CustomButton
+          disabled={!view.enabled}
+          icon={<Idea />}
+          onClick={() => {
+            router.push("/submission/edit");
+          }}
+        >
+          VIEW IDEA
+        </CustomButton>
       );
     }
     if (edit.visible) {
       buttons.push(
-          <CustomButton disabled={!edit.enabled} icon={<RequestQuote />} onClick={() => {router.push("/submission/edit")}}>
-            EDIT IDEA
-          </CustomButton>
+        <CustomButton
+          disabled={!edit.enabled}
+          icon={<RequestQuote />}
+          onClick={() => {
+            router.push("/submission/edit");
+          }}
+        >
+          EDIT IDEA
+        </CustomButton>
       );
     }
     if (create.visible) {
       buttons.push(
-          <CustomButton disabled={!create.enabled} icon={<Idea />} onClick={() => {router.push("/submission")}}>
-            CREATE IDEA
-          </CustomButton>
+        <CustomButton
+          disabled={!create.enabled}
+          icon={<Idea />}
+          onClick={() => {
+            router.push("/submission");
+          }}
+        >
+          CREATE IDEA
+        </CustomButton>
       );
     }
     return buttons;
@@ -116,18 +134,16 @@ export default function IdeaSubmission() {
   }, [ideaExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
 
   return (
-    <div>
-      <ProjectSubmissionTemplate
-        header="Idea Submission"
-        subtitle={subtitle} //TODO: Change to actual time and date function
-        title={title}
-        icon={icon}
-        buttons={getButtons({
-          create: createOptions,
-          view: viewOptions,
-          edit: editOptions,
-        })}
-      />
-    </div>
+    <ProjectSubmissionTemplate
+      header="Idea Submission"
+      subtitle={subtitle} //TODO: Change to actual time and date function
+      title={title}
+      icon={icon}
+      buttons={getButtons({
+        create: createOptions,
+        view: viewOptions,
+        edit: editOptions,
+      })}
+    />
   );
 }

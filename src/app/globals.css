@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Monomaniac+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Monomaniac+One&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap");
 
@@ -12,8 +12,8 @@ body {
 
 @font-face {
   font-family: "Yerk";
-  src: url("/fonts/Yerk/Yerk-Regular.otf") format('opentype'),
-    url("/fonts/Yerk/Yerk-Regular.ttf") format('truetype');
+  src: url("/fonts/Yerk/Yerk-Regular.otf") format("opentype"),
+    url("/fonts/Yerk/Yerk-Regular.ttf") format("truetype");
 }
 
 @layer base {
@@ -24,7 +24,7 @@ body {
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: #FF6D33;
+    --primary: #ff6d33;
     --primary-foreground: 0 0% 98%;
     --secondary: 0 0% 96.1%;
     --secondary-foreground: 0 0% 9%;
@@ -83,14 +83,7 @@ body {
 
 /* Hexagon Shape for timeline */
 .clip-hexagon {
-  clip-path: polygon(
-    50% 0%,
-    100% 25%,
-    100% 75%,
-    50% 100%,
-    0% 75%,
-    0% 25%
-  );
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 }
 
 /* Hide Scrollbar */
