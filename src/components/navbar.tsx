@@ -9,11 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import Image from "next/image";
 import devsoc from "../../public/images/devsoc.png";
@@ -51,6 +47,9 @@ export default function Navbar() {
     >
       {/* Left Section */}
       <div className="flex items-center gap-2">
+      <Link
+          href={"/dashboard"}
+        >
         <Image
           src={devsoc}
           alt="DEVSOC Logo"
@@ -58,6 +57,7 @@ export default function Navbar() {
           height={40}
           className="ml-5"
         />
+        </Link>
         <Link
           className="text-white font-yerk font-bold text-3xl ml-4"
           href={"/dashboard"}
@@ -80,12 +80,16 @@ export default function Navbar() {
             height={40}
           />
         </Link>
-        <Image
-          src="/images/devsoc.png"
-          alt="Another Logo"
-          width={40}
-          height={40}
-        />
+        <Link
+          href={"https://devsoc.codechefvit.com/"}
+        >
+          <Image
+            src="/images/devsoc.png"
+            alt="Another Logo"
+            width={40}
+            height={40}
+          />
+        </Link>
         <Link href="/settings" className="group ">
           <Image
             src="/images/settings.png"
@@ -144,7 +148,7 @@ export default function Navbar() {
         </DropdownMenu>
         <DialogContent>
           <DialogTitle></DialogTitle>
-              <Tracks />
+          <Tracks />
         </DialogContent>
       </Dialog>
     </header>
