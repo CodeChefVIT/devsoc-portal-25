@@ -14,12 +14,16 @@ import { IUser } from "@/interfaces";
 import { FormSelect } from "@/components/form/formSelectItem";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-import { HostelBlockSchema, RoomNumberSchema } from "@/app/(auth)/_schemas/general.schema";
+import {
+  RoomNumberSchema,
+} from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
- const hostelItems = hostels.map((hostel) => ({
+const hostelItems = hostels.map((hostel) => ({
   value: hostel,
   label: hostel,
 }));
+
+
 const userSchema = z.object({
   first_name: z
     .string()
@@ -30,7 +34,7 @@ const userSchema = z.object({
     .min(1, { message: "Last name is required field" })
     .default(""), // Default last name
   room_no: RoomNumberSchema.default(""), // Default room number
-  hostel_block: HostelBlockSchema.default(""),
+  hostel_block: z.enum(hostels as [string, ...string[]]).default("Men's Hostel - K Block"),
   phone_no: z
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
@@ -79,9 +83,9 @@ export default function Settings() {
         email: user.email || "",
         room_no: user.room_no || "",
         reg_no: user.reg_no || "",
-        hostel_block: user.hostel_block || "",
+        hostel_block: user.hostel_block as typeof hostels[number] || "",
         phone_no: user.phone_no || "",
-        gender: user.gender || "M", // Default gender
+        gender: user.gender || "M", 
         github_profile: user.github_profile || "", // Default GitHub link
       });
     }
@@ -192,7 +196,7 @@ export default function Settings() {
                       required
                       items={hostelItems}
                       type="Block"
-                    ></FormSelect>
+                    />
                   )}
                 />
                 <FormField

@@ -23,11 +23,21 @@ const TeamView = () => {
   const fetchUser = useUserStore((state) => state.fetch);
   const team = useTeamStore((state) => state.team);
   const teamFetch = useTeamStore((state) => state.fetch);
+  const teamSet = useTeamStore((state) => state.teamIsSet);
+  const userSet = useUserStore((state) => state.userIsSet);
 
   useEffect(() => {
-    teamFetch();
-    fetchUser();
-  }, [teamFetch, fetchUser]);
+    if(!teamSet)
+    {
+      teamFetch();
+
+    }
+    if(userSet)
+    {
+      fetchUser();
+
+    }
+  }, [teamFetch, fetchUser, teamSet, userSet]);
 
   const copyToClipboard = () => {
     toast.promise(navigator.clipboard.writeText(team.code), {

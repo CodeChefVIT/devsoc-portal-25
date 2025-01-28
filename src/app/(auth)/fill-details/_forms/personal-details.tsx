@@ -137,6 +137,7 @@ const PersonalDetails = () => {
           render={({ field }) => (
             <AuthFormDropdown
               items={hostels}
+              
               labelText={"Hostel Block"}
               field={field}
               required
