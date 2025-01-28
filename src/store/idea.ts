@@ -12,6 +12,8 @@ export interface SubmissionStore {
   checkSubmissionExists: () => Promise<boolean>;
   submissionExists: boolean;
   fetch: () => void;
+  setSubmissionExists: (value: boolean) => void;
+
   updateSubmissionField: <K extends keyof IIdea>(
     field: K,
     value: IIdea[K]
@@ -27,6 +29,7 @@ export const useIdeaStore = create<SubmissionStore>((set) => ({
     other_link: "https://example.com/project-alpha-other",
   },
   submissionExists: false,
+  setSubmissionExists: (value: boolean) => set({ submissionExists: value }),
   checkSubmissionExists: async () => {
     try {
       const submissionExists = await checkSubmissionExists("idea");

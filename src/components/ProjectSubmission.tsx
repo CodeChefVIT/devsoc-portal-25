@@ -6,7 +6,7 @@ import CustomButton from "./CustomButton";
 import { useUserStore } from "@/store/user";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import { useIdeaStore } from "@/store/submission";
+import { useSubmissionStore } from "@/store/submission";
 import { useRouter } from "next/navigation";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
@@ -24,7 +24,7 @@ export default function ProjectSubmission() {
   const router = useRouter();
   const user = useUserStore((state) => state.user);
   const userSet = useUserStore((state) => state.userIsSet);
-  const checkIfSubmissionAlreadyExists = useIdeaStore(
+  const checkIfSubmissionAlreadyExists = useSubmissionStore(
     (state) => state.checkSubmissionExists
   );
 
@@ -35,7 +35,7 @@ export default function ProjectSubmission() {
     }
     submissionCheck();
   }, [checkIfSubmissionAlreadyExists]);
-  const submissionExists = useIdeaStore(
+  const submissionExists = useSubmissionStore(
     (state) => state.submissionExists
   );
   let subtitle = "Submit Your Project Before < date > < time >";
@@ -60,23 +60,41 @@ export default function ProjectSubmission() {
     const buttons: ReactNode[] = [];
     if (view.visible) {
       buttons.push(
-          <CustomButton disabled={!view.enabled} onClick={() => {router.push("/submission/edit")}} icon={<Idea />}>
-            VIEW SUBMISSION
-          </CustomButton>
+        <CustomButton
+          disabled={!view.enabled}
+          onClick={() => {
+            router.push("/submission/edit");
+          }}
+          icon={<Idea />}
+        >
+          VIEW SUBMISSION
+        </CustomButton>
       );
     }
     if (edit.visible) {
       buttons.push(
-          <CustomButton disabled={!edit.enabled} onClick={() => {router.push("/submission/edit")}} icon={<RequestQuote />} >
-            EDIT SUBMISSION
-          </CustomButton>
+        <CustomButton
+          disabled={!edit.enabled}
+          onClick={() => {
+            router.push("/submission/edit");
+          }}
+          icon={<RequestQuote />}
+        >
+          EDIT SUBMISSION
+        </CustomButton>
       );
     }
     if (create.visible) {
       buttons.push(
-          <CustomButton disabled={!create.enabled} icon={<Idea />} onClick={() => {router.push("/submission")}}>
-            CREATE SUBMISSION
-          </CustomButton>
+        <CustomButton
+          disabled={!create.enabled}
+          icon={<Idea />}
+          onClick={() => {
+            router.push("/submission");
+          }}
+        >
+          CREATE SUBMISSION
+        </CustomButton>
       );
     }
     return buttons;
@@ -109,14 +127,20 @@ export default function ProjectSubmission() {
         setViewOptions({ enabled: true, visible: true });
         setEditOptions({ enabled: false, visible: true });
       } else if (user.is_leader) {
+        setViewOptions({ enabled: false, visible: false });
+        setEditOptions({ enabled: false, visible: false });
+
         setCreateOptions({ enabled: true, visible: true });
       } else {
+        setViewOptions({ enabled: false, visible: false });
+        setEditOptions({ enabled: false, visible: false });
+
         setCreateOptions({ enabled: false, visible: true });
       }
     };
     setFlags();
   }, [submissionExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
-  
+
   return (
     <div>
       <ProjectSubmissionTemplate
@@ -133,4 +157,3 @@ export default function ProjectSubmission() {
     </div>
   );
 }
-

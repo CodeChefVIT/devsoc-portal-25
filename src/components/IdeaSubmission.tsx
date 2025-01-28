@@ -24,6 +24,7 @@ export default function IdeaSubmission() {
   const user = useUserStore((state) => state.user);
   const router = useRouter();
   const userSet = useUserStore((state) => state.userIsSet);
+
   const checkIfIdeaAlreadyExists = useIdeaStore(
     (state) => state.checkSubmissionExists
   );
@@ -42,7 +43,18 @@ export default function IdeaSubmission() {
     title = "Idea Submitted";
     subtitle = <div>{`Submitted at < date > < time >`}</div>;
   }
-
+  const [createOptions, setCreateOptions] = useState<Options>({
+    enabled: true,
+    visible: true,
+  });
+  const [editOptions, setEditOptions] = useState<Options>({
+    enabled: false,
+    visible: false,
+  });
+  const [viewOptions, setViewOptions] = useState<Options>({
+    enabled: false,
+    visible: false,
+  });
   function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
     const buttons: ReactNode[] = [];
     if (view.visible) {
@@ -86,18 +98,7 @@ export default function IdeaSubmission() {
     }
     return buttons;
   }
-  const [createOptions, setCreateOptions] = useState<Options>({
-    enabled: true,
-    visible: true,
-  });
-  const [editOptions, setEditOptions] = useState<Options>({
-    enabled: false,
-    visible: false,
-  });
-  const [viewOptions, setViewOptions] = useState<Options>({
-    enabled: false,
-    visible: false,
-  });
+
   useEffect(() => {
     // Only run if userSet is false
     if (!userSet) {
@@ -127,7 +128,12 @@ export default function IdeaSubmission() {
         setEditOptions({ enabled: false, visible: true });
       } else if (user.is_leader) {
         setCreateOptions({ enabled: true, visible: true });
+        setViewOptions({ enabled: false, visible: false });
+        setEditOptions({ enabled: false, visible: false });
       } else {
+        setViewOptions({ enabled: false, visible: false });
+        setEditOptions({ enabled: false, visible: false });
+
         setCreateOptions({ enabled: false, visible: true });
       }
     };
