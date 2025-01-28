@@ -34,14 +34,7 @@ export default function FormSkeleton<T extends FieldValues>({
               <Button variant={"primary"} size={"primary"} type={"submit"}>
                 {buttonText}
               </Button>
-              {/*<CustomButton*/}
-              {/*  type="submit"*/}
-              {/*  buttonProps={{*/}
-              {/*    className: "py-2 text-lg px-10",*/}
-              {/*  }}*/}
-              {/*>*/}
-              {/*  {buttonText}*/}
-              {/*</CustomButton>*/}
+
             </div>
           </form>
         </Form>
