@@ -42,6 +42,6 @@ export const projectSchema = z.object({
       z.string().url({ message: "Link must be a valid URL " }),
       z.literal(""),
     ])
-    .optional()
+    // .optional() // uncomment to make not mandatory
     .default(""),
 });
