@@ -13,7 +13,7 @@ interface FormSelectProps<
   items: SelectItem[];
   placeholder?: string;
 }
-import { FormLabel } from "@/components/ui/form";
+import { FormControl, FormItem, FormLabel } from "@/components/ui/form";
 import {
   Select,
   SelectContent,
@@ -34,27 +34,29 @@ export const FormSelect = <
   placeholder = "Select an option",
 }: FormSelectProps<TFieldValues, TName>) => {
   return (
-    <div>
+    <FormItem className={"w-full relative space-y-0.5"}>
       <FormLabel className={"font-inter text-neutral-700 font-normal text-xs"}>
         {type}
         {required && <span className={"text-red-600"}> *</span>}
       </FormLabel>
-      <Select onValueChange={field.onChange} {...field}>
-        <SelectTrigger className=" outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
-          <SelectValue placeholder={placeholder} />
-        </SelectTrigger>
-        <SelectContent>
-          {items.map((item) => (
-            <SelectItem
-              key={item.value}
-              className="max-w-96 px-3 py-3"
-              value={item.value}
-            >
-              {item.label}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+      <FormControl>
+        <Select {...field} onValueChange={field.onChange} value={field.value || ""}>
+          <SelectTrigger className=" outline-0 ring-1 ring-cc-dark font-inter bg-white px-3 py-5">
+            <SelectValue placeholder={placeholder} />
+          </SelectTrigger>
+          <SelectContent>
+            {items.map((item) => (
+              <SelectItem
+                key={item.value}
+                className="max-w-96 px-3 py-3"
+                value={item.value}
+              >
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </FormControl>
+    </FormItem>
   );
 };

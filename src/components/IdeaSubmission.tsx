@@ -36,11 +36,11 @@ export default function IdeaSubmission() {
   }, [checkIfIdeaAlreadyExists]);
   const ideaExists = useIdeaStore((state) => state.submissionExists);
 
-  let subtitle = "Submit Your Idea Before 2end feb 10PM";
+  let subtitle = <div>Submit Your Idea Before 2<sup>nd</sup> feb 10PM</div>;
   let title = "No Idea Submitted Yet";
   if (ideaExists) {
     title = "Idea Submitted";
-    subtitle = "Submitted at < date > < time >";
+    subtitle = <div>{`Submitted at < date > < time >`}</div>;
   }
 
   function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {

@@ -12,6 +12,7 @@ import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
 import Tracks from "@/components/tracks";
 import IdeaSubmission from "@/components/IdeaSubmission";
+// import ProjectSubmission from "@/components/ProjectSubmission";
 
 const Dashboard: React.FC = () => {
   const fetchTeamInfo = useTeamStore((state) => state.fetch);
