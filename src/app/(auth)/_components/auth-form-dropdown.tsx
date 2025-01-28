@@ -13,7 +13,7 @@ import {
 import {FormControl, FormItem, FormLabel, FormMessage} from "@/components/ui/form";
 
 interface InfoFormDropdownProps<TFieldValues extends FieldValues, TName extends Path<TFieldValues>>{
-    items: string[],
+    items: string[] ,
     labelText: string,
     required: boolean,
     field: ControllerRenderProps<TFieldValues, TName>,

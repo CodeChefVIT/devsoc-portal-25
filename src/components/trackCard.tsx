@@ -19,7 +19,7 @@ export default function trackCard({ track }: { track: Track }) {
             </div>
 
             <Image
-              src="/images/track_pic.png"
+              src={`/images/${track.image}`}
               alt={track.name}
               layout="intrinsic" // Use intrinsic layout for natural size
               width={800} // Provide the intrinsic width (can be any value)

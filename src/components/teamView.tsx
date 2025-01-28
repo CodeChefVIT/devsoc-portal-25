@@ -29,10 +29,21 @@ const TeamView = () => {
   const setSubmissionExists = useSubmissionStore(
     (state) => state.setSubmissionExists
   );
+  const teamSet = useTeamStore((state) => state.teamIsSet);
+  const userSet = useUserStore((state) => state.userIsSet);
+
   useEffect(() => {
-    teamFetch();
-    fetchUser();
-  }, [teamFetch, fetchUser]);
+    if(!teamSet)
+    {
+      teamFetch();
+
+    }
+    if(userSet)
+    {
+      fetchUser();
+
+    }
+  }, [teamFetch, fetchUser, teamSet, userSet]);
 
   const copyToClipboard = () => {
     toast.promise(navigator.clipboard.writeText(team.code), {
