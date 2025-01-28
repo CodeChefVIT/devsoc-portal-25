@@ -177,10 +177,10 @@ const Timeline: React.FC = () => {
   return (
     <main>
       {/* Timeline */}
-      <div className="border-4 border-black py-5 mt-1 rounded-2xl bg-[#F7F3F0] ">
+      <div className="border-4 border-black pt-5 mt-1 rounded-2xl bg-[#F7F3F0] ">
         <section className="bg-[#F7F3F0] rounded-xl relative">
           <div className="flex justify-between ">
-            <h2 className="font-yerk text-xl font-bold px-3 mb-4">
+            <h2 className="font-yerk text-xl font-bold px-3 ">
               Timeline - Day {selectedDay + 1}
             </h2>
             <div className="flex gap-2 ">
@@ -226,7 +226,7 @@ const Timeline: React.FC = () => {
                   dayEvents.map((event, eventIndex) => (
                     <div
                       key={eventIndex}
-                      className="flex -translate-y-1 flex-col items-center"
+                      className="flex translate-y-1 flex-col items-center"
                     >
                       {/* Time - Above the hexagon */}
                       <div className="font-bold text-lg mb-2">{event.time}</div>
@@ -234,7 +234,7 @@ const Timeline: React.FC = () => {
                       {/* Hexagon */}
                       <div className="flex items-center justify-center">
                         <div
-                          className={`w-7 h-7 ${
+                          className={`w-7 h-7  ${
                             eventIndex + previousEvents <= hexagonsFilled ? "":"clip-hexagon bg-black"}    transition-colors duration-300`}
                         >
                           <div
@@ -242,13 +242,13 @@ const Timeline: React.FC = () => {
                               eventIndex + previousEvents <= hexagonsFilled
                                 ? "bg-[#FF6600] scale-[1.30]"
                                 : "bg-[#F7F3F0]  scale-[0.83] "
-                            } transform`}
+                            } `}
                           ></div>
                         </div>
                       </div>
 
                       {/* Description - Below the hexagon */}
-                      <div className="text-center mt-2">
+                      <div className="text-center min-h-10 mt-2">
                         <div className="text-xs max-w-40 overflow-visible text-wrap text-gray-800">
                           {event.description}
                         </div>
