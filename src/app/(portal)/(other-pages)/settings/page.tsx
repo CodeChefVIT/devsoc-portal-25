@@ -11,7 +11,7 @@ import toast from "react-hot-toast";
 import FormItemWrapper from "../../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
 
-import { FormSelect } from "@/components/form/formSelectItem";
+import { FormSelect } from "@/components/form/formSelectItemOld";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
 import {

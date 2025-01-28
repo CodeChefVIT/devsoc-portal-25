@@ -36,7 +36,7 @@ export interface SelectItem {
           <select
             {...field}
             onChange={field.onChange}
-            className="outline-none ring-1 ring-black font-inter bg-white px-4 py-3 rounded-md w-full  "
+            className="outline-none ring-1 ring-black font-inter bg-white text-sm md:py-3 px-3 py-3 rounded-md w-full  "
           >
             <option value="" disabled>
               {placeholder}
