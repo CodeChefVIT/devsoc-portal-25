@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Image from "next/image";
 import { StaticImport } from "next/dist/shared/lib/get-img-props";
@@ -7,8 +7,8 @@ interface Project {
   header: string;
   icon: string | StaticImport;
   title: string;
-  subtitle: string;
-  buttons: React.ReactNode[];
+  subtitle: ReactNode;
+  buttons: ReactNode[];
 }
 //icon would be svg, handle accordingly later
 export default function ProjectSubmissionTemplate({
@@ -32,7 +32,7 @@ export default function ProjectSubmissionTemplate({
         <Image className=" mt-6" src={icon} alt={""} />
         <div className=" gap-1 flex flex-col items-center">
           <h2 className=" text-lg font-semibold">{title}</h2>
-          <p className="text-gray-400   text-sm">{subtitle}</p>
+          <div className="text-gray-400   text-sm">{subtitle}</div>
         </div>
         <div className="flex flex-col lg:flex-row gap-8 items-center justify-center md:gap-2">
           {buttons.map((btn, index) => (
