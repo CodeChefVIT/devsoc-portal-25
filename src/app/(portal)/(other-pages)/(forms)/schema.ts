@@ -4,7 +4,7 @@ const isGitHubLink = (url: string | undefined) =>
 
 export const githubLinkSchema = z
   .string()
-  .or(z.literal(""))
+  .min(1, { message: "GitHub link is required" })
   .refine(isGitHubLink, {
     message: "GitHub link must be a valid GitHub URL (https://github.com/...)",
   })
@@ -29,7 +29,7 @@ export const projectSchema = z.object({
   figma_link: z
     .string()
     .url({ message: "Figma link must be a valid URL" })
-    .or(z.literal(""))
+
     .refine(isFigmaLink, {
       message: "Figma link must be a valid Figma URL (https://figma.com/...)",
     })

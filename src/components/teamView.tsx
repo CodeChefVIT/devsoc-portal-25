@@ -17,13 +17,18 @@ import {
   CardFooter,
 } from "./ui/card"; // Import ShadCN components
 import EditTeamDialog from "./dialogs/edit_team";
+import { useSubmissionStore } from "@/store/submission";
+import { useIdeaStore } from "@/store/idea";
 
 const TeamView = () => {
   const user = useUserStore((state) => state.user);
   const fetchUser = useUserStore((state) => state.fetch);
   const team = useTeamStore((state) => state.team);
   const teamFetch = useTeamStore((state) => state.fetch);
-
+  const setIdeaExists = useIdeaStore((state) => state.setSubmissionExists);
+  const setSubmissionExists = useSubmissionStore(
+    (state) => state.setSubmissionExists
+  );
   useEffect(() => {
     teamFetch();
     fetchUser();
@@ -42,6 +47,10 @@ const TeamView = () => {
       async () => {
         await leaveTeam(user.email);
         await teamFetch();
+        await fetchUser()
+        setIdeaExists(false);
+        setSubmissionExists(false);
+
       },
       {
         loading: "Leaving team...",
@@ -120,3 +129,4 @@ const TeamView = () => {
 };
 
 export default TeamView;
+

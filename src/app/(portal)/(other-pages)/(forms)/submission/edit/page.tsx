@@ -9,18 +9,18 @@ import { updateSubmission } from "@/services/submit";
 import ProjectFormFields from "../../formFields";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import { useIdeaStore } from "@/store/submission";
+import { useSubmissionStore } from "@/store/submission";
 import { defaults } from "../../defaults";
 import { useRouter } from "next/navigation";
 
 export default function EditSubmission() {
   const router = useRouter();
-  const submission = useIdeaStore((state) => state.submission);
-  const submissionFetch = useIdeaStore((state) => state.fetch);
-  const submissionExists = useIdeaStore((state) => state.submissionExists);
+  const submission = useSubmissionStore((state) => state.submission);
+  const submissionFetch = useSubmissionStore((state) => state.fetch);
+  const submissionExists = useSubmissionStore((state) => state.submissionExists);
 
-  const submissionUpdate = useIdeaStore((state) => state.updateSubmission);
-  const checkSubmissionExists = useIdeaStore(
+  const submissionUpdate = useSubmissionStore((state) => state.updateSubmission);
+  const checkSubmissionExists = useSubmissionStore(
     (state) => state.checkSubmissionExists
   );
 
