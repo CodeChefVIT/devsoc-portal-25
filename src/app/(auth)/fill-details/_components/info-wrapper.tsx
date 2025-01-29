@@ -18,7 +18,7 @@ const InfoWrapper = ({
 }: InfoWrapperProps) => {
   return (
     <main
-      className={`w-full h-full min-h-screen flex flex-col justify-start gap-10 ${wrapperClass}`}
+      className={`w-full h-full flex flex-col justify-start gap-10 ${wrapperClass}`}
     >
       {pageTitle && (
         <h1 className={"text-3xl font-monomaniac w-full text-center"}>
@@ -35,7 +35,7 @@ const InfoWrapper = ({
             alt={"emoji"}
           />
         </section>
-        <section className="w-full px-8">{children}</section>
+        <section className="w-full">{children}</section>
       </div>
     </main>
   );

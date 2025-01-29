@@ -48,7 +48,7 @@ const Page = () => {
   };
 
   return (
-    <div className={"w-full flex justify-center items-center py-5 mx-10"}>
+    <div className={"w-full flex justify-center items-center py-5 "}>
       <Modal classname={""} text={"OTP has been sent to your Email"}>
         <Form {...form}>
           <form
