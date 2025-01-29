@@ -38,6 +38,11 @@ export const updateSubmission = async (
   submissionData: Omit<ISubmission, "team_id">
 ) => {
   try {
+    if(route == 'idea')
+      {
+        const response = await api.post(`/${route}/update`, submissionData);
+        return getData(response.data);  
+      }
     const response = await api.put(`/${route}/update`, submissionData);
     return getData(response.data);
   } catch (error) {
