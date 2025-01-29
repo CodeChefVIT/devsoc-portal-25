@@ -13,8 +13,11 @@ const isFigmaLink = (url: string | undefined) =>
   !url || /^https:\/\/(www\.)?figma\.com\/.+/i.test(url);
 
 export const projectSchema = z.object({
-  title: z.string().min(1, { message: "Project Name is required" }).default(""), // Default title is an empty string
-
+  title: z
+    .string()
+    .min(1, { message: "Project Name is required" })
+    .min(4, { message: "Project Name should be greater than 3 letters" })
+    .default(""),
   track: z
     .enum(
       [
@@ -34,6 +37,7 @@ export const projectSchema = z.object({
   description: z
     .string()
     .min(1, { message: "Description of the project is required" })
+    .min(11, { message: "Project description should have more details" })
     .max(500, { message: "Description should not exceed 500 words" })
     .default(""), // Default description is an empty string
   figma_link: z

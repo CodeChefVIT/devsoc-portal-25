@@ -16,12 +16,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL("http://portal.devsoc.codechefvit.com/"),
-  title: "Devsoc by CodeChef-VIT",
+  title: "Devsoc'25",
   description:
     "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
-  icons: [{ rel: "icon", url: "/codechef_logo.svg" }],
+  icons: [{ rel: "icon", url: "/images/devsoc.png" }],
   openGraph: {
-    title: "Devsoc by CodeChef-VIT",
+    title: "Devsoc'25",
     images: [{ url: "/devsoc_og.png" }],
     url: "http://portal.devsoc.codechefvit.com/",
     type: "website",
@@ -31,12 +31,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Devsoc by CodeChef-VIT",
+    title: "Devsoc'25'",
     description:
       "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
     images: [{ url: "/og-img.png" }],
   },
-  applicationName: "Devsoc by CodeChef-VIT",
+  applicationName: "Devsoc'25",
   keywords: [
     "Devsoc official website",
     "Devsoc CodeChef-VIT",
