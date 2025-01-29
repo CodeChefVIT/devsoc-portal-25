@@ -11,7 +11,6 @@ import TeamView from "@/components/teamView";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
 import Tracks from "@/components/tracks";
-import ProjectSubmission from "@/components/ProjectSubmission";
 import IdeaSubmission from "@/components/IdeaSubmission";
 // import ProjectSubmission from "@/components/ProjectSubmission";
 
@@ -25,7 +24,7 @@ const Dashboard: React.FC = () => {
     }
     fetchInfo();
   }, [fetchTeamInfo]);
-
+  
   return (
     <div className=" grid grid-cols-1 md:grid-cols-[27%_auto] px-6 gap-6 md:py-0 py-6">
       {/* Sidebar */}
