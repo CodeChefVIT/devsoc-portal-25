@@ -76,21 +76,11 @@ const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
             />
           )}
         />
-      </div>
-      <div className="flex w-full flex-col gap-6">
-        {/* Figma Link */}
-        <FormField
+              <FormField
           control={form.control}
           name={"other_link"}
-          render={({ field }) => (
-            <FormItemWrapper
-              field={field}
-              labelText={"PPT Link"}
-              type={"text"}
-              placeholderText="https://web.archive.org/web/20210530115917/https://pastebin.com/7nfjLwi3"
-              autoFill
-              subtitle="Canva PPTs, Videos, Drive Or Supporting Material Can Be Shared"
-            />
+          render={() => (
+            <div></div>
           )}
         />
         <FormField
@@ -106,9 +96,8 @@ const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
           name={"github_link"}
           render={() => <div></div>}
         />
-
-        {/* Other Links */}
       </div>
+
     </div>
   );
 };
