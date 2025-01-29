@@ -21,12 +21,12 @@ export interface SubmissionStore {
 }
 export const useIdeaStore = create<SubmissionStore>((set) => ({
   idea: {
-    title: "abc123",
-    description: "123",
+    title: "",
+    description: "",
     track: "Open Innovation",
-    github_link: "https://github.com/team-alpha/project-alpha",
-    figma_link: "https://www.figma.com/file/alpha-design",
-    other_link: "https://example.com/project-alpha-other",
+    github_link: "",
+    figma_link: "",
+    other_link: "",
   },
   submissionExists: false,
   setSubmissionExists: (value: boolean) => set({ submissionExists: value }),

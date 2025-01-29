@@ -22,8 +22,9 @@ export default function EditIdea() {
 
   useEffect(() => {
     const fetchIdeaIfNeeded = async () => {
-        ideaFetch(); // Fetch idea if not loaded
+        await ideaFetch(); // Fetch idea if not loaded
     };
+
 
     fetchIdeaIfNeeded(); // Call the async function inside the effect
   }, [checkIdeaExists, ideaFetch]);
@@ -58,8 +59,8 @@ export default function EditIdea() {
     let success = false
     toast.promise(
       async () => {
-        updateSubmission("idea", data);
-        ideaUpdate(data);
+        await updateSubmission("idea", data);
+        await ideaUpdate(data);
         success = true
       },
       {

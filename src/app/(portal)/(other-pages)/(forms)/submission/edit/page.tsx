@@ -26,7 +26,7 @@ export default function EditSubmission() {
 
   useEffect(() => {
     const fetchIfSubmissionExists = async () => {
-      submissionFetch();
+      await submissionFetch();
     };
 
     fetchIfSubmissionExists();
