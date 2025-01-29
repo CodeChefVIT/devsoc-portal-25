@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useSubmissionStore } from "@/store/submission";
 import { useRouter } from "next/navigation";
+import ViewSubmission from "./viewSubmissionDialog";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -60,15 +61,7 @@ export default function ProjectSubmission() {
     const buttons: ReactNode[] = [];
     if (view.visible) {
       buttons.push(
-        <CustomButton
-          disabled={!view.enabled}
-          onClick={() => {
-            router.push("/submission/edit");
-          }}
-          icon={<Idea />}
-        >
-          VIEW SUBMISSION
-        </CustomButton>
+<ViewSubmission disabled={!view.enabled}></ViewSubmission>
       );
     }
     if (edit.visible) {
@@ -142,7 +135,6 @@ export default function ProjectSubmission() {
   }, [submissionExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
 
   return (
-    <div>
       <ProjectSubmissionTemplate
         header="Project Submission"
         subtitle={subtitle} //TODO: Change to actual time and date function
@@ -154,6 +146,5 @@ export default function ProjectSubmission() {
           edit: editOptions,
         })}
       />
-    </div>
   );
 }
