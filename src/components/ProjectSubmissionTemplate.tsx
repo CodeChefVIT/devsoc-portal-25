@@ -27,7 +27,7 @@ export default function ProjectSubmissionTemplate({
         </CardTitle>
       </CardHeader>
       <CardContent
-        className={`rounded-xl px-16 flex gap-5 flex-col bg-cc-plain items-center`}
+        className={`rounded-xl px-6 flex gap-5 flex-col bg-cc-plain items-center`}
       >
         <Image className=" mt-6" src={icon} alt={""} />
         <div className=" gap-1 flex flex-col items-center">
