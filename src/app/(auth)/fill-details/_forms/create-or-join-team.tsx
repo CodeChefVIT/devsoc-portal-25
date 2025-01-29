@@ -76,6 +76,7 @@ const CreateOrJoinTeam = () => {
       ? await form.trigger("createTeam")
       : true;
     if (!(isCreateTeamFilled || isJoinTeamFilled)) return;
+    console.log(checked, formData.createTeam, formData.joinTeam);
 
     toast.promise(
       async () => {
@@ -93,10 +94,12 @@ const CreateOrJoinTeam = () => {
 
         let teamRes;
         if (checked && formData.createTeam) {
+          console.log(formData.createTeam);
           teamRes = await createTeam({
             name: formData.createTeam,
           });
         } else if (!checked && formData.joinTeam) {
+          console.log(formData.joinTeam);
           teamRes = await joinTeam({
             code: formData.joinTeam,
           });
