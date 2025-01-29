@@ -40,10 +40,10 @@ export const updateSubmission = async (
   try {
     if(route == 'idea')
       {
-        const response = await api.post(`/${route}/update`, submissionData);
+        const response = await api.put(`/${route}/update`, submissionData);
         return getData(response.data);  
       }
-    const response = await api.put(`/${route}/update`, submissionData);
+    const response = await api.post(`/${route}/update`, submissionData);
     return getData(response.data);
   } catch (error) {
     throw ConvertToAPIError(error);
