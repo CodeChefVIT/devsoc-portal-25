@@ -15,6 +15,7 @@ import { login } from "@/services/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ApiError } from "next/dist/server/api-utils";
+import { toSentenceCase } from "@/lib/utils";
 
 const Login = () => {
   const router = useRouter();
@@ -37,6 +38,15 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
+        if (res.status == "fail") {
+          if (res.data.is_verified === false) {
+            console.log("data" + res.data.is_verified);
+            router.push(
+              `/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`
+            );
+            throw new ApiError(res.status, toSentenceCase(res.message));
+          }
+        }
         if (res.is_verified === false) {
           router.push(
             `/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`
