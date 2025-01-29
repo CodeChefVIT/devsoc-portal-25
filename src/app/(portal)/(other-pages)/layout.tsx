@@ -1,4 +1,4 @@
-import BackButton from "@/components/backButton";
+// import BackButton from "@/components/backButton";
 
 export default function RootLayout({
   children,
@@ -6,10 +6,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <div className="mt-4 ml-3 mr-2 ">
+    <div className="md:h-full md:flex md:flex-col justify-center">
+      {/* <div className="mt-4 ml-3 mr-2 ">
           <BackButton></BackButton>
-      </div>
+      </div> */}
       {children}
     </div>
   );

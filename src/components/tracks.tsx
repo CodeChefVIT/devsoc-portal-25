@@ -40,12 +40,14 @@ const tracks: Track[] = [
 
 export default function Tracks() {
   return (
-    <div className="flex flex-col h-full max-h-[calc(100vh-5.5rem)]">
-      <aside className=" w-full p-7 px-5 scrollbar-hide h-[700px] overflow-y-auto bg-[#F7F3F0] border-4 border-black mt-1 pt-4 rounded-2xl">
-        <div className="font-yerk mb-4 text-xl">TRACK DETAILS</div>
+    <div className=" relative flex flex-col h-full max-h-[calc(100vh-5.5rem)]">
+      <aside className=" w-full p-7 px-0 scrollbar-hide h-[700px] overflow-y-auto bg-[#F7F3F0] border-4 border-black mt-1 pt-0 rounded-2xl">
+        <div className="font-yerk py-5 text-xl sticky top-0 bg-[#f7f3f0] px-5">TRACK DETAILS</div>
+        <div className="px-5">
         {tracks.map((track, index) => (
           <TrackCard track={track} key={index}></TrackCard>
         ))}
+        </div>
       </aside>
     </div>
   );

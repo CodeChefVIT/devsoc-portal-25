@@ -3,12 +3,12 @@ import Image from "next/image";
 
 const Navbar = () => {
     return (
-        <div className={" top-0 z-[99999] w-full h-16 bg-cc-primary flex items-center shadow-md"}>
+        <div className={" top-0 z-[99999] w-full h-[75px] bg-cc-primary flex items-center shadow-md"}>
             <Image
                 src={"/icons/devsoc-logo.svg"}
-                height={48}
-                width={48}
-                className={"size-12 ml-8"}
+                height={40}
+                width={40}
+                className={" ml-9"}
                 alt={"logo"}
             />
         </div>

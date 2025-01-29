@@ -206,7 +206,7 @@ const Timeline: React.FC = () => {
           {/* Scrollable Timeline */}
           <div
             ref={timelineRef}
-            className="relative overflow-x-auto scrollbar-hide flex " // Add padding to avoid clipping
+            className="relative overflow-y-hidden overflow-x-auto scrollbar-hide flex " // Add padding to avoid clipping
           >
             {/* Line Connecting Events */}
 

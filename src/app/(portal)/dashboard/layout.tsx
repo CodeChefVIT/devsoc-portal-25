@@ -8,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative">
+    <div className="relative h-full flex items-center">
       <Image
         src="/images/mascot_french_pos.svg"
         alt="Mascot"
@@ -16,6 +16,7 @@ export default function RootLayout({
         width={200}
         className="hidden xl:block absolute -z-10 bottom-0 right-0 "
       />
+
       {children}
     </div>
   );

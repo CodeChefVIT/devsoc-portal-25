@@ -18,6 +18,7 @@ import {
   RoomNumberSchema,
 } from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
+import BackButton from "@/components/backButton";
 const hostelItems = hostels.map((hostel) => ({
   value: hostel,
   label: hostel,
@@ -103,7 +104,10 @@ export default function Settings() {
   };
 
   return (
-    <div className="flex flex-col items-center ">
+    <div className="md:py-2 pt-6 flex flex-col items-center ">
+      <div className="absolute left-5">
+          <BackButton></BackButton>
+      </div>
       <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
 
       <Form {...form}>
@@ -111,8 +115,8 @@ export default function Settings() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-[90%] md:w-[75%] space-y-8"
         >
-          <div className={"flex  rounded-lg flex-col gap-6"}>
-            <div className="md:flex-row flex-col flex border-4 bg-cc-plain md:p-10 md:pb-16 rounded-lg border-black  gap-4 md:gap-20 px-4 py-6">
+          <div className={"flex  rounded-lg flex-col gap-4"}>
+            <div className="md:flex-row flex-col flex border-4 bg-cc-plain md:p-5 md:pb-16 rounded-lg border-black  gap-4 md:gap-20 px-4 py-6">
               <div className="flex w-full  flex-col gap-6">
                 <FormField
                   control={form.control}
@@ -243,7 +247,7 @@ export default function Settings() {
                 />
               </div>
             </div>
-            <div className="flex justify-center  mb-8">
+            <div className="flex justify-center  mb-8 md:mb-0">
               <CustomButton
                 type="submit"
                 buttonProps={{

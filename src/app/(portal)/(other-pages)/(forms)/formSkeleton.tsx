@@ -19,18 +19,18 @@ export default function FormSkeleton<T extends FieldValues>({
   onSubmit: (data: T) => void;
 }) {
   return (
-    <div className="flex flex-col gap-5 items-center">
-      <h1 className="font-monomaniac text-2xl mt-2 mb-5">{title}</h1>
-      <div className=" w-[75%] flex justify-center rounded-lg  gap-5">
+    <div className="flex flex-col md:gap-5 items-center">
+      <h1 className="font-monomaniac text-2xl mt-5 md:mt-2  mb-5">{title}</h1>
+      <div className=" w-[90%] md:w-[75%] flex justify-center rounded-lg  gap-5">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex flex-col gap-7"
           >
-            <div className="bg-cc-plain p-10 pb-16 border-black border-4 rounded-xl max-w-screen-md">
+            <div className="bg-cc-plain md:p-5 md:pb-16 gap-4 md:gap-20 px-4 py-6 border-black border-4 rounded-xl max-w-screen-md">
               {children}
             </div>
-            <div className="flex justify-center">
+            <div className="mb-5 md:mb-0 flex justify-center">
               <Button variant={"primary"} size={"primary"} type={"submit"}>
                 {buttonText}
               </Button>
