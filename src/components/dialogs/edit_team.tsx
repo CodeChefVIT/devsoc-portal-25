@@ -19,6 +19,7 @@ import { PenBoxIcon } from "lucide-react";
 import CustomButton from "../CustomButton";
 import { useIdeaStore } from "@/store/idea";
 import { useSubmissionStore } from "@/store/submission";
+import { useUserStore } from "@/store/user";
 
 const EditTeamDialog: React.FC = () => {
   const teamName = useTeamStore((state) => state.team.team_name);
@@ -29,6 +30,7 @@ const EditTeamDialog: React.FC = () => {
   const setSubmissionExists = useSubmissionStore(
     (state) => state.setSubmissionExists
   );
+  const fetchUser = useUserStore((state) => state.fetch);
 
   const handleDisbandTeam = async () => {
     if (inputTeamName !== teamName) {
@@ -39,6 +41,7 @@ const EditTeamDialog: React.FC = () => {
       async () => {
         await deleteTeam();
         await teamFetch();
+        await fetchUser();
         setIdeaExists(false);
         setSubmissionExists(false);
       },

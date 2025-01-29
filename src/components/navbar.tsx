@@ -59,10 +59,10 @@ export default function Navbar() {
         />
         </Link>
         <Link
-          className="text-white font-yerk font-bold text-3xl ml-4"
+          className="text-white font-yerk font-bold text-3xl  ml-4"
           href={"/dashboard"}
         >
-          PORTAL
+          <div className="-mb-1">PORTAL</div>
         </Link>
       </div>
       {/* Right Section */}
