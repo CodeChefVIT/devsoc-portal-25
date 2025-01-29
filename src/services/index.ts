@@ -14,7 +14,6 @@ api.interceptors.request.use(
   (config: CustomAxiosRequestConfig) => {
     // Retrieve the token from local storage or any other method
 
-
     config.withCredentials = true;
     return config;
   },
@@ -27,7 +26,17 @@ api.interceptors.response.use(
   async (err) => {
     const error = err as AxiosError;
     const originalRequest = error.config as CustomAxiosRequestConfig;
+    if (error.response?.status === 417) {
+      if (error.config?.url === "/info/me") {
+        const responseData = error.response?.data as {
+          data: { is_verified: boolean };
+        };
 
+        if (responseData.data.is_verified === false) {
+          window.location.href = "/login";
+        }
+      }
+    }
     // if (error.response?.status === 401) {
     //   setTimeout(() => {
     //     window.location.href = "/login";

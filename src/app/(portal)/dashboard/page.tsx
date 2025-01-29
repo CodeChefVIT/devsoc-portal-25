@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
     }
     fetchInfo();
   }, [fetchTeamInfo]);
-
+  
   return (
     <div className="grid grid-cols-1 lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
       {/* Sidebar */}
