@@ -16,9 +16,19 @@ export const projectSchema = z.object({
   title: z.string().min(1, { message: "Project Name is required" }).default(""), // Default title is an empty string
 
   track: z
-    .enum(["Open Innovation", "Other Track Option 1", "Other Track Option 2"], {
-      invalid_type_error: "Project Track is required",
-    })
+    .enum(
+      [
+        "Open Innovation",
+        "Environment and Sustainability",
+        "Digital Security",
+        "Healthcare and Education",
+        "Finance and Fintech",
+        "Media and Entertainment",
+      ],
+      {
+        invalid_type_error: "Project Track is required",
+      }
+    )
     .default("Open Innovation"),
 
   description: z
