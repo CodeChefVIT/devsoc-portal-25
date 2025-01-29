@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import Modal from "@/app/(auth)/_components/modal";
+import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import AuthFormDropdown from "@/app/(auth)/_components/auth-form-dropdown";
@@ -11,13 +12,15 @@ import { genders, hostels } from "@/app/(auth)/_schemas/constants";
 import { useFormContext } from "react-hook-form";
 import { UserDetailsFormType } from "@/app/(auth)/_schemas/forms.schema";
 import { useFormStore } from "@/app/(auth)/fill-details/_components/info-form";
+import { completeProfile } from "@/services/auth";
+import { ApiError } from "next/dist/server/api-utils";
 const removeTrailingSlash = (url: string) => {
   return url.replace(/\/+$/, "");
 };
 const PersonalDetails = () => {
   const router = useRouter();
   const form = useFormContext<UserDetailsFormType>();
-  const { updateFormData, error } = useFormStore();
+  const { error } = useFormStore();
 
   const handleNext = () => {
     const {
@@ -31,17 +34,29 @@ const PersonalDetails = () => {
       gender,
     } = form.getValues();
     const cleanedProfile = removeTrailingSlash(githubProfile);
-    updateFormData({
-      firstName,
-      lastName,
-      hostelBlock,
-      roomNo,
-      githubProfile: cleanedProfile,
-      regNo,
-      phoneNo,
-      gender,
-    });
-    router.push("/fill-details/2");
+    toast.promise(
+      async () => {
+        // Complete profile
+        await completeProfile({
+          first_name: firstName,
+          last_name: lastName,
+          reg_no: regNo,
+          hostel_block: hostelBlock,
+          room_no: roomNo,
+          phone_no: phoneNo,
+          github_profile: cleanedProfile,
+          gender: genders[gender],
+        });
+
+        router.push("/github-activity");
+      },
+      {
+        loading: "Submitting...",
+        success: "Profile submitted successfully!",
+        error: (err: ApiError) => err.message,
+      }
+    );
+    router.push("/github-activity");
     return;
   };
 
