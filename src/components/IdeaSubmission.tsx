@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useIdeaStore } from "@/store/idea";
 import { useRouter } from "next/navigation";
-import ViewIdea from "./viewIdea";
+import ViewIdea from "./viewIdeaDialog";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -63,9 +63,7 @@ export default function IdeaSubmission() {
   function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
     const buttons: ReactNode[] = [];
     if (view.visible) {
-      buttons.push(
-        <ViewIdea disabled={view.enabled}></ViewIdea>
-      );
+      buttons.push(<ViewIdea disabled={!view.enabled}></ViewIdea>);
     }
     if (edit.visible) {
       buttons.push(
