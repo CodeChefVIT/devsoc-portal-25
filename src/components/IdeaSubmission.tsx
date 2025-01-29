@@ -8,6 +8,7 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { useIdeaStore } from "@/store/idea";
 import { useRouter } from "next/navigation";
+import ViewIdea from "./viewIdea";
 // import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
@@ -37,7 +38,11 @@ export default function IdeaSubmission() {
   }, [checkIfIdeaAlreadyExists]);
   const ideaExists = useIdeaStore((state) => state.submissionExists);
 
-  let subtitle = <div>Submit Your Idea Before 2<sup>nd</sup> feb 10PM</div>;
+  let subtitle = (
+    <div>
+      Submit Your Idea Before 2<sup>nd</sup> feb 10PM
+    </div>
+  );
   let title = "No Idea Submitted Yet";
   if (ideaExists) {
     title = "Idea Submitted";
@@ -59,15 +64,7 @@ export default function IdeaSubmission() {
     const buttons: ReactNode[] = [];
     if (view.visible) {
       buttons.push(
-        <CustomButton
-          disabled={!view.enabled}
-          icon={<Idea />}
-          onClick={() => {
-            router.push("/idea/edit");
-          }}
-        >
-          VIEW IDEA
-        </CustomButton>
+        <ViewIdea disabled={view.enabled}></ViewIdea>
       );
     }
     if (edit.visible) {

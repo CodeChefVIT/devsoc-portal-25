@@ -18,7 +18,6 @@ import {
   RoomNumberSchema,
 } from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
-import BackButton from "@/components/backButton";
 const hostelItems = hostels.map((hostel) => ({
   value: hostel,
   label: hostel,
@@ -105,9 +104,7 @@ export default function Settings() {
 
   return (
     <div className="md:py-2 pt-6 flex flex-col items-center ">
-      <div className="absolute left-5">
-          <BackButton></BackButton>
-      </div>
+
       <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
 
       <Form {...form}>
