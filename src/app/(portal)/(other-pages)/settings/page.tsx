@@ -256,7 +256,7 @@ export default function Settings() {
             </div>{" "}
           </div>
         </form>
-      </Form>
+      </Form>C
     </div>
   );
 }

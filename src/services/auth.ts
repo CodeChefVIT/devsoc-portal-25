@@ -1,6 +1,7 @@
 import api from "@/services/index";
 import {ConvertToAPIError} from "@/lib/error";
 import {getData} from "@/lib/utils";
+import axios, { AxiosError } from "axios";
 // import {IUser} from "@/interfaces";
 
 interface ILoginRequest {
@@ -16,8 +17,14 @@ export const login = async (request: ILoginRequest)=>{
     try {
         const res = await api.post("/auth/login", request);
         return getData(res.data) as  LoginResponse;
-    } catch(error){
-        throw ConvertToAPIError(error);
+    } catch(err){
+        if (axios.isAxiosError(err)) {
+            const error = err as AxiosError;
+            if (error.status == 417) {
+              return err.response?.data;
+            }
+          }
+        throw ConvertToAPIError(err);
     }
 }
 

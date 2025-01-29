@@ -16,15 +16,23 @@ export default function CustomButton({
   onClick,
   buttonProps: inputProps,
 }: IButton) {
+  const [loading, setLoading] = React.useState(false);
   return (
     <Button
       type={type}
-      disabled={disabled}
+      disabled={disabled || loading}
       {...inputProps}
       className={` ${
         inputProps?.className || ""
       } disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl `}
-      onClick={onClick}
+      onClick={async () => {
+        setLoading(true);
+        if (onClick) {
+          await onClick();
+        }
+        setLoading(true);
+
+      }}
     >
       <div className="flex font-monomaniac gap-2 items-center text-lg -mt-1">
         {icon}
