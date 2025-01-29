@@ -54,10 +54,12 @@ const CreateOrJoinTeam = () => {
     //TODO: Toasts
 
     const values = form.getValues();
+    console.log(values);
     updateFormData({
       joinTeam: values.joinTeam,
       createTeam: values.createTeam,
     });
+    console.log(formData);
 
     const isPersonalDetailsFilled = await form.trigger([
       "firstName",
