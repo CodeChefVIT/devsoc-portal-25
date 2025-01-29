@@ -55,9 +55,9 @@ const SignUp = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className={"w-full max-w-xs flex flex-col items-center gap-6"}
+            className={"w-full max-w-xs flex flex-col items-center gap-4"}
           >
-            <div className={"flex w-full flex-col gap-6"}>
+            <div className={"flex w-full flex-col gap-4"}>
               <FormField
                 control={form.control}
                 name={"email"}
@@ -98,13 +98,13 @@ const SignUp = () => {
                 )}
               />
             </div>
-            <div className={"flex flex-col justify-center items-center gap-6"}>
+            <div className={"flex flex-col justify-center items-center gap-4"}>
               <div className={"text-sm mt-2 font-inter"}>
                 Already have an account?{" "}
                 <Link text={"Log in"} href={"/login"} />
               </div>
               <Button variant={"primary"} size={"primary"} type={"submit"}>
-                Create Account
+                <p className="mb-[3px]">Create Account</p>
               </Button>
             </div>
           </form>

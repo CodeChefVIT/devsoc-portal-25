@@ -13,7 +13,10 @@ interface ProjectFormFieldsProps {
 }
 const trackOptions = [
   { value: "Open Innovation", label: "Open Innovation" },
-  { value: "Environment and Sustainability", label: "Environment and Sustainability" },
+  {
+    value: "Environment and Sustainability",
+    label: "Environment and Sustainability",
+  },
   { value: "Digital Security", label: "Digital Security" },
   { value: "Healthcare and Education", label: "Healthcare and Education" },
   { value: "Finance and Fintech", label: "Finance and Fintech" },
@@ -74,7 +77,7 @@ const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
           )}
         />
       </div>
-      <div className="flex w-full flex-col gap-6">
+      <div className="flex w-full flex-col gap-4">
         {/* Figma Link */}
         <FormField
           control={form.control}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import Modal from "@/app/(auth)/_components/modal";
 import Link from "@/app/(auth)/_components/custom-link";
 import { Button } from "@/components/ui/button";
@@ -66,7 +66,7 @@ const Login = () => {
             onSubmit={form.handleSubmit(onSubmit)}
             className={"w-full flex flex-col items-center gap-10"}
           >
-            <div className={"flex w-full flex-col gap-6"}>
+            <div className={"flex w-full flex-col gap-4"}>
               <FormField
                 control={form.control}
                 name={"email"}
@@ -100,7 +100,7 @@ const Login = () => {
                 )}
               />
             </div>
-            <div className={"flex flex-col justify-center items-center gap-6"}>
+            <div className={"flex flex-col justify-center items-center gap-4"}>
               <div className={"text-sm mt-2 font-inter"}>
                 Don&apos;t have an account?{" "}
                 <Link text={"Sign Up"} href={"/sign-up"} />
@@ -110,8 +110,11 @@ const Login = () => {
                 size={"primary"}
                 type={"submit"}
                 disabled={loading}
+                className=""
               >
-                {loading ? "Logging in..." : "Login"}
+                <p className="mb-[3px]">
+                  {loading ? "Logging in..." : "Login"}
+                </p>
               </Button>
             </div>
           </form>

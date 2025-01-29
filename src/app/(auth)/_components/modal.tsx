@@ -1,4 +1,6 @@
 import React from "react";
+import Image from "next/image";
+import DevsocText from "@/assets/images/DevsocText.svg";
 
 interface IAuthModal {
   children: React.ReactNode;
@@ -10,9 +12,15 @@ interface IAuthModal {
 const Modal = ({ branding = true, text, classname, children }: IAuthModal) => {
   return (
     <div
-      className={`w-fit px-10 py-14 bg-cc-plain border-4 border-cc-dark flex flex-col justify-center items-center rounded-2xl ${classname}`}
+      className={`w-fit p-8 bg-cc-plain border-4 border-cc-dark flex flex-col justify-center items-center rounded-2xl ${classname}`}
     >
-      {/* TODO: Add Devsoc2k25 SVG */}
+      <Image
+        src={DevsocText}
+        alt="DevSOC"
+        height={200}
+        width={600}
+        className="h-auto w-full max-w-xs"
+      />
       {branding && (
         <div className={"flex font-yerk text-cc-primary relative select-none"}>
           {/* <div className={"text-6xl"}>DEVSOC</div>

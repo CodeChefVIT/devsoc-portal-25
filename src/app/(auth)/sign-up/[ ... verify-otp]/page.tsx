@@ -70,7 +70,7 @@ const Page = () => {
 
             <Link text={"Resend OTP"} className={"block text-sm"} />
             <Button variant={"primary"} size={"primary"} type={"submit"}>
-              Create Account
+              <p className="mb-[3px]">Create Account</p>
             </Button>
           </form>
         </Form>
