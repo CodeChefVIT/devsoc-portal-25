@@ -21,7 +21,7 @@ const CreateTeamDialog = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false); // Control the dialog open state
   const fetchTeam = useTeamStore((state) => state.fetch);
   const handleCreateTeam = async () => {
-     toast.promise(
+    toast.promise(
       async () => {
         await createTeam(teamName);
         await fetchTeam();
@@ -44,7 +44,7 @@ const CreateTeamDialog = () => {
           icon={<LiaHandshake size={70} />}
           onClick={() => setIsDialogOpen(true)}
         >
-          Create Team
+          CREATE TEAM
         </CustomButton>
       </DialogTrigger>
 

@@ -24,19 +24,18 @@ export default function CustomButton({
       {...inputProps}
       className={` ${
         inputProps?.className || ""
-      } disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl `}
+      } disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl w-full`}
       onClick={async () => {
         setLoading(true);
         if (onClick) {
           await onClick();
         }
         setLoading(true);
-
       }}
     >
       <div className="flex font-monomaniac gap-2 items-center text-lg -mt-1">
-        {icon}
-        {children}
+        <div className="mt-1">{icon}</div>
+        <div>{children}</div>
       </div>
     </Button>
   );

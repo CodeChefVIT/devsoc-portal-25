@@ -4,8 +4,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -23,14 +21,14 @@ import { useRouter } from "next/navigation";
 import Tracks from "./tracks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 // import devText from "@/assets/images/PORTAL.svg"
-import discord from "@/assets/images/discord.svg"
-import settings from "@/assets/images/settings.svg"
+import discord from "@/assets/images/discord.svg";
+import settings from "@/assets/images/settings.svg";
 
 export default function Navbar() {
   const router = useRouter();
   const [showTracks, setShowTracks] = useState(false); // State to toggle Tracks visibility
 
-  function handleLogout (): void {
+  function handleLogout(): void {
     toast.promise(
       async () => {
         await logout();
@@ -46,23 +44,21 @@ export default function Navbar() {
 
   return (
     <header
-      className="flex justify-between items-center px-4 sticky top-0 z-10"
+      className="flex justify-between items-center px-4 sticky top-0 z-10 shadow-lg"
       style={{ backgroundColor: "#FF6D33", height: "75px" }}
     >
       {/* Left Section */}
       <div className="flex items-center gap-2">
-      <Link
-          href={"/dashboard"}
-        >
-        <Image
-          src={devsoc}
-          alt="DEVSOC Logo"
-          width={40}
-          height={40}
-          className="ml-5"
-        />
+        <Link href={"/dashboard"}>
+          <Image
+            src={devsoc}
+            alt="DEVSOC Logo"
+            width={40}
+            height={40}
+            className="ml-5"
+          />
         </Link>
-        
+
         <Link
           className="text-white font-yerk font-bold text-3xl  ml-4"
           href={"/dashboard"}
@@ -80,34 +76,20 @@ export default function Navbar() {
           className="ml-5 w-[68%]"
         />
         </Link> */}
-
       </div>
       {/* Right Section */}
       <div className=" items-center gap-4 hidden md:flex">
         {/* <Timer /> */}
         {/* change to real timer */}
         <Link
-        target="__value"
+          target="__value"
           href={"https://discord.gg/M8V6vxXnUq"}
           className="active:-rotate-12 "
         >
-          <Image
-            src={discord}
-            alt="Discord Logo"
-            width={45}
-            height={45}
-          />
+          <Image src={discord} alt="Discord Logo" width={45} height={45} />
         </Link>
-        <Link
-        target="__value"
-          href={"https://devsoc.codechefvit.com/"}
-        >
-          <Image
-            src={devsoc}
-            alt="Another Logo"
-            width={40}
-            height={40}
-          />
+        <Link target="__value" href={"https://devsoc.codechefvit.com/"}>
+          <Image src={devsoc} alt="Another Logo" width={40} height={40} />
         </Link>
         <Link href="/settings" className="group ">
           <Image
@@ -132,8 +114,6 @@ export default function Navbar() {
             <Menu className="  text-white "></Menu>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-cc-primary ">
-            <DropdownMenuLabel>Other options</DropdownMenuLabel>
-            <DropdownMenuSeparator />
             <DialogTrigger asChild>
               <DropdownMenuItem className="text-white hover:bg-[#fe7842]">
                 <div

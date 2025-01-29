@@ -177,7 +177,7 @@ const Timeline: React.FC = () => {
   return (
     <main>
       {/* Timeline */}
-      <div className="border-4 border-black pt-5 mt-1 rounded-2xl bg-[#F7F3F0] ">
+      <div className="border-4 border-black pt-5 mt-1 rounded-2xl bg-[#F7F3F0] overflow-hidden">
         <section className="bg-[#F7F3F0] rounded-xl relative">
           <div className="flex justify-between ">
             <h2 className="font-yerk text-xl font-bold px-3 ">
@@ -235,7 +235,10 @@ const Timeline: React.FC = () => {
                       <div className="flex items-center justify-center">
                         <div
                           className={`w-7 h-7  ${
-                            eventIndex + previousEvents <= hexagonsFilled ? "":"clip-hexagon bg-black"}    transition-colors duration-300`}
+                            eventIndex + previousEvents <= hexagonsFilled
+                              ? ""
+                              : "clip-hexagon bg-black"
+                          }    transition-colors duration-300`}
                         >
                           <div
                             className={`w-full h-full clip-hexagon  ${
