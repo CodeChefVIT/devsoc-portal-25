@@ -1,5 +1,5 @@
 import FormItemWrapper from "@/components/form/formItemWrapper";
-import { FormSelect, SelectItem } from "@/components/form/formSelectItem";
+import { FormSelect, SelectItem } from "@/components/form/formSelectItemOld";
 import FormText from "@/components/form/formText";
 import { FormField } from "@/components/ui/form";
 import React from "react";

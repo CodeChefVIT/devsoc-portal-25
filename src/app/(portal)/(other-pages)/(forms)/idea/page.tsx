@@ -21,23 +21,19 @@ export default function Idea() {
     mode: "onBlur", // Trigger validation when the input field loses focus
   });
 
-  const onSubmit = (data: z.infer<typeof schema>) => {
-    let success = false;
+  const onSubmit =  (data: z.infer<typeof schema>) => {
 
-    toast.promise(
+     toast.promise(
       async () => {
-        createSubmission("idea", data);
-        success = true;
-      },
+        await createSubmission("idea", data);
+        router.push("/dashboard");      },
       {
         loading: "Loading...",
         success: "Added idea!",
         error: (err: ApiError) => err.message,
       }
     );
-    if (success) {
-      router.push("/dashboard");
-    }
+
   };
   return (
     <FormSkeleton
