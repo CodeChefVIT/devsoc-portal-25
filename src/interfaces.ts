@@ -29,7 +29,6 @@ export interface Me {
   team: ITeam;
 }
 
-
 export interface IUser {
   first_name: string;
   last_name: string;
@@ -52,11 +51,18 @@ export interface APIResponse<T> {
 export interface ISubmission {
   title: string;
   description: string;
-  track: "Open Innovation"| "Other Track Option 1"| "Other Track Option 2";
+  track:
+    | "Open Innovation"
+    | "Environment and Sustainability"
+    | "Digital Security"
+    | "Healthcare and Education"
+    | "Finance and Fintech"
+    | "Media and Entertainment";
   github_link: string; // TEXT, nullable
   figma_link: string; // TEXT, nullable
   other_link: string; // TEXT, nullable
 }
+
 
 // Interface for the 'ideas' table
 export interface IIdea {
@@ -65,5 +71,5 @@ export interface IIdea {
   other_link: string;
   title: string; // TEXT, not null
   description: string; // TEXT, not null
-  track: "Open Innovation" | "Other Track Option 1" | "Other Track Option 2"; // TEXT, not null
+  track: "Open Innovation"| "Environment and Sustainability"| "Digital Security" | "Healthcare and Education" | "Finance and Fintech" | "Media and Entertainment";
 }
