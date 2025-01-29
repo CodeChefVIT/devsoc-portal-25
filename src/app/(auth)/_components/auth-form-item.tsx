@@ -58,7 +58,9 @@ const AuthFormItem = <
                   : "text"
               }
               // focus-visible:ring-cc-primary
-              className={"outline-0 ring-1 ring-cc-dark font-inter bg-white"}
+              className={
+                "outline-0 ring-1 ring-cc-dark font-inter bg-white pr-7"
+              }
               autoComplete={autoFill ? "on" : "off"}
               {...field}
               {...inputProps}

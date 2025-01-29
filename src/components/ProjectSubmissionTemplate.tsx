@@ -21,22 +21,24 @@ export default function ProjectSubmissionTemplate({
   return (
     <Card className="border-4 w-full border-black rounded-lg">
       <CardHeader className="w-full p-3 bg-black text-white">
-        <CardTitle className="flex font-monomaniac  tracking-wider	 items-center justify-between">
-          {header}
+        <CardTitle className="flex font-monomaniac  tracking-wider items-center justify-between">
+          <p className="mb-1">{header}</p>
           <span className="inline-block ml-2 h-3 w-3 rounded-full bg-white"></span>
         </CardTitle>
       </CardHeader>
       <CardContent
-        className={`rounded-xl px-6 flex gap-5 flex-col bg-cc-plain items-center`}
+        className={`rounded-xl flex flex-col bg-cc-plain items-center gap-4 p-4`}
       >
-        <Image className=" mt-6" src={icon} alt={""} />
+        <Image src={icon} alt={""} />
         <div className=" gap-1 flex flex-col items-center">
           <h2 className=" text-lg font-semibold">{title}</h2>
           <div className="text-gray-400   text-sm">{subtitle}</div>
         </div>
-        <div className="flex flex-col lg:flex-row gap-8 items-center justify-center md:gap-2">
+        <div className="flex flex-col gap-4">
           {buttons.map((btn, index) => (
-            <div key={index}>{btn}</div>
+            <div key={index} className=" flex-1">
+              {btn}
+            </div>
           ))}{" "}
         </div>
       </CardContent>

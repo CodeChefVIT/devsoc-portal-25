@@ -17,9 +17,13 @@ export default function EditSubmission() {
   const router = useRouter();
   const submission = useSubmissionStore((state) => state.submission);
   const submissionFetch = useSubmissionStore((state) => state.fetch);
-  const submissionExists = useSubmissionStore((state) => state.submissionExists);
+  const submissionExists = useSubmissionStore(
+    (state) => state.submissionExists
+  );
 
-  const submissionUpdate = useSubmissionStore((state) => state.updateSubmission);
+  const submissionUpdate = useSubmissionStore(
+    (state) => state.updateSubmission
+  );
   const checkSubmissionExists = useSubmissionStore(
     (state) => state.checkSubmissionExists
   );
@@ -87,7 +91,7 @@ export default function EditSubmission() {
       buttonText="Submit"
       title="Edit Your Project For Devsoc’25"
     >
-      <div className="flex w-full  flex-col gap-6">
+      <div className="flex w-full  flex-col gap-4">
         <ProjectFormFields form={form}></ProjectFormFields>
       </div>
     </FormSkeleton>

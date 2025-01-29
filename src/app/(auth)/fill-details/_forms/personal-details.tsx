@@ -67,7 +67,7 @@ const PersonalDetails = () => {
   return (
     <div className={"my-0 flex justify-center overflow-scroll w-full"}>
       <Modal branding={false} classname={"py-8 flex gap-2"}>
-        <div className="md:flex gap-5">
+        <div className="md:flex gap-4">
           <InfoFormField
             name={"firstName"}
             render={({ field }) => (
@@ -152,7 +152,6 @@ const PersonalDetails = () => {
           render={({ field }) => (
             <AuthFormDropdown
               items={hostels}
-              
               labelText={"Hostel Block"}
               field={field}
               required
@@ -166,7 +165,7 @@ const PersonalDetails = () => {
           className={"my-2"}
           onClick={handleNext}
         >
-          Next
+          <p className="mb-1">Next</p>
         </Button>
       </Modal>
     </div>

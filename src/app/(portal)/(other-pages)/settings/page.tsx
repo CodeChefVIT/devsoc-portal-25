@@ -14,15 +14,12 @@ import { IUser } from "@/interfaces";
 import { FormSelect } from "@/components/form/formSelectItemOld";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-import {
-  RoomNumberSchema,
-} from "@/app/(auth)/_schemas/general.schema";
+import { RoomNumberSchema } from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
 const hostelItems = hostels.map((hostel) => ({
   value: hostel,
   label: hostel,
 }));
-
 
 const userSchema = z.object({
   first_name: z
@@ -34,7 +31,9 @@ const userSchema = z.object({
     .min(1, { message: "Last name is required field" })
     .default(""), // Default last name
   room_no: RoomNumberSchema.default(""), // Default room number
-  hostel_block: z.enum(hostels as [string, ...string[]]).default("Men's Hostel - K Block"),
+  hostel_block: z
+    .enum(hostels as [string, ...string[]])
+    .default("Men's Hostel - K Block"),
   phone_no: z
     .string()
     .regex(/^\d{10}$/, "Invalid Phone Number")
@@ -83,9 +82,9 @@ export default function Settings() {
         email: user.email || "",
         room_no: user.room_no || "",
         reg_no: user.reg_no || "",
-        hostel_block: user.hostel_block as typeof hostels[number] || "",
+        hostel_block: (user.hostel_block as (typeof hostels)[number]) || "",
         phone_no: user.phone_no || "",
-        gender: user.gender || "M", 
+        gender: user.gender || "M",
         github_profile: user.github_profile || "", // Default GitHub link
       });
     }
@@ -104,7 +103,6 @@ export default function Settings() {
 
   return (
     <div className="md:py-2 pt-6 flex flex-col items-center ">
-
       <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
 
       <Form {...form}>
@@ -114,7 +112,7 @@ export default function Settings() {
         >
           <div className={"flex  rounded-lg flex-col gap-4"}>
             <div className="md:flex-row flex-col flex border-4 bg-cc-plain md:p-5 md:pb-16 rounded-lg border-black  gap-4 md:gap-20 px-4 py-6">
-              <div className="flex w-full  flex-col gap-6">
+              <div className="flex w-full  flex-col gap-4">
                 <FormField
                   control={form.control}
                   name={"first_name"}
@@ -187,7 +185,7 @@ export default function Settings() {
                   )}
                 />
               </div>
-              <div className="flex  w-full flex-col gap-6">
+              <div className="flex  w-full flex-col gap-4">
                 <FormField
                   control={form.control}
                   name={"hostel_block"}

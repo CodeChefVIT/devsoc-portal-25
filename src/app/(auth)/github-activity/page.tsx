@@ -33,7 +33,7 @@ const GithubActivityPage = () => {
       >
         <Modal
           classname={
-            "px-10 max-w-sm py-6 flex flex-col items-center justify-around gap-5"
+            "max-w-sm py-6 flex flex-col items-center justify-around gap-5"
           }
           branding={false}
         >
@@ -62,7 +62,7 @@ const GithubActivityPage = () => {
           type={"button"}
           onClick={handleButtonClick}
         >
-          Continue
+          <p className="mb-1">Continue</p>
         </Button>
       </div>
     </InfoWrapper>

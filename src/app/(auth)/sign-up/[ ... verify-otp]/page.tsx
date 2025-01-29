@@ -48,7 +48,7 @@ const Page = () => {
   };
 
   return (
-    <div className={"w-full flex justify-center items-center py-5 mx-10"}>
+    <div className={"w-full flex justify-center items-center py-5 "}>
       <Modal classname={""} text={"OTP has been sent to your Email"}>
         <Form {...form}>
           <form
@@ -70,7 +70,7 @@ const Page = () => {
 
             <Link text={"Resend OTP"} className={"block text-sm"} />
             <Button variant={"primary"} size={"primary"} type={"submit"}>
-              Create Account
+              <p className="mb-[3px]">Create Account</p>
             </Button>
           </form>
         </Form>

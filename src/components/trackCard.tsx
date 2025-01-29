@@ -13,8 +13,8 @@ export default function trackCard({ track }: { track: Track }) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className=" mb-4   cursor-pointer overflow-hidden">
-            <div className="border rounded-t-3xl pt-2 px-4 bg-white pb-1 border-black">
+          <div className="cursor-pointer overflow-hidden h-full">
+            <div className="border rounded-t-3xl bg-white border-black p-2">
               {track.name}
             </div>
 
@@ -27,12 +27,11 @@ export default function trackCard({ track }: { track: Track }) {
             />
           </div>
         </DialogTrigger>
-        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-6">
+        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-4 h-full w-full">
           <DialogHeader>
-            <DialogTitle className="font-yerk mb-6">Track Details</DialogTitle>
-
+            <DialogTitle className="font-yerk">Track Details</DialogTitle>
             <div className=" text-gray-500">
-              <div className="font-bold mb-3 ">{track.name}</div>
+              <div className="font-bold">{track.name}</div>
               <div>
                 <div>
                   <div>

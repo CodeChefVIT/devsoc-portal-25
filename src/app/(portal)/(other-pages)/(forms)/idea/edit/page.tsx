@@ -14,7 +14,7 @@ import { defaults } from "../../defaults";
 import { useRouter } from "next/navigation";
 
 export default function EditIdea() {
-  const router = useRouter()
+  const router = useRouter();
   const idea = useIdeaStore((state) => state.idea);
   const ideaFetch = useIdeaStore((state) => state.fetch);
   const ideaUpdate = useIdeaStore((state) => state.updateSubmission);
@@ -22,9 +22,8 @@ export default function EditIdea() {
 
   useEffect(() => {
     const fetchIdeaIfNeeded = async () => {
-        await ideaFetch(); // Fetch idea if not loaded
+      await ideaFetch(); // Fetch idea if not loaded
     };
-
 
     fetchIdeaIfNeeded(); // Call the async function inside the effect
   }, [checkIdeaExists, ideaFetch]);
@@ -33,8 +32,7 @@ export default function EditIdea() {
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
-    mode: "onBlur",  // Trigger validation when the input field loses focus
-
+    mode: "onBlur", // Trigger validation when the input field loses focus
   });
   React.useEffect(() => {
     const resetFormIfIdeaExists = async () => {
@@ -56,12 +54,12 @@ export default function EditIdea() {
 
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be
-    let success = false
+    let success = false;
     toast.promise(
       async () => {
         await updateSubmission("idea", data);
         await ideaUpdate(data);
-        success = true
+        success = true;
       },
       {
         loading: "Loading...",
@@ -81,7 +79,7 @@ export default function EditIdea() {
       buttonText="Submit"
       title="Edit Your idea For Devsoc’25"
     >
-      <div className="flex w-full  flex-col gap-6">
+      <div className="flex w-full  flex-col gap-4">
         <ProjectFormFields form={form}></ProjectFormFields>
       </div>
     </FormSkeleton>
