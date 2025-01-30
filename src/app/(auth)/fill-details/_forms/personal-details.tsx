@@ -86,7 +86,6 @@ const PersonalDetails = () => {
       form.setValue("roomNo", "000");
     } else {
       setDayScholar(false);
-      form.setValue("roomNo", "");
     }
   };
 

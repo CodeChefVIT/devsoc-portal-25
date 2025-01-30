@@ -105,7 +105,6 @@ export default function Settings() {
       form.setValue("room_no", "000");
     } else {
       setDayScholar(false);
-      form.setValue("room_no", "");
     }
   };
 
