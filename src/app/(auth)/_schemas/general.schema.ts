@@ -16,10 +16,10 @@ export const PasswordSchema = z.string().trim().min(
     "Password must have atleast 8 characters"
 );
 
-export const NameSchema = z.string().trim().min(
-    1,
-    "Required"
-);
+export const NameSchema = z.string()
+  .trim()
+  .min(1, "Required")
+  .regex(/^[A-Za-z\s]+$/, "Only alphabetic characters and spaces are allowed");
 
 export const PhoneNoSchema = z.string().regex(
     /^[6-9]\d{9}$/,

@@ -14,7 +14,11 @@ import { IUser } from "@/interfaces";
 import { FormSelect } from "@/components/form/formSelectItemOld";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-import { RoomNumberSchema } from "@/app/(auth)/_schemas/general.schema";
+import {
+  NameSchema,
+  RegNoSchema,
+  RoomNumberSchema,
+} from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
 const hostelItems = hostels.map((hostel) => ({
   value: hostel,
@@ -22,14 +26,8 @@ const hostelItems = hostels.map((hostel) => ({
 }));
 
 const userSchema = z.object({
-  first_name: z
-    .string()
-    .min(1, { message: "First name is required field" })
-    .default(""), // Default first name
-  last_name: z
-    .string()
-    .min(1, { message: "Last name is required field" })
-    .default(""), // Default last name
+  first_name: NameSchema.default(""), // Default first name
+  last_name: NameSchema.default(""),
   room_no: RoomNumberSchema.default(""), // Default room number
   hostel_block: z
     .enum(hostels as [string, ...string[]])
@@ -40,10 +38,7 @@ const userSchema = z.object({
     .default(""), // Default phone number
   email: z.string().email("Invalid email format").trim().default(""), // Default email
 
-  reg_no: z
-    .string()
-    .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
-    .default(""), // Default registration number
+  reg_no: RegNoSchema.default(""),
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
   github_profile: githubLinkSchema, // Default GitHub link is an empty string
 });
