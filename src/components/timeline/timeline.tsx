@@ -175,9 +175,7 @@ const Timeline: React.FC = () => {
   }, []);
 
   return (
-    <main>
-      {/* Timeline */}
-      <div className="border-4 border-black pt-5 mt-1 rounded-2xl bg-[#F7F3F0] overflow-hidden">
+      <div className="border-4 border-black pt-5  rounded-2xl bg-[#F7F3F0] overflow-hidden">
         <section className="bg-[#F7F3F0] rounded-xl relative">
           <div className="flex justify-between ">
             <h2 className="font-yerk text-xl font-bold px-3 ">
@@ -264,7 +262,6 @@ const Timeline: React.FC = () => {
           </div>
         </section>
       </div>
-    </main>
   );
 };
 

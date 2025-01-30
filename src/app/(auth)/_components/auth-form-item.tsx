@@ -47,10 +47,18 @@ const AuthFormItem = <
 
   return (
     <FormItem className={"w-full relative space-y-0.5"}>
-      <FormLabel className={"font-inter text-neutral-700 font-normal items-center flex text-xs"}>
-        {tooltip && <InfoButtonWithTooltip text={tooltip}></InfoButtonWithTooltip>}
-        {labelText}
-        {required && <span className={"text-red-600"}> *</span>}
+      <FormLabel
+        className={
+          "font-inter text-neutral-700 gap-1 font-normal items-center flex text-xs"
+        }
+      >
+        <div className="flex items-center  ">
+          {labelText}
+          {required && <span className={"text-red-600"}> *</span>}
+        </div>
+        {tooltip && (
+          <InfoButtonWithTooltip text={tooltip}></InfoButtonWithTooltip>
+        )}
       </FormLabel>
       <div className={"relative w-full"}>
         <div className={"relative w-full"}>

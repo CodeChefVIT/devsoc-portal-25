@@ -21,6 +21,7 @@ const PersonalDetails = () => {
   const router = useRouter();
   const form = useFormContext<UserDetailsFormType>();
   const { error } = useFormStore();
+  const { setError } = useFormStore();
 
   const handleNext = () => {
     const {
@@ -37,6 +38,21 @@ const PersonalDetails = () => {
     toast.promise(
       async () => {
         // Complete profile
+        const isPersonalDetailsFilled = await form.trigger([
+          "firstName",
+          "githubProfile",
+          "lastName",
+          "gender",
+          "regNo",
+          "hostelBlock",
+          "roomNo",
+          "phoneNo",
+        ]);
+        if (!isPersonalDetailsFilled) {
+          
+          setError();
+          throw(new Error("Please fill all the details"));
+        }
         await completeProfile({
           first_name: firstName,
           last_name: lastName,
@@ -75,7 +91,7 @@ const PersonalDetails = () => {
   };
 
   return (
-    <div className={"my-0 flex justify-center overflow-scroll w-full"}>
+    <div className={"my-0 flex justify-center overflow-y-auto w-full"}>
       <Modal branding={false} classname={"py-8 flex gap-2"}>
         <div className="flex gap-4">
           <InfoFormField

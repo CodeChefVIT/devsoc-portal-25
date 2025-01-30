@@ -26,10 +26,10 @@ const InfoWrapper = ({
         </h1>
       )}
       <div className={"w-full md:grid grid-cols-2"}>
-        <section className={"md:flex justify-center items-end h-full hidden"}>
+        <section className={"md:flex justify-center items-center  h-full hidden"}>
           <Image
             src={emojiSrc}
-            className={`size-80 ${emojiSectionClass}`}
+            className={` ${emojiSectionClass}`}
             height={400}
             width={400}
             alt={"emoji"}

@@ -233,6 +233,7 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"Room Number"}
+                      tooltip="Valid room number examples: G20, 123, A-123"
                       disabled={isDayScholar}
                       type={"string"}
                       placeholderText=""

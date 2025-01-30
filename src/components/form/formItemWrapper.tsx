@@ -9,6 +9,8 @@ interface FormItemProps<
   labelText: string;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   subtitle?: string
+  tooltip?: string;
+
   disabled?: boolean;
   placeholderText?: string
   required?: boolean;
@@ -23,6 +25,7 @@ const FormItemWrapper = <
   labelText,
   subtitle,
   type,
+  tooltip,
   disabled =false,
   required,
   placeholderText,
@@ -34,6 +37,7 @@ const FormItemWrapper = <
       subtitle={subtitle}
       labelText={labelText}
       type={type}
+      tooltip={tooltip}
       required={required}
       autoFill={autoFill}
       disabled={disabled}
