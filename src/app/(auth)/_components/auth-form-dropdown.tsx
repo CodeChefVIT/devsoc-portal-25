@@ -46,7 +46,7 @@ const AuthFormDropdown = <
       <FormControl>
         <Select onValueChange={field.onChange} value={field.value}>
           <SelectTrigger
-            className={`bg-white shadow-none font-inter outline-0 ring-1 ring-cc-dark font-inter ${
+            className={`bg-white shadow-none font-inter outline-0 ring-1 ring-cc-dark  ${
               field.value === "" && "text-neutral-400"
             }`}
           >

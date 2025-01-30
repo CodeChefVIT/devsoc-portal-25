@@ -62,7 +62,6 @@ export default function Settings() {
   const userFetch = useUserStore((state) => state.fetch);
   const userUpdate = useUserStore((state) => state.updateUser);
   const userIsSet = useUserStore((state) => state.userIsSet);
-
   React.useEffect(() => {
     if (!userIsSet) {
       userFetch(); // Fetch user if not loaded
@@ -76,6 +75,9 @@ export default function Settings() {
   React.useEffect(() => {
     if (userIsSet) {
       // Reset form values after user data is fetched
+      if (user.hostel_block === "Day Scholar") {
+        setDayScholar(true);
+      }
       form.reset({
         first_name: user.first_name || "",
         last_name: user.last_name || "",
@@ -99,6 +101,17 @@ export default function Settings() {
       success: "Updated profile!",
       error: () => "",
     });
+  };
+  const [isDayScholar, setDayScholar] = React.useState(false);
+
+  const handleHostelBlockChange = (value: string) => {
+    if (value === "Day Scholar") {
+      setDayScholar(true);
+      form.setValue("room_no", "000");
+    } else {
+      setDayScholar(false);
+      form.setValue("room_no", "");
+    }
   };
 
   return (
@@ -191,7 +204,13 @@ export default function Settings() {
                   name={"hostel_block"}
                   render={({ field }) => (
                     <FormSelect
-                      field={field}
+                      field={{
+                        ...field,
+                        onChange: (e) => {
+                          field.onChange(e);
+                          handleHostelBlockChange(e.target.value); // Handle change here
+                        },
+                      }}
                       required
                       items={hostelItems}
                       type="Block"
@@ -219,6 +238,7 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"Room Number"}
+                      disabled={isDayScholar}
                       type={"string"}
                       placeholderText=""
                       required

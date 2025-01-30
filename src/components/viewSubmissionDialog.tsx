@@ -34,8 +34,7 @@ export default function ViewSubmission({ disabled }: { disabled: boolean }) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <CustomButton disabled={disabled}>
-            <Idea />
+          <CustomButton  icon={<Idea />} disabled={disabled}>
             VIEW SUBMISSION
           </CustomButton>
         </DialogTrigger>

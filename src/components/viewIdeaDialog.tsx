@@ -30,8 +30,8 @@ export default function ViewIdea({ disabled }: { disabled: boolean }) {
       <Dialog>
         {/* DialogTrigger asChild */}
         <DialogTrigger asChild>
-          <CustomButton disabled={disabled}>
-            <Idea />
+          <CustomButton icon={<Idea />} disabled={disabled}>
+            
             VIEW IDEA
           </CustomButton>
         </DialogTrigger>

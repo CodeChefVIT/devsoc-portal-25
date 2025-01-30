@@ -63,6 +63,16 @@ const PersonalDetails = () => {
   useEffect(() => {
     if (error) form.trigger();
   }, [error]);
+  const [isDayScholar, setDayScholar] = React.useState(false);
+  const handleHostelBlockChange = (value: string) => {
+    if (value === "Day Scholar") {
+      setDayScholar(true);
+      form.setValue("roomNo", "000");
+    } else {
+      setDayScholar(false);
+      form.setValue("roomNo", "");
+    }
+  };
 
   return (
     <div className={"my-0 flex justify-center overflow-scroll w-full"}>
@@ -135,25 +145,32 @@ const PersonalDetails = () => {
             />
           )}
         />
-          <InfoFormField
-            name={"roomNo"}
-            render={({ field }) => (
-              <AuthFormItem
-                field={field}
-                tooltip="Valid room number examples: G20, 123, A-123"
-                labelText={"Room Number"}
-                type={"number"}
-                required
-              />
-            )}
-          />
         <InfoFormField
           name={"hostelBlock"}
           render={({ field }) => (
             <AuthFormDropdown
               items={hostels}
+              field={{
+                ...field,
+                onChange: (e) => {
+                  field.onChange(e);
+                  handleHostelBlockChange(e); // Handle change here
+                },
+              }}
               labelText={"Hostel Block"}
+              required
+            />
+          )}
+        />
+        <InfoFormField
+          name={"roomNo"}
+          render={({ field }) => (
+            <AuthFormItem
               field={field}
+              tooltip="Valid room number examples: G20, 123, A-123"
+              labelText={"Room Number"}
+              disabled={isDayScholar}
+              type={"number"}
               required
             />
           )}

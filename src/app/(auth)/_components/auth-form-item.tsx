@@ -19,6 +19,7 @@ interface IAuthFormItem<
   TName extends Path<TFieldValues>
 > {
   field: ControllerRenderProps<TFieldValues, TName>;
+  disabled?: boolean;
   tooltip?: string;
   labelText: string;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
@@ -35,6 +36,7 @@ const AuthFormItem = <
   field,
   labelText,
   type,
+  disabled = false,
   tooltip,
   required,
   subtitle,
@@ -61,6 +63,7 @@ const AuthFormItem = <
                     : "password"
                   : "text"
               }
+              disabled={disabled}
               // focus-visible:ring-cc-primary
               className={
                 "outline-0 ring-1 ring-cc-dark font-inter bg-white pr-7"
