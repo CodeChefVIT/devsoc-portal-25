@@ -56,7 +56,7 @@ const PersonalDetails = () => {
         error: (err: ApiError) => err.message,
       }
     );
-    router.push("/github-activity");
+
     return;
   };
 
