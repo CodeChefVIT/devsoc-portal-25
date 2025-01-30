@@ -128,7 +128,7 @@ export default function Navbar() {
             <Link href="/settings">
               <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
                 {" "}
-                <div>Settings</div>
+                <div>Profile</div>
               </DropdownMenuItem>
             </Link>
             <Link href={"https://discord.gg/M8V6vxXnUq"}>
