@@ -8,14 +8,25 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { pingStar } from "@/services/auth";
 import Link from "next/link";
+import toast from "react-hot-toast";
+import { ApiError } from "next/dist/server/api-utils";
 
 const GithubActivityPage = () => {
   const router = useRouter();
 
   const handleButtonClick = async () => {
     try {
-      await pingStar();
-      router.push("/dashboard");
+      toast.promise(
+        async () => {
+          await pingStar();
+          router.push("/dashboard");
+        },
+        {
+          loading: "Loading...",
+          success: "Edited Team Name!",
+          error: (err: ApiError) => err.message,
+        }
+      );
     } catch (error) {
       console.error("Error pinging /auth/star:", error);
     }

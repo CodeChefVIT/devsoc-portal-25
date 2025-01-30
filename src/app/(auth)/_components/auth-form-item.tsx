@@ -12,12 +12,14 @@ import React, { useState } from "react";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import InfoButtonWithTooltip from "@/components/customTooltip";
 
 interface IAuthFormItem<
   TFieldValues extends FieldValues,
   TName extends Path<TFieldValues>
 > {
   field: ControllerRenderProps<TFieldValues, TName>;
+  tooltip?: string;
   labelText: string;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   subtitle?: string;
@@ -33,6 +35,7 @@ const AuthFormItem = <
   field,
   labelText,
   type,
+  tooltip,
   required,
   subtitle,
   autoFill = true,
@@ -42,7 +45,8 @@ const AuthFormItem = <
 
   return (
     <FormItem className={"w-full relative space-y-0.5"}>
-      <FormLabel className={"font-inter text-neutral-700 font-normal text-xs"}>
+      <FormLabel className={"font-inter text-neutral-700 font-normal items-center flex text-xs"}>
+        {tooltip && <InfoButtonWithTooltip text={tooltip}></InfoButtonWithTooltip>}
         {labelText}
         {required && <span className={"text-red-600"}> *</span>}
       </FormLabel>

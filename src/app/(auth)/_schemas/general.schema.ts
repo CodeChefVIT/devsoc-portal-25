@@ -44,8 +44,8 @@ export const GenderSchema = z.enum(
 );
 
 export const RoomNumberSchema = z.string().regex(
-    /^(?:[1-9][0-9]{2}|1[0-3][0-9]{2})$/,
-    "Must be between 100-1399"
+    /^([A-Z]-|G)?1?[0-9]{2,3}[a-zA-Z]?$/,
+    "Enter a valid room number"
 );
 
 export const GithubProfileSchema = z.string().regex(

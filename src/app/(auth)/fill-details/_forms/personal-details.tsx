@@ -67,7 +67,7 @@ const PersonalDetails = () => {
   return (
     <div className={"my-0 flex justify-center overflow-scroll w-full"}>
       <Modal branding={false} classname={"py-8 flex gap-2"}>
-        <div className="md:flex gap-4">
+        <div className="flex gap-4">
           <InfoFormField
             name={"firstName"}
             render={({ field }) => (
@@ -135,18 +135,18 @@ const PersonalDetails = () => {
             />
           )}
         />
-        <InfoFormField
-          name={"roomNo"}
-          render={({ field }) => (
-            <AuthFormItem
-              field={field}
-              labelText={"Room Number"}
-              type={"number"}
-              required
-            />
-          )}
-        />
-
+          <InfoFormField
+            name={"roomNo"}
+            render={({ field }) => (
+              <AuthFormItem
+                field={field}
+                tooltip="Valid room number examples: G20, 123, A-123"
+                labelText={"Room Number"}
+                type={"number"}
+                required
+              />
+            )}
+          />
         <InfoFormField
           name={"hostelBlock"}
           render={({ field }) => (
