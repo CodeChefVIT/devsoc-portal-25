@@ -23,13 +23,11 @@ export default function CustomButton({
       {...inputProps}
       className={` ${
         inputProps?.className || ""
-
-      } disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl w-full`}
+      } disabled:bg-[#C89D8D]  bg-cc-primary hover:bg-[#ff5e1e] py-5 rounded-xl `}
       onClick={onClick}
-
     >
-      <div className="flex font-monomaniac gap-2 items-center text-lg -mt-1">
-        <div className="mt-1">{icon}</div>
+      <div className="flex font-monomaniac gap-2 items-center justify-center text-center text-lg -mt-1">
+        {icon && <div className="mt-1">{icon}</div>}
         <div>{children}</div>
       </div>
     </Button>

@@ -102,7 +102,7 @@ export default function Navbar() {
         </Link>
         <CustomButton
           onClick={handleLogout}
-          buttonProps={{ className: "border-2 border-white w-fit" }}
+          buttonProps={{ className: "border-2 border-white " }}
         >
           Logout
         </CustomButton>
