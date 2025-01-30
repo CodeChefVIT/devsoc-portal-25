@@ -13,8 +13,8 @@ export default function InfoButtonWithTooltip({text}:{text:string}) {
         <TooltipTrigger>
           <Info className="w-3 h-3"></Info>
         </TooltipTrigger>
-        <TooltipContent>
-          <p className="text-black bg-white">{text}</p>
+        <TooltipContent className="p-4">
+          <p className="text-black bg-white ">{text}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>

@@ -103,7 +103,7 @@ export default function Settings() {
 
   return (
     <div className="md:py-2 pt-6 flex flex-col items-center ">
-      <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
+      <h1 className={"font-monomaniac  text-2xl mb-5"}>Profile</h1>
 
       <Form {...form}>
         <form

@@ -28,7 +28,7 @@ export default function CustomButton({
     >
       <div className="flex font-monomaniac gap-2 items-center justify-center text-center text-lg -mt-1">
         {icon && <div className="mt-1">{icon}</div>}
-        <div>{children}</div>
+        {children && <div>{children}</div>}
       </div>
     </Button>
   );

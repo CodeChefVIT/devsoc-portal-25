@@ -32,7 +32,9 @@ interface ISignupRequest {
   email: string;
   password: string;
 }
-
+interface IGithubProfile {
+  github: string;
+}
 export const signup = async (request: ISignupRequest) => {
   try {
     const res = await api.post("/auth/signup", request);
@@ -110,7 +112,14 @@ export const pingStar = async () => {
     throw ConvertToAPIError(error);
   }
 };
-
+export const updateGithubUserName = async (request: IGithubProfile) => {
+  try {
+    const res = await api.post("/auth/github", request);
+    return getData(res.data);
+  } catch (error) {
+    throw ConvertToAPIError(error);
+  }
+};
 export const logout = async () => {
   try {
     const res = await api.post("/auth/logout");
