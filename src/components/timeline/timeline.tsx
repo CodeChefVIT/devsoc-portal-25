@@ -153,26 +153,26 @@ const Timeline: React.FC = () => {
     return () => clearInterval(interval);
   }, [days]);
 
-  useEffect(() => {
-    // Handle horizontal scroll using the mouse wheel
-    const handleScroll = (e: WheelEvent) => {
-      if (timelineRef.current) {
-        // Only scroll horizontally
-        timelineRef.current.scrollLeft += e.deltaY;
-      }
-    };
+  // useEffect(() => {
+  //   // Handle horizontal scroll using the mouse wheel
+  //   const handleScroll = (e: WheelEvent) => {
+  //     if (timelineRef.current) {
+  //       // Only scroll horizontally
+  //       timelineRef.current.scrollLeft += e.deltaY;
+  //     }
+  //   };
 
-    const timelineElement = timelineRef.current;
-    if (timelineElement) {
-      timelineElement.addEventListener("wheel", handleScroll);
-    }
+  //   const timelineElement = timelineRef.current;
+  //   if (timelineElement) {
+  //     timelineElement.addEventListener("wheel", handleScroll);
+  //   }
 
-    return () => {
-      if (timelineElement) {
-        timelineElement.removeEventListener("wheel", handleScroll);
-      }
-    };
-  }, []);
+  //   return () => {
+  //     if (timelineElement) {
+  //       timelineElement.removeEventListener("wheel", handleScroll);
+  //     }
+  //   };
+  // }, []);
 
   return (
       <div className="border-4 border-black pt-5  rounded-2xl bg-[#F7F3F0] overflow-hidden">
