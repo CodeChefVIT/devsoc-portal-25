@@ -26,9 +26,9 @@ const Dashboard: React.FC = () => {
   }, [fetchTeamInfo]);
   
   return (
-    <div className="grid w-full grid-cols-1 lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
+    <div className="grid w-full grid-cols-1  lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
       {/* Sidebar */}
-      <div className="h-full hidden lg:block">
+      <div className="h-full hidden md:flex  lg:block">
         <Tracks />
       </div>
       {/* Main Content */}
@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
             role="alert"
           >
             <span className="block sm:inline">
-              Last day of submission is on 2nd February, 2PM!
+              Last day of submission is on 2<sup>nd</sup> February, 12PM!
             </span>
           </div>
         <div className="grid grid-cols-1 md:grid-cols-2  min-h-0 gap-4">
