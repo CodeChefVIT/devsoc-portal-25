@@ -22,8 +22,8 @@ export const metadata: Metadata = {
   icons: [{ rel: "icon", url: "/favicon.svg" }],
   openGraph: {
     title: "Devsoc'25",
-    images: [{ url: "/og-image.jpg" }],
-    url: "http://portal.devsoc.codechefvit.com/",
+    images: [{ url: "https://portal.devsoc.codechefvit.com/og-image.png" }],
+    url: "https://portal.devsoc.codechefvit.com/",
     type: "website",
     description:
       "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Devsoc'25'",
     description:
       "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
-    images: [{ url: "/og-img.png" }],
+    images: [{ url: "/og-image.png" }],
   },
   applicationName: "Devsoc'25",
   keywords: [

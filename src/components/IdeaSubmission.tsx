@@ -46,7 +46,7 @@ export default function IdeaSubmission() {
   let title = "No Idea Submitted Yet";
   if (ideaExists) {
     title = "Idea Submitted";
-    subtitle = <div>{`Submitted at < date > < time >`}</div>;
+    subtitle = <div>{`Team leaders can edit the idea`}</div>;
   }
   const [createOptions, setCreateOptions] = useState<Options>({
     enabled: true,

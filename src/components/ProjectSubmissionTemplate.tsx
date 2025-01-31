@@ -34,7 +34,7 @@ export default function ProjectSubmissionTemplate({
           <h2 className=" text-lg font-semibold">{title}</h2>
           <div className="text-gray-400   text-sm">{subtitle}</div>
         </div>
-        <div className="flex flex-col gap-4">
+        <div className="flex items-center flex-col gap-4">
           {buttons.map((btn, index) => (
             <div key={index} className=" flex-1">
               {btn}

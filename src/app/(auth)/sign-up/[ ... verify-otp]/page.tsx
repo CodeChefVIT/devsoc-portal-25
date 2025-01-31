@@ -10,7 +10,7 @@ import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OTPFormSchema, OTPFormType } from "@/app/(auth)/_schemas/forms.schema";
-import { verifyOTP } from "@/services/auth";
+import { resendOTP, verifyOTP } from "@/services/auth";
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ApiError } from "next/dist/server/api-utils";
@@ -27,7 +27,21 @@ const Page = () => {
       otp: "",
     },
   });
-
+  function handleResendOTP() {
+    if (!email) return;
+    toast.promise(
+      async () => {
+        await resendOTP({
+          email,
+        });
+      },
+      {
+        loading: "Loading...",
+        success: "OTP resent!",
+        error: (err: ApiError) => err.message,
+      }
+    );
+  }
   const onSubmit = async (values: OTPFormType) => {
     if (!email) return;
     toast
@@ -68,7 +82,11 @@ const Page = () => {
               )}
             />
 
-            <Link text={"Resend OTP"} className={"block text-sm"} />
+            <Link
+              text={"Resend OTP"}
+              onClick={handleResendOTP}
+              className={"block text-sm"}
+            />
             <Button variant={"primary"} size={"primary"} type={"submit"}>
               <p className="mb-[3px]">Create Account</p>
             </Button>

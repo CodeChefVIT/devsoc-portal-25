@@ -14,7 +14,11 @@ import { IUser } from "@/interfaces";
 import { FormSelect } from "@/components/form/formSelectItemOld";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
-import { RoomNumberSchema } from "@/app/(auth)/_schemas/general.schema";
+import {
+  NameSchema,
+  RegNoSchema,
+  RoomNumberSchema,
+} from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
 const hostelItems = hostels.map((hostel) => ({
   value: hostel,
@@ -22,14 +26,8 @@ const hostelItems = hostels.map((hostel) => ({
 }));
 
 const userSchema = z.object({
-  first_name: z
-    .string()
-    .min(1, { message: "First name is required field" })
-    .default(""), // Default first name
-  last_name: z
-    .string()
-    .min(1, { message: "Last name is required field" })
-    .default(""), // Default last name
+  first_name: NameSchema.default(""), // Default first name
+  last_name: NameSchema.default(""),
   room_no: RoomNumberSchema.default(""), // Default room number
   hostel_block: z
     .enum(hostels as [string, ...string[]])
@@ -40,10 +38,7 @@ const userSchema = z.object({
     .default(""), // Default phone number
   email: z.string().email("Invalid email format").trim().default(""), // Default email
 
-  reg_no: z
-    .string()
-    .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{4}$/, "Invalid Registration no.")
-    .default(""), // Default registration number
+  reg_no: RegNoSchema.default(""),
   gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
   github_profile: githubLinkSchema, // Default GitHub link is an empty string
 });
@@ -62,7 +57,6 @@ export default function Settings() {
   const userFetch = useUserStore((state) => state.fetch);
   const userUpdate = useUserStore((state) => state.updateUser);
   const userIsSet = useUserStore((state) => state.userIsSet);
-
   React.useEffect(() => {
     if (!userIsSet) {
       userFetch(); // Fetch user if not loaded
@@ -76,6 +70,9 @@ export default function Settings() {
   React.useEffect(() => {
     if (userIsSet) {
       // Reset form values after user data is fetched
+      if (user.hostel_block === "Day Scholar") {
+        setDayScholar(true);
+      }
       form.reset({
         first_name: user.first_name || "",
         last_name: user.last_name || "",
@@ -100,10 +97,20 @@ export default function Settings() {
       error: () => "",
     });
   };
+  const [isDayScholar, setDayScholar] = React.useState(false);
+
+  const handleHostelBlockChange = (value: string) => {
+    if (value === "Day Scholar") {
+      setDayScholar(true);
+      form.setValue("room_no", "000");
+    } else {
+      setDayScholar(false);
+    }
+  };
 
   return (
     <div className="md:py-2 pt-6 flex flex-col items-center ">
-      <h1 className={"font-monomaniac  text-2xl mb-5"}>Settings and profile</h1>
+      <h1 className={"font-monomaniac  text-2xl mb-5"}>Profile</h1>
 
       <Form {...form}>
         <form
@@ -191,7 +198,13 @@ export default function Settings() {
                   name={"hostel_block"}
                   render={({ field }) => (
                     <FormSelect
-                      field={field}
+                      field={{
+                        ...field,
+                        onChange: (e) => {
+                          field.onChange(e);
+                          handleHostelBlockChange(e.target.value); // Handle change here
+                        },
+                      }}
                       required
                       items={hostelItems}
                       type="Block"
@@ -219,6 +232,8 @@ export default function Settings() {
                     <FormItemWrapper
                       field={field}
                       labelText={"Room Number"}
+                      tooltip="Valid room number examples: G20, 123, A-123"
+                      disabled={isDayScholar}
                       type={"string"}
                       placeholderText=""
                       required

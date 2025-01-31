@@ -37,7 +37,7 @@ const tracks: Track[] = [
     description: [
       "Leverage technology to tackle environmental challenges and promote sustainability. Create solutions that reduce waste, optimize energy consumption, or monitor environmental impact. Whether it’s through smart agriculture, renewable energy innovations, or eco-conscious applications, your ideas can help pave the way for a greener future.",
     ],
-    image: "media_and_entertainment.png",
+    image: "environment_and_sustainibility.png",
   },
   {
     name: "Open Innovation",
@@ -50,12 +50,12 @@ const tracks: Track[] = [
 
 export default function Tracks() {
   return (
-    <div className="relative flex flex-col h-full max-h-[calc(100vh-5.5rem)] min-w-fit">
-      <aside className="w-full px-0 scrollbar-hide h-fit overflow-y-auto bg-[#F7F3F0] border-4 border-black rounded-2xl">
+    <div className=" flex flex-col h-full max-h-[calc(100vh-5.5rem)]">
+      <aside className="w-full px-0 scrollbar-hide h-full overflow-y-auto bg-[#F7F3F0] border-4 border-black rounded-2xl">
         <div className="font-yerk text-xl sticky top-0 bg-[#f7f3f0] p-4 whitespace-nowrap">
           TRACK DETAILS
         </div>
-        <div className="p-4 grid lg:grid-flow-row gap-4 grid-flow-col">
+        <div className="p-4 grid grid-flow-row gap-4">
           {tracks.map((track, index) => (
             <TrackCard track={track} key={index}></TrackCard>
           ))}

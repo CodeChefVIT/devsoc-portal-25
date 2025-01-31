@@ -32,7 +32,14 @@ interface ISignupRequest {
   email: string;
   password: string;
 }
-
+interface IUpdatePasswordRequest {
+  email: string;
+  new_password: string;
+  otp: string;
+}
+interface IGithubProfile {
+  github: string;
+}
 export const signup = async (request: ISignupRequest) => {
   try {
     const res = await api.post("/auth/signup", request);
@@ -41,7 +48,14 @@ export const signup = async (request: ISignupRequest) => {
     throw ConvertToAPIError(error);
   }
 };
-
+export const updatePassword = async (request: IUpdatePasswordRequest) => {
+  try {
+    const res = await api.post("/auth/update-password", request);
+    return getData(res.data);
+  } catch (error) {
+    throw ConvertToAPIError(error);
+  }
+};
 interface IVerifyOTPRequest {
   email: string;
   otp: string;
@@ -88,7 +102,14 @@ export const createTeam = async (request: ICreateTeamRequest) => {
     throw ConvertToAPIError(error);
   }
 };
-
+export const resendOTP = async (request: {email: string}) => {
+  try {
+    const res = await api.post("/auth/resend-otp", request);
+    return getData(res.data);
+  } catch (error) {
+    throw ConvertToAPIError(error);
+  }
+};
 interface IJoinTeamRequest {
   code: string;
 }
@@ -110,7 +131,14 @@ export const pingStar = async () => {
     throw ConvertToAPIError(error);
   }
 };
-
+export const updateGithubUserName = async (request: IGithubProfile) => {
+  try {
+    const res = await api.post("/auth/github", request);
+    return getData(res.data);
+  } catch (error) {
+    throw ConvertToAPIError(error);
+  }
+};
 export const logout = async () => {
   try {
     const res = await api.post("/auth/logout");

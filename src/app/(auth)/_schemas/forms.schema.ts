@@ -71,4 +71,14 @@ export const OTPFormSchema = z.object({
   otp: z.string().regex(/^\d{6}$/, "OTP must be exactly 6 digits"),
 });
 
+
+export const ResetPasswordSchema =   z.object({
+  otp: z.string().regex(/^\d{6}$/, "OTP must be exactly 6 digits"),
+  password: PasswordSchema,
+  confirmPassword: PasswordSchema,
+})
+.refine((data) => data.password === data.confirmPassword, {
+  message: "Passwords do not match",
+  path: ["confirmPassword"],
+});;
 export type OTPFormType = z.infer<typeof OTPFormSchema>;

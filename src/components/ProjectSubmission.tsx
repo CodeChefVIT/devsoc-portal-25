@@ -43,7 +43,7 @@ export default function ProjectSubmission() {
   let title = "No Project Submitted Yet";
   if (submissionExists) {
     title = "Project Submitted";
-    subtitle = "Submitted at < date > < time >";
+    subtitle = "Team leaders can edit the submission";
   }
   const [createOptions, setCreateOptions] = useState<Options>({
     enabled: true,

@@ -12,12 +12,15 @@ import React, { useState } from "react";
 import { ControllerRenderProps, FieldValues, Path } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
+import InfoButtonWithTooltip from "@/components/customTooltip";
 
 interface IAuthFormItem<
   TFieldValues extends FieldValues,
   TName extends Path<TFieldValues>
 > {
   field: ControllerRenderProps<TFieldValues, TName>;
+  disabled?: boolean;
+  tooltip?: string;
   labelText: string;
   type: React.InputHTMLAttributes<HTMLInputElement>["type"];
   subtitle?: string;
@@ -33,6 +36,8 @@ const AuthFormItem = <
   field,
   labelText,
   type,
+  disabled = false,
+  tooltip,
   required,
   subtitle,
   autoFill = true,
@@ -42,9 +47,18 @@ const AuthFormItem = <
 
   return (
     <FormItem className={"w-full relative space-y-0.5"}>
-      <FormLabel className={"font-inter text-neutral-700 font-normal text-xs"}>
-        {labelText}
-        {required && <span className={"text-red-600"}> *</span>}
+      <FormLabel
+        className={
+          "font-inter text-neutral-700 gap-1 font-normal items-center flex text-xs"
+        }
+      >
+        <div className="flex items-center  ">
+          {labelText}
+          {required && <span className={"text-red-600"}> *</span>}
+        </div>
+        {tooltip && (
+          <InfoButtonWithTooltip text={tooltip}></InfoButtonWithTooltip>
+        )}
       </FormLabel>
       <div className={"relative w-full"}>
         <div className={"relative w-full"}>
@@ -57,6 +71,7 @@ const AuthFormItem = <
                     : "password"
                   : "text"
               }
+              disabled={disabled}
               // focus-visible:ring-cc-primary
               className={
                 "outline-0 ring-1 ring-cc-dark font-inter bg-white pr-7"

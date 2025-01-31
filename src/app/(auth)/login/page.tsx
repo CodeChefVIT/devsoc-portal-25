@@ -11,7 +11,7 @@ import { LoginFormType, LoginSchema } from "@/app/(auth)/_schemas/forms.schema";
 
 import { Form, FormField } from "@/components/ui/form";
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
-import { login } from "@/services/auth";
+import { login, resendOTP } from "@/services/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ApiError } from "next/dist/server/api-utils";
@@ -29,7 +29,36 @@ const Login = () => {
       email: "",
     },
   });
+  const handleResetPassword = () => {
+    toast.promise(
+      
+      async () => {
+        const {
+          email
+        } = form.getValues();
+        const isPersonalDetailsFilled = await form.trigger([
+          "email"
+        ]);
+        if (!isPersonalDetailsFilled) {
+          throw(new Error("Please fill the email!"));
+        }
+        await resendOTP({
+          email: email,
+        });
+        router.push(
+          `/reset-password/${email}`
+        );
+      },
+      {
+        loading: "Loading...",
+        success: "verify otp to continue!",
+        error: (err: ApiError) => err.message,
+      }
+    );
 
+
+ 
+  }
   const onSubmit = async (values: LoginFormType) => {
     setLoading(true);
     toast.promise(
@@ -104,6 +133,7 @@ const Login = () => {
                     />
                     <Link
                       text={"Recover Password"}
+                      onClick={handleResetPassword}
                       className={"mt-1 absolute right-0 text-xs"}
                     />
                   </div>

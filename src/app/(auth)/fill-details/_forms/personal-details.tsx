@@ -21,6 +21,7 @@ const PersonalDetails = () => {
   const router = useRouter();
   const form = useFormContext<UserDetailsFormType>();
   const { error } = useFormStore();
+  const { setError } = useFormStore();
 
   const handleNext = () => {
     const {
@@ -37,6 +38,21 @@ const PersonalDetails = () => {
     toast.promise(
       async () => {
         // Complete profile
+        const isPersonalDetailsFilled = await form.trigger([
+          "firstName",
+          "githubProfile",
+          "lastName",
+          "gender",
+          "regNo",
+          "hostelBlock",
+          "roomNo",
+          "phoneNo",
+        ]);
+        if (!isPersonalDetailsFilled) {
+          
+          setError();
+          throw(new Error("Please fill all the details"));
+        }
         await completeProfile({
           first_name: firstName,
           last_name: lastName,
@@ -63,11 +79,20 @@ const PersonalDetails = () => {
   useEffect(() => {
     if (error) form.trigger();
   }, [error]);
+  const [isDayScholar, setDayScholar] = React.useState(false);
+  const handleHostelBlockChange = (value: string) => {
+    if (value === "Day Scholar") {
+      setDayScholar(true);
+      form.setValue("roomNo", "000");
+    } else {
+      setDayScholar(false);
+    }
+  };
 
   return (
-    <div className={"my-0 flex justify-center overflow-scroll w-full"}>
+    <div className={"my-0 flex justify-center overflow-y-auto w-full"}>
       <Modal branding={false} classname={"py-8 flex gap-2"}>
-        <div className="md:flex gap-4">
+        <div className="flex gap-4">
           <InfoFormField
             name={"firstName"}
             render={({ field }) => (
@@ -136,24 +161,31 @@ const PersonalDetails = () => {
           )}
         />
         <InfoFormField
-          name={"roomNo"}
-          render={({ field }) => (
-            <AuthFormItem
-              field={field}
-              labelText={"Room Number"}
-              type={"number"}
-              required
-            />
-          )}
-        />
-
-        <InfoFormField
           name={"hostelBlock"}
           render={({ field }) => (
             <AuthFormDropdown
               items={hostels}
+              field={{
+                ...field,
+                onChange: (e) => {
+                  field.onChange(e);
+                  handleHostelBlockChange(e); // Handle change here
+                },
+              }}
               labelText={"Hostel Block"}
+              required
+            />
+          )}
+        />
+        <InfoFormField
+          name={"roomNo"}
+          render={({ field }) => (
+            <AuthFormItem
               field={field}
+              tooltip="Valid room number examples: G20, 123, A-123"
+              labelText={"Room Number"}
+              disabled={isDayScholar}
+              type={"number"}
               required
             />
           )}

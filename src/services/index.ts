@@ -29,10 +29,13 @@ api.interceptors.response.use(
     if (error.response?.status === 417) {
       if (error.config?.url === "/info/me") {
         const responseData = error.response?.data as {
-          data: { is_verified: boolean };
+          data: { is_verified: boolean; is_starred: boolean };
         };
 
         if (responseData.data.is_verified === false) {
+          window.location.href = "/login";
+        }
+        if (responseData.data.is_starred === false) {
           window.location.href = "/login";
         }
       }

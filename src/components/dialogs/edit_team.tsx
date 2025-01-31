@@ -67,7 +67,8 @@ const EditTeamDialog: React.FC = () => {
       <DialogTrigger>
         <PenBoxIcon className="w-5 h-5 mr-2" />
       </DialogTrigger>
-      <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-0 w-96">
+
+      <DialogContent closeButtonStyles="text-white" className="bg-[#F7F3F0] border-2 border-black rounded-lg p-0 w-96">
         <DialogHeader>
           <DialogTitle className="font-monomaniac text-white bg-black p-4 mb-4">
             Edit Team
