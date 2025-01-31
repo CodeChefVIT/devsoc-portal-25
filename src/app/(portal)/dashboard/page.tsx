@@ -26,9 +26,9 @@ const Dashboard: React.FC = () => {
   }, [fetchTeamInfo]);
   
   return (
-    <div className="grid w-full grid-cols-1 lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
+    <div className="grid w-full grid-cols-1  lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
       {/* Sidebar */}
-      <div className="h-full hidden lg:block">
+      <div className="h-full hidden md:flex  lg:block">
         <Tracks />
       </div>
       {/* Main Content */}
