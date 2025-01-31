@@ -39,7 +39,7 @@ export default function ViewIdea({ disabled }: { disabled: boolean }) {
         <DialogContent className="max-w-max">
           <DialogHeader>
             <DialogTitle className="flex font-monomaniac tracking-wider items-center justify-between">
-              {idea.title}
+              Your idea
               <span className="inline-block ml-2 h-3 w-3 rounded-full bg-white"></span>
             </DialogTitle>
           </DialogHeader>
