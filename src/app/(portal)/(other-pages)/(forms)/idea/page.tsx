@@ -14,26 +14,25 @@ import { useRouter } from "next/navigation";
 
 export default function Idea() {
   const schema = projectSchema;
-  const router = useRouter()
+  const router = useRouter();
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults,
     mode: "onBlur", // Trigger validation when the input field loses focus
   });
 
-  const onSubmit =  (data: z.infer<typeof schema>) => {
-
-     toast.promise(
+  const onSubmit = (data: z.infer<typeof schema>) => {
+    return toast.promise(
       async () => {
         await createSubmission("idea", data);
-        router.push("/dashboard");      },
+        router.push("/dashboard");
+      },
       {
         loading: "Loading...",
         success: "Added idea!",
         error: (err: ApiError) => err.message,
       }
     );
-
   };
   return (
     <FormSkeleton

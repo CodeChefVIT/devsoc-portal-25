@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import AuthFormItem from "@/components/auth-form-item-v1";
 import { Form, FormField } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -14,7 +14,7 @@ import { useParams, useRouter } from "next/navigation";
 import { updatePassword } from "@/services/auth";
 
 export default function ResetPassword() {
-  const {email} = useParams<{ email: string }>();
+  const { email } = useParams<{ email: string }>();
 
   const router = useRouter();
   const form = useForm<z.infer<typeof ResetPasswordSchema>>({
@@ -27,16 +27,14 @@ export default function ResetPassword() {
     },
   });
   const onSubmit = async (values: z.infer<typeof ResetPasswordSchema>) => {
-    toast.promise(
+    return toast.promise(
       async () => {
         await updatePassword({
           email: decodeURIComponent(email),
           new_password: values.password,
           otp: values.otp,
         });
-        router.push(
-          `/login`
-        );
+        router.push(`/login`);
       },
       {
         loading: "Loading...",

@@ -24,7 +24,7 @@ const JoinTeamDialog = () => {
   // const [success, setSuccess] = useState<boolean>(false);
 
   const handleJoinTeam = async () => {
-    toast.promise(
+    return toast.promise(
       async () => {
         await joinTeam(teamCode);
         await fetchTeam();

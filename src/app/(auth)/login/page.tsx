@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Modal from "@/app/(auth)/_components/modal";
 import Link from "@/app/(auth)/_components/custom-link";
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,6 @@ import { toSentenceCase } from "@/lib/utils";
 
 const Login = () => {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
 
   const form = useForm<LoginFormType>({
     resolver: zodResolver(LoginSchema),
@@ -29,8 +28,8 @@ const Login = () => {
       email: "",
     },
   });
-  const handleResetPassword = () => {
-    toast.promise(
+  const handleResetPassword = async () => {
+    return toast.promise(
       async () => {
         const { email } = form.getValues();
         const isPersonalDetailsFilled = await form.trigger(["email"]);
@@ -50,8 +49,7 @@ const Login = () => {
     );
   };
   const onSubmit = async (values: LoginFormType) => {
-    setLoading(true);
-    toast.promise(
+    return toast.promise(
       async () => {
         const res = await login({
           email: values.email,
@@ -84,7 +82,6 @@ const Login = () => {
         error: (err: ApiError) => err.message,
       }
     );
-    setLoading(false);
   };
 
   return (
@@ -139,11 +136,11 @@ const Login = () => {
                 variant={"primary"}
                 size={"primary"}
                 type={"submit"}
-                disabled={loading}
+                disabled={form.formState.isSubmitting}
                 className=""
               >
                 <p className="mb-[3px]">
-                  {loading ? "Logging in..." : "Login"}
+                  {form.formState.isSubmitting ? "Logging in..." : "Login"}
                 </p>
               </Button>
             </div>

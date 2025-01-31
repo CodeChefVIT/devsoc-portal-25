@@ -87,7 +87,7 @@ export default function Settings() {
       ...user,
       ...data,
     };
-    toast.promise(userUpdate(newUser), {
+    return toast.promise(userUpdate(newUser), {
       loading: "Loading...",
       success: "Updated profile!",
       error: () => "",

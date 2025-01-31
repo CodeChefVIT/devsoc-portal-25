@@ -29,7 +29,7 @@ const Page = () => {
   });
   function handleResendOTP() {
     if (!email) return;
-    toast.promise(
+    return toast.promise(
       async () => {
         await resendOTP({
           email,

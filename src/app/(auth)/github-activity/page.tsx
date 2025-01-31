@@ -19,7 +19,7 @@ const GithubActivityPage = () => {
   const [githubProfile, setGihubProfile] = React.useState("");
 
   function handleUpdateGithubProfile() {
-    toast.promise(
+    return toast.promise(
       async () => {
         const validationResult = githubLinkSchema.safeParse(githubProfile);
         if (!validationResult.success) {
@@ -37,7 +37,7 @@ const GithubActivityPage = () => {
 
   const handleButtonClick = async () => {
     try {
-      toast.promise(
+      return toast.promise(
         async () => {
           await pingStar();
           router.push("/dashboard");

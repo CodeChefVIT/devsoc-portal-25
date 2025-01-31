@@ -67,7 +67,7 @@ export default function EditSubmission() {
   const onSubmit = (data: z.infer<typeof schema>) => {
     //TODO update idea from be
     let success = false;
-    toast.promise(
+    return toast.promise(
       async () => {
         updateSubmission("submission", data);
         submissionUpdate(data);

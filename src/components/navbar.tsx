@@ -28,8 +28,8 @@ export default function Navbar() {
   const router = useRouter();
   const [showTracks, setShowTracks] = useState(false); // State to toggle Tracks visibility
 
-  function handleLogout(): void {
-    toast.promise(
+  function handleLogout() {
+    return toast.promise(
       async () => {
         await logout();
         router.push("/login");

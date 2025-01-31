@@ -24,7 +24,7 @@ const CreateOrJoinTeam = () => {
   const { updateFormData, clearFormData, setError, formData } = useFormStore();
 
   const onSkip = async () => {
-    toast.promise(
+    return toast.promise(
       async () => {
         // Complete profile
         await completeProfile({
@@ -78,7 +78,7 @@ const CreateOrJoinTeam = () => {
     if (!(isCreateTeamFilled || isJoinTeamFilled)) return;
     console.log(checked, formData.createTeam, formData.joinTeam);
 
-    toast.promise(
+    return toast.promise(
       async () => {
         // Complete profile
         const res = await completeProfile({

@@ -25,7 +25,7 @@ const RemoveFromTeamDialog: React.FC<RemoveFromTeamDialogProps> = ({
   const removeMember = useTeamStore((state) => state.removeMember);
 
   const handleRemove = (email: string) => {
-    toast.promise(removeMember(email), {
+    return toast.promise(removeMember(email), {
       loading: "Removing member...",
       success: "Member removed successfully",
       error: (err: ApiError) => err.message,

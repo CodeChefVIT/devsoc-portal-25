@@ -37,7 +37,7 @@ const EditTeamDialog: React.FC = () => {
       toast.error("You inputted incorrect teamname.");
       return;
     }
-    toast.promise(
+    return toast.promise(
       async () => {
         await deleteTeam();
         await teamFetch();
@@ -54,7 +54,7 @@ const EditTeamDialog: React.FC = () => {
   };
 
   const handleUpdateTeamName = async () => {
-    toast.promise(updateTeamName(newTeamName), {
+    return toast.promise(updateTeamName(newTeamName), {
       loading: "Loading...",
       success: "Edited Team Name!",
       error: (err: ApiError) => err.message,
@@ -68,7 +68,10 @@ const EditTeamDialog: React.FC = () => {
         <PenBoxIcon className="w-5 h-5 mr-2" />
       </DialogTrigger>
 
-      <DialogContent closeButtonStyles="text-white" className="bg-[#F7F3F0] border-2 border-black rounded-lg p-0 w-96">
+      <DialogContent
+        closeButtonStyles="text-white"
+        className="bg-[#F7F3F0] border-2 border-black rounded-lg p-0 w-96"
+      >
         <DialogHeader>
           <DialogTitle className="font-monomaniac text-white bg-black p-4 mb-4">
             Edit Team

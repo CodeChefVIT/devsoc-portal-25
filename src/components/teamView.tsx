@@ -33,20 +33,16 @@ const TeamView = () => {
   const userSet = useUserStore((state) => state.userIsSet);
 
   useEffect(() => {
-    if(!teamSet)
-    {
+    if (!teamSet) {
       teamFetch();
-
     }
-    if(userSet)
-    {
+    if (userSet) {
       fetchUser();
-
     }
   }, [teamFetch, fetchUser, teamSet, userSet]);
 
   const copyToClipboard = () => {
-    toast.promise(navigator.clipboard.writeText(team.code), {
+    return toast.promise(navigator.clipboard.writeText(team.code), {
       loading: "Copying code...",
       success: "Copied team code!",
       error: (err: ApiError) => err.message,
@@ -54,14 +50,13 @@ const TeamView = () => {
   };
 
   const leave = () => {
-    toast.promise(
+    return toast.promise(
       async () => {
         await leaveTeam(user.email);
         await teamFetch();
-        await fetchUser()
+        await fetchUser();
         setIdeaExists(false);
         setSubmissionExists(false);
-
       },
       {
         loading: "Leaving team...",
@@ -140,4 +135,3 @@ const TeamView = () => {
 };
 
 export default TeamView;
-

@@ -31,7 +31,7 @@ const SignUp = () => {
   const router = useRouter();
 
   const onSubmit = async (values: SignupFormType) => {
-    toast.promise(
+    return toast.promise(
       async () => {
         await signup({
           email: values.email,

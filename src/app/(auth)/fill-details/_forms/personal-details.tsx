@@ -35,7 +35,7 @@ const PersonalDetails = () => {
       gender,
     } = form.getValues();
     const cleanedProfile = removeTrailingSlash(githubProfile);
-    toast.promise(
+    return toast.promise(
       async () => {
         // Complete profile
         const isPersonalDetailsFilled = await form.trigger([
