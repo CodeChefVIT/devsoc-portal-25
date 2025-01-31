@@ -49,9 +49,8 @@ const PersonalDetails = () => {
           "phoneNo",
         ]);
         if (!isPersonalDetailsFilled) {
-          
           setError();
-          throw(new Error("Please fill all the details"));
+          throw new Error("Please fill all the details");
         }
         await completeProfile({
           first_name: firstName,
@@ -164,7 +163,15 @@ const PersonalDetails = () => {
           name={"hostelBlock"}
           render={({ field }) => (
             <AuthFormDropdown
-              items={hostels}
+              items={hostels.filter((hostel) => {
+                if (form.watch("gender") === "Male") {
+                  return !hostel.includes("Ladies");
+                } else if (form.watch("gender") === "Female") {
+                  return !hostel.includes("Men");
+                } else {
+                  return true;
+                }
+              })}
               field={{
                 ...field,
                 onChange: (e) => {

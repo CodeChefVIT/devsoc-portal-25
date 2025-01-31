@@ -20,10 +20,6 @@ import {
   RoomNumberSchema,
 } from "@/app/(auth)/_schemas/general.schema";
 import { hostels } from "@/app/(auth)/_schemas/constants";
-const hostelItems = hostels.map((hostel) => ({
-  value: hostel,
-  label: hostel,
-}));
 
 const userSchema = z.object({
   first_name: NameSchema.default(""), // Default first name
@@ -206,7 +202,20 @@ export default function Settings() {
                         },
                       }}
                       required
-                      items={hostelItems}
+                      items={hostels
+                        .filter((hostel) => {
+                          if (form.watch("gender") === "M") {
+                            return !hostel.includes("Ladies");
+                          } else if (form.watch("gender") === "F") {
+                            return !hostel.includes("Men");
+                          } else {
+                            return true;
+                          }
+                        })
+                        .map((hostel) => ({
+                          value: hostel,
+                          label: hostel,
+                        }))}
                       type="Block"
                     />
                   )}

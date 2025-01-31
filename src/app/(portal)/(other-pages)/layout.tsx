@@ -6,8 +6,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className=" relative  ">
-      <div className="mt-4 absolute ml-5 mr-2 ">
+    <div className=" relative mt-3 ">
+      <div className=" absolute ml-5 mr-2 ">
           <BackButton></BackButton>
       </div>
       {children}
