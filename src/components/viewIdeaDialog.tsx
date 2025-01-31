@@ -50,7 +50,7 @@ export default function ViewIdea({ disabled }: { disabled: boolean }) {
             ].map((field, index) => (
               <div key={index} className="flex items-center gap-4 mt-4">
                 <Label className="font-semibold">{field.label}:</Label>
-                <p className="border break-words rounded-lg px-3 py-2 bg-gray-50">
+                <p className="border break-words text-wrap rounded-lg px-3 py-2 bg-gray-50">
                   {field.value}
                 </p>
               </div>
