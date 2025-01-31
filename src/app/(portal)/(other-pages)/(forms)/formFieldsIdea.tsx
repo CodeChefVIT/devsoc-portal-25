@@ -72,7 +72,7 @@ const ProjectFormFields: React.FC<ProjectFormFieldsProps> = ({
               placeholder="Don't forget to include your inspiration, learnings, project construction method, and difficulties you encountered in your writing."
               required
               autoFill
-              subtitle="500 max words."
+              subtitle="999 max characters."
             />
           )}
         />

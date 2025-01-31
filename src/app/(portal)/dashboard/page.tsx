@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 // import idea from "/public/images/idea.png";
 // import track_pic from "/public/images/track_pic.png";
 
-import Timeline from "@/components/timeline/timeline";
+// import Timeline from "@/components/timeline/timeline";
 import TeamView from "@/components/teamView";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
@@ -26,7 +26,7 @@ const Dashboard: React.FC = () => {
   }, [fetchTeamInfo]);
   
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
+    <div className="grid w-full grid-cols-1 lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
       {/* Sidebar */}
       <div className="h-full hidden lg:block">
         <Tracks />
@@ -34,10 +34,17 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <div className="grid grid-rows-[auto_1fr] h-full min-h-0 gap-4">
         {/* Timeline */}
-        <div className="overflow-auto rounded-lg min-h-0">
+        {/* <div className="overflow-auto rounded-lg min-h-0">
           <Timeline />
-        </div>
-
+        </div> */}
+        <div
+            className="bg-yellow-100 border  min-w-max border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg shadow-md"
+            role="alert"
+          >
+            <span className="block sm:inline">
+              Last day of submission is on 2nd!
+            </span>
+          </div>
         <div className="grid grid-cols-1 md:grid-cols-2  min-h-0 gap-4">
           <div className="flex flex-col items-start justify-start rounded-lg">
             {team.code ? <TeamView /> : <JoinTeam />}
