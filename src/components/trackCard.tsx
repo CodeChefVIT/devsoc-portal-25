@@ -27,7 +27,7 @@ export default function trackCard({ track }: { track: Track }) {
             />
           </div>
         </DialogTrigger>
-        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-4 h-[55%] w-full">
+        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-4  w-full">
           <DialogHeader>
             <DialogTitle className="font-yerk text-3xl pt-3">Track Details</DialogTitle>
             <div className=" text-gray-500">
