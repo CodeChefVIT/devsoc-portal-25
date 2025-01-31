@@ -35,7 +35,7 @@ const Timeline: React.FC = () => {
     return () => clearInterval(intervalId);
   }, []);
   const [hexagonsFilled, setFilledHexagons] = useState<number>(0);
-  const [selectedDay, setSelectedDay] = useState<number>(1);
+  const [selectedDay, setSelectedDay] = useState<number>(day);
 
   const timelineRef = useRef<HTMLDivElement>(null);
   console.log("Current timeLeft:", timeLeft);
