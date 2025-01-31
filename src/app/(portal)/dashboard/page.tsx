@@ -42,7 +42,7 @@ const Dashboard: React.FC = () => {
             role="alert"
           >
             <span className="block sm:inline">
-              Last day of submission is on 2nd February, 2PM!
+              Last day of submission is on 2<sup>nd</sup> February, 12PM!
             </span>
           </div>
         <div className="grid grid-cols-1 md:grid-cols-2  min-h-0 gap-4">
