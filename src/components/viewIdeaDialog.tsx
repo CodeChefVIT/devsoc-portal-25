@@ -18,9 +18,8 @@ export default function ViewIdea({ disabled }: { disabled: boolean }) {
 
   useEffect(() => {
     const fetchIdeaIfNeeded = async () => {
-        await ideaFetch(); // Fetch idea if not loaded
+      await ideaFetch(); // Fetch idea if not loaded
     };
-
 
     fetchIdeaIfNeeded(); // Call the async function inside the effect
   }, [checkIdeaExists, ideaFetch]);
@@ -31,7 +30,6 @@ export default function ViewIdea({ disabled }: { disabled: boolean }) {
         {/* DialogTrigger asChild */}
         <DialogTrigger asChild>
           <CustomButton icon={<Idea />} disabled={disabled}>
-            
             VIEW IDEA
           </CustomButton>
         </DialogTrigger>
@@ -45,26 +43,18 @@ export default function ViewIdea({ disabled }: { disabled: boolean }) {
           </DialogHeader>
 
           <div>
-            <div className="flex items-center gap-4">
-              <Label className="font-semibold">Title: </Label>
-              <p className="rounded-lg px-3 py-2 text-lg font-semibold">
-                {idea.title}
-              </p>
-            </div>
-
-            <div className="flex items-center gap-4 mt-4">
-              <Label className="font-semibold">Track: </Label>
-              <p className="border rounded-lg px-3 py-2 text-wrap bg-gray-50">
-                {idea.track}
-              </p>
-            </div>
-
-            <div className="mt-4">
-              <Label className="font-semibold">Description: </Label>
-              <p className="border break-words rounded-lg px-3 py-2 text-wrap bg-gray-50">
-                {idea.description}
-              </p>
-            </div>
+            {[
+              { label: "Title", value: idea.title },
+              { label: "Track", value: idea.track },
+              { label: "Description", value: idea.description },
+            ].map((field, index) => (
+              <div key={index} className="flex items-center gap-4 mt-4">
+                <Label className="font-semibold">{field.label}:</Label>
+                <p className="border break-words rounded-lg px-3 py-2 bg-gray-50">
+                  {field.value}
+                </p>
+              </div>
+            ))}
           </div>
         </DialogContent>
       </Dialog>
