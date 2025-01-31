@@ -13,7 +13,7 @@ export default function trackCard({ track }: { track: Track }) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="cursor-pointer overflow-hidden h-full">
+          <div className="cursor-pointer  ">
             <div className="border rounded-t-3xl bg-white border-black p-2">
               {track.name}
             </div>
@@ -27,7 +27,7 @@ export default function trackCard({ track }: { track: Track }) {
             />
           </div>
         </DialogTrigger>
-        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-4 h-full w-full">
+        <DialogContent className="bg-[#F7F3F0] border-4 border-black rounded-lg p-4 w-full">
           <DialogHeader>
             <DialogTitle className="font-yerk">Track Details</DialogTitle>
             <div className=" text-gray-500">
