@@ -15,15 +15,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://portal.devsoc.codechefvit.com/"),
+  metadataBase: new URL("http://portal.devsoc.codechefvit.com"),
   title: "Devsoc'25",
   description:
     "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
-  icons: [{ rel: "icon", url: "/images/devsoc.png" }],
+  icons: [{ rel: "icon", url: "/favicon.svg" }],
   openGraph: {
     title: "Devsoc'25",
-    images: [{ url: "/devsoc_og.png" }],
-    url: "http://portal.devsoc.codechefvit.com/",
+    images: [{ url: "https://portal.devsoc.codechefvit.com/og-image.png" }],
+    url: "https://portal.devsoc.codechefvit.com/",
     type: "website",
     description:
       "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Devsoc'25'",
     description:
       "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
-    images: [{ url: "/og-img.png" }],
+    images: [{ url: "/og-image.png" }],
   },
   applicationName: "Devsoc'25",
   keywords: [
@@ -54,7 +54,7 @@ export const metadata: Metadata = {
     "Devsoc coding mentorship",
     "VIT collaborative coding",
     "Devsoc event updates",
-    "VIT competitive programming hackathon",
+    "VIT hackathon",
     "CodeChef-VIT Devsoc rankings",
     "Devsoc innovative solutions",
     "VIT hackathon collaboration",
@@ -85,7 +85,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-      <link rel="icon" type="image/x-icon" href="/images/devsoc.png"/>
+        <link rel="icon" type="image/x-icon" href="/images/devsoc.png" />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-cover bg-no-repeat    antialiased bg-[url('/images/auth-bg.svg')]`}
