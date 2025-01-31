@@ -23,7 +23,6 @@ export const hostels = [
   "Men's Hostel - R Block",
   "Men's Hostel - S Block",
   "Men's Hostel - T Block",
-  "Day Scholar",
   "Ladies' Hostel - A Block",
   "Ladies' Hostel - B Block",
   "Ladies' Hostel - C Block",
@@ -34,4 +33,5 @@ export const hostels = [
   "Ladies' Hostel - H Block",
   "Ladies' Hostel - J Block",
   "Ladies' Hostel - RGT Block",
+  "Day Scholar",
 ];
