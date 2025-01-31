@@ -54,7 +54,7 @@ const EditTeamDialog: React.FC = () => {
   };
 
   const handleUpdateTeamName = async () => {
-    await toast.promise(updateTeamName(newTeamName), {
+    return toast.promise(updateTeamName(newTeamName), {
       loading: "Loading...",
       success: "Edited Team Name!",
       error: (err: ApiError) => err.message,
