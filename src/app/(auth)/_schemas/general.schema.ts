@@ -5,7 +5,7 @@ export const VITEmailSchema = z
   .string()
   .email("Enter a valid vit email address")
   .regex(
-    /^[a-zA-Z]+\.[a-zA-Z]+20(?:19|2[0-5])+[a-zA-Z]*@vitstudent\.ac\.in$/,
+    /^[a-zA-Z]+\.[a-zA-Z]*20(?:19|2[0-5])+[a-zA-Z]*@vitstudent\.ac\.in$/,
     "Invalid VIT Email Address"
   )
   .trim();
@@ -58,7 +58,7 @@ export const GithubProfileSchema = z
   .string()
   .regex(
     /^https:\/\/github\.com\/[a-zA-Z0-9_-]+$/,
-    "Enter a valid Github Profile URL EG. https://github.com/UserName/"
+    "Enter a valid Github Profile URL EG. https://github.com/UserName"
   );
 // https://github.com/github-user
 
