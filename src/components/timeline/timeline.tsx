@@ -50,45 +50,30 @@ const Timeline: React.FC = () => {
       [
         { time: "9:00 AM", description: "Doors open and check-in", day: 1 },
         { time: "10:00 AM", description: "Opening Ceremony", day: 1 },
-        { time: "11:00 AM", description: "Hacking Session", day: 1 },
+        { time: "11:00 AM", description: "Hacking Session Begins", day: 1 },
         { time: "1:00 PM", description: "Lunch Break", day: 1 },
-        { time: "2:00 PM", description: "Hacking Session", day: 1 },
-        {
-          time: "3:30 PM",
-          description: "Informative Tech Session - 1",
-          day: 1,
-        },
-        { time: "4:30 PM", description: "Hacking Session", day: 1 },
+        { time: "3:30 PM", description: "Panel Discussion", day: 1 },
         { time: "7:00 PM", description: "Dinner Break", day: 1 },
-        { time: "9:00 PM", description: "Hacking Session", day: 1 },
-        { time: "10:00 PM", description: "Engagement Activity", day: 1 },
-        { time: "11:30 PM", description: "Review 1", day: 1 },
+        { time: "9:00 PM", description: "Regroup at venue", day: 1 },
+        { time: "11:00 PM", description: "Jam Session", day: 1 },
       ],
 
       // Day 2 - 04.02.2025
       [
-        { time: "2:30 AM", description: "Hacking Session", day: 2 },
-        { time: "6:00 AM", description: "Breakfast Break", day: 2 },
-        { time: "9:00 AM", description: "Hacking Session", day: 2 },
+        { time: "12:00 AM", description: "Review 1", day: 2 },
+        { time: "6:00 AM", description: "Break", day: 2 },
         { time: "12:00 PM", description: "Lunch Break", day: 2 },
-        { time: "2:00 PM", description: "Hacking Session", day: 2 },
-        {
-          time: "4:00 PM",
-          description: "Informative Tech Session - 2",
-          day: 2,
-        },
-        { time: "5:30 PM", description: "Hacking Session", day: 2 },
         { time: "7:00 PM", description: "Dinner Break", day: 2 },
-        { time: "9:00 PM", description: "Hacking Session", day: 2 },
+        { time: "9:00 PM", description: "Regroup at venue", day: 2 },
+        { time: "10:00 PM", description: "Engagement Activity", day: 2 },
       ],
 
       // Day 3 - 05.02.2025
       [
         { time: "12:00 AM", description: "Review 2", day: 3 },
-        { time: "3:00 AM", description: "Hacking Session", day: 3 },
         { time: "5:30 AM", description: "Final Submission", day: 3 },
         { time: "6:00 AM", description: "Breakfast Break", day: 3 },
-        { time: "9:00 am", description: "Final Pitches", day: 3 },
+        { time: "9:00 AM", description: "Final Pitches", day: 3 },
         {
           time: "11:00 AM",
           description: "Prize Distribution and Closing Ceremony",
@@ -175,93 +160,93 @@ const Timeline: React.FC = () => {
   // }, []);
 
   return (
-      <div className="border-4 border-black pt-5  rounded-2xl bg-[#F7F3F0] overflow-hidden">
-        <section className="bg-[#F7F3F0] rounded-xl relative">
-          <div className="flex justify-between ">
-            <h2 className="font-yerk text-xl font-bold px-3 ">
-              Timeline - Day {selectedDay + 1}
-            </h2>
-            <div className="flex gap-2 ">
-              <CustomButton
-                disabled={selectedDay < 1}
-                buttonProps={{ className: "mt-0" }}
-                onClick={() => setSelectedDay(selectedDay - 1)}
-              >
-                {" "}
-                {"<"}{" "}
-              </CustomButton>
-              <CustomButton
-                disabled={selectedDay > 1}
-                buttonProps={{ className: "mx-2" }}
-                onClick={() => setSelectedDay(selectedDay + 1)}
-              >
-                {" "}
-                {">"}{" "}
-              </CustomButton>
-            </div>
+    <div className="border-4 border-black pt-5  rounded-2xl bg-[#F7F3F0] overflow-hidden">
+      <section className="bg-[#F7F3F0] rounded-xl relative">
+        <div className="flex justify-between ">
+          <h2 className="font-yerk text-xl font-bold px-3 ">
+            Timeline - Day {selectedDay + 1}
+          </h2>
+          <div className="flex gap-2 ">
+            <CustomButton
+              disabled={selectedDay < 1}
+              buttonProps={{ className: "mt-0" }}
+              onClick={() => setSelectedDay(selectedDay - 1)}
+            >
+              {" "}
+              {"<"}{" "}
+            </CustomButton>
+            <CustomButton
+              disabled={selectedDay > 1}
+              buttonProps={{ className: "mx-2" }}
+              onClick={() => setSelectedDay(selectedDay + 1)}
+            >
+              {" "}
+              {">"}{" "}
+            </CustomButton>
           </div>
+        </div>
 
-          {/* Scrollable Timeline */}
-          <div
-            ref={timelineRef}
-            className="relative overflow-y-hidden overflow-x-auto scrollbar-hide flex " // Add padding to avoid clipping
-          >
-            {/* Line Connecting Events */}
+        {/* Scrollable Timeline */}
+        <div
+          ref={timelineRef}
+          className="relative overflow-y-hidden overflow-x-auto scrollbar-hide flex " // Add padding to avoid clipping
+        >
+          {/* Line Connecting Events */}
 
-            {/* Hexagons */}
+          {/* Hexagons */}
 
-            <div className="flex items-center gap-16 min-w-max relative">
-              <div className="absolute left-0 w-full transform  flex items-center">
-                <div className="h-[4px]  w-full bg-black"></div>
-              </div>
-              {days.map((dayEvents, dayIndex) => {
-                let previousEvents = 0;
-                for (let i = 0; i < dayIndex; i++) {
-                  previousEvents += days[i].length;
-                }
-                return (
-                  dayIndex === selectedDay &&
-                  dayEvents.map((event, eventIndex) => (
-                    <div
-                      key={eventIndex}
-                      className="flex translate-y-1 flex-col items-center"
-                    >
-                      {/* Time - Above the hexagon */}
-                      <div className="font-bold text-lg mb-2">{event.time}</div>
+          <div className="flex items-center gap-16 min-w-max relative">
+            <div className="absolute left-0 w-full transform  flex items-center">
+              <div className="h-[4px]  w-full bg-black"></div>
+            </div>
+            {days.map((dayEvents, dayIndex) => {
+              let previousEvents = 0;
+              for (let i = 0; i < dayIndex; i++) {
+                previousEvents += days[i].length;
+              }
+              return (
+                dayIndex === selectedDay &&
+                dayEvents.map((event, eventIndex) => (
+                  <div
+                    key={eventIndex}
+                    className="flex translate-y-1 flex-col items-center"
+                  >
+                    {/* Time - Above the hexagon */}
+                    <div className="font-bold text-lg mb-2">{event.time}</div>
 
-                      {/* Hexagon */}
-                      <div className="flex items-center justify-center">
+                    {/* Hexagon */}
+                    <div className="flex items-center justify-center">
+                      <div
+                        className={`w-7 h-7  ${
+                          eventIndex + previousEvents <= hexagonsFilled
+                            ? ""
+                            : "clip-hexagon bg-black"
+                        }    transition-colors duration-300`}
+                      >
                         <div
-                          className={`w-7 h-7  ${
+                          className={`w-full h-full clip-hexagon  ${
                             eventIndex + previousEvents <= hexagonsFilled
-                              ? ""
-                              : "clip-hexagon bg-black"
-                          }    transition-colors duration-300`}
-                        >
-                          <div
-                            className={`w-full h-full clip-hexagon  ${
-                              eventIndex + previousEvents <= hexagonsFilled
-                                ? "bg-[#FF6600] scale-[1.30]"
-                                : "bg-[#F7F3F0]  scale-[0.83] "
-                            } `}
-                          ></div>
-                        </div>
-                      </div>
-
-                      {/* Description - Below the hexagon */}
-                      <div className="text-center min-h-10 mt-2">
-                        <div className="text-xs max-w-40 overflow-visible text-wrap text-gray-800">
-                          {event.description}
-                        </div>
+                              ? "bg-[#FF6600] scale-[1.30]"
+                              : "bg-[#F7F3F0]  scale-[0.83] "
+                          } `}
+                        ></div>
                       </div>
                     </div>
-                  ))
-                );
-              })}
-            </div>
+
+                    {/* Description - Below the hexagon */}
+                    <div className="text-center min-h-10 mt-2">
+                      <div className="text-xs max-w-40 overflow-visible text-wrap text-gray-800">
+                        {event.description}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              );
+            })}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
+    </div>
   );
 };
 
