@@ -34,7 +34,7 @@ export const PhoneNoSchema = z
 
 export const RegNoSchema = z
   .string()
-  .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{3}[1-9]$/, "Invalid Registration no.");
+  .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{3}[0-9]$/, "Invalid Registration no.");
 // 19ABC0001 - 25ABC9999
 
 export const HostelBlockSchema = z.enum(hostels as [string, ...string[]], {

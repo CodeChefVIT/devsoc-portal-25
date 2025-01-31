@@ -102,7 +102,7 @@ export const createTeam = async (request: ICreateTeamRequest) => {
     throw ConvertToAPIError(error);
   }
 };
-export const resendOTP = async (request: {email: string}) => {
+export const resendOTP = async (request: { email: string }) => {
   try {
     const res = await api.post("/auth/resend-otp", request);
     return getData(res.data);
