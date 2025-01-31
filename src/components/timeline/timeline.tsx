@@ -18,7 +18,7 @@ const getDayValue = () => {
   } else if (day == 5) {
     return 2;
   } else {
-    return 0;
+    return 0  ;
   }
 };
 
