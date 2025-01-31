@@ -31,34 +31,24 @@ const Login = () => {
   });
   const handleResetPassword = () => {
     toast.promise(
-      
       async () => {
-        const {
-          email
-        } = form.getValues();
-        const isPersonalDetailsFilled = await form.trigger([
-          "email"
-        ]);
+        const { email } = form.getValues();
+        const isPersonalDetailsFilled = await form.trigger(["email"]);
         if (!isPersonalDetailsFilled) {
-          throw(new Error("Please fill the email!"));
+          throw new Error("Please fill the email!");
         }
         await resendOTP({
           email: email,
         });
-        router.push(
-          `/reset-password/${email}`
-        );
+        router.push(`/reset-password/${email}`);
       },
       {
         loading: "Loading...",
-        success: "verify otp to continue!",
+        success: "Verify OTP to continue!",
         error: (err: ApiError) => err.message,
       }
     );
-
-
- 
-  }
+  };
   const onSubmit = async (values: LoginFormType) => {
     setLoading(true);
     toast.promise(

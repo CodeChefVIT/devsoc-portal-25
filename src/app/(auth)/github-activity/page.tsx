@@ -28,7 +28,7 @@ const GithubActivityPage = () => {
         await updateGithubUserName({ github: githubProfile });
       },
       {
-        loading: "Updatng...",
+        loading: "Updating...",
         success: "Updated profile!",
         error: (err: ApiError) => err.message,
       }

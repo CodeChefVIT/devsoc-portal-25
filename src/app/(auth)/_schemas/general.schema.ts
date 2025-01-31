@@ -37,23 +37,27 @@ export const RegNoSchema = z
   .regex(/^(?:2[0-5]|19)[a-zA-Z]{3}\d{3}[1-9]$/, "Invalid Registration no.");
 // 19ABC0001 - 25ABC9999
 
-export const HostelBlockSchema = z
-  .enum(hostels as [string, ...string[]], {
-    message: "Select your hostel block",
-  })
-export const GenderSchema = z
-  .enum(Object.keys(genders) as [string, ...string[]], {
+export const HostelBlockSchema = z.enum(hostels as [string, ...string[]], {
+  message: "Select your hostel block",
+});
+export const GenderSchema = z.enum(
+  Object.keys(genders) as [string, ...string[]],
+  {
     message: "Select your gender.",
-  })
+  }
+);
 
 export const RoomNumberSchema = z
   .string()
-  .regex(/^([A-Z]-|G)?1?[0-9]{2,3}[a-zA-Z]?$/, "Enter a valid room number");
+  .regex(
+    /^([A-Z]-|G)?1?[0-9]{2,3}[a-zA-Z]?$/,
+    "Enter a valid room number. Valid room number includes G20, 123, A-123"
+  );
 
 export const GithubProfileSchema = z
   .string()
   .regex(
-    /^(?:https:\/\/)?github\.com\/[a-zA-Z0-9-]+\/?$/,
+    /^https:\/\/github\.com\/[a-zA-Z0-9_-]+$/,
     "Enter a valid Github Profile URL EG. https://github.com/UserName/"
   );
 // https://github.com/github-user

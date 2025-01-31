@@ -43,7 +43,7 @@ const SignUp = () => {
       },
       {
         loading: "Loading...",
-        success: "verify otp to continue!",
+        success: "Verify OTP to continue!",
         error: (err: ApiError) => err.message,
       }
     );
