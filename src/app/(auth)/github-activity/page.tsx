@@ -23,7 +23,7 @@ const GithubActivityPage = () => {
       async () => {
         const validationResult = githubLinkSchema.safeParse(githubProfile);
         if (!validationResult.success) {
-          throw new Error("Invalid Github Profile URL");
+          throw new Error("Enter a valid Github Profile URL EG. https://github.com/UserName");
         }
         await updateGithubUserName({ github: githubProfile });
       },
