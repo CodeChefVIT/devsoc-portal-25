@@ -37,7 +37,7 @@ const tracks: Track[] = [
     description: [
       "Leverage technology to tackle environmental challenges and promote sustainability. Create solutions that reduce waste, optimize energy consumption, or monitor environmental impact. Whether it’s through smart agriculture, renewable energy innovations, or eco-conscious applications, your ideas can help pave the way for a greener future.",
     ],
-    image: "media_and_entertainment.png",
+    image: "environment_and_sustainibility.png",
   },
   {
     name: "Open Innovation",
