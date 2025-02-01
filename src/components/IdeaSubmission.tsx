@@ -40,7 +40,7 @@ export default function IdeaSubmission() {
 
   let subtitle = (
     <div>
-      Submit Your Idea Before 2<sup>nd</sup> feb 12PM
+      Submit Your Idea Before 2<sup>nd</sup> feb 5PM
     </div>
   );
   let title = "No Idea Submitted Yet";
