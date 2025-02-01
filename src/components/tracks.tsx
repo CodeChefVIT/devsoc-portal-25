@@ -55,7 +55,7 @@ export default function Tracks() {
         <div className="hidden lg:block  font-yerk text-xl sticky top-0 bg-[#f7f3f0] p-4 whitespace-nowrap">
           TRACK DETAILS
         </div>
-        <div className="md:flex  lg:grid lg:grid-flow-row   grid grid-flow-row">
+        <div className="md:flex p-4 lg:grid lg:grid-flow-row   grid grid-flow-row">
           {tracks.map((track, index) => (
             <TrackCard track={track} key={index}></TrackCard>
           ))}
