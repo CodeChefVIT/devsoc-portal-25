@@ -7,8 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 // import devsoc from "../../public/images/devsoc.png";
 import devsoc from "@/assets/images/DEVSOC.svg";
@@ -18,15 +17,12 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
-import Tracks from "./tracks/tracks";
-import { DialogTitle } from "@radix-ui/react-dialog";
 // import devText from "@/assets/images/PORTAL.svg"
 import discord from "@/assets/images/discord.svg";
 import settings from "@/assets/images/settings.svg";
 
 export default function Navbar() {
   const router = useRouter();
-  const [showTracks, setShowTracks] = useState(false); // State to toggle Tracks visibility
 
   function handleLogout() {
     return toast.promise(
@@ -65,17 +61,7 @@ export default function Navbar() {
         >
           <div className="-mb-1">PORTAL</div>
         </Link>
-        {/* <Link
-          href={"/dashboard"}
-        >
-        <Image 
-          src={devText}
-          alt="DEVSOC"
-          width={239}
-          height={56}
-          className="ml-5 w-[68%]"
-        />
-        </Link> */}
+
       </div>
       {/* Right Section */}
       <div className=" items-center gap-4 hidden md:flex">
@@ -107,49 +93,32 @@ export default function Navbar() {
           Logout
         </CustomButton>
       </div>
-      <Dialog>
-        <DropdownMenu>
-          <DropdownMenuTrigger className="md:hidden block">
-            {" "}
-            <Menu className="  text-white "></Menu>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="bg-cc-primary ">
-            <DialogTrigger asChild>
-              <DropdownMenuItem className="text-white hover:bg-[#fe7842]">
-                <div
-                  onClick={() => setShowTracks(!showTracks)}
-                  aria-label="Toggle Tracks"
-                >
-                  Tracks
-                </div>
-              </DropdownMenuItem>
-            </DialogTrigger>
-
-            <Link href="/settings">
-              <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
-                {" "}
-                <div>Profile</div>
-              </DropdownMenuItem>
-            </Link>
-            <Link href={"https://discord.gg/M8V6vxXnUq"}>
-              <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
-                {" "}
-                Discord
-              </DropdownMenuItem>
-            </Link>
-            <DropdownMenuItem
-              onClick={handleLogout}
-              className="hover:bg-[#fe7842] text-white"
-            >
-              Logout
+      <DropdownMenu>
+        <DropdownMenuTrigger className="md:hidden block">
+          {" "}
+          <Menu className="  text-white "></Menu>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="bg-cc-primary ">
+          <Link href="/settings">
+            <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
+              {" "}
+              <div>Profile</div>
             </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <DialogContent>
-          <DialogTitle></DialogTitle>
-          <Tracks />
-        </DialogContent>
-      </Dialog>
+          </Link>
+          <Link href={"https://discord.gg/M8V6vxXnUq"}>
+            <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
+              {" "}
+              Discord
+            </DropdownMenuItem>
+          </Link>
+          <DropdownMenuItem
+            onClick={handleLogout}
+            className="hover:bg-[#fe7842] text-white"
+          >
+            Logout
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
 }
