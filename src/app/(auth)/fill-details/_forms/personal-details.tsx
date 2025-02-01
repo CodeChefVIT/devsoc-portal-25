@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import InfoFormField from "@/app/(auth)/fill-details/_components/info-form-field";
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
 import Modal from "@/app/(auth)/_components/modal";
@@ -22,7 +22,7 @@ const PersonalDetails = () => {
   const form = useFormContext<UserDetailsFormType>();
   const { error } = useFormStore();
   const { setError } = useFormStore();
-
+  const [loading, setLoading] = useState(false);
   const handleNext = () => {
     const {
       firstName,
@@ -35,6 +35,7 @@ const PersonalDetails = () => {
       gender,
     } = form.getValues();
     const cleanedProfile = removeTrailingSlash(githubProfile);
+    setLoading(true);
     return toast.promise(
       async () => {
         // Complete profile
@@ -61,7 +62,7 @@ const PersonalDetails = () => {
           phone_no: phoneNo,
           github_profile: cleanedProfile,
           gender: genders[gender],
-        });
+        }).finally(() => setLoading(false));
 
         router.push("/github-activity");
       },
@@ -202,9 +203,13 @@ const PersonalDetails = () => {
           size={"primary"}
           type={"button"}
           className={"my-2"}
+          disabled={loading}
           onClick={handleNext}
         >
-          <p className="mb-1">Next</p>
+          <p className="mb-1">
+            {loading ? "Next" : "Next"}
+            {/* Change later if required */}
+          </p>
         </Button>
       </Modal>
     </div>

@@ -10,22 +10,33 @@ import { pingStar, updateGithubUserName } from "@/services/auth";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
-import LabelledInput from "@/components/labelled-input";
 import CustomButton from "@/components/CustomButton";
-import { githubLinkSchema } from "@/app/(portal)/(other-pages)/(forms)/schema";
-
+import { Form, FormField } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { GithubProfileSchema } from "../_schemas/general.schema";
+import AuthFormItem from "../_components/auth-form-item";
+const schema = z.object({
+  github: GithubProfileSchema,
+});
 const GithubActivityPage = () => {
   const router = useRouter();
-  const [githubProfile, setGihubProfile] = React.useState("");
-
-  function handleUpdateGithubProfile() {
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    mode: "onBlur",
+    defaultValues: {
+      github: "",
+    },
+  });
+  function handleUpdateGithubProfile(values: z.infer<typeof schema> ) {
     return toast.promise(
       async () => {
-        const validationResult = githubLinkSchema.safeParse(githubProfile);
-        if (!validationResult.success) {
-          throw new Error("Enter a valid Github Profile URL EG. https://github.com/UserName");
-        }
-        await updateGithubUserName({ github: githubProfile });
+        // const validationResult = githubLinkSchema.safeParse(githubProfile);
+        // if (!validationResult.success) {
+        //   throw new Error("Enter a valid Github Profile URL EG. https://github.com/UserName");
+        // }
+        await updateGithubUserName(values);
       },
       {
         loading: "Updating...",
@@ -87,21 +98,36 @@ const GithubActivityPage = () => {
           >
             GitHub Link
           </Link>
-          <div className="flex items-end gap-4">
-            <LabelledInput
-              id="anything"
-              labelText="Update Github Profile"
-              onInputChange={setGihubProfile}
-              value={githubProfile}
-              type={"text"}
-            ></LabelledInput>
-            <CustomButton
-              buttonProps={{ className: "flex-button" }}
-              onClick={handleUpdateGithubProfile}
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleUpdateGithubProfile)}
+              className={"w-full flex flex-col items-center gap-10"}
             >
-              Update{" "}
-            </CustomButton>
-          </div>
+              <div className="flex items-end gap-4">
+                <FormField
+                  control={form.control}
+                  name={"github"}
+                  render={({ field }) => (
+                    <AuthFormItem
+                      field={field}
+                      labelText="Update Github Profile"
+                      type={"text"}
+                      required
+                      autoFill
+                    />
+                  )}
+                />
+
+                <CustomButton
+                  buttonProps={{ className: "flex-button" }}
+                  type="submit"
+                  disabled={form.formState.isSubmitting}
+                >
+                  {form.formState.isSubmitting? "Updating..." : "Update."}
+                </CustomButton>
+              </div>
+            </form>
+          </Form>
         </Modal>
         <Button
           variant={"primary"}

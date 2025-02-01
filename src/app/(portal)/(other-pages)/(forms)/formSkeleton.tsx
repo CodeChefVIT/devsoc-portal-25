@@ -2,7 +2,7 @@
 import { Form } from "@/components/ui/form";
 import React from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
-import {Button} from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 // add z.infer for all
 export default function FormSkeleton<T extends FieldValues>({
   title,
@@ -31,10 +31,14 @@ export default function FormSkeleton<T extends FieldValues>({
               {children}
             </div>
             <div className="mb-5 md:mb-0 flex justify-center">
-              <Button variant={"primary"} size={"primary"} type={"submit"}>
-                {buttonText}
+              <Button
+                disabled={form.formState.isSubmitting}
+                variant={"primary"}
+                size={"primary"}
+                type={"submit"}
+              >
+                {form.formState.isSubmitting ? buttonText + "ing...." : buttonText}
               </Button>
-
             </div>
           </form>
         </Form>

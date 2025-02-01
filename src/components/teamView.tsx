@@ -31,7 +31,7 @@ const TeamView = () => {
   );
   const teamSet = useTeamStore((state) => state.teamIsSet);
   const userSet = useUserStore((state) => state.userIsSet);
-
+  const [load, setLoad] = React.useState(false);
   useEffect(() => {
     if (!teamSet) {
       teamFetch();
@@ -50,20 +50,23 @@ const TeamView = () => {
   };
 
   const leave = () => {
-    return toast.promise(
-      async () => {
-        await leaveTeam(user.email);
-        await teamFetch();
-        await fetchUser();
-        setIdeaExists(false);
-        setSubmissionExists(false);
-      },
-      {
-        loading: "Leaving team...",
-        success: "Left team successfully",
-        error: (err: ApiError) => err.message,
-      }
-    );
+    setLoad(true);
+    return toast
+      .promise(
+        async () => {
+          await leaveTeam(user.email);
+          await teamFetch();
+          await fetchUser();
+          setIdeaExists(false);
+          setSubmissionExists(false);
+        },
+        {
+          loading: "Leaving team...",
+          success: "Left team successfully",
+          error: (err: ApiError) => err.message,
+        }
+      )
+      .finally(() => setLoad(false));
   };
 
   return (
@@ -81,18 +84,7 @@ const TeamView = () => {
         {/* Team Member List */}
         <div className="w-full flex flex-col mt-6 gap-3">
           {/* Comment out if needed. Fixes the double rendering issue for now */}
-          {/* {user.is_leader ? (
-            <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
-              <span>{user.first_name + " " + user.last_name}</span>
-              <span className="text-yellow-500">
-                <LuCrown />
-              </span>
-            </div>
-          ) : (
-            <div className="flex justify-between items-center bg-white border border-black rounded-lg p-2">
-              {user.first_name + " " + user.last_name}
-            </div>
-          )} */}
+
           {team.members.map(
             (member, index) => (
               console.log(member),
@@ -125,7 +117,9 @@ const TeamView = () => {
 
       {/* Card Footer */}
       <CardFooter className="w-full mt-auto flex justify-center gap-8 p-4 bg-cc-plain leading-loose items-center">
-        <CustomButton onClick={leave}>Leave team</CustomButton>
+        <CustomButton disabled={load} onClick={leave}>
+          {load ? "Leaving..." : "Leave Team"}
+        </CustomButton>
         <CustomButton icon={<IoMdCopy />} onClick={copyToClipboard}>
           {team.code}
         </CustomButton>

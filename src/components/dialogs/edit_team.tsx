@@ -31,34 +31,42 @@ const EditTeamDialog: React.FC = () => {
     (state) => state.setSubmissionExists
   );
   const fetchUser = useUserStore((state) => state.fetch);
+  const [editTeamLoading, setEditTeamLoading] = useState(false);
+  const [disbandTeamLoading, setDisbandTeamLoading] = useState(false);
 
   const handleDisbandTeam = async () => {
     if (inputTeamName !== teamName) {
       toast.error("You inputted incorrect teamname.");
       return;
     }
-    return toast.promise(
-      async () => {
-        await deleteTeam();
-        await teamFetch();
-        await fetchUser();
-        setIdeaExists(false);
-        setSubmissionExists(false);
-      },
-      {
-        loading: "Loading...",
-        success: "Deleted team!",
-        error: (err: ApiError) => err.message,
-      }
-    );
+    setDisbandTeamLoading(true);
+    return toast
+      .promise(
+        async () => {
+          await deleteTeam();
+          await teamFetch();
+          await fetchUser();
+          setIdeaExists(false);
+          setSubmissionExists(false);
+        },
+        {
+          loading: "Loading...",
+          success: "Deleted team!",
+          error: (err: ApiError) => err.message,
+        }
+      )
+      .finally(() => setDisbandTeamLoading(false));
   };
 
   const handleUpdateTeamName = async () => {
-    return toast.promise(updateTeamName(newTeamName), {
-      loading: "Loading...",
-      success: "Edited Team Name!",
-      error: (err: ApiError) => err.message,
-    });
+    setEditTeamLoading(true);
+    return toast
+      .promise(updateTeamName(newTeamName), {
+        loading: "Loading...",
+        success: "Edited Team Name!",
+        error: (err: ApiError) => err.message,
+      })
+      .finally(() => setEditTeamLoading(false));
   };
 
   return (
@@ -106,8 +114,9 @@ const EditTeamDialog: React.FC = () => {
                   "bg-orange-500 font-monomaniac hover:bg-orange-400 active:bg-orange-600 text-white py-6 px-14 rounded-xl text-lg",
               }}
               onClick={handleUpdateTeamName}
+              disabled={editTeamLoading}
             >
-              EDIT
+              {editTeamLoading ? "Editing..." : "Edit"}
             </CustomButton>
           </div>
         </div>
@@ -141,12 +150,13 @@ const EditTeamDialog: React.FC = () => {
 
           <div className="flex justify-center gap-4 mt-2">
             <Button
+              disabled={disbandTeamLoading}
               className={
                 "bg-[#F7F3F0] font-monomaniac border-2 border-red-800 font-bold text-[#991b1b] py-6 px-10 rounded-xl text-xl"
               } // Larger button
               onClick={handleDisbandTeam}
             >
-              DISBAND
+              {disbandTeamLoading ? "DISBANDING..." : "DISBAND"}
             </Button>
           </div>
         </div>

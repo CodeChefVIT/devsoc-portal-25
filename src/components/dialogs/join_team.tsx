@@ -19,11 +19,12 @@ import { FaPlus } from "react-icons/fa";
 const JoinTeamDialog = () => {
   const [teamCode, setTeamCode] = useState("");
   const fetchTeam = useTeamStore((state) => state.fetch);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   // const [error, setError] = useState<string | null>(null);
   // const [success, setSuccess] = useState<boolean>(false);
 
   const handleJoinTeam = async () => {
+    setLoading(true);
     return toast.promise(
       async () => {
         await joinTeam(teamCode);
@@ -34,7 +35,7 @@ const JoinTeamDialog = () => {
         success: "Successfully joined the team!",
         error: (err: ApiError) => err.message,
       }
-    );
+    ).finally(()=> setLoading(false))
   };
 
   return (
@@ -69,17 +70,13 @@ const JoinTeamDialog = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
-            <button
-              className={`${
-                // loading ? "bg-gray-400" :
-                "bg-orange-500"
-              } text-white py-2 px-4 rounded`}
+            <CustomButton
+ 
               onClick={handleJoinTeam}
-              // disabled={loading || !teamCode.trim()}
+              disabled={loading || !teamCode.trim()}
             >
-              Join
-              {/* {loading ? "Joining..." : "Join"} */}
-            </button>
+              {loading ? "Joining..." : "Join"}
+            </CustomButton>
           </div>
         </div>
       </DialogContent>

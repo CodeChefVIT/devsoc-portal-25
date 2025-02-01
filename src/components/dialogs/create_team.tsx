@@ -18,22 +18,29 @@ import { LiaHandshake } from "react-icons/lia";
 
 const CreateTeamDialog = () => {
   const [teamName, setTeamName] = useState("");
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // Control the dialog open state
+  const [isDialogOpen, setIsDialogOpen] = useState(false); 
+  const [loading, setLoading] = useState(false); 
+
   const fetchTeam = useTeamStore((state) => state.fetch);
   const handleCreateTeam = async () => {
-    return toast.promise(
-      async () => {
-        await createTeam(teamName);
-        await fetchTeam();
-      },
-      {
-        loading: "Loading...",
-        success: "Created team!",
-        error: (err: ApiError) => err.message,
-      }
-    );
+    setLoading(true);
+    return toast
+      .promise(
+        async () => {
+          await createTeam(teamName);
+          await fetchTeam();
+        },
+        {
+          loading: "Loading...",
+          success: "Created team!",
+          error: (err: ApiError) => err.message,
+        }
+      )
+      .finally(() => {
+        setIsDialogOpen(false);
+        setLoading(false);
+      }); // Fetch the team data after creating the team
     // Fetch the team data after creating the team
-    setIsDialogOpen(false); // Close the dialog on success
   };
 
   return (
@@ -69,12 +76,13 @@ const CreateTeamDialog = () => {
 
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
-            <button
-              className={`${"bg-orange-500"} text-white py-2 px-4 rounded`}
+            <CustomButton
+
+              disabled={loading || !teamName.trim()}
               onClick={handleCreateTeam}
             >
-              Create
-            </button>
+              {loading ? "Creating..." : "Create"}
+            </CustomButton>
           </div>
         </div>
       </DialogContent>

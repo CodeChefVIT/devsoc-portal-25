@@ -103,8 +103,12 @@ const SignUp = () => {
                 Already have an account?{" "}
                 <Link text={"Log in"} href={"/login"} />
               </div>
-              <Button variant={"primary"} size={"primary"} type={"submit"}>
-                <p className="mb-[3px]">Create Account</p>
+              <Button variant={"primary"} size={"primary"} type={"submit"} disabled={form.formState.isSubmitting}>
+                <p className="mb-[3px]">
+                  {form.formState.isSubmitting
+                    ? "Sending OTP..."
+                    : "Create Account"}
+                </p>
               </Button>
             </div>
           </form>
