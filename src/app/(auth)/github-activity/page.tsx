@@ -126,7 +126,7 @@ const GithubActivityPage = () => {
                   type="submit"
                   disabled={form.formState.isSubmitting}
                 >
-                  {form.formState.isSubmitting ? "Updating..." : "Update."}
+                  {form.formState.isSubmitting ? "Updating..." : "Update"}
                 </CustomButton>
               </div>
             </form>
@@ -139,7 +139,7 @@ const GithubActivityPage = () => {
           disabled={loading}
           onClick={handleButtonClick}
         >
-          <p className="mb-1">{loading ? "Continue" : "Checking..."}</p>
+          <p className="mb-1">{loading ? "Checking..." : "Continue"}</p>
         </Button>
       </div>
     </InfoWrapper>
