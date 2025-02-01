@@ -5,10 +5,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "../ui/dialog";
 import { Track } from "@/interfaces";
 import Image from "next/image";
-export default function trackCard({ track }: { track: Track }) {
+export default function TrackCard({ track }: { track: Track }) {
   return (
     <div>
       <Dialog>
