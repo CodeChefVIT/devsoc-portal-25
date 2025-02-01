@@ -18,7 +18,7 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
-import Tracks from "./tracks";
+import Tracks from "./tracks/tracks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 // import devText from "@/assets/images/PORTAL.svg"
 import discord from "@/assets/images/discord.svg";

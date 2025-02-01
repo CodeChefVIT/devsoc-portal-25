@@ -8,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="relative h-full flex items-center">
+    <div className="relative h-full flex mt-4">
       <Image
         src="/images/mascot_french_pos.svg"
         alt="Mascot"
