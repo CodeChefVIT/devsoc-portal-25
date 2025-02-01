@@ -26,7 +26,7 @@ export default function CarouselDemo() {
         <Carousel className="md:w-5/6 w-4/5">
           <CarouselContent>
             {tracks.map((track, index) => (
-              <CarouselItem className="md:basis-1/3" key={index}>
+              <CarouselItem className="md:basis-1/3  " key={index}>
                 <div>
                   <TrackCard track={track} key={index}></TrackCard>
                 </div>
