@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import InfoWrapper from "@/app/(auth)/fill-details/_components/info-wrapper";
 import Modal from "@/app/(auth)/_components/modal";
 import Image from "next/image";
@@ -29,7 +29,7 @@ const GithubActivityPage = () => {
       github: "",
     },
   });
-  function handleUpdateGithubProfile(values: z.infer<typeof schema> ) {
+  function handleUpdateGithubProfile(values: z.infer<typeof schema>) {
     return toast.promise(
       async () => {
         // const validationResult = githubLinkSchema.safeParse(githubProfile);
@@ -45,20 +45,23 @@ const GithubActivityPage = () => {
       }
     );
   }
-
+  const [loading, setLoading] = useState(false);
   const handleButtonClick = async () => {
     try {
-      return toast.promise(
-        async () => {
-          await pingStar();
-          router.push("/dashboard");
-        },
-        {
-          loading: "Loading...",
-          success: "Welcome aboard!",
-          error: (err: ApiError) => err.message,
-        }
-      );
+      setLoading(true);
+      return toast
+        .promise(
+          async () => {
+            await pingStar();
+            router.push("/dashboard");
+          },
+          {
+            loading: "Loading...",
+            success: "Welcome aboard!",
+            error: (err: ApiError) => err.message,
+          }
+        )
+        .finally(() => setLoading(false));
     } catch (error) {
       console.error("Error pinging /auth/star:", error);
     }
@@ -123,7 +126,7 @@ const GithubActivityPage = () => {
                   type="submit"
                   disabled={form.formState.isSubmitting}
                 >
-                  {form.formState.isSubmitting? "Updating..." : "Update."}
+                  {form.formState.isSubmitting ? "Updating..." : "Update."}
                 </CustomButton>
               </div>
             </form>
@@ -133,9 +136,10 @@ const GithubActivityPage = () => {
           variant={"primary"}
           size={"primary"}
           type={"button"}
+          disabled={loading}
           onClick={handleButtonClick}
         >
-          <p className="mb-1">Continue</p>
+          <p className="mb-1">{loading ? "Continue" : "Checking..."}</p>
         </Button>
       </div>
     </InfoWrapper>

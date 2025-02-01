@@ -96,8 +96,17 @@ export default function ResetPassword() {
               <div
                 className={"flex flex-col justify-center items-center gap-4"}
               >
-                <Button variant={"primary"} size={"primary"} type={"submit"}>
-                  <p className="mb-[3px]">Update Password</p>
+                <Button
+                  variant={"primary"}
+                  size={"primary"}
+                  type={"submit"}
+                  disabled={form.formState.isSubmitting}
+                >
+                  <p className="mb-[3px]">
+                    {form.formState.isSubmitting
+                      ? "Updating..."
+                      : "Update Password"}
+                  </p>
                 </Button>
               </div>
             </form>
