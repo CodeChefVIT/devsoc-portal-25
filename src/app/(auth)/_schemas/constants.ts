@@ -6,9 +6,11 @@ export const genders: { [key: string]: "M" | "F" | "O" } = {
 
 export const hostels = [
   "Men's Hostel - A Block",
+  "Men's Hostel - B Annex Block",
   "Men's Hostel - B Block",
   "Men's Hostel - C Block",
   "Men's Hostel - D Block",
+  "Men's Hostel - D Annex Block",
   "Men's Hostel - E Block",
   "Men's Hostel - F Block",
   "Men's Hostel - G Block",
