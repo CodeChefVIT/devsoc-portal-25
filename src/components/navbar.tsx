@@ -7,8 +7,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import React, { useState } from "react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import Image from "next/image";
 // import devsoc from "../../public/images/devsoc.png";
 import devsoc from "@/assets/images/DEVSOC.svg";
@@ -18,7 +17,7 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { logout } from "@/services/auth";
 import { useRouter } from "next/navigation";
-import Tracks from "./tracks";
+// import Tracks from "./tracks";
 import { DialogTitle } from "@radix-ui/react-dialog";
 // import devText from "@/assets/images/PORTAL.svg"
 import discord from "@/assets/images/discord.svg";
@@ -26,7 +25,7 @@ import settings from "@/assets/images/settings.svg";
 
 export default function Navbar() {
   const router = useRouter();
-  const [showTracks, setShowTracks] = useState(false); // State to toggle Tracks visibility
+  // const [showTracks, setShowTracks] = useState(false); // State to toggle Tracks visibility
 
   function handleLogout() {
     return toast.promise(
@@ -114,7 +113,7 @@ export default function Navbar() {
             <Menu className="  text-white "></Menu>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="bg-cc-primary ">
-            <DialogTrigger asChild>
+            {/* <DialogTrigger asChild>
               <DropdownMenuItem className="text-white hover:bg-[#fe7842]">
                 <div
                   onClick={() => setShowTracks(!showTracks)}
@@ -123,7 +122,7 @@ export default function Navbar() {
                   Tracks
                 </div>
               </DropdownMenuItem>
-            </DialogTrigger>
+            </DialogTrigger> */}
 
             <Link href="/settings">
               <DropdownMenuItem className=" text-white hover:bg-[#fe7842]">
@@ -147,7 +146,7 @@ export default function Navbar() {
         </DropdownMenu>
         <DialogContent>
           <DialogTitle></DialogTitle>
-          <Tracks />
+          {/* <Tracks /> */}
         </DialogContent>
       </Dialog>
     </header>

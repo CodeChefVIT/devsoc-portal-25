@@ -13,17 +13,17 @@ export default function trackCard({ track }: { track: Track }) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <div className="cursor-pointer overflow-hidden">
-            <div className="border rounded-t-3xl w-full h-[40px] md:w-full border-black p-2">
+          <div className="cursor-pointer overflow-hidden w-full">
+            <div className="border rounded-t-3xl h-[40px] w-[250px] lg:w-full border-black p-2">
               {track.name}
             </div>
             <Image
               src={`/images/${track.image}`}
               alt={track.name}
               layout="" // Use intrinsic layout for natural size
-              width={800} // Provide the intrinsic width (can be any value)
+              width={200} // Provide the intrinsic width (can be any value)
               height={200} // Provide the intrinsic height (can be any value)
-              className="h-[100px] w-full xl:w-[800px] md:w-[800px] object-fill"
+              className="h-[100px] w-full"
             />
           </div>
         </DialogTrigger>

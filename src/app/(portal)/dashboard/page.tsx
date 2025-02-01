@@ -24,11 +24,15 @@ const Dashboard: React.FC = () => {
     }
     fetchInfo();
   }, [fetchTeamInfo]);
-  
+
   return (
-    <div className="grid w-full grid-cols-1  lg:grid-cols-[27%_auto] gap-4 md:py-0 p-4 ">
-      {/* Sidebar */}
-      <div className="h-full hidden md:flex  lg:block">
+    <div className="grid w-full grid-cols-1 lg:grid-cols-[27%_auto] md:gap-4 md:py-0 p-4">
+      <div className="block lg:hidden whitespace-nowrap p-2">
+        <div className="flex space-x-4 ">
+          <Tracks />
+        </div>
+      </div>
+      <div className="h-full hidden lg:block">
         <Tracks />
       </div>
       {/* Main Content */}
@@ -38,13 +42,13 @@ const Dashboard: React.FC = () => {
           <Timeline />
         </div> */}
         <div
-            className="bg-yellow-100 border  min-w-max border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg shadow-md"
-            role="alert"
-          >
-            <span className="block sm:inline">
-              Last day of submission is on 2<sup>nd</sup> February, 12PM!
-            </span>
-          </div>
+          className="bg-yellow-100 border  min-w-max border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg shadow-md"
+          role="alert"
+        >
+          <span className="block sm:inline">
+            Last day of submission is on 2<sup>nd</sup> February, 12PM!
+          </span>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2  min-h-0 gap-4">
           <div className="flex flex-col items-start justify-start rounded-lg">
             {team.code ? <TeamView /> : <JoinTeam />}
