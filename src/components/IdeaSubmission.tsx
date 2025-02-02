@@ -116,13 +116,13 @@ export default function IdeaSubmission() {
       if (user.is_leader && ideaExists) {
         setCreateOptions((prev) => ({ ...prev, visible: false }));
         setViewOptions({ enabled: true, visible: true });
-        setEditOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: false, visible: true });
       } else if (ideaExists) {
         setCreateOptions((prev) => ({ ...prev, visible: false }));
         setViewOptions({ enabled: true, visible: true });
         setEditOptions({ enabled: false, visible: true });
       } else if (user.is_leader) {
-        setCreateOptions({ enabled: true, visible: true });
+        setCreateOptions({ enabled: false, visible: true });
         setViewOptions({ enabled: false, visible: false });
         setEditOptions({ enabled: false, visible: false });
       } else {
