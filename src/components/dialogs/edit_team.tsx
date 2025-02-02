@@ -72,8 +72,8 @@ const EditTeamDialog: React.FC = () => {
   return (
     <Dialog>
       {/* Dialog Content */}
-      <DialogTrigger>
-        <PenBoxIcon className="w-5 h-5 mr-2" />
+      <DialogTrigger disabled={true}>
+        <PenBoxIcon className="text-gray-700 w-5 h-5 mr-2" />
       </DialogTrigger>
 
       <DialogContent
