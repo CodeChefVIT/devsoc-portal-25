@@ -11,7 +11,6 @@ import TeamView from "@/components/teamView";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
 import Tracks from "@/components/tracks/tracks";
-import IdeaSubmission from "@/components/IdeaSubmission";
 import TracksMobile from "@/components/tracks/trackMobile";
 import Timeline from "@/components/timeline/timeline";
 import ProjectSubmission from "@/components/ProjectSubmission";
