@@ -4,7 +4,7 @@ const isGitHubLink = (url: string | undefined) =>
 
 export const githubLinkSchema = z
   .string()
-  .min(1, { message: "GitHub link is required" })
+  .optional()
   .refine(isGitHubLink, {
     message: "GitHub link must be a valid GitHub URL (https://github.com/...)",
   })
@@ -38,15 +38,13 @@ export const projectSchema = z.object({
     .default(""), // Default description is an empty string
   figma_link: z
     .string()
-    .url({ message: "Figma link must be a valid URL" })
-
-    .refine(isFigmaLink, {
+    .optional() // Apply optional first to allow skipping validation if not provided
+    .refine((val) => val === "" || isFigmaLink(val), {
       message: "Figma link must be a valid Figma URL (https://figma.com/...)",
     })
     .default(""), // Default Figma link is an empty string
 
   github_link: githubLinkSchema, // Default GitHub link is an empty string
-
   other_link: z
     .union([
       z.string().url({ message: "Link must be a valid URL " }),
