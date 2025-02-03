@@ -11,9 +11,9 @@ import TeamView from "@/components/teamView";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
 import Tracks from "@/components/tracks/tracks";
-import IdeaSubmission from "@/components/IdeaSubmission";
 import TracksMobile from "@/components/tracks/trackMobile";
 import Timeline from "@/components/timeline/timeline";
+import ProjectSubmission from "@/components/ProjectSubmission";
 // import ProjectSubmission from "@/components/ProjectSubmission";
 
 const Dashboard: React.FC = () => {
@@ -45,9 +45,9 @@ const Dashboard: React.FC = () => {
             {team.code ? <TeamView /> : <JoinTeam />}
           </div>
           <div className="flex flex-col items-start justify-start rounded-lg">
-            {/* <ProjectSubmission /> */}
+            <ProjectSubmission />
             {/* uncomment and import  when project submission is active */}
-            <IdeaSubmission></IdeaSubmission>
+            {/* <IdeaSubmission></IdeaSubmission> */}
           </div>
         </div>
       </div>
