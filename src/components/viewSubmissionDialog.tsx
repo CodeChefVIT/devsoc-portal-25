@@ -73,12 +73,14 @@ export default function ViewSubmission({ disabled }: { disabled: boolean }) {
                 {submission.figma_link}
               </p>
             </div>
-            <div>
-              <Label>Other Link: </Label>
-              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
-                {submission.other_link}
-              </p>
-            </div>
+            {submission.other_link && (
+              <div>
+                <Label>Other Link: </Label>
+                <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+                  {submission.other_link}
+                </p>
+              </div>
+            )}
           </div>
         </DialogContent>
       </Dialog>
