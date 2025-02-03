@@ -42,41 +42,41 @@ export default function ViewSubmission({ disabled }: { disabled: boolean }) {
           <DialogHeader>
             <DialogTitle className="font-yerk ">View Submission</DialogTitle>
           </DialogHeader>
-          <div className="space-y-1">
+          <div className="space-y-1 max-h-[80vh] overflow-y-auto ">
             <div>
               <Label>Title: </Label>
-              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+              <p className="text-lg break-all bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.title}
               </p>
             </div>
             <div>
               <Label>Track: </Label>
-              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+              <p className="text-lg break-all bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.track}
               </p>
             </div>
             <div>
               <Label>Description: </Label>
-              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+              <p className="text-lg overflow-y-auto break-all max-h-32 bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.description}
               </p>
             </div>
             <div>
               <Label>Github Link: </Label>
-              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+              <p className="text-lg  bg-gray-50 break-all border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.github_link}
               </p>
             </div>
             <div>
               <Label>Figma Link: </Label>
-              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+              <p className="text-lg  bg-gray-50 border-2 break-all border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.figma_link}
               </p>
             </div>
             {submission.other_link && (
               <div>
                 <Label>Other Link: </Label>
-                <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
+                <p className="text-lg  bg-gray-50 border-2 break-all border-black rounded-lg px-4 py-2 text-gray-500">
                   {submission.other_link}
                 </p>
               </div>
