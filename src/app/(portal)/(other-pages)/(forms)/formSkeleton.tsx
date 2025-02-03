@@ -18,6 +18,17 @@ export default function FormSkeleton<T extends FieldValues>({
   form: UseFormReturn<T>;
   onSubmit: (data: T) => void;
 }) {
+  let label;
+  switch (buttonText) {
+    case "Update":
+    case "update":
+      label = "Updating";
+      break;
+    case "Submit":
+    case "submit":
+      label = "Submitting";
+      break;
+  }
   return (
     <div className="flex flex-col md:gap-5 items-center">
       <h1 className="font-monomaniac text-2xl mt-5 md:mt-2  mb-5">{title}</h1>
@@ -37,7 +48,7 @@ export default function FormSkeleton<T extends FieldValues>({
                 size={"primary"}
                 type={"submit"}
               >
-                {form.formState.isSubmitting ? buttonText + "ing...." : buttonText}
+                {form.formState.isSubmitting ? label : buttonText}
               </Button>
             </div>
           </form>

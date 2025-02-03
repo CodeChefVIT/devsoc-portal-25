@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -34,50 +35,48 @@ export default function ViewSubmission({ disabled }: { disabled: boolean }) {
     <div>
       <Dialog>
         <DialogTrigger asChild>
-          <CustomButton  icon={<Idea />} disabled={disabled}>
+          <CustomButton icon={<Idea />} disabled={disabled}>
             VIEW SUBMISSION
           </CustomButton>
         </DialogTrigger>
-        <DialogContent className="max-w-max mx-auto">
+        <DialogContent className="bg-[#F7F3F0] border-2 border-black rounded-lg p-6">
           <DialogHeader>
-            <DialogTitle className="flex font-monomaniac tracking-wider items-center justify-between">
-              Your project
-            </DialogTitle>
+            <DialogTitle className="font-yerk ">View Submission</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
-            <div className="flex items-center gap-4">
-              <Label className="font-semibold">Title: </Label>
-              <p className="rounded-lg px-3 py-2 text-lg font-semibold bg-gray-50">
+          <div className="space-y-1">
+            <div>
+              <Label>Title: </Label>
+              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.title}
               </p>
             </div>
             <div>
               <Label>Track: </Label>
-              <p className="border rounded-lg px-3 py-2 break-words bg-gray-50">
+              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.track}
               </p>
             </div>
             <div>
               <Label>Description: </Label>
-              <p className="border rounded-lg px-3 py-2 break-words bg-gray-50">
+              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.description}
               </p>
             </div>
             <div>
               <Label>Github Link: </Label>
-              <p className="border rounded-lg px-3 py-2 break-words bg-gray-50">
+              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.github_link}
               </p>
             </div>
             <div>
               <Label>Figma Link: </Label>
-              <p className="border rounded-lg px-3 py-2 break-words bg-gray-50">
+              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.figma_link}
               </p>
             </div>
             <div>
               <Label>Other Link: </Label>
-              <p className="border rounded-lg px-3 py-2 break-words bg-gray-50">
+              <p className="text-lg  bg-gray-50 border-2 border-black rounded-lg px-4 py-2 text-gray-500">
                 {submission.other_link}
               </p>
             </div>

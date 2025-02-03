@@ -268,12 +268,11 @@ export default function Settings() {
             <div className="flex justify-center  mb-8 md:mb-0">
               <CustomButton
                 type="submit"
-                disabled={form.formState.isSubmitting}
                 buttonProps={{
                   className: "py-2 text-lg px-10", // You can control the size of the button here
                 }}
               >
-                {form.formState.isSubmitting ? "Updating..." : "Update"}
+                UPDATE
               </CustomButton>
             </div>{" "}
           </div>
