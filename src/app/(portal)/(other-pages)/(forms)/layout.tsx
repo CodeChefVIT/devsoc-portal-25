@@ -5,7 +5,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={""}>
+    <div className={"h-full"}>
       {children}
     </div>
   );
