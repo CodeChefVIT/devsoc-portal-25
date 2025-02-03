@@ -13,6 +13,7 @@ import JoinTeam from "@/components/joinTeam";
 import Tracks from "@/components/tracks/tracks";
 import IdeaSubmission from "@/components/IdeaSubmission";
 import TracksMobile from "@/components/tracks/trackMobile";
+import Timeline from "@/components/timeline/timeline";
 // import ProjectSubmission from "@/components/ProjectSubmission";
 
 const Dashboard: React.FC = () => {
@@ -35,17 +36,10 @@ const Dashboard: React.FC = () => {
       {/* Main Content */}
       <div className=" flex flex-col lg:grid grid-rows-[auto_1fr] h-full min-h-0 gap-4">
         {/* Timeline */}
-        {/* <div className="overflow-auto rounded-lg min-h-0">
+        <div className="overflow-auto rounded-lg min-h-0">
           <Timeline />
-        </div> */}
-        <div
-          className="bg-yellow-100 border  min-w-max border-yellow-400 text-yellow-700 px-4 py-3 rounded-lg shadow-md"
-          role="alert"
-        >
-          <span className="block sm:inline">
-            Last day of submission is on 2<sup>nd</sup> February, 8PM!
-          </span>
         </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2  min-h-0 gap-4">
           <div className="flex flex-col items-start justify-start rounded-lg">
             {team.code ? <TeamView /> : <JoinTeam />}
