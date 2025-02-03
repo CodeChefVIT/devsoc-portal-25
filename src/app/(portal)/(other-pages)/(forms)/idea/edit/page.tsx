@@ -53,7 +53,6 @@ export default function EditIdea() {
   }, [idea, form, checkIdeaExists, form.reset]);
 
   const onSubmit = (data: z.infer<typeof schema>) => {
-    //TODO update idea from be
     let success = false;
     return toast.promise(
       async () => {
