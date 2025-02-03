@@ -114,7 +114,7 @@ export default function ProjectSubmission() {
       if (user.is_leader && submissionExists) {
         setCreateOptions((prev) => ({ ...prev, visible: false }));
         setViewOptions({ enabled: true, visible: true });
-        setEditOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: false, visible: true });
       } else if (submissionExists) {
         setCreateOptions((prev) => ({ ...prev, visible: false }));
         setViewOptions({ enabled: true, visible: true });
@@ -123,7 +123,7 @@ export default function ProjectSubmission() {
         setViewOptions({ enabled: false, visible: false });
         setEditOptions({ enabled: false, visible: false });
 
-        setCreateOptions({ enabled: true, visible: true });
+        setCreateOptions({ enabled: false, visible: true });
       } else {
         setViewOptions({ enabled: false, visible: false });
         setEditOptions({ enabled: false, visible: false });
