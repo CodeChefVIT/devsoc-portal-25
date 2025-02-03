@@ -20,16 +20,21 @@ export default function Submission() {
   const ideaFetch = useIdeaStore((state) => state.fetch);
   useEffect(() => {
     const fetchIdeaIfNeeded = async () => {
-      await ideaFetch();
-      form.reset(idea); // After fetch, reset form values to the fetched idea
+      if (!idea.title) {
+        await ideaFetch();
+      }
     };
     fetchIdeaIfNeeded();
-  }, [ideaFetch, idea]);
+  }, []);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults ,
     mode: "onBlur", // Trigger validation when the input field loses focus
   });
+  useEffect(() => {
+    form.reset(idea);
+  }, [idea]);
+   // Reset form values to the fetched idea
   const onSubmit = (data: z.infer<typeof schema>) => {
     return toast.promise(
       createSubmission("submission", { ...data }).then(() => {
