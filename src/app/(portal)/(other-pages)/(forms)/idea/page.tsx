@@ -11,13 +11,16 @@ import toast from "react-hot-toast";
 import { ApiError } from "next/dist/server/api-utils";
 import { defaults } from "../defaults";
 import { useRouter } from "next/navigation";
+import { useIdeaStore } from "@/store/idea";
 
 export default function Idea() {
   const schema = projectSchema;
   const router = useRouter();
+  const idea = useIdeaStore((state) => state.idea);
+
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
-    defaultValues: defaults,
+    defaultValues: { ...idea, ...defaults },
     mode: "onBlur", // Trigger validation when the input field loses focus
   });
 
