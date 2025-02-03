@@ -42,7 +42,7 @@ const JoinTeamDialog = () => {
     <Dialog key={"joinTeam"}>
       {/* Trigger Button */}
       <DialogTrigger asChild>
-        <CustomButton icon={<FaPlus size={10} />}>JOIN TEAM</CustomButton>
+        <CustomButton disabled icon={<FaPlus size={10} /> }>JOIN TEAM</CustomButton>
       </DialogTrigger>
 
       {/* Dialog Content */}
