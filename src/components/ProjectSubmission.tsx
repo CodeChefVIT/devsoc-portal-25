@@ -39,7 +39,7 @@ export default function ProjectSubmission() {
   const submissionExists = useSubmissionStore(
     (state) => state.submissionExists
   );
-  let subtitle = "Submit Your Project Before 3 Feb, 11:59 PM";
+  let subtitle = "Submit Your Project with latest PPT Before 4 Feb, 11:59 PM";
   let title = "No Project Submitted Yet";
   if (submissionExists) {
     title = "Project Submitted";
