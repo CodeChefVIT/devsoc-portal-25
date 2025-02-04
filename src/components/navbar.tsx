@@ -41,7 +41,7 @@ export default function Navbar() {
   return (
     <header
       className="flex justify-between items-center px-4 sticky top-0 z-10 shadow-lg"
-      style={{ backgroundColor: "#FF6D33", height: "75px" }}
+      style={{ backgroundColor: "#315273", height: "75px" }}
     >
       {/* Left Section */}
       <div className="flex items-center gap-2">
@@ -61,7 +61,6 @@ export default function Navbar() {
         >
           <div className="-mb-1">PORTAL</div>
         </Link>
-
       </div>
       {/* Right Section */}
       <div className=" items-center gap-4 hidden md:flex">

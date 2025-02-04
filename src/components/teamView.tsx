@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { IoMdCopy } from "react-icons/io";
 import { LuCrown } from "react-icons/lu";
-
-import RemoveFromTeamDialog from "./dialogs/remove_from_team";
 import { useTeamStore } from "@/store/team";
 import { useUserStore } from "@/store/user";
 import { leaveTeam } from "@/services/team";
@@ -16,7 +14,6 @@ import {
   CardContent,
   CardFooter,
 } from "./ui/card"; // Import ShadCN components
-import EditTeamDialog from "./dialogs/edit_team";
 import { useSubmissionStore } from "@/store/submission";
 import { useIdeaStore } from "@/store/idea";
 
@@ -70,12 +67,12 @@ const TeamView = () => {
   };
 
   return (
-    <Card className="border-4 flex flex-col w-full  border-black rounded-lg">
+    <Card className="border-4 flex flex-col w-full border-black rounded-2xl overflow-hidden">
       {/* Card Header */}
-      <CardHeader className="w-full p-3 bg-black text-white">
+      <CardHeader className="w-full p-3 bg-[#315273] text-white">
         <CardTitle className="flex font-monomaniac tracking-wider items-center justify-between">
-          Your team: {team.team_name}
-          {user.is_leader && <EditTeamDialog />}
+          Your Team: {team.team_name}
+          <span className="inline-block ml-2 h-3 w-3 rounded-full bg-white"></span>
         </CardTitle>
       </CardHeader>
 
@@ -103,9 +100,9 @@ const TeamView = () => {
                   ) : (
                     <div className=" w-full  flex justify-between border-none outline-none bg-transparent">
                       {`${member.first_name}  ${member.last_name}`}
-                      {user.is_leader && (
+                      {/* {user.is_leader && (
                         <RemoveFromTeamDialog email={member.email} />
-                      )}
+                      )} */}
                     </div>
                   )}
                 </div>
@@ -118,7 +115,7 @@ const TeamView = () => {
       {/* Card Footer */}
       <CardFooter className="w-full mt-auto flex justify-center gap-8 p-4 bg-cc-plain leading-loose items-center">
         <CustomButton disabled={load} onClick={leave}>
-          {load ? "Leaving..." : "Leave Team"}
+          {load ? "Leaving..." : "LEAVE TEAM"}
         </CustomButton>
         <CustomButton icon={<IoMdCopy />} onClick={copyToClipboard}>
           {team.code}

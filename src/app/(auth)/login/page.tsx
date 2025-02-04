@@ -137,7 +137,7 @@ const Login = () => {
                 size={"primary"}
                 type={"submit"}
                 disabled={form.formState.isSubmitting}
-                className=""
+                className="bg-[#FF6D33] hover:cursor-pointer"
               >
                 <p className="mb-[3px]">
                   {form.formState.isSubmitting ? "Logging in..." : "Login"}

@@ -18,7 +18,7 @@ const getDayValue = () => {
   } else if (day == 5) {
     return 2;
   } else {
-    return 0  ;
+    return 0;
   }
 };
 
@@ -199,50 +199,50 @@ const Timeline: React.FC = () => {
             <div className="absolute left-0 w-full transform  flex items-center">
               <div className="h-[4px]  w-full bg-black"></div>
             </div>
-            {days.map((dayEvents, dayIndex) => {
-              let previousEvents = 0;
-              for (let i = 0; i < dayIndex; i++) {
-                previousEvents += days[i].length;
-              }
-              return (
-                dayIndex === selectedDay &&
-                dayEvents.map((event, eventIndex) => (
-                  <div
-                    key={eventIndex}
-                    className="flex translate-y-1 flex-col items-center"
-                  >
-                    {/* Time - Above the hexagon */}
-                    <div className="font-bold text-lg mb-2">{event.time}</div>
-
-                    {/* Hexagon */}
-                    <div className="flex items-center justify-center">
-                      <div
-                        className={`w-7 h-7  ${
-                          eventIndex + previousEvents <= hexagonsFilled
-                            ? ""
-                            : "clip-hexagon bg-black"
-                        }    transition-colors duration-300`}
-                      >
+            <div className="grid grid-flow-col gap-12">
+              {days.map((dayEvents, dayIndex) => {
+                let previousEvents = 0;
+                for (let i = 0; i < dayIndex; i++) {
+                  previousEvents += days[i].length;
+                }
+                return (
+                  dayIndex === selectedDay &&
+                  dayEvents.map((event, eventIndex) => (
+                    <div
+                      key={eventIndex}
+                      className="flex translate-y-1 flex-col items-center"
+                    >
+                      {/* Time - Above the hexagon */}
+                      <div className="font-bold text-lg mb-2">{event.time}</div>
+                      {/* Hexagon */}
+                      <div className="flex items-center justify-center">
                         <div
-                          className={`w-full h-full clip-hexagon  ${
+                          className={`w-7 h-7  ${
                             eventIndex + previousEvents <= hexagonsFilled
-                              ? "bg-[#FF6600] scale-[1.30]"
-                              : "bg-[#F7F3F0]  scale-[0.83] "
-                          } `}
-                        ></div>
+                              ? ""
+                              : "clip-hexagon bg-black"
+                          }    transition-colors duration-300`}
+                        >
+                          <div
+                            className={`w-full h-full clip-hexagon  ${
+                              eventIndex + previousEvents <= hexagonsFilled
+                                ? "bg-[#315273] scale-[1.30]"
+                                : "bg-[#F7F3F0]  scale-[0.83] "
+                            } `}
+                          ></div>
+                        </div>
+                      </div>
+                      {/* Description - Below the hexagon */}
+                      <div className="text-center min-h-10 mt-2">
+                        <div className="text-xs max-w-40 overflow-visible text-wrap text-gray-800">
+                          {event.description}
+                        </div>
                       </div>
                     </div>
-
-                    {/* Description - Below the hexagon */}
-                    <div className="text-center min-h-10 mt-2">
-                      <div className="text-xs max-w-40 overflow-visible text-wrap text-gray-800">
-                        {event.description}
-                      </div>
-                    </div>
-                  </div>
-                ))
-              );
-            })}
+                  ))
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>

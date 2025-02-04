@@ -12,7 +12,7 @@ export default {
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        "cc-primary": "#FF6D33",
+        "cc-primary": "#315273",
         "cc-dark": "#1E1D1D",
         "cc-plain": "#F7F3F0",
         "cc-link": "#236178",
