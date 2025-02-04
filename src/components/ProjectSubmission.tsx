@@ -79,7 +79,7 @@ export default function ProjectSubmission() {
     if (create.visible) {
       buttons.push(
         <CustomButton
-          disabled={!create.enabled}
+          // disabled={!create.enabled}
           icon={<Idea />}
           onClick={() => {
             router.push("/submission");
