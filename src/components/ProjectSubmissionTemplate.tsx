@@ -19,8 +19,8 @@ export default function ProjectSubmissionTemplate({
   buttons,
 }: Project) {
   return (
-    <Card className="border-4 w-full border-black rounded-lg">
-      <CardHeader className="w-full p-3 bg-black text-white">
+    <Card className="border-4 w-full border-black rounded-2xl overflow-hidden">
+      <CardHeader className="w-full p-3 bg-[#315273] text-white">
         <CardTitle className="flex font-monomaniac  tracking-wider items-center justify-between">
           <p className="mb-1">{header}</p>
           <span className="inline-block ml-2 h-3 w-3 rounded-full bg-white"></span>
