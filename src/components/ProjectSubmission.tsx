@@ -60,14 +60,13 @@ export default function ProjectSubmission() {
   function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
     const buttons: ReactNode[] = [];
     if (view.visible) {
-      buttons.push(
-<ViewSubmission disabled={!view.enabled}></ViewSubmission>
-      );
+      buttons.push(<ViewSubmission disabled={!view.enabled}></ViewSubmission>);
     }
     if (edit.visible) {
       buttons.push(
         <CustomButton
-          disabled={!edit.enabled}
+          // disabled={!edit.enabled}
+          disabled={false}
           onClick={() => {
             router.push("/submission/edit");
           }}
@@ -135,16 +134,16 @@ export default function ProjectSubmission() {
   }, [submissionExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
 
   return (
-      <ProjectSubmissionTemplate
-        header="Project Submission"
-        subtitle={subtitle} //TODO: Change to actual time and date function
-        title={title}
-        icon={icon}
-        buttons={getButtons({
-          create: createOptions,
-          view: viewOptions,
-          edit: editOptions,
-        })}
-      />
+    <ProjectSubmissionTemplate
+      header="Project Submission"
+      subtitle={subtitle} //TODO: Change to actual time and date function
+      title={title}
+      icon={icon}
+      buttons={getButtons({
+        create: createOptions,
+        view: viewOptions,
+        edit: editOptions,
+      })}
+    />
   );
 }
