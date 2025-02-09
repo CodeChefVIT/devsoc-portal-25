@@ -1,47 +1,46 @@
 <p align="center"><a href="https://www.codechefvit.com" target="_blank"><img src="https://i.ibb.co/4J9LXxS/cclogo.png" width=160 title="CodeChef-VIT" alt="Codechef-VIT"></a>
 </p>
 
-<h2 align="center"> DevSoc'25 Portal </h2>
+<h2 align="center"> DEVSOC'25 Portal</h2>
 <br/>
 
-> <p>Enhance your hackathon journey with DevSoc'25 Portal by CodeChef-VIT! Form teams, submit ideas, choose tracks, and manage presentations effortlessly. Collaborate effectively, refine your projects, and stay on top of your submissions with our streamlined platform.</p>
 
+> <p>Welcome to Code of DEVSOC'25 Portal, Enhance your hackathon journey with this Portal brought to you by CodeChef-VIT! Form teams, submit ideas, choose tracks, and manage presentations effortlessly. Collaborate effectively, refine your projects, and stay on top of your submissions with our streamlined platform.</p>
 ## 🌐 Deploy
-[https://devsoc-portal-25.vercel.app/](https://devsoc-portal-25.vercel.app/)
+[https://portal.devsoc25.codechefvit.com/](https://portal.devsoc25.codechefvit.com/)
 
 ## ⚙️ Tech Stack:
 
-- Next.js : Framework for React applications with server-side rendering.
-- Tailwind CSS : Utility-first CSS framework for rapid UI development.
-- Shadcn : Collection of pre-built components using Radix UI and Tailwind CSS.
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Zustand
+- ShadcN
 
-## 💡 Features:
+## 🖼 Screenshots
 
-- Form Teams: Create and manage your hackathon team.
-- Choose Tracks: Select a track that aligns with your project.
-- Edit Teams: Modify your team, including kicking out members if necessary.
-- Submit Ideas: Share and update your project ideas.
-- Upload Presentations: Submit project presentations for review rounds.
-- Seamless UI: Experience a clean and user-friendly interface.
+<p align="center">
+
+#### Dashboard
+
+<img width="1440" alt="image" src="portal-img/dashboard.png">
+
+#### Other Pages
+
+<img width="1440" alt="image" src="portal-img/signup.png">
+<img width="1440" alt="image" src="portal-img/login.png">
+<img width="1440" alt="image" src="portal-img/tellus.png">
+<img width="1440" alt="image" src="portal-img/submit.png">
+<img width="1440" alt="image" src="portal-img/track.png">
+
+</p>
 
 ## 🏁 Get Started
 
-There is another repository : https://github.com/CodeChefVIT/devsoc-admin-25.git <br><br>
-This enables seamless team evaluation, scoring based on presentations, and efficient team lookup while maintaining a record of initial idea submissions, potential tech stacks, and complete team details.
-
-To get started, fork your own copy and clone your chosen branch. To clone a branch you can run the following:
-
-Clone the 'portal' repository
+To get started, fork your own copy and clone the master branch. To clone a branch you can run the following:
 
 ```bash
-git clone -b  https://github.com/<Your username>/devsoc-portal-25.git
-```
-OR  
-
-Clone the 'admin' repository 
-
-```bash
-git clone -b  https://github.com/<Your username>/devsoc-admin-25.git
+git clone -b master https://github.com/<Your username>/devsoc-portal-25.git
 ```
 
 Run these commands on your bash/terminal and open it in a code editor of your choice.
@@ -58,7 +57,134 @@ To start your development server run:
 pnpm dev
 ```
 
-Before getting started, please ensure that the .env file is properly configured. The .env.example file has been provided for your reference, with examples of environment variables to be listed.
+## 📝 Checkout:
+
+- DEVSOC'25 Landing: [https://github.com/CodeChefVIT/devsoc-landing-25](https://github.com/CodeChefVIT/devsoc-landing-25)
+- DEVSOC'25 Admin: [https://github.com/CodeChefVIT/devsoc-admin-25](hhttps://github.com/CodeChefVIT/devsoc-admin-25)
+- DEVSOC'25 Backend: [https://github.com/CodeChefVIT/devsoc-be-25](https://github.com/CodeChefVIT/devsoc-be-25)
+
+## 🚀 Contributors
+
+<table>
+<tr align="center">
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/67090539?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Abhinav Pant</p>
+	<p align="center">
+		<a href = "https://github.com/abhitrueprogrammer"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/abhinav-pant/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/56132559?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Abhinav Ganeshan</p>
+	<p align="center">
+		<a href = "https://github.com/Abh1noob"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/abhinav-gk/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/84934511?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Nishant Gupta</p>
+	<p align="center">
+		<a href = "https://github.com/NishantGupt786"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/nishant-gupta-12913221b/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/148696092?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Aryan Garg</p>
+	<p align="center">
+		<a href = "https://github.com/Aryan-Garg-dev"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/aryan-garg-dev/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+</tr>
+
+<tr align="center">
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/157038896?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Aditi Saxena</p>
+	<p align="center">
+		<a href = "https://github.com/aditisaxena259"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/aditi-saxena-4674ab222/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/88274018?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Harshit Sarma</p>
+	<p align="center">
+		<a href = "https://github.com/kashyap-harshit"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/harshit-sarma-247175179">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+
+ <td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/142434600?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Samya Mehta</p>
+	<p align="center">
+		<a href = "https://github.com/samyamehta16"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/samyamehta16/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/71623796?v=4" width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Vedant Matanhelia</p>
+	<p align="center">
+		<a href = "https://github.com/RajivDalal"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/vedant-matanhelia-aa171027b/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+<td>
+	<p align="center">
+		<img src = "https://avatars.githubusercontent.com/u/145206236?v=4 width="200" height="200" alt="profilepic" style="border: 2px solid grey; width: 170px; height:170px">
+	</p>
+	<p style="font-size:17px; font-weight:600;">Dhruv S Chopra</p>
+	<p align="center">
+		<a href = "https://github.com/DhruvsChopra"><img src = "http://www.iconninja.com/files/241/825/211/round-collaboration-social-github-code-circle-network-icon.svg" width="36" height = "36" alt="GitHub"/></a>
+		<a href = "https://www.linkedin.com/in/dhruv-singh-177167287/">
+			<img src = "http://www.iconninja.com/files/863/607/751/network-linkedin-social-connection-circular-circle-media-icon.svg" width="36" height="36" alt="LinkedIn"/>
+		</a>
+	</p>
+</td>
+</tr>
+</table>
 
 ## License
 
