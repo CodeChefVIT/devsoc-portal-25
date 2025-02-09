@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center"><a href="https://www.codechefvit.com" target="_blank"><img src="https://i.ibb.co/4J9LXxS/cclogo.png" width=160 title="CodeChef-VIT" alt="Codechef-VIT"></a>
+</p>
 
-## Getting Started
+<h2 align="center"> DevSoc'25 Portal </h2>
+<br/>
 
-First, run the development server:
+> <p>Enhance your hackathon journey with DevSoc'25 Portal by CodeChef-VIT! Form teams, submit ideas, choose tracks, and manage presentations effortlessly. Collaborate effectively, refine your projects, and stay on top of your submissions with our streamlined platform.</p>
+
+## 🌐 Deploy
+[https://devsoc-portal-25.vercel.app/](https://devsoc-portal-25.vercel.app/)
+
+## ⚙️ Tech Stack:
+
+- Next.js : Framework for React applications with server-side rendering.
+- Tailwind CSS : Utility-first CSS framework for rapid UI development.
+- Shadcn : Collection of pre-built components using Radix UI and Tailwind CSS.
+
+## 💡 Features:
+
+- Form Teams: Create and manage your hackathon team.
+- Choose Tracks: Select a track that aligns with your project.
+- Edit Teams: Modify your team, including kicking out members if necessary.
+- Submit Ideas: Share and update your project ideas.
+- Upload Presentations: Submit project presentations for review rounds.
+- Seamless UI: Experience a clean and user-friendly interface.
+
+## 🏁 Get Started
+
+There is another repository : https://github.com/CodeChefVIT/devsoc-admin-25.git <br><br>
+This enables seamless team evaluation, scoring based on presentations, and efficient team lookup while maintaining a record of initial idea submissions, potential tech stacks, and complete team details.
+
+To get started, fork your own copy and clone your chosen branch. To clone a branch you can run the following:
+
+Clone the 'portal' repository
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone -b  https://github.com/<Your username>/devsoc-portal-25.git
+```
+OR  
+
+Clone the 'admin' repository 
+
+```bash
+git clone -b  https://github.com/<Your username>/devsoc-admin-25.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run these commands on your bash/terminal and open it in a code editor of your choice.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Run the following to install all the dependencies:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+pnpm i
+```
 
-## Learn More
+To start your development server run:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+pnpm dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Before getting started, please ensure that the .env file is properly configured. The .env.example file has been provided for your reference, with examples of environment variables to be listed.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## License
 
-## Deploy on Vercel
+[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<p align="center">
+	Made with :heart: by <a href="https://www.codechefvit.com" target="_blank">CodeChef-VIT</a>
+</p>
