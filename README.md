@@ -25,12 +25,20 @@
 
 <img width="1440" alt="image" src="portal-img/dashboard.png">
 
-#### Other Pages
+#### Signup
 
 <img width="1440" alt="image" src="portal-img/signup.png">
+
+#### Login 
 <img width="1440" alt="image" src="portal-img/login.png">
+
+#### OnBoarding
 <img width="1440" alt="image" src="portal-img/tellus.png">
+
+#### Project Submission
 <img width="1440" alt="image" src="portal-img/submit.png">
+
+#### Track Details
 <img width="1440" alt="image" src="portal-img/track.png">
 
 </p>
