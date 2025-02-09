@@ -31,7 +31,7 @@
 - **Submit Ideas:** Share and update your project ideas.  
 
 - **Upload Presentations:** Submit project presentations for review rounds. 
- 
+
 - **Seamless UI:** Experience a clean and user-friendly interface.  
 
 
@@ -39,9 +39,6 @@
 
 <p align="center">
 
-#### Dashboard
-
-<img width="1440" alt="dashboard" src="portal-img/dashboard.png">
 
 #### Signup
 
@@ -52,6 +49,10 @@
 
 #### OnBoarding
 <img width="1440" alt="TellUsMore" src="portal-img/tellus.png">
+
+#### Dashboard
+
+<img width="1440" alt="dashboard" src="portal-img/dashboard.png">
 
 #### Project Submission
 <img width="1440" alt="Submit" src="portal-img/submit.png">
@@ -83,7 +84,7 @@ To start your development server run:
 pnpm dev
 ```
 
-## 📝 Requirements:
+## 📝 Checkout:
 
 - DEVSOC'25 Landing: [https://github.com/CodeChefVIT/devsoc-landing-25](https://github.com/CodeChefVIT/devsoc-landing-25)
 - DEVSOC'25 Admin: [https://github.com/CodeChefVIT/devsoc-admin-25](https://github.com/CodeChefVIT/devsoc-admin-25)
