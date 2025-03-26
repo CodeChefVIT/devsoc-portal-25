@@ -130,10 +130,10 @@ const Timeline: React.FC = () => {
           ref={timelineRef}
           className="relative overflow-y-hidden overflow-x-auto scrollbar-hide flex"
         >
-          <div className="relative flex items-center gap-20 min-w-max py-8">
+          <div className="relative flex items-center gap-20 min-w-max ">
             {/* Connecting Line */}
             <div
-              className="absolute h-[6px] bg-black"
+              className="absolute h-[6px] w-screen bg-black"
               style={{
                 left: 0,
                 right: 0,

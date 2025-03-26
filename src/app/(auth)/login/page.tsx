@@ -105,11 +105,11 @@ const Login = () => {
                       required
                       autoFill
                     />
-                    <Link
+                    {/* <Link
                       text={"Recover Password"}
                       onClick={handleResetPassword}
                       className={"mt-1 absolute right-0 text-xs"}
-                    />
+                    /> */}
                   </div>
                 )}
               />

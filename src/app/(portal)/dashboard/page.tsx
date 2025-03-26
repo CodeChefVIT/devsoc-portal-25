@@ -7,6 +7,7 @@ import JoinTeam from "@/components/joinTeam";
 import TracksMobile from "@/components/tracks/trackMobile";
 import Timeline from "@/components/timeline/timeline";
 import ProjectSubmission from "@/components/ProjectSubmission";
+import IdeaSubmission from "@/components/IdeaSubmission";
 
 const Dashboard: React.FC = () => {
   const fetchTeamInfo = useTeamStore((state) => state.fetch);
@@ -33,7 +34,8 @@ const Dashboard: React.FC = () => {
             {team.code ? <TeamView /> : <JoinTeam />}
           </div>
           <div className="flex flex-col items-start justify-start rounded-lg">
-            <ProjectSubmission />
+            <IdeaSubmission/>
+            {/* <ProjectSubmission /> */}
           </div>
         </div>
       </div>
