@@ -88,7 +88,7 @@ export default function RootLayout({
         <link rel="icon" type="image/x-icon" href="/images/devsoc.png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-cover bg-no-repeat    antialiased bg-[url('/images/auth-bg.svg')]`}
+        className={`${geistSans.variable} ${geistMono.variable}  bg-no-repeat    antialiased bg-[url('/images/auth-bg1.svg')] bg-[length:1000px_1000px] bg-center`}
       >
         <Toaster position="top-right" reverseOrder={false} />
         {children}

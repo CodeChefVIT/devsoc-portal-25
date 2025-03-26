@@ -64,7 +64,7 @@ const PersonalDetails = () => {
           gender: genders[gender],
         }).finally(() => setLoading(false));
 
-        router.push("/github-activity");
+        router.push("/dashboard");
       },
       {
         loading: "Submitting...",

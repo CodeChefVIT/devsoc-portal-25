@@ -9,11 +9,10 @@ const api = axios.create({
 interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
   _retry?: boolean;
 }
+
 // Add a request interceptor
 api.interceptors.request.use(
   (config: CustomAxiosRequestConfig) => {
-    // Retrieve the token from local storage or any other method
-
     config.withCredentials = true;
     return config;
   },
@@ -31,23 +30,10 @@ api.interceptors.response.use(
         const responseData = error.response?.data as {
           data: { is_verified: boolean; is_starred: boolean };
         };
-
-        if (responseData.data.is_verified === false) {
-          window.location.href = "/login";
-        }
-        if (responseData.data.is_starred === false) {
-          window.location.href = "/login";
-        }
+        // All verification checks removed
       }
     }
-    // if (error.response?.status === 401) {
-    //   setTimeout(() => {
-    //     window.location.href = "/login";
-    //   }, 2000);
-    // }
 
-    // If the error status is 401 and there is no originalRequest._retry flag,
-    // it means the token has expired and we need to refresh it
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
 
@@ -59,9 +45,8 @@ api.interceptors.response.use(
             withCredentials: true,
           }
         );
-        return api(originalRequest); // Use the api instance to retry the request
+        return api(originalRequest);
       } catch {
-        // Handle refresh token error or redirect to login
         toast.error("Session expired. Please login again.");
         setTimeout(() => {
           window.location.href = "/login";

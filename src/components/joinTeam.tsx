@@ -7,7 +7,7 @@ import ProjectSubmissionTemplate from "./ProjectSubmissionTemplate";
 export default function joinTeam() {
   return (
     <ProjectSubmissionTemplate
-      header="Your Devsoc Team"
+      header="Your Team"
       title="No team members yet?"
       subtitle="Start a new team or Join one"
       icon={UserIcon}

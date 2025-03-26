@@ -7,18 +7,19 @@ interface Event {
   time: string;
   description: string;
 }
+
 const getDayValue = () => {
   const today = new Date();
   const day = today.getDate();
 
-  if (day === 3) {
-    return 0;
-  } else if (day === 4) {
-    return 1;
-  } else if (day == 5) {
-    return 2;
+  if (day === 29) {
+    return 0; // Saturday, March 29
+  } else if (day === 30) {
+    return 1; // Sunday, March 30
+  } else if (day === 31) {
+    return 2; // Monday, March 31
   } else {
-    return 0;
+    return 0; // Default to first day if outside the range
   }
 };
 
@@ -30,7 +31,7 @@ const Timeline: React.FC = () => {
 
     const intervalId = setInterval(() => {
       setDay(getDayValue());
-    }, 12 * 60 * 60 * 1000);
+    }, 12 * 60 * 60 * 1000); // Check every 12 hours
 
     return () => clearInterval(intervalId);
   }, []);
@@ -38,210 +39,153 @@ const Timeline: React.FC = () => {
   const [selectedDay, setSelectedDay] = useState<number>(day);
 
   const timelineRef = useRef<HTMLDivElement>(null);
-  console.log("Current timeLeft:", timeLeft);
-  const timeLeftRef = useRef(timeLeft);
-  useEffect(() => {
-    // Update ref whenever `timeLeft` changes
-    timeLeftRef.current = timeLeft;
-  }, [timeLeft]);
+
   const days: Event[][] = useMemo(
     () => [
-      // Day 1 - 03.02.2025
+      // Day 1 - March 29, 2025 (Saturday)
       [
-        { time: "9:00 AM", description: "Doors open and check-in", day: 1 },
-        { time: "10:00 AM", description: "Opening Ceremony", day: 1 },
-        { time: "11:00 AM", description: "Hacking Session Begins", day: 1 },
-        { time: "1:00 PM", description: "Lunch Break", day: 1 },
-        { time: "3:30 PM", description: "Panel Discussion", day: 1 },
-        { time: "7:00 PM", description: "Dinner Break", day: 1 },
-        { time: "9:00 PM", description: "Regroup at venue", day: 1 },
-        { time: "11:00 PM", description: "Jam Session", day: 1 },
+        { time: "8:00 PM", description: "Hack Commencement" },
+        { time: "12:00 AM", description: "Review 1 (Idea and tech feasibility)" },
       ],
-
-      // Day 2 - 04.02.2025
+      // Day 2 - March 30, 2025 (Sunday)
       [
-        { time: "12:00 AM", description: "Review 1", day: 2 },
-        { time: "6:00 AM", description: "Break", day: 2 },
-        { time: "12:00 PM", description: "Lunch Break", day: 2 },
-        { time: "7:00 PM", description: "Dinner Break", day: 2 },
-        { time: "9:00 PM", description: "Regroup at venue", day: 2 },
-        { time: "10:00 PM", description: "Engagement Activity", day: 2 },
+        { time: "10:00 PM", description: "Review 2 (Technical Implementation)" },
       ],
-
-      // Day 3 - 05.02.2025
+      // Day 3 - March 31, 2025 (Monday)
       [
-        { time: "12:00 AM", description: "Review 2", day: 3 },
-        { time: "5:30 AM", description: "Final Submission", day: 3 },
-        { time: "6:00 AM", description: "Breakfast Break", day: 3 },
-        { time: "9:00 AM", description: "Final Pitches", day: 3 },
-        {
-          time: "11:00 AM",
-          description: "Prize Distribution and Closing Ceremony",
-          day: 3,
-        },
+        { time: "3:00 PM", description: "Final Pitches" },
       ],
     ],
-    [] // Empty dependency array ensures this array is memoized and not recalculated on every render
+    []
   );
 
-  // skill issue. This should have dependancy array as [timeLeft]
-  // but it wasn't updating everysecond like it should
-  // so have to update every second instead
   useEffect(() => {
-    // Helper function to convert time strings (like "10:00 AM") into Date objects
-    const convertTimeToDate = (timeString: string) => {
-      const today = new Date();
+    const convertTimeToDate = (timeString: string, eventDay: number) => {
+      const baseDate = new Date(2025, 2, 29); // March 29, 2025
       const [time, period] = timeString.split(" ");
       const [hours, minutes] = time.split(":").map(Number);
       const normalizedPeriod = period.toUpperCase();
 
       let convertedHours =
         normalizedPeriod === "PM" && hours !== 12 ? hours + 12 : hours;
-      if (normalizedPeriod === "AM" && hours === 12) convertedHours = 0; // Special case for 12 AM
+      if (normalizedPeriod === "AM" && hours === 12) convertedHours = 0;
 
-      const date = new Date(today);
-      date.setHours(convertedHours, minutes, 0, 0); // Set hours and minutes
+      const date = new Date(baseDate);
+      date.setDate(baseDate.getDate() + eventDay);
+      date.setHours(convertedHours, minutes, 0, 0);
       return date;
     };
 
     const checkTimeMatch = () => {
-      const currentTime = new Date(); // Get the current date/time
+      const currentTime = new Date();
+      let totalFilled = 0;
 
-      // Find the most recent event whose time is less than or equal to the current time
-      let latestEventIndex = -1;
-      let previousEvents = 0;
-      for (let i = 0; i < day; i++) {
-        previousEvents += days[i].length;
-      }
-      for (let i = 0; i < days[day].length; i++) {
-        const eventTime = convertTimeToDate(days[day][i].time);
-
-        if (eventTime <= currentTime) {
-          latestEventIndex = i; // Update the latest index to this event
-        } else {
-          break;
+      for (let d = 0; d < days.length; d++) {
+        if (d < day) {
+          totalFilled += days[d].length;
+        } else if (d === day) {
+          for (let i = 0; i < days[d].length; i++) {
+            const eventTime = convertTimeToDate(days[d][i].time, d);
+            if (eventTime <= currentTime) {
+              totalFilled++;
+            } else {
+              break;
+            }
+          }
         }
       }
-      if (latestEventIndex !== -1) {
-        setFilledHexagons(previousEvents + latestEventIndex); // Set to the most recent past event
-      } else {
-        setFilledHexagons(0); // If no past events, set to 0
-      }
+      setFilledHexagons(totalFilled - 1 >= 0 ? totalFilled - 1 : 0);
     };
 
-    // Call the function every second to check time
-    const interval = setInterval(() => {
-      checkTimeMatch();
-    }, 1000);
-
-    // Cleanup interval when the component unmounts
+    const interval = setInterval(checkTimeMatch, 1000);
     return () => clearInterval(interval);
-  }, [days]);
-
-  // useEffect(() => {
-  //   // Handle horizontal scroll using the mouse wheel
-  //   const handleScroll = (e: WheelEvent) => {
-  //     if (timelineRef.current) {
-  //       // Only scroll horizontally
-  //       timelineRef.current.scrollLeft += e.deltaY;
-  //     }
-  //   };
-
-  //   const timelineElement = timelineRef.current;
-  //   if (timelineElement) {
-  //     timelineElement.addEventListener("wheel", handleScroll);
-  //   }
-
-  //   return () => {
-  //     if (timelineElement) {
-  //       timelineElement.removeEventListener("wheel", handleScroll);
-  //     }
-  //   };
-  // }, []);
+  }, [day, days]);
 
   return (
-    <div className="border-4 border-black pt-5  rounded-2xl bg-[#F7F3F0] overflow-hidden">
+    <div className="border-4 border-black pt-8 pb-6 px-6 rounded-2xl bg-[#F7F3F0] overflow-hidden">
       <section className="bg-[#F7F3F0] rounded-xl relative">
-        <div className="flex justify-between ">
-          <h2 className="font-yerk text-xl font-bold px-3 ">
+        <div className="flex justify-between mb-6">
+          <h2 className="font-yerk text-2xl font-bold px-3">
             Timeline - Day {selectedDay + 1}
           </h2>
-          <div className="flex gap-2 ">
+          <div className="flex gap-3">
             <CustomButton
-              disabled={selectedDay < 1}
-              buttonProps={{ className: "mt-0" }}
+              disabled={selectedDay <= 0}
+              buttonProps={{ className: "mt-0 px-4 py-2 text-lg" }}
               onClick={() => setSelectedDay(selectedDay - 1)}
             >
-              {" "}
-              {"<"}{" "}
+              {"<"}
             </CustomButton>
             <CustomButton
-              disabled={selectedDay > 1}
-              buttonProps={{ className: "mx-2" }}
+              disabled={selectedDay >= days.length - 1}
+              buttonProps={{ className: "mx-2 px-4 py-2 text-lg" }}
               onClick={() => setSelectedDay(selectedDay + 1)}
             >
-              {" "}
-              {">"}{" "}
+              {">"}
             </CustomButton>
           </div>
         </div>
 
-        {/* Scrollable Timeline */}
         <div
           ref={timelineRef}
-          className="relative overflow-y-hidden overflow-x-auto scrollbar-hide flex " // Add padding to avoid clipping
+          className="relative overflow-y-hidden overflow-x-auto scrollbar-hide flex"
         >
-          {/* Line Connecting Events */}
-
-          {/* Hexagons */}
-
-          <div className="flex items-center gap-16 min-w-max relative">
-            <div className="absolute left-0 w-full transform  flex items-center">
-              <div className="h-[4px]  w-full bg-black"></div>
-            </div>
-            <div className="grid grid-flow-col gap-12">
-              {days.map((dayEvents, dayIndex) => {
-                let previousEvents = 0;
-                for (let i = 0; i < dayIndex; i++) {
-                  previousEvents += days[i].length;
-                }
-                return (
-                  dayIndex === selectedDay &&
-                  dayEvents.map((event, eventIndex) => (
-                    <div
-                      key={eventIndex}
-                      className="flex translate-y-1 flex-col items-center"
-                    >
-                      {/* Time - Above the hexagon */}
-                      <div className="font-bold text-lg mb-2">{event.time}</div>
-                      {/* Hexagon */}
-                      <div className="flex items-center justify-center">
+          <div className="relative flex items-center gap-20 min-w-max py-8">
+            {/* Connecting Line */}
+            <div
+              className="absolute h-[6px] bg-black"
+              style={{
+                left: 0,
+                right: 0,
+                top: "50%",
+                transform: "translateY(-50%)",
+              }}
+            ></div>
+            <div className="grid grid-flow-col gap-16">
+              {days.map((dayEvents, dayIndex) =>
+                dayIndex === selectedDay
+                  ? dayEvents.map((event, eventIndex) => {
+                      const totalIndex =
+                        days
+                          .slice(0, dayIndex)
+                          .reduce((acc, curr) => acc + curr.length, 0) +
+                        eventIndex;
+                      return (
                         <div
-                          className={`w-7 h-7  ${
-                            eventIndex + previousEvents <= hexagonsFilled
-                              ? ""
-                              : "clip-hexagon bg-black"
-                          }    transition-colors duration-300`}
+                          key={eventIndex}
+                          className="flex translate-y-1 flex-col items-center"
                         >
-                          <div
-                            className={`w-full h-full clip-hexagon  ${
-                              eventIndex + previousEvents <= hexagonsFilled
-                                ? "bg-[#315273] scale-[1.30]"
-                                : "bg-[#F7F3F0]  scale-[0.83] "
-                            } `}
-                          ></div>
+                          <div className="font-bold text-xl mb-4">
+                            {event.time}
+                          </div>
+                          {/* Hexagon */}
+                          <div className="flex items-center justify-center">
+                            <div
+                              className={`w-12 h-12 ${
+                                totalIndex <= hexagonsFilled
+                                  ? ""
+                                  : "clip-hexagon bg-black"
+                              } transition-colors duration-300`}
+                            >
+                              <div
+                                className={`w-full h-full clip-hexagon ${
+                                  totalIndex <= hexagonsFilled
+                                    ? "bg-[#315273] scale-[1.30]"
+                                    : "bg-[#F7F3F0] scale-[0.83]"
+                                }`}
+                              ></div>
+                            </div>
+                          </div>
+                          <div className="text-center min-h-12 mt-4">
+                            <div className="text-sm max-w-48 overflow-visible text-wrap text-gray-800">
+                              {event.description}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      {/* Description - Below the hexagon */}
-                      <div className="text-center min-h-10 mt-2">
-                        <div className="text-xs max-w-40 overflow-visible text-wrap text-gray-800">
-                          {event.description}
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                );
-              })}
+                      );
+                    })
+                  : null
+              )}
             </div>
           </div>
         </div>
