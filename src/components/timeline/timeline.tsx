@@ -1,5 +1,5 @@
 "use client";
-import { useTimerStore } from "@/store/timer";
+// import { useTimerStore } from "@/store/timer";
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import CustomButton from "../CustomButton";
 
@@ -24,7 +24,7 @@ const getDayValue = () => {
 };
 
 const Timeline: React.FC = () => {
-  const timeLeft = useTimerStore((state) => state.timeLeft);
+  // const timeLeft = useTimerStore((state) => state.timeLeft);
   const [day, setDay] = useState(getDayValue());
   useEffect(() => {
     setDay(getDayValue());

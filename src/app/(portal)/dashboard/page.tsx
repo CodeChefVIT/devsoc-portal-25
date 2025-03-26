@@ -4,9 +4,9 @@ import React, { useEffect } from "react";
 import TeamView from "@/components/teamView";
 import { useTeamStore } from "@/store/team";
 import JoinTeam from "@/components/joinTeam";
-import TracksMobile from "@/components/tracks/trackMobile";
+// import TracksMobile from "@/components/tracks/trackMobile";
 import Timeline from "@/components/timeline/timeline";
-import ProjectSubmission from "@/components/ProjectSubmission";
+// import ProjectSubmission from "@/components/ProjectSubmission";
 import IdeaSubmission from "@/components/IdeaSubmission";
 
 const Dashboard: React.FC = () => {

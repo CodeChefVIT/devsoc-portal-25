@@ -78,7 +78,7 @@ const PersonalDetails = () => {
 
   useEffect(() => {
     if (error) form.trigger();
-  }, [error]);
+  }, [error,form]);
   const [isDayScholar, setDayScholar] = React.useState(false);
   const handleHostelBlockChange = (value: string) => {
     if (value === "Day Scholar") {

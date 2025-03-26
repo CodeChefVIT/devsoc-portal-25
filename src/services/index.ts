@@ -27,9 +27,9 @@ api.interceptors.response.use(
     const originalRequest = error.config as CustomAxiosRequestConfig;
     if (error.response?.status === 417) {
       if (error.config?.url === "/info/me") {
-        const responseData = error.response?.data as {
-          data: { is_verified: boolean; is_starred: boolean };
-        };
+        // const responseData = error.response?.data as {
+        //   data: { is_verified: boolean; is_starred: boolean };
+        // };
         // All verification checks removed
       }
     }
