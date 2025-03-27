@@ -126,7 +126,7 @@ pnpm dev
 
 <td>
 	<p align="center">
-		<img src="https://avatars.githubusercontent.com/u/84934511?v=4" width="170" height="170" alt="profilepic" style="border: 2px solid grey;">
+		<img src="https://avatars.githubusercontent.com/u/84934511?v=4" width="160" height="170" alt="profilepic" style="border: 2px solid grey;">
 	</p>
 	<p style="font-size:17px; font-weight:600;">Nishant Gupta</p>
 	<p align="center">

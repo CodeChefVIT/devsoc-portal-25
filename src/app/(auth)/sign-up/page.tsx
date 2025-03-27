@@ -106,8 +106,9 @@ const SignUp = () => {
                 size={"primary"} 
                 type={"submit"} 
                 disabled={form.formState.isSubmitting}
+                className="bg-[#FF6D33] hover:cursor-pointer"
               >
-                <p className="mb-[3px]">
+                <p className="mb-[3px] ]">
                   {form.formState.isSubmitting
                     ? "Creating account..."
                     : "Create Account"}
