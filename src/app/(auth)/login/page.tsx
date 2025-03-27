@@ -58,7 +58,7 @@ const Login = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className={"w-full flex flex-col items-center gap-10"}
+            className={"w-full max-w-xs flex flex-col items-center gap-10"}
           >
             <div className={"flex w-full flex-col gap-4"}>
               <FormField
