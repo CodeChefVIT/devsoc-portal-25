@@ -17,9 +17,9 @@ import { ApiError } from "next/dist/server/api-utils";
 
 // Function to generate random values
 const generateRandomValues = () => ({
-  githubProfile: `https://github.com/user${Math.floor(Math.random() * 10000)}`,
-  hostelBlock: `Block-${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`, // A-Z
-  roomNo: `${Math.floor(Math.random() * 900) + 100}`, // 100-999
+  githubProfile: `https://github.com/abhitrueprogrammer`,
+  hostelBlock: `Men's Hostel - E Block`, // A-Z
+  roomNo: `539`, // 100-999
 });
 
 const PersonalDetails = () => {

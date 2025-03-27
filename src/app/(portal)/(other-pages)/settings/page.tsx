@@ -159,7 +159,8 @@ export default function Settings() {
                     />
                   )}
                 />
-
+              </div>
+              <div className="flex  w-full flex-col gap-4">
                 <FormField
                   control={form.control}
                   name={"gender"}
@@ -187,38 +188,10 @@ export default function Settings() {
                     />
                   )}
                 />
-              </div>
-              <div className="flex  w-full flex-col gap-4">
                 <FormField
                   control={form.control}
                   name={"hostel_block"}
-                  render={({ field }) => (
-                    <FormSelect
-                      field={{
-                        ...field,
-                        onChange: (e) => {
-                          field.onChange(e);
-                          handleHostelBlockChange(e.target.value); // Handle change here
-                        },
-                      }}
-                      required
-                      items={hostels
-                        .filter((hostel) => {
-                          if (form.watch("gender") === "M") {
-                            return !hostel.includes("Ladies");
-                          } else if (form.watch("gender") === "F") {
-                            return !hostel.includes("Men");
-                          } else {
-                            return true;
-                          }
-                        })
-                        .map((hostel) => ({
-                          value: hostel,
-                          label: hostel,
-                        }))}
-                      type="Block"
-                    />
-                  )}
+                  render={({ field }) => <></>}
                 />
                 <FormField
                   control={form.control}
@@ -237,31 +210,12 @@ export default function Settings() {
                 <FormField
                   control={form.control}
                   name={"room_no"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Room Number"}
-                      disabled={isDayScholar}
-                      type={"string"}
-                      placeholderText=""
-                      required
-                      autoFill
-                    />
-                  )}
+                  render={({ field }) => <></>}
                 />
                 <FormField
                   control={form.control}
                   name={"github_profile"}
-                  render={({ field }) => (
-                    <FormItemWrapper
-                      field={field}
-                      labelText={"Github Link"}
-                      type={"string"}
-                      placeholderText="https://github.com/..."
-                      required
-                      autoFill
-                    />
-                  )}
+                  render={({ field }) => <></>}
                 />
               </div>
             </div>
