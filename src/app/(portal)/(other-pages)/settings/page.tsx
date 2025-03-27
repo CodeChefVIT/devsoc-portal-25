@@ -93,16 +93,16 @@ export default function Settings() {
       error: () => "",
     });
   };
-  const [isDayScholar, setDayScholar] = React.useState(false);
+  const [, setDayScholar] = React.useState(false);
 
-  const handleHostelBlockChange = (value: string) => {
-    if (value === "Day Scholar") {
-      setDayScholar(true);
-      form.setValue("room_no", "000");
-    } else {
-      setDayScholar(false);
-    }
-  };
+  // const handleHostelBlockChange = (value: string) => {
+  //   if (value === "Day Scholar") {
+  //     setDayScholar(true);
+  //     form.setValue("room_no", "000");
+  //   } else {
+  //     setDayScholar(false);
+  //   }
+  // };
 
   return (
     <div className="md:py-2 pt-6 flex flex-col items-center ">
@@ -191,7 +191,7 @@ export default function Settings() {
                 <FormField
                   control={form.control}
                   name={"hostel_block"}
-                  render={({ field }) => <></>}
+                  render={({  }) => <></>}
                 />
                 <FormField
                   control={form.control}
@@ -210,12 +210,12 @@ export default function Settings() {
                 <FormField
                   control={form.control}
                   name={"room_no"}
-                  render={({ field }) => <></>}
+                  render={({  }) => <></>}
                 />
                 <FormField
                   control={form.control}
                   name={"github_profile"}
-                  render={({ field }) => <></>}
+                  render={({  }) => <></>}
                 />
               </div>
             </div>
