@@ -39,7 +39,7 @@ const genderItems = [
   { value: "O", label: "Other" },
 ];
 
-const hostelItems = hostels.map((hostel) => ({ value: hostel, label: hostel }));
+// const hostelItems = hostels.map((hostel) => ({ value: hostel, label: hostel }));
 
 export default function Settings() {
   const user = useUserStore((state) => state.user);
@@ -82,7 +82,6 @@ export default function Settings() {
       error: () => "",
     });
   };
-  const [, setDayScholar] = React.useState(false);
 
   // const handleHostelBlockChange = (value: string) => {
   //   if (value === "Day Scholar") {
