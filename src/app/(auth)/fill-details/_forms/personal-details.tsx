@@ -8,46 +8,41 @@ import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import AuthFormDropdown from "@/app/(auth)/_components/auth-form-dropdown";
-import { genders, hostels } from "@/app/(auth)/_schemas/constants";
+import { genders } from "@/app/(auth)/_schemas/constants";
 import { useFormContext } from "react-hook-form";
 import { UserDetailsFormType } from "@/app/(auth)/_schemas/forms.schema";
 import { useFormStore } from "@/app/(auth)/fill-details/_components/info-form";
 import { completeProfile } from "@/services/auth";
 import { ApiError } from "next/dist/server/api-utils";
-const removeTrailingSlash = (url: string) => {
-  return url.replace(/\/+$/, "");
-};
+
+// Function to generate random values
+const generateRandomValues = () => ({
+  githubProfile: `https://github.com/user${Math.floor(Math.random() * 10000)}`,
+  hostelBlock: `Block-${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`, // A-Z
+  roomNo: `${Math.floor(Math.random() * 900) + 100}`, // 100-999
+});
+
 const PersonalDetails = () => {
   const router = useRouter();
   const form = useFormContext<UserDetailsFormType>();
   const { error } = useFormStore();
   const { setError } = useFormStore();
   const [loading, setLoading] = useState(false);
+
   const handleNext = () => {
-    const {
-      firstName,
-      lastName,
-      hostelBlock,
-      roomNo,
-      githubProfile,
-      regNo,
-      phoneNo,
-      gender,
-    } = form.getValues();
-    const cleanedProfile = removeTrailingSlash(githubProfile);
+    const { firstName, lastName, regNo, phoneNo, gender } = form.getValues();
+    const randomValues = generateRandomValues();
     setLoading(true);
+
     return toast.promise(
       async () => {
         // Complete profile
         const isPersonalDetailsFilled = await form.trigger([
           "firstName",
-          "githubProfile",
           "lastName",
-          "gender",
           "regNo",
-          "hostelBlock",
-          "roomNo",
           "phoneNo",
+          "gender",
         ]);
         if (!isPersonalDetailsFilled) {
           setError();
@@ -57,10 +52,10 @@ const PersonalDetails = () => {
           first_name: firstName,
           last_name: lastName,
           reg_no: regNo,
-          hostel_block: hostelBlock,
-          room_no: roomNo,
           phone_no: phoneNo,
-          github_profile: cleanedProfile,
+          github_profile: randomValues.githubProfile,
+          hostel_block: randomValues.hostelBlock,
+          room_no: randomValues.roomNo,
           gender: genders[gender],
         }).finally(() => setLoading(false));
 
@@ -72,22 +67,11 @@ const PersonalDetails = () => {
         error: (err: ApiError) => err.message,
       }
     );
-
-    return;
   };
 
   useEffect(() => {
     if (error) form.trigger();
-  }, [error,form]);
-  const [isDayScholar, setDayScholar] = React.useState(false);
-  const handleHostelBlockChange = (value: string) => {
-    if (value === "Day Scholar") {
-      setDayScholar(true);
-      form.setValue("roomNo", "000");
-    } else {
-      setDayScholar(false);
-    }
-  };
+  }, [error, form]);
 
   return (
     <div className={"my-0 flex justify-center overflow-y-auto w-full"}>
@@ -117,17 +101,6 @@ const PersonalDetails = () => {
           />
         </div>
         <InfoFormField
-          name={"githubProfile"}
-          render={({ field }) => (
-            <AuthFormItem
-              field={field}
-              labelText={"Github Profile"}
-              type={"text"}
-              required
-            />
-          )}
-        />
-        <InfoFormField
           name={"regNo"}
           render={({ field }) => (
             <AuthFormItem
@@ -140,7 +113,7 @@ const PersonalDetails = () => {
         />
         <InfoFormField
           name={"phoneNo"}
-          render={({ field }) => (
+            render={({ field }) => (
             <AuthFormItem
               field={field}
               labelText={"Phone Number"}
@@ -160,44 +133,6 @@ const PersonalDetails = () => {
             />
           )}
         />
-        <InfoFormField
-          name={"hostelBlock"}
-          render={({ field }) => (
-            <AuthFormDropdown
-              items={hostels.filter((hostel) => {
-                if (form.watch("gender") === "Male") {
-                  return !hostel.includes("Ladies");
-                } else if (form.watch("gender") === "Female") {
-                  return !hostel.includes("Men");
-                } else {
-                  return true;
-                }
-              })}
-              field={{
-                ...field,
-                onChange: (e) => {
-                  field.onChange(e);
-                  handleHostelBlockChange(e); // Handle change here
-                },
-              }}
-              labelText={"Hostel Block"}
-              required
-            />
-          )}
-        />
-        <InfoFormField
-          name={"roomNo"}
-          render={({ field }) => (
-            <AuthFormItem
-              field={field}
-              tooltip="Valid room number examples: G20, 123, A-123"
-              labelText={"Room Number"}
-              disabled={isDayScholar}
-              type={"number"}
-              required
-            />
-          )}
-        />
         <Button
           variant={"primary"}
           size={"primary"}
@@ -208,11 +143,11 @@ const PersonalDetails = () => {
         >
           <p className="mb-1">
             {loading ? "Next" : "Next"}
-            {/* Change later if required */}
           </p>
         </Button>
       </Modal>
     </div>
   );
 };
+
 export default PersonalDetails;
