@@ -9,7 +9,7 @@ const Navbar = () => {
       }
     >
       <Image
-        src={"/icons/devsoc-logo.svg"}
+        src={"/icons/cc-logo.svg"}
         height={40}
         width={40}
         alt={"logo"}

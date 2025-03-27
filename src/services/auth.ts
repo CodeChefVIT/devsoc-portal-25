@@ -10,8 +10,7 @@ interface ILoginRequest {
 }
 interface LoginResponse {
   is_profile_complete: boolean | undefined;
-  is_verified: boolean | undefined;
-  is_starred: boolean | undefined;
+  
 }
 export const login = async (request: ILoginRequest) => {
   try {
@@ -123,14 +122,14 @@ export const joinTeam = async (request: IJoinTeamRequest) => {
   }
 };
 
-export const pingStar = async () => {
-  try {
-    const res = await api.get("/auth/star");
-    return getData(res.data);
-  } catch (error) {
-    throw ConvertToAPIError(error);
-  }
-};
+// export const pingStar = async () => {
+//   try {
+//     const res = await api.get("/auth/star");
+//     return getData(res.data);
+//   } catch (error) {
+//     throw ConvertToAPIError(error);
+//   }
+// };
 export const updateGithubUserName = async (request: IGithubProfile) => {
   try {
     const res = await api.post("/auth/github", request);

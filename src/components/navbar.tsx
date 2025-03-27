@@ -10,7 +10,7 @@ import {
 import React from "react";
 import Image from "next/image";
 // import devsoc from "../../public/images/devsoc.png";
-import devsoc from "@/assets/images/DEVSOC.svg";
+import devsoc from "@/assets/images/cc-logo.svg";
 import Link from "next/link";
 import CustomButton from "./CustomButton";
 import toast from "react-hot-toast";
@@ -68,12 +68,12 @@ export default function Navbar() {
         {/* change to real timer */}
         <Link
           target="__value"
-          href={"https://discord.gg/M8V6vxXnUq"}
+          href={"https://discord.gg/U9tyJyct"}
           className="active:-rotate-12 "
         >
           <Image src={discord} alt="Discord Logo" width={45} height={45} />
         </Link>
-        <Link target="__value" href={"https://devsoc.codechefvit.com/"}>
+        <Link target="__value" href={"https://www.codechefvit.com/"}>
           <Image src={devsoc} alt="Another Logo" width={40} height={40} />
         </Link>
         <Link href="/settings" className="group ">

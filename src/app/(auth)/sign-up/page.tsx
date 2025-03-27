@@ -37,13 +37,11 @@ const SignUp = () => {
           email: values.email,
           password: values.password,
         });
-        router.push(
-          `/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`
-        );
+        router.push("/login"); // Redirect to login instead of OTP verification
       },
       {
-        loading: "Loading...",
-        success: "Verify OTP to continue!",
+        loading: "Creating account...",
+        success: "Account created successfully! Please log in.",
         error: (err: ApiError) => err.message,
       }
     );
@@ -51,7 +49,7 @@ const SignUp = () => {
 
   return (
     <div className={"w-full flex justify-center items-center"}>
-      <Modal classname={"py-10"} text={"Welcome back!"}>
+      <Modal classname={"py-10"} text={"Welcome !"}>
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
@@ -103,10 +101,16 @@ const SignUp = () => {
                 Already have an account?{" "}
                 <Link text={"Log in"} href={"/login"} />
               </div>
-              <Button variant={"primary"} size={"primary"} type={"submit"} disabled={form.formState.isSubmitting}>
-                <p className="mb-[3px]">
+              <Button 
+                variant={"primary"} 
+                size={"primary"} 
+                type={"submit"} 
+                disabled={form.formState.isSubmitting}
+                className="bg-[#FF6D33] hover:cursor-pointer"
+              >
+                <p className="mb-[3px] ]">
                   {form.formState.isSubmitting
-                    ? "Sending OTP..."
+                    ? "Creating account..."
                     : "Create Account"}
                 </p>
               </Button>
@@ -117,4 +121,5 @@ const SignUp = () => {
     </div>
   );
 };
+
 export default SignUp;

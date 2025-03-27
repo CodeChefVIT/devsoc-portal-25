@@ -1,5 +1,6 @@
 import axios, { type AxiosError } from "axios";
 import { ApiError } from "next/dist/server/api-utils";
+console.log(ApiError);
 import { toSentenceCase } from "./utils";
 
 export function ConvertToAPIError(err: unknown): ApiError {

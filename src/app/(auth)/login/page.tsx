@@ -11,11 +11,10 @@ import { LoginFormType, LoginSchema } from "@/app/(auth)/_schemas/forms.schema";
 
 import { Form, FormField } from "@/components/ui/form";
 import AuthFormItem from "@/app/(auth)/_components/auth-form-item";
-import { login, resendOTP } from "@/services/auth";
+import { login,  } from "@/services/auth";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { ApiError } from "next/dist/server/api-utils";
-import { toSentenceCase } from "@/lib/utils";
 
 const Login = () => {
   const router = useRouter();
@@ -28,26 +27,9 @@ const Login = () => {
       email: "",
     },
   });
-  const handleResetPassword = async () => {
-    return toast.promise(
-      async () => {
-        const { email } = form.getValues();
-        const isPersonalDetailsFilled = await form.trigger(["email"]);
-        if (!isPersonalDetailsFilled) {
-          throw new Error("Please fill the email!");
-        }
-        await resendOTP({
-          email: email,
-        });
-        router.push(`/reset-password/${email}`);
-      },
-      {
-        loading: "Loading...",
-        success: "Verify OTP to continue!",
-        error: (err: ApiError) => err.message,
-      }
-    );
-  };
+
+
+
   const onSubmit = async (values: LoginFormType) => {
     return toast.promise(
       async () => {
@@ -55,23 +37,9 @@ const Login = () => {
           email: values.email,
           password: values.password,
         });
-        if (res.status == "fail") {
-          if (res.data.is_verified === false) {
-            console.log("data" + res.data.is_verified);
-            router.push(
-              `/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`
-            );
-            throw new ApiError(res.status, toSentenceCase(res.message));
-          }
-        }
-        if (res.is_verified === false) {
-          router.push(
-            `/sign-up/verify-otp?email=${encodeURIComponent(values.email)}`
-          );
-        } else if (res.is_profile_complete && res.is_starred) {
+        
+        if (res.is_profile_complete) {
           router.push(`/dashboard`);
-        } else if (res.is_profile_complete && !res.is_starred) {
-          router.push(`/github-activity`);
         } else {
           router.push(`/fill-details/1`);
         }
@@ -90,7 +58,7 @@ const Login = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className={"w-full flex flex-col items-center gap-10"}
+            className={"w-full max-w-xs flex flex-col items-center gap-10"}
           >
             <div className={"flex w-full flex-col gap-4"}>
               <FormField
@@ -118,18 +86,18 @@ const Login = () => {
                       required
                       autoFill
                     />
-                    <Link
+                    {/* <Link
                       text={"Recover Password"}
                       onClick={handleResetPassword}
                       className={"mt-1 absolute right-0 text-xs"}
-                    />
+                    /> */}
                   </div>
                 )}
               />
             </div>
             <div className={"flex flex-col justify-center items-center gap-4"}>
               <div className={"text-sm mt-2 font-inter"}>
-                Don&apos;t have an account?{" "}
+                {"Don't have an account? "}
                 <Link text={"Sign Up"} href={"/sign-up"} />
               </div>
               <Button
