@@ -7,7 +7,6 @@ import JoinTeam from "@/components/joinTeam";
 // import TracksMobile from "@/components/tracks/trackMobile";
 import Timeline from "@/components/timeline/timeline";
 // import ProjectSubmission from "@/components/ProjectSubmission";
-import IdeaSubmission from "@/components/IdeaSubmission";
 import ProjectSubmission from "@/components/ProjectSubmission";
 
 const Dashboard: React.FC = () => {
