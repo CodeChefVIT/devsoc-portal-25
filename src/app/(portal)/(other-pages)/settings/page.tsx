@@ -1,4 +1,3 @@
-//TODO: Move this to (forms) and use the template provided there
 "use client";
 import { useUserStore } from "@/store/user";
 import React from "react";
@@ -10,7 +9,6 @@ import CustomButton from "@/components/CustomButton";
 import toast from "react-hot-toast";
 import FormItemWrapper from "../../../../components/form/formItemWrapper";
 import { IUser } from "@/interfaces";
-
 import { FormSelect } from "@/components/form/formSelectItemOld";
 import { getDefaultsFromSchema } from "../(forms)/defaults";
 import { githubLinkSchema } from "../(forms)/schema";
@@ -22,37 +20,33 @@ import {
 import { hostels } from "@/app/(auth)/_schemas/constants";
 
 const userSchema = z.object({
-  first_name: NameSchema.default(""), // Default first name
+  first_name: NameSchema.default(""),
   last_name: NameSchema.default(""),
-  room_no: RoomNumberSchema.default(""), // Default room number
+  room_no: RoomNumberSchema.default(""),
   hostel_block: z
     .enum(hostels as [string, ...string[]])
     .default("Men's Hostel - K Block"),
-  phone_no: z
-    .string()
-    .regex(/^\d{10}$/, "Invalid Phone Number")
-    .default(""), // Default phone number
-  email: z.string().email("Invalid email format").trim().default(""), // Default email
-
+  phone_no: z.string().regex(/^\d{10}$/, "Invalid Phone Number").default(""),
+  email: z.string().email("Invalid email format").trim().default(""),
   reg_no: RegNoSchema.default(""),
-  gender: z.enum(["M", "F", "O"]).default("M"), // Default gender
-  github_profile: githubLinkSchema, // Default GitHub link is an empty string
+  gender: z.enum(["M", "F", "O"]).default("M"),
+  github_profile: githubLinkSchema,
 });
 
-//change to global gender and block schemas later
 const genderItems = [
   { value: "M", label: "Male" },
   { value: "F", label: "Female" },
   { value: "O", label: "Other" },
 ];
 
-export default function Settings() {
-  //   const onSubmit = (data) => props.updateAction(data)
+const hostelItems = hostels.map((hostel) => ({ value: hostel, label: hostel }));
 
+export default function Settings() {
   const user = useUserStore((state) => state.user);
   const userFetch = useUserStore((state) => state.fetch);
   const userUpdate = useUserStore((state) => state.updateUser);
   const userIsSet = useUserStore((state) => state.userIsSet);
+
   React.useEffect(() => {
     if (!userIsSet) {
       userFetch(); // Fetch user if not loaded
@@ -63,12 +57,9 @@ export default function Settings() {
     resolver: zodResolver(userSchema),
     defaultValues: getDefaultsFromSchema(userSchema),
   });
+
   React.useEffect(() => {
     if (userIsSet) {
-      // Reset form values after user data is fetched
-      if (user.hostel_block === "Day Scholar") {
-        setDayScholar(true);
-      }
       form.reset({
         first_name: user.first_name || "",
         last_name: user.last_name || "",
@@ -78,44 +69,31 @@ export default function Settings() {
         hostel_block: (user.hostel_block as (typeof hostels)[number]) || "",
         phone_no: user.phone_no || "",
         gender: user.gender || "M",
-        github_profile: user.github_profile || "", // Default GitHub link
+        github_profile: user.github_profile || "",
       });
     }
-  }, [user, form, form.reset, userIsSet]);
+  }, [user, form, userIsSet]);
+
   const onSubmit: SubmitHandler<z.infer<typeof userSchema>> = (data) => {
-    const newUser: IUser = {
-      ...user,
-      ...data,
-    };
+    const newUser: IUser = { ...user, ...data };
     return toast.promise(userUpdate(newUser), {
       loading: "Loading...",
       success: "Updated profile!",
       error: () => "",
     });
   };
-  const [isDayScholar, setDayScholar] = React.useState(false);
-
-  const handleHostelBlockChange = (value: string) => {
-    if (value === "Day Scholar") {
-      setDayScholar(true);
-      form.setValue("room_no", "000");
-    } else {
-      setDayScholar(false);
-    }
-  };
 
   return (
-    <div className="md:py-2 pt-6 flex flex-col items-center ">
-      <h1 className={"font-monomaniac  text-2xl mb-5"}>Profile</h1>
-
+    <div className="md:py-2 pt-6 flex flex-col items-center">
+      <h1 className={"font-monomaniac text-2xl mb-5"}>Profile</h1>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-[90%] md:w-[75%] space-y-8"
         >
-          <div className={"flex  rounded-lg flex-col gap-4"}>
-            <div className="md:flex-row flex-col flex border-4 bg-cc-plain md:p-5 md:pb-16 rounded-lg border-black  gap-4 md:gap-20 px-4 py-6">
-              <div className="flex w-full  flex-col gap-4">
+          <div className={"flex rounded-lg flex-col gap-4"}>
+            <div className="md:flex-row flex-col flex border-4 bg-cc-plain md:p-5 md:pb-16 rounded-lg border-black gap-4 md:gap-20 px-4 py-6">
+              <div className="flex w-full flex-col gap-4">
                 <FormField
                   control={form.control}
                   name={"first_name"}
@@ -160,7 +138,7 @@ export default function Settings() {
                   )}
                 />
               </div>
-              <div className="flex  w-full flex-col gap-4">
+              <div className="flex w-full flex-col gap-4">
                 <FormField
                   control={form.control}
                   name={"gender"}
@@ -191,7 +169,15 @@ export default function Settings() {
                 <FormField
                   control={form.control}
                   name={"hostel_block"}
-                  render={({ field }) => <></>}
+                  render={({ field }) => (
+                    <FormSelect
+                      type="Hostel Block"
+                      field={field}
+                      required
+                      items={hostelItems}
+                      placeholder="Select Hostel Block"
+                    />
+                  )}
                 />
                 <FormField
                   control={form.control}
@@ -210,25 +196,42 @@ export default function Settings() {
                 <FormField
                   control={form.control}
                   name={"room_no"}
-                  render={({ field }) => <></>}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"Room Number"}
+                      type={"text"}
+                      placeholderText="A-101"
+                      required
+                      autoFill
+                    />
+                  )}
                 />
                 <FormField
                   control={form.control}
                   name={"github_profile"}
-                  render={({ field }) => <></>}
+                  render={({ field }) => (
+                    <FormItemWrapper
+                      field={field}
+                      labelText={"GitHub Profile"}
+                      type={"text"}
+                      placeholderText="https://github.com/username"
+                      autoFill
+                    />
+                  )}
                 />
               </div>
             </div>
-            <div className="flex justify-center  mb-8 md:mb-0">
+            <div className="flex justify-center mb-8 md:mb-0">
               <CustomButton
                 type="submit"
                 buttonProps={{
-                  className: "py-2 text-lg px-10", // You can control the size of the button here
+                  className: "py-2 text-lg px-10",
                 }}
               >
                 UPDATE
               </CustomButton>
-            </div>{" "}
+            </div>
           </div>
         </form>
       </Form>

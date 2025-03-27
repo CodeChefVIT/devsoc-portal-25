@@ -17,7 +17,7 @@ const getDayValue = () => {
 };
 
 const Timeline: React.FC = () => {
-  const [day, setDay] = useState(getDayValue());
+  const [, setDay] = useState(getDayValue());
   useEffect(() => {
     setDay(getDayValue());
     const intervalId = setInterval(() => {
