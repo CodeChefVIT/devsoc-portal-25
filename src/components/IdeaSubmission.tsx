@@ -27,7 +27,6 @@ export default function IdeaSubmission() {
   const user = useUserStore((state) => state.user);
   const router = useRouter();
   const userSet = useUserStore((state) => state.userIsSet);
-
   const checkIfIdeaAlreadyExists = useIdeaStore(
     (state) => state.checkSubmissionExists
   );
@@ -128,7 +127,7 @@ export default function IdeaSubmission() {
         setViewOptions({ enabled: false, visible: false });
         setEditOptions({ enabled: false, visible: false });
       } else {
-        setCreateOptions({ enabled: true, visible: true });
+        setCreateOptions({ enabled: false, visible: true });
         setViewOptions({ enabled: false, visible: false });
         setEditOptions({ enabled: false, visible: false });
       }
