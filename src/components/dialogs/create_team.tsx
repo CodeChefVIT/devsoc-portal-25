@@ -50,7 +50,7 @@ const CreateTeamDialog = () => {
         <CustomButton
           icon={<LiaHandshake size={70} />}
           onClick={() => setIsDialogOpen(true)}
-          
+          disabled
         >
           CREATE TEAM
         </CustomButton>
@@ -78,7 +78,7 @@ const CreateTeamDialog = () => {
           {/* Action Buttons */}
           <div className="flex justify-end gap-2">
             <CustomButton
-              
+              disabled
               onClick={handleCreateTeam}
             >
               {loading ? "Creating..." : "Create"}

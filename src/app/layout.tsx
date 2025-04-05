@@ -15,54 +15,64 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Internal Hack",
+  metadataBase: new URL("http://portal.devsoc.codechefvit.com"),
+  title: "Devsoc'25",
   description:
-    "Internal Hack by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
-  icons: [{ rel: "icon", url: "cc-logo.svg" }],
+    "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
+  icons: [{ rel: "icon", url: "/favicon.svg" }],
+  openGraph: {
+    title: "Devsoc'25",
+    images: [{ url: "https://portal.devsoc.codechefvit.com/og-image.png" }],
+    url: "https://portal.devsoc.codechefvit.com/",
+    type: "website",
+    description:
+      "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
+    siteName: "Devsoc by CodeChef-VIT",
+  },
   twitter: {
     card: "summary_large_image",
-    title: "Internal Hack",
+    title: "Devsoc'25'",
     description:
-      "Internal Hack by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
-    images: [{ url: "/images/cc-logo.svg" }],
+      "Devsoc by CodeChef-VIT is a flagship hackathon event aimed at fostering innovation, collaboration, and problem-solving. Join us to compete, code, and create impactful solutions in an engaging environment.",
+    images: [{ url: "/og-image.png" }],
   },
-  applicationName: "Internal Hack",
+  applicationName: "Devsoc'25",
   keywords: [
-    "Internal Hack official website",
-    "Internal Hack CodeChef-VIT",
-    "CodeChef VIT Internal Hack",
-    "Internal Hack VIT events",
-    "Internal Hack programming competition",
-    "VIT CodeChef Internal Hack",
+    "Devsoc official website",
+    "Devsoc CodeChef-VIT",
+    "CodeChef VIT hackathon",
+    "Devsoc VIT events",
+    "Devsoc programming competition",
+    "VIT CodeChef hackathon",
     "VIT programming challenges",
-    "Internal Hack coding resources",
-    "CodeChef-VIT Internal Hack workshops",
+    "Devsoc coding resources",
+    "CodeChef-VIT Devsoc workshops",
     "VIT tech innovation",
-    "VIT Internal Hack resources",
+    "VIT hackathon resources",
     "VIT coding contests",
-    "Internal Hack problem-solving",
-    "Internal Hack coding mentorship",
+    "VIT Devsoc problem-solving",
+    "Devsoc coding mentorship",
     "VIT collaborative coding",
-    "Internal Hack event updates",
-    "VIT Internal Hack",
-    "CodeChef-VIT Internal Hack rankings",
-    "Internal Hack innovative solutions",
-    "VIT Internal Hack collaboration",
-    "CodeChef-VIT student Internal Hack",
-    "Internal Hack student programming challenges",
-    "Internal Hack workshops and events",
+    "Devsoc event updates",
+    "VIT hackathon",
+    "CodeChef-VIT Devsoc rankings",
+    "Devsoc innovative solutions",
+    "VIT hackathon collaboration",
+    "CodeChef-VIT student hackathon",
+    "Devsoc student programming challenges",
+    "Devsoc workshops and events",
     "VIT programming innovation",
-    "CodeChef-VIT Internal Hack details",
-    "VIT Internal Hack participation",
-    "Internal Hack flagship event",
-    "CodeChef-VIT Internal Hack news",
-    "Internal Hack online resources",
+    "CodeChef-VIT event details",
+    "VIT hackathon participation",
+    "Devsoc flagship event",
+    "CodeChef-VIT hackathon news",
+    "Devsoc online resources",
     "VIT tech-driven challenges",
-    "Internal Hack hackathon guides",
+    "Devsoc hackathon guides",
     "VIT programming event solutions",
-    "CodeChef-VIT Internal Hack creativity",
-    "VIT programming club Internal Hack",
-    "Internal Hack coding bootcamp",
+    "CodeChef-VIT Devsoc creativity",
+    "VIT programming club hackathon",
+    "Devsoc coding bootcamp",
   ],
   robots: "index, follow",
 };
@@ -75,10 +85,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" type="image/x-icon" href="/images/cc-logo.svg" />
+        <link rel="icon" type="image/x-icon" href="/images/devsoc.png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable}  bg-no-repeat    antialiased bg-[url('/images/auth-bg1.svg')] bg-[length:1000px_1000px] bg-center`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-cover bg-no-repeat    antialiased bg-[url('/images/auth-bg.svg')]`}
       >
         <Toaster position="top-right" reverseOrder={false} />
         {children}

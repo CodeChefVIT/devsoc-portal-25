@@ -42,7 +42,7 @@ export default function Idea() {
       onSubmit={onSubmit}
       form={form}
       buttonText="Submit"
-      title="Submit An Idea For Hack"
+      title="Submit An Idea For Devsoc'25"
     >
       <ProjectFormFields form={form}></ProjectFormFields>
     </FormSkeleton>

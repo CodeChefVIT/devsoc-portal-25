@@ -39,7 +39,7 @@ const CreateOrJoinTeam = () => {
         });
 
         clearFormData();
-        router.push("/dashboard");
+        router.push("/github-activity");
       },
       {
         loading: "Submitting...",
@@ -47,7 +47,7 @@ const CreateOrJoinTeam = () => {
         error: (err: ApiError) => err.message,
       }
     );
-    router.push("/dashboard");
+    router.push("/github-activity");
   };
 
   const onSubmit = async () => {
@@ -107,7 +107,7 @@ const CreateOrJoinTeam = () => {
 
         console.log(res, teamRes);
         clearFormData(); // Clear form after successful submission
-        router.push("/dashboard");
+        router.push("/github-activity");
       },
       {
         loading: "Submitting...",

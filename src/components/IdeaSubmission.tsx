@@ -9,7 +9,7 @@ import { ApiError } from "next/dist/server/api-utils";
 import { useIdeaStore } from "@/store/idea";
 import { useRouter } from "next/navigation";
 import ViewIdea from "./viewIdeaDialog";
-
+// import { useIdeaStore } from "@/store/ideas";
 interface Options {
   visible: boolean;
   enabled: boolean;
@@ -19,14 +19,13 @@ interface IGetButtons {
   view: Options;
   edit: Options;
 }
+//If ideaSubmitted is false, set create as visible
 
-/**
- * Component for submitting ideas
- */
 export default function IdeaSubmission() {
   const user = useUserStore((state) => state.user);
   const router = useRouter();
   const userSet = useUserStore((state) => state.userIsSet);
+
   const checkIfIdeaAlreadyExists = useIdeaStore(
     (state) => state.checkSubmissionExists
   );
@@ -41,7 +40,7 @@ export default function IdeaSubmission() {
 
   let subtitle = (
     <div>
-      Submit Your Idea Before 29<sup>th</sup> Mar 7:30PM
+      Submit Your Idea Before 2<sup>nd</sup> feb 8PM
     </div>
   );
   let title = "No Idea Submitted Yet";
@@ -49,20 +48,18 @@ export default function IdeaSubmission() {
     title = "Idea Submitted";
     subtitle = <div>{`Team leaders can edit the idea`}</div>;
   }
-  
   const [createOptions, setCreateOptions] = useState<Options>({
     enabled: true,
     visible: true,
   });
   const [editOptions, setEditOptions] = useState<Options>({
-    enabled: true,
+    enabled: false,
     visible: false,
   });
   const [viewOptions, setViewOptions] = useState<Options>({
-    enabled: true,
+    enabled: false,
     visible: false,
   });
-
   function getButtons({ create, view, edit }: IGetButtons): ReactNode[] {
     const buttons: ReactNode[] = [];
     if (view.visible) {
@@ -98,10 +95,11 @@ export default function IdeaSubmission() {
   }
 
   useEffect(() => {
+    // Only run if userSet is false
     if (!userSet) {
       const fetchUser = async () => {
         try {
-          await userFetch();
+          await userFetch(); // Assuming this is an async function
         } catch (e) {
           if (e instanceof ApiError) {
             toast.error(e.message);
@@ -113,32 +111,34 @@ export default function IdeaSubmission() {
       fetchUser();
     }
 
+    // Call the async function
     const setFlags = () => {
       if (user.is_leader && ideaExists) {
-        setCreateOptions({ enabled: false, visible: false });
+        setCreateOptions((prev) => ({ ...prev, visible: false }));
         setViewOptions({ enabled: true, visible: true });
-        setEditOptions({ enabled: true, visible: true });
+        setEditOptions({ enabled: false, visible: true });
       } else if (ideaExists) {
-        setCreateOptions({ enabled: false, visible: false });
+        setCreateOptions((prev) => ({ ...prev, visible: false }));
         setViewOptions({ enabled: true, visible: true });
         setEditOptions({ enabled: false, visible: true });
       } else if (user.is_leader) {
-        setCreateOptions({ enabled: true, visible: true });
-        setViewOptions({ enabled: false, visible: false });
-        setEditOptions({ enabled: false, visible: false });
-      } else {
         setCreateOptions({ enabled: false, visible: true });
         setViewOptions({ enabled: false, visible: false });
         setEditOptions({ enabled: false, visible: false });
+      } else {
+        setViewOptions({ enabled: false, visible: false });
+        setEditOptions({ enabled: false, visible: false });
+
+        setCreateOptions({ enabled: false, visible: true });
       }
     };
     setFlags();
-  }, [ideaExists, user.is_leader, userFetch, userSet]);
+  }, [ideaExists, user.is_leader, userFetch, userSet]); // Dependency array with `userSet`
 
   return (
     <ProjectSubmissionTemplate
       header="Idea Submission"
-      subtitle={subtitle}
+      subtitle={subtitle} //TODO: Change to actual time and date function
       title={title}
       icon={icon}
       buttons={getButtons({

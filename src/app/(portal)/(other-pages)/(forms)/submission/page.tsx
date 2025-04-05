@@ -25,7 +25,7 @@ export default function Submission() {
       }
     };
     fetchIdeaIfNeeded();
-  }, [idea.title, ideaFetch]);
+  }, []);
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: defaults ,
@@ -33,7 +33,7 @@ export default function Submission() {
   });
   useEffect(() => {
     form.reset(idea);
-  }, [idea,form]);
+  }, [idea]);
    // Reset form values to the fetched idea
   const onSubmit = (data: z.infer<typeof schema>) => {
     return toast.promise(
